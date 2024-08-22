@@ -1,3 +1,17 @@
+# Build manuscript locally
+
+```sh
+docker build -t jmonlong-manubot .
+
+docker run -v `pwd`:/app -w /app -u `id -u $USER` -it jmonlong-manubot
+
+micromamba activate manubot
+bash build/build.sh
+```
+
+HTML/PDF output are then in the `output` folder.
+
+
 # Automated scholarly manuscripts on GitHub
 
 <!-- usage note: edit the H1 title above to personalize the manuscript -->

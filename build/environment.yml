@@ -2,6 +2,8 @@ name: manubot
 channels:
   - conda-forge
 dependencies:
+  - git
+  - gcc
   - cairo=1.16.0
   - cairocffi=1.2.0
   - ghp-import=2.1.0
