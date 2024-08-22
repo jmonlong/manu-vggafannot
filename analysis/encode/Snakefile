@@ -1,0 +1,116 @@
+# reads sample info if provided
+sample_info = {}
+if 'sample_info' in config:
+    inf = open(config['sample_info'], 'rt')
+    heads = []
+    for ii, line in enumerate(inf):
+        line = line.rstrip().split('\t')
+        if ii == 0:
+            heads = line
+        else:
+            sinfo = {}
+            for coli, headn in enumerate(heads):
+                sinfo[headn] = line[coli]
+            sample_info[sinfo['sample']] = sinfo
+
+# if no sample(s) specified, analyze all the ones in the info TSV
+if 'sample' not in config:
+    config['sample'] = list(sample_info.keys())
+
+#
+#
+# ## main rules
+#
+#
+
+rule main:
+    input: expand('results/{sample}/{sample}.cov.gaf.bgz.tbi', sample=config['sample'])
+
+#
+#
+# ## tasks
+#
+#
+
+rule dwl_reads:
+    output: temp('reads/{sample}.{part}.fastq.gz')
+    params:
+        url=lambda wildcards: sample_info[wildcards.sample]['url_fq' + wildcards.part]
+    localrule: True
+    resources:
+        mem='4G',
+        runtime='3h'
+    shell: "wget --quiet -O {output} {params.url}"
+
+# map reads and call peaks
+rule map_reads:
+    input:
+        gbz=config['gbz'],
+        dist=config['dist'],
+        min=config['min'],
+        fq1='reads/{sample}.1.fastq.gz',
+        fq2='reads/{sample}.2.fastq.gz'
+    output: 'results/{sample}/{sample}.gaf.gz'
+    log: 'log/map_reads.{sample}.log'
+    benchmark: 'benchmark/map_reads.{sample}.tsv'
+    container: 'docker://quay.io/jmonlong/vg-work:1.59.0_v1'
+    resources:
+        mem='80G',
+        runtime='6h'
+    threads: 8
+    shell:
+        """
+        vg giraffe -p -t {threads} -Z {input.gbz} -d {input.dist} -m {input.min} -f {input.fq1} -f {input.fq2} -o gaf | gzip > {output}
+        """
+
+rule convert_gbz_to_pg:
+    input: config['gbz']
+    output: 'results/pg/pg.pg'
+    threads: 2
+    benchmark: 'benchmark/convert_gbz_to_pg.tsv'
+    container: 'docker://quay.io/jmonlong/vg-work:1.59.0_v1'
+    resources:
+        mem='32G',
+        runtime='3h'
+    shell:
+        """
+        vg convert -H -t {threads} {input} > {output}
+        """
+
+rule make_cov:
+    input:
+        gbz=config['gbz'],
+        pg='results/pg/pg.pg',
+        reads='results/{sample}/{sample}.gaf.gz',
+        script='make_coverage_track.py'
+    output: temp('results/{sample}/{sample}.cov.gaf.gz')
+    threads: 4
+    resources:
+        mem='120G',
+        runtime='24h'
+    benchmark: 'benchmark/make_cov.{sample}.tsv'
+    container: 'docker://quay.io/jmonlong/vg-work:1.59.0_v1'
+    shell:
+        """
+        vg pack -Q 1 -t {threads} -x {input.gbz} -a {input.reads} -d | python3 {input.script} -g {input.pg} -b 1,5,30 | gzip > {output}
+        """
+
+rule sort_cov_gaf:
+    input: 'results/{sample}/{sample}.cov.gaf.gz'
+    output: 'results/{sample}/{sample}.cov.gaf.bgz'
+    benchmark: 'benchmark/sort_cov_gaf.{sample}.tsv'
+    container: 'docker://quay.io/jmonlong/vg-work:1.59.0_v1'
+    threads: 2
+    resources:
+        mem='8G',
+        runtime='3h'
+    shell: "vg gamsort -G {input} | bgzip > {output}"
+
+rule index_gaf:
+    input: 'results/{sample}/{sample}.cov.gaf.bgz'
+    output: 'results/{sample}/{sample}.cov.gaf.bgz.tbi'
+    container: 'docker://quay.io/jmonlong/vg-work:1.59.0_v1'
+    benchmark: 'benchmark/index_gaf.{sample}.tsv'
+    localrule: True
+    shell: "tabix -p gaf {input}"
+    
