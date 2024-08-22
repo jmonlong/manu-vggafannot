@@ -1,1 +1,617 @@
-[]
+[
+  {
+    "publisher": "Springer Science and Business Media LLC",
+    "issue": "7960",
+    "abstract": "<jats:title>Abstract</jats:title><jats:p>Here the Human Pangenome Reference Consortium presents a first draft of the human pangenome reference. The pangenome contains 47 phased, diploid assemblies from a cohort of genetically diverse individuals<jats:sup>1</jats:sup>. These assemblies cover more than 99% of the expected sequence in each genome and are more than 99% accurate at the structural and base pair levels. Based on alignments of the assemblies, we generate a draft pangenome that captures known variants and haplotypes and reveals new alleles at structurally complex loci. We also add 119 million base pairs of euchromatic polymorphic sequences and 1,115 gene duplications relative to the existing reference GRCh38. Roughly 90 million of the additional base pairs are derived from structural variation. Using our draft pangenome to analyse short-read data reduced small variant discovery errors by 34% and increased the number of structural variants detected per haplotype by 104% compared with GRCh38-based workflows, which enabled the typing of the vast majority of structural variant alleles per sample.</jats:p>",
+    "DOI": "10.1038/s41586-023-05896-x",
+    "type": "article-journal",
+    "page": "312-324",
+    "source": "Crossref",
+    "title": "A draft human pangenome reference",
+    "volume": "617",
+    "author": [
+      {
+        "given": "Wen-Wei",
+        "family": "Liao"
+      },
+      {
+        "given": "Mobin",
+        "family": "Asri"
+      },
+      {
+        "given": "Jana",
+        "family": "Ebler"
+      },
+      {
+        "given": "Daniel",
+        "family": "Doerr"
+      },
+      {
+        "given": "Marina",
+        "family": "Haukness"
+      },
+      {
+        "given": "Glenn",
+        "family": "Hickey"
+      },
+      {
+        "given": "Shuangjia",
+        "family": "Lu"
+      },
+      {
+        "given": "Julian K.",
+        "family": "Lucas"
+      },
+      {
+        "given": "Jean",
+        "family": "Monlong"
+      },
+      {
+        "given": "Haley J.",
+        "family": "Abel"
+      },
+      {
+        "given": "Silvia",
+        "family": "Buonaiuto"
+      },
+      {
+        "given": "Xian H.",
+        "family": "Chang"
+      },
+      {
+        "given": "Haoyu",
+        "family": "Cheng"
+      },
+      {
+        "given": "Justin",
+        "family": "Chu"
+      },
+      {
+        "given": "Vincenza",
+        "family": "Colonna"
+      },
+      {
+        "given": "Jordan M.",
+        "family": "Eizenga"
+      },
+      {
+        "given": "Xiaowen",
+        "family": "Feng"
+      },
+      {
+        "given": "Christian",
+        "family": "Fischer"
+      },
+      {
+        "given": "Robert S.",
+        "family": "Fulton"
+      },
+      {
+        "given": "Shilpa",
+        "family": "Garg"
+      },
+      {
+        "given": "Cristian",
+        "family": "Groza"
+      },
+      {
+        "given": "Andrea",
+        "family": "Guarracino"
+      },
+      {
+        "given": "William T.",
+        "family": "Harvey"
+      },
+      {
+        "given": "Simon",
+        "family": "Heumos"
+      },
+      {
+        "given": "Kerstin",
+        "family": "Howe"
+      },
+      {
+        "given": "Miten",
+        "family": "Jain"
+      },
+      {
+        "given": "Tsung-Yu",
+        "family": "Lu"
+      },
+      {
+        "given": "Charles",
+        "family": "Markello"
+      },
+      {
+        "given": "Fergal J.",
+        "family": "Martin"
+      },
+      {
+        "given": "Matthew W.",
+        "family": "Mitchell"
+      },
+      {
+        "given": "Katherine M.",
+        "family": "Munson"
+      },
+      {
+        "given": "Moses Njagi",
+        "family": "Mwaniki"
+      },
+      {
+        "given": "Adam M.",
+        "family": "Novak"
+      },
+      {
+        "given": "Hugh E.",
+        "family": "Olsen"
+      },
+      {
+        "given": "Trevor",
+        "family": "Pesout"
+      },
+      {
+        "given": "David",
+        "family": "Porubsky"
+      },
+      {
+        "given": "Pjotr",
+        "family": "Prins"
+      },
+      {
+        "given": "Jonas A.",
+        "family": "Sibbesen"
+      },
+      {
+        "given": "Jouni",
+        "family": "Sirén"
+      },
+      {
+        "given": "Chad",
+        "family": "Tomlinson"
+      },
+      {
+        "given": "Flavia",
+        "family": "Villani"
+      },
+      {
+        "given": "Mitchell R.",
+        "family": "Vollger"
+      },
+      {
+        "given": "Lucinda L.",
+        "family": "Antonacci-Fulton"
+      },
+      {
+        "given": "Gunjan",
+        "family": "Baid"
+      },
+      {
+        "given": "Carl A.",
+        "family": "Baker"
+      },
+      {
+        "given": "Anastasiya",
+        "family": "Belyaeva"
+      },
+      {
+        "given": "Konstantinos",
+        "family": "Billis"
+      },
+      {
+        "given": "Andrew",
+        "family": "Carroll"
+      },
+      {
+        "given": "Pi-Chuan",
+        "family": "Chang"
+      },
+      {
+        "given": "Sarah",
+        "family": "Cody"
+      },
+      {
+        "given": "Daniel E.",
+        "family": "Cook"
+      },
+      {
+        "given": "Robert M.",
+        "family": "Cook-Deegan"
+      },
+      {
+        "given": "Omar E.",
+        "family": "Cornejo"
+      },
+      {
+        "given": "Mark",
+        "family": "Diekhans"
+      },
+      {
+        "given": "Peter",
+        "family": "Ebert"
+      },
+      {
+        "given": "Susan",
+        "family": "Fairley"
+      },
+      {
+        "given": "Olivier",
+        "family": "Fedrigo"
+      },
+      {
+        "given": "Adam L.",
+        "family": "Felsenfeld"
+      },
+      {
+        "given": "Giulio",
+        "family": "Formenti"
+      },
+      {
+        "given": "Adam",
+        "family": "Frankish"
+      },
+      {
+        "given": "Yan",
+        "family": "Gao"
+      },
+      {
+        "given": "Nanibaa’ A.",
+        "family": "Garrison"
+      },
+      {
+        "given": "Carlos Garcia",
+        "family": "Giron"
+      },
+      {
+        "given": "Richard E.",
+        "family": "Green"
+      },
+      {
+        "given": "Leanne",
+        "family": "Haggerty"
+      },
+      {
+        "given": "Kendra",
+        "family": "Hoekzema"
+      },
+      {
+        "given": "Thibaut",
+        "family": "Hourlier"
+      },
+      {
+        "given": "Hanlee P.",
+        "family": "Ji"
+      },
+      {
+        "given": "Eimear E.",
+        "family": "Kenny"
+      },
+      {
+        "given": "Barbara A.",
+        "family": "Koenig"
+      },
+      {
+        "given": "Alexey",
+        "family": "Kolesnikov"
+      },
+      {
+        "given": "Jan O.",
+        "family": "Korbel"
+      },
+      {
+        "given": "Jennifer",
+        "family": "Kordosky"
+      },
+      {
+        "given": "Sergey",
+        "family": "Koren"
+      },
+      {
+        "given": "HoJoon",
+        "family": "Lee"
+      },
+      {
+        "given": "Alexandra P.",
+        "family": "Lewis"
+      },
+      {
+        "given": "Hugo",
+        "family": "Magalhães"
+      },
+      {
+        "given": "Santiago",
+        "family": "Marco-Sola"
+      },
+      {
+        "given": "Pierre",
+        "family": "Marijon"
+      },
+      {
+        "given": "Ann",
+        "family": "McCartney"
+      },
+      {
+        "given": "Jennifer",
+        "family": "McDaniel"
+      },
+      {
+        "given": "Jacquelyn",
+        "family": "Mountcastle"
+      },
+      {
+        "given": "Maria",
+        "family": "Nattestad"
+      },
+      {
+        "given": "Sergey",
+        "family": "Nurk"
+      },
+      {
+        "given": "Nathan D.",
+        "family": "Olson"
+      },
+      {
+        "given": "Alice B.",
+        "family": "Popejoy"
+      },
+      {
+        "given": "Daniela",
+        "family": "Puiu"
+      },
+      {
+        "given": "Mikko",
+        "family": "Rautiainen"
+      },
+      {
+        "given": "Allison A.",
+        "family": "Regier"
+      },
+      {
+        "given": "Arang",
+        "family": "Rhie"
+      },
+      {
+        "given": "Samuel",
+        "family": "Sacco"
+      },
+      {
+        "given": "Ashley D.",
+        "family": "Sanders"
+      },
+      {
+        "given": "Valerie A.",
+        "family": "Schneider"
+      },
+      {
+        "given": "Baergen I.",
+        "family": "Schultz"
+      },
+      {
+        "given": "Kishwar",
+        "family": "Shafin"
+      },
+      {
+        "given": "Michael W.",
+        "family": "Smith"
+      },
+      {
+        "given": "Heidi J.",
+        "family": "Sofia"
+      },
+      {
+        "given": "Ahmad N.",
+        "family": "Abou Tayoun"
+      },
+      {
+        "given": "Françoise",
+        "family": "Thibaud-Nissen"
+      },
+      {
+        "given": "Francesca Floriana",
+        "family": "Tricomi"
+      },
+      {
+        "given": "Justin",
+        "family": "Wagner"
+      },
+      {
+        "given": "Brian",
+        "family": "Walenz"
+      },
+      {
+        "given": "Jonathan M. D.",
+        "family": "Wood"
+      },
+      {
+        "given": "Aleksey V.",
+        "family": "Zimin"
+      },
+      {
+        "given": "Guillaume",
+        "family": "Bourque"
+      },
+      {
+        "given": "Mark J. P.",
+        "family": "Chaisson"
+      },
+      {
+        "given": "Paul",
+        "family": "Flicek"
+      },
+      {
+        "given": "Adam M.",
+        "family": "Phillippy"
+      },
+      {
+        "given": "Justin M.",
+        "family": "Zook"
+      },
+      {
+        "given": "Evan E.",
+        "family": "Eichler"
+      },
+      {
+        "given": "David",
+        "family": "Haussler"
+      },
+      {
+        "given": "Ting",
+        "family": "Wang"
+      },
+      {
+        "given": "Erich D.",
+        "family": "Jarvis"
+      },
+      {
+        "given": "Karen H.",
+        "family": "Miga"
+      },
+      {
+        "given": "Erik",
+        "family": "Garrison"
+      },
+      {
+        "given": "Tobias",
+        "family": "Marschall"
+      },
+      {
+        "given": "Ira M.",
+        "family": "Hall"
+      },
+      {
+        "given": "Heng",
+        "family": "Li"
+      },
+      {
+        "given": "Benedict",
+        "family": "Paten"
+      }
+    ],
+    "container-title": "Nature",
+    "language": "en",
+    "issued": {
+      "date-parts": [
+        [
+          2023,
+          5,
+          10
+        ]
+      ]
+    },
+    "URL": "https://doi.org/gr8b6s",
+    "container-title-short": "Nature",
+    "PMCID": "PMC10172123",
+    "PMID": "37165242",
+    "id": "CqG8RQye",
+    "note": "This CSL Item was generated by Manubot v0.6.1 from its persistent identifier (standard_id).\nstandard_id: doi:10.1038/s41586-023-05896-x"
+  },
+  {
+    "publisher": "American Association for the Advancement of Science (AAAS)",
+    "issue": "6574",
+    "abstract": "<jats:title>Giraffe pangenomes</jats:title>\n          <jats:p>\n            Genomes within a species often have a core, conserved component, as well as a variable set of genetic material among individuals or populations that is referred to as a “pangenome.” Inference of the relationships between pangenomes sequenced with short-read technology is often done computationally by mapping the sequences to a reference genome. The computational method affects genome assembly and comparisons, especially in cases of structural variants that are longer than an average sequenced region, for highly polymorphic loci, and for cross-species analyses. Siren\n            <jats:italic>et al</jats:italic>\n            . present a bioinformatic method called Giraffe, which improves mapping pangenomes in polymorphic regions of the genome containing single nucleotide polymorphisms and structural variants with standard computational resources, making large-scale genomic analyses more accessible. —LMZ\n          </jats:p>",
+    "DOI": "10.1126/science.abg8871",
+    "type": "article-journal",
+    "source": "Crossref",
+    "title": "Pangenomics enables genotyping of known structural variants in 5202 diverse genomes",
+    "volume": "374",
+    "author": [
+      {
+        "given": "Jouni",
+        "family": "Sirén"
+      },
+      {
+        "given": "Jean",
+        "family": "Monlong"
+      },
+      {
+        "given": "Xian",
+        "family": "Chang"
+      },
+      {
+        "given": "Adam M.",
+        "family": "Novak"
+      },
+      {
+        "given": "Jordan M.",
+        "family": "Eizenga"
+      },
+      {
+        "given": "Charles",
+        "family": "Markello"
+      },
+      {
+        "given": "Jonas A.",
+        "family": "Sibbesen"
+      },
+      {
+        "given": "Glenn",
+        "family": "Hickey"
+      },
+      {
+        "given": "Pi-Chuan",
+        "family": "Chang"
+      },
+      {
+        "given": "Andrew",
+        "family": "Carroll"
+      },
+      {
+        "given": "Namrata",
+        "family": "Gupta"
+      },
+      {
+        "given": "Stacey",
+        "family": "Gabriel"
+      },
+      {
+        "given": "Thomas W.",
+        "family": "Blackwell"
+      },
+      {
+        "given": "Aakrosh",
+        "family": "Ratan"
+      },
+      {
+        "given": "Kent D.",
+        "family": "Taylor"
+      },
+      {
+        "given": "Stephen S.",
+        "family": "Rich"
+      },
+      {
+        "given": "Jerome I.",
+        "family": "Rotter"
+      },
+      {
+        "given": "David",
+        "family": "Haussler"
+      },
+      {
+        "given": "Erik",
+        "family": "Garrison"
+      },
+      {
+        "given": "Benedict",
+        "family": "Paten"
+      }
+    ],
+    "container-title": "Science",
+    "language": "en",
+    "issued": {
+      "date-parts": [
+        [
+          2021,
+          12,
+          17
+        ]
+      ]
+    },
+    "URL": "https://doi.org/gns2wr",
+    "container-title-short": "Science",
+    "PMCID": "PMC9365333",
+    "PMID": "34914532",
+    "id": "WCEeLZ0k",
+    "note": "This CSL Item was generated by Manubot v0.6.1 from its persistent identifier (standard_id).\nstandard_id: doi:10.1126/science.abg8871"
+  }
+]
