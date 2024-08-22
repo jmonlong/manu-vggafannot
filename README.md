@@ -9,8 +9,9 @@ micromamba activate manubot
 bash build/build.sh
 ```
 
-HTML/PDF output are then in the `output` folder.
+The HTML/PDF outputs are then in the `output` folder.
 
+Note: the automated GitHub CI outputs are in the [*output* branch](https://github.com/jmonlong/manu-vggafannot/tree/output) (e.g. [PDF](https://github.com/jmonlong/manu-vggafannot/blob/output/manuscript.pdf)).
 
 # Automated scholarly manuscripts on GitHub
 
