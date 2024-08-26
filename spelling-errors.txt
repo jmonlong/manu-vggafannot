@@ -7,7 +7,7 @@ bgzipped
 centromeres
 Consotium
 cov
-Dataset
+dataset
 datasets
 duplications
 ENVT
@@ -21,7 +21,7 @@ GFF
 GraphAligner
 GRCh
 haplotype
-haplotypes
+Haplotypes
 HPRC
 HTSlib
 Illumina
