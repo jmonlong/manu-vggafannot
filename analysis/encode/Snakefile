@@ -11,7 +11,9 @@ if 'sample_info' in config:
             sinfo = {}
             for coli, headn in enumerate(heads):
                 sinfo[headn] = line[coli]
-            sample_info[sinfo['sample']] = sinfo
+            if sinfo['sample'] not in sample_info:
+                sample_info[sinfo['sample']] = []
+            sample_info[sinfo['sample']].append(sinfo)
 
 # if no sample(s) specified, analyze all the ones in the info TSV
 if 'sample' not in config:
@@ -32,19 +34,34 @@ rule main:
 #
 #
 
-rule dwl_reads:
-    output: temp('reads/{sample}.fastq.gz')
+rule dwl_reads_part:
+    output: temp('reads_dwl/{sample}.{part}.fastq.gz')
     params:
-        url=lambda wildcards: sample_info[wildcards.sample]['url_fq']
+        url=lambda wildcards: sample_info[wildcards.sample][int(wildcards.part)]['url_fq']
     localrule: True
     resources:
         mem='4G',
         runtime='3h'
     shell: "wget --quiet -O {output} {params.url}"
 
+def get_dwl_reads(wildcards):
+    if wildcards.sample not in sample_info:
+        return ('reads_dwl/{sample}.0.fastq.gz')
+    else:
+        return (['reads_dwl/{sample}.' + str(ii) + '.fastq.gz' for ii in range(len(sample_info[wildcards.sample]))])
+
+rule concat_reads:
+    input: get_dwl_reads
+    output: temp('reads/{sample}.fastq.gz')
+    localrule: True
+    resources:
+        mem='4G',
+        runtime='3h'
+    shell: "cat {input} > {output}"
+
 # map reads and call peaks
 rule map_reads:
-input:
+    input:
         gbz=config['gbz'],
         dist=config['dist'],
         min=config['min'],

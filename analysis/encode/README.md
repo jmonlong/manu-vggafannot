@@ -8,6 +8,7 @@
 - Replicate with the most data (based on number of reads or file size?)
 
 The data will be downloaded automatically using the URLs specified in [`sample_info.tsv`](sample_info.tsv) with `url_fq`.
+If a sample is present multiple times in the TSV, the FASTQs will be concatenated before mapping to the pangenome.
 
 ## HPRC pangenome
 
