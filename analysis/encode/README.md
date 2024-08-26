@@ -4,11 +4,10 @@
 
 *Which datasets do we want to analyze?*
 
-- 5 cell types
-- 2 experiments: DNAse-seq/ATAC-seq, H3K27ac
+- ??
 - Replicate with the most data (based on number of reads or file size?)
 
-The data will be downloaded automatically using the URLs specified in [`sample_info.tsv`](sample_info.tsv) with `url_fq1` and `url_fq2`.
+The data will be downloaded automatically using the URLs specified in [`sample_info.tsv`](sample_info.tsv) with `url_fq`.
 
 ## HPRC pangenome
 
@@ -79,7 +78,7 @@ module load containers/singularity/3.9.9 bioinfo/Snakemake/7.32.4
 snakemake --configfile config.yaml --jobs=20 -p --slurm --use-singularity --rerun-triggers mtime
 ```
 
-One sample should take about ~4h.
+One sample should take about ~3h.
 
 ## Figures/tables/examples
 

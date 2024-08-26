@@ -33,9 +33,9 @@ rule main:
 #
 
 rule dwl_reads:
-    output: temp('reads/{sample}.{part}.fastq.gz')
+    output: temp('reads/{sample}.fastq.gz')
     params:
-        url=lambda wildcards: sample_info[wildcards.sample]['url_fq' + wildcards.part]
+        url=lambda wildcards: sample_info[wildcards.sample]['url_fq']
     localrule: True
     resources:
         mem='4G',
@@ -44,12 +44,11 @@ rule dwl_reads:
 
 # map reads and call peaks
 rule map_reads:
-    input:
+input:
         gbz=config['gbz'],
         dist=config['dist'],
         min=config['min'],
-        fq1='reads/{sample}.1.fastq.gz',
-        fq2='reads/{sample}.2.fastq.gz'
+        fq='reads/{sample}.fastq.gz'
     output: 'results/{sample}/{sample}.gaf.gz'
     log: 'log/map_reads.{sample}.log'
     benchmark: 'benchmark/map_reads.{sample}.tsv'
@@ -60,7 +59,7 @@ rule map_reads:
     threads: 8
     shell:
         """
-        vg giraffe -p -t {threads} -Z {input.gbz} -d {input.dist} -m {input.min} -f {input.fq1} -f {input.fq2} -o gaf | gzip > {output}
+        vg giraffe -p -t {threads} -Z {input.gbz} -d {input.dist} -m {input.min} -f {input.fq} -o gaf | gzip > {output}
         """
 
 rule convert_gbz_to_pg:
