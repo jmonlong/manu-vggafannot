@@ -32,11 +32,11 @@ IRSD
 jmonlong
 libbdsg
 mem
-minigraph
+Minigraph
 mins
 Monlong
 NG
-pangenome
+Pangenome
 pangenomes
 pangenomic
 personnalized
