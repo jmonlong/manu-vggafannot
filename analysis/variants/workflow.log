@@ -1,0 +1,2673 @@
+Building DAG of jobs...
+Job stats:
+job               count
+--------------  -------
+annotate_eqtls       49
+annotate_gwas         1
+convert_pg            1
+dwl_eqtl              1
+dwl_gwas              1
+dwl_pg                1
+extract_eqtls        49
+index_gaf            50
+main                  1
+sort_gaf             50
+total               204
+
+
+[Tue Aug 27 10:45:29 2024]
+rule dwl_eqtl:
+    output: GTEx_Analysis_v8_eQTL.tar
+    jobid: 11
+    reason: Forced execution
+    resources: tmpdir=/tmp
+
+wget https://storage.googleapis.com/adult-gtex/bulk-qtl/v8/single-tissue-cis-qtl/GTEx_Analysis_v8_eQTL.tar
+
+[Tue Aug 27 10:45:29 2024]
+rule dwl_gwas:
+    output: gwasCatalog.txt.gz
+    jobid: 4
+    reason: Forced execution
+    resources: tmpdir=/tmp
+
+wget https://hgdownload.soe.ucsc.edu/goldenPath/hg38/database/gwasCatalog.txt.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule dwl_pg:
+    output: hprc-v1.1-mc-grch38.gbz
+    jobid: 6
+    reason: Forced execution
+    resources: tmpdir=/tmp
+
+wget https://s3-us-west-2.amazonaws.com/human-pangenomics/pangenomes/freeze/freeze1/minigraph-cactus/hprc-v1.1-mc-grch38/hprc-v1.1-mc-grch38.gbz
+
+[Tue Aug 27 10:45:29 2024]
+rule extract_eqtls:
+    input: GTEx_Analysis_v8_eQTL.tar
+    output: GTEx_Analysis_v8_eQTL/Artery_Tibial.v8.signif_variant_gene_pairs.txt.gz
+    jobid: 31
+    reason: Missing output files: GTEx_Analysis_v8_eQTL/Artery_Tibial.v8.signif_variant_gene_pairs.txt.gz; Input files updated by another job: GTEx_Analysis_v8_eQTL.tar
+    wildcards: tissue=Artery_Tibial
+    resources: tmpdir=/tmp
+
+tar -xf GTEx_Analysis_v8_eQTL.tar GTEx_Analysis_v8_eQTL/Artery_Tibial.v8.signif_variant_gene_pairs.txt.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule extract_eqtls:
+    input: GTEx_Analysis_v8_eQTL.tar
+    output: GTEx_Analysis_v8_eQTL/Cells_Cultured_fibroblasts.v8.signif_variant_gene_pairs.txt.gz
+    jobid: 91
+    reason: Missing output files: GTEx_Analysis_v8_eQTL/Cells_Cultured_fibroblasts.v8.signif_variant_gene_pairs.txt.gz; Input files updated by another job: GTEx_Analysis_v8_eQTL.tar
+    wildcards: tissue=Cells_Cultured_fibroblasts
+    resources: tmpdir=/tmp
+
+tar -xf GTEx_Analysis_v8_eQTL.tar GTEx_Analysis_v8_eQTL/Cells_Cultured_fibroblasts.v8.signif_variant_gene_pairs.txt.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule extract_eqtls:
+    input: GTEx_Analysis_v8_eQTL.tar
+    output: GTEx_Analysis_v8_eQTL/Ovary.v8.signif_variant_gene_pairs.txt.gz
+    jobid: 151
+    reason: Missing output files: GTEx_Analysis_v8_eQTL/Ovary.v8.signif_variant_gene_pairs.txt.gz; Input files updated by another job: GTEx_Analysis_v8_eQTL.tar
+    wildcards: tissue=Ovary
+    resources: tmpdir=/tmp
+
+tar -xf GTEx_Analysis_v8_eQTL.tar GTEx_Analysis_v8_eQTL/Ovary.v8.signif_variant_gene_pairs.txt.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule extract_eqtls:
+    input: GTEx_Analysis_v8_eQTL.tar
+    output: GTEx_Analysis_v8_eQTL/Brain_Anterior_cingulate_cortex_BA24.v8.signif_variant_gene_pairs.txt.gz
+    jobid: 39
+    reason: Missing output files: GTEx_Analysis_v8_eQTL/Brain_Anterior_cingulate_cortex_BA24.v8.signif_variant_gene_pairs.txt.gz; Input files updated by another job: GTEx_Analysis_v8_eQTL.tar
+    wildcards: tissue=Brain_Anterior_cingulate_cortex_BA24
+    resources: tmpdir=/tmp
+
+tar -xf GTEx_Analysis_v8_eQTL.tar GTEx_Analysis_v8_eQTL/Brain_Anterior_cingulate_cortex_BA24.v8.signif_variant_gene_pairs.txt.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule extract_eqtls:
+    input: GTEx_Analysis_v8_eQTL.tar
+    output: GTEx_Analysis_v8_eQTL/Colon_Sigmoid.v8.signif_variant_gene_pairs.txt.gz
+    jobid: 99
+    reason: Missing output files: GTEx_Analysis_v8_eQTL/Colon_Sigmoid.v8.signif_variant_gene_pairs.txt.gz; Input files updated by another job: GTEx_Analysis_v8_eQTL.tar
+    wildcards: tissue=Colon_Sigmoid
+    resources: tmpdir=/tmp
+
+tar -xf GTEx_Analysis_v8_eQTL.tar GTEx_Analysis_v8_eQTL/Colon_Sigmoid.v8.signif_variant_gene_pairs.txt.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule extract_eqtls:
+    input: GTEx_Analysis_v8_eQTL.tar
+    output: GTEx_Analysis_v8_eQTL/Pituitary.v8.signif_variant_gene_pairs.txt.gz
+    jobid: 159
+    reason: Missing output files: GTEx_Analysis_v8_eQTL/Pituitary.v8.signif_variant_gene_pairs.txt.gz; Input files updated by another job: GTEx_Analysis_v8_eQTL.tar
+    wildcards: tissue=Pituitary
+    resources: tmpdir=/tmp
+
+tar -xf GTEx_Analysis_v8_eQTL.tar GTEx_Analysis_v8_eQTL/Pituitary.v8.signif_variant_gene_pairs.txt.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule extract_eqtls:
+    input: GTEx_Analysis_v8_eQTL.tar
+    output: GTEx_Analysis_v8_eQTL/Brain_Cerebellar_Hemisphere.v8.signif_variant_gene_pairs.txt.gz
+    jobid: 47
+    reason: Missing output files: GTEx_Analysis_v8_eQTL/Brain_Cerebellar_Hemisphere.v8.signif_variant_gene_pairs.txt.gz; Input files updated by another job: GTEx_Analysis_v8_eQTL.tar
+    wildcards: tissue=Brain_Cerebellar_Hemisphere
+    resources: tmpdir=/tmp
+
+tar -xf GTEx_Analysis_v8_eQTL.tar GTEx_Analysis_v8_eQTL/Brain_Cerebellar_Hemisphere.v8.signif_variant_gene_pairs.txt.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule extract_eqtls:
+    input: GTEx_Analysis_v8_eQTL.tar
+    output: GTEx_Analysis_v8_eQTL/Esophagus_Gastroesophageal_Junction.v8.signif_variant_gene_pairs.txt.gz
+    jobid: 107
+    reason: Missing output files: GTEx_Analysis_v8_eQTL/Esophagus_Gastroesophageal_Junction.v8.signif_variant_gene_pairs.txt.gz; Input files updated by another job: GTEx_Analysis_v8_eQTL.tar
+    wildcards: tissue=Esophagus_Gastroesophageal_Junction
+    resources: tmpdir=/tmp
+
+tar -xf GTEx_Analysis_v8_eQTL.tar GTEx_Analysis_v8_eQTL/Esophagus_Gastroesophageal_Junction.v8.signif_variant_gene_pairs.txt.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule extract_eqtls:
+    input: GTEx_Analysis_v8_eQTL.tar
+    output: GTEx_Analysis_v8_eQTL/Skin_Not_Sun_Exposed_Suprapubic.v8.signif_variant_gene_pairs.txt.gz
+    jobid: 167
+    reason: Missing output files: GTEx_Analysis_v8_eQTL/Skin_Not_Sun_Exposed_Suprapubic.v8.signif_variant_gene_pairs.txt.gz; Input files updated by another job: GTEx_Analysis_v8_eQTL.tar
+    wildcards: tissue=Skin_Not_Sun_Exposed_Suprapubic
+    resources: tmpdir=/tmp
+
+tar -xf GTEx_Analysis_v8_eQTL.tar GTEx_Analysis_v8_eQTL/Skin_Not_Sun_Exposed_Suprapubic.v8.signif_variant_gene_pairs.txt.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule extract_eqtls:
+    input: GTEx_Analysis_v8_eQTL.tar
+    output: GTEx_Analysis_v8_eQTL/Adipose_Subcutaneous.v8.signif_variant_gene_pairs.txt.gz
+    jobid: 10
+    reason: Missing output files: GTEx_Analysis_v8_eQTL/Adipose_Subcutaneous.v8.signif_variant_gene_pairs.txt.gz; Input files updated by another job: GTEx_Analysis_v8_eQTL.tar
+    wildcards: tissue=Adipose_Subcutaneous
+    resources: tmpdir=/tmp
+
+tar -xf GTEx_Analysis_v8_eQTL.tar GTEx_Analysis_v8_eQTL/Adipose_Subcutaneous.v8.signif_variant_gene_pairs.txt.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule extract_eqtls:
+    input: GTEx_Analysis_v8_eQTL.tar
+    output: GTEx_Analysis_v8_eQTL/Brain_Cortex.v8.signif_variant_gene_pairs.txt.gz
+    jobid: 55
+    reason: Missing output files: GTEx_Analysis_v8_eQTL/Brain_Cortex.v8.signif_variant_gene_pairs.txt.gz; Input files updated by another job: GTEx_Analysis_v8_eQTL.tar
+    wildcards: tissue=Brain_Cortex
+    resources: tmpdir=/tmp
+
+tar -xf GTEx_Analysis_v8_eQTL.tar GTEx_Analysis_v8_eQTL/Brain_Cortex.v8.signif_variant_gene_pairs.txt.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule extract_eqtls:
+    input: GTEx_Analysis_v8_eQTL.tar
+    output: GTEx_Analysis_v8_eQTL/Esophagus_Muscularis.v8.signif_variant_gene_pairs.txt.gz
+    jobid: 115
+    reason: Missing output files: GTEx_Analysis_v8_eQTL/Esophagus_Muscularis.v8.signif_variant_gene_pairs.txt.gz; Input files updated by another job: GTEx_Analysis_v8_eQTL.tar
+    wildcards: tissue=Esophagus_Muscularis
+    resources: tmpdir=/tmp
+
+tar -xf GTEx_Analysis_v8_eQTL.tar GTEx_Analysis_v8_eQTL/Esophagus_Muscularis.v8.signif_variant_gene_pairs.txt.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule extract_eqtls:
+    input: GTEx_Analysis_v8_eQTL.tar
+    output: GTEx_Analysis_v8_eQTL/Small_Intestine_Terminal_Ileum.v8.signif_variant_gene_pairs.txt.gz
+    jobid: 175
+    reason: Missing output files: GTEx_Analysis_v8_eQTL/Small_Intestine_Terminal_Ileum.v8.signif_variant_gene_pairs.txt.gz; Input files updated by another job: GTEx_Analysis_v8_eQTL.tar
+    wildcards: tissue=Small_Intestine_Terminal_Ileum
+    resources: tmpdir=/tmp
+
+tar -xf GTEx_Analysis_v8_eQTL.tar GTEx_Analysis_v8_eQTL/Small_Intestine_Terminal_Ileum.v8.signif_variant_gene_pairs.txt.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule extract_eqtls:
+    input: GTEx_Analysis_v8_eQTL.tar
+    output: GTEx_Analysis_v8_eQTL/Brain_Hippocampus.v8.signif_variant_gene_pairs.txt.gz
+    jobid: 63
+    reason: Missing output files: GTEx_Analysis_v8_eQTL/Brain_Hippocampus.v8.signif_variant_gene_pairs.txt.gz; Input files updated by another job: GTEx_Analysis_v8_eQTL.tar
+    wildcards: tissue=Brain_Hippocampus
+    resources: tmpdir=/tmp
+
+tar -xf GTEx_Analysis_v8_eQTL.tar GTEx_Analysis_v8_eQTL/Brain_Hippocampus.v8.signif_variant_gene_pairs.txt.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule extract_eqtls:
+    input: GTEx_Analysis_v8_eQTL.tar
+    output: GTEx_Analysis_v8_eQTL/Heart_Left_Ventricle.v8.signif_variant_gene_pairs.txt.gz
+    jobid: 123
+    reason: Missing output files: GTEx_Analysis_v8_eQTL/Heart_Left_Ventricle.v8.signif_variant_gene_pairs.txt.gz; Input files updated by another job: GTEx_Analysis_v8_eQTL.tar
+    wildcards: tissue=Heart_Left_Ventricle
+    resources: tmpdir=/tmp
+
+tar -xf GTEx_Analysis_v8_eQTL.tar GTEx_Analysis_v8_eQTL/Heart_Left_Ventricle.v8.signif_variant_gene_pairs.txt.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule extract_eqtls:
+    input: GTEx_Analysis_v8_eQTL.tar
+    output: GTEx_Analysis_v8_eQTL/Stomach.v8.signif_variant_gene_pairs.txt.gz
+    jobid: 183
+    reason: Missing output files: GTEx_Analysis_v8_eQTL/Stomach.v8.signif_variant_gene_pairs.txt.gz; Input files updated by another job: GTEx_Analysis_v8_eQTL.tar
+    wildcards: tissue=Stomach
+    resources: tmpdir=/tmp
+
+tar -xf GTEx_Analysis_v8_eQTL.tar GTEx_Analysis_v8_eQTL/Stomach.v8.signif_variant_gene_pairs.txt.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule extract_eqtls:
+    input: GTEx_Analysis_v8_eQTL.tar
+    output: GTEx_Analysis_v8_eQTL/Brain_Nucleus_accumbens_basal_ganglia.v8.signif_variant_gene_pairs.txt.gz
+    jobid: 71
+    reason: Missing output files: GTEx_Analysis_v8_eQTL/Brain_Nucleus_accumbens_basal_ganglia.v8.signif_variant_gene_pairs.txt.gz; Input files updated by another job: GTEx_Analysis_v8_eQTL.tar
+    wildcards: tissue=Brain_Nucleus_accumbens_basal_ganglia
+    resources: tmpdir=/tmp
+
+tar -xf GTEx_Analysis_v8_eQTL.tar GTEx_Analysis_v8_eQTL/Brain_Nucleus_accumbens_basal_ganglia.v8.signif_variant_gene_pairs.txt.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule extract_eqtls:
+    input: GTEx_Analysis_v8_eQTL.tar
+    output: GTEx_Analysis_v8_eQTL/Liver.v8.signif_variant_gene_pairs.txt.gz
+    jobid: 131
+    reason: Missing output files: GTEx_Analysis_v8_eQTL/Liver.v8.signif_variant_gene_pairs.txt.gz; Input files updated by another job: GTEx_Analysis_v8_eQTL.tar
+    wildcards: tissue=Liver
+    resources: tmpdir=/tmp
+
+tar -xf GTEx_Analysis_v8_eQTL.tar GTEx_Analysis_v8_eQTL/Liver.v8.signif_variant_gene_pairs.txt.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule extract_eqtls:
+    input: GTEx_Analysis_v8_eQTL.tar
+    output: GTEx_Analysis_v8_eQTL/Muscle_Skeletal.v8.signif_variant_gene_pairs.txt.gz
+    jobid: 143
+    reason: Missing output files: GTEx_Analysis_v8_eQTL/Muscle_Skeletal.v8.signif_variant_gene_pairs.txt.gz; Input files updated by another job: GTEx_Analysis_v8_eQTL.tar
+    wildcards: tissue=Muscle_Skeletal
+    resources: tmpdir=/tmp
+
+tar -xf GTEx_Analysis_v8_eQTL.tar GTEx_Analysis_v8_eQTL/Muscle_Skeletal.v8.signif_variant_gene_pairs.txt.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule extract_eqtls:
+    input: GTEx_Analysis_v8_eQTL.tar
+    output: GTEx_Analysis_v8_eQTL/Thyroid.v8.signif_variant_gene_pairs.txt.gz
+    jobid: 191
+    reason: Missing output files: GTEx_Analysis_v8_eQTL/Thyroid.v8.signif_variant_gene_pairs.txt.gz; Input files updated by another job: GTEx_Analysis_v8_eQTL.tar
+    wildcards: tissue=Thyroid
+    resources: tmpdir=/tmp
+
+tar -xf GTEx_Analysis_v8_eQTL.tar GTEx_Analysis_v8_eQTL/Thyroid.v8.signif_variant_gene_pairs.txt.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule extract_eqtls:
+    input: GTEx_Analysis_v8_eQTL.tar
+    output: GTEx_Analysis_v8_eQTL/Brain_Spinal_cord_cervical_c-1.v8.signif_variant_gene_pairs.txt.gz
+    jobid: 79
+    reason: Missing output files: GTEx_Analysis_v8_eQTL/Brain_Spinal_cord_cervical_c-1.v8.signif_variant_gene_pairs.txt.gz; Input files updated by another job: GTEx_Analysis_v8_eQTL.tar
+    wildcards: tissue=Brain_Spinal_cord_cervical_c-1
+    resources: tmpdir=/tmp
+
+tar -xf GTEx_Analysis_v8_eQTL.tar GTEx_Analysis_v8_eQTL/Brain_Spinal_cord_cervical_c-1.v8.signif_variant_gene_pairs.txt.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule extract_eqtls:
+    input: GTEx_Analysis_v8_eQTL.tar
+    output: GTEx_Analysis_v8_eQTL/Adrenal_Gland.v8.signif_variant_gene_pairs.txt.gz
+    jobid: 19
+    reason: Missing output files: GTEx_Analysis_v8_eQTL/Adrenal_Gland.v8.signif_variant_gene_pairs.txt.gz; Input files updated by another job: GTEx_Analysis_v8_eQTL.tar
+    wildcards: tissue=Adrenal_Gland
+    resources: tmpdir=/tmp
+
+tar -xf GTEx_Analysis_v8_eQTL.tar GTEx_Analysis_v8_eQTL/Adrenal_Gland.v8.signif_variant_gene_pairs.txt.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule extract_eqtls:
+    input: GTEx_Analysis_v8_eQTL.tar
+    output: GTEx_Analysis_v8_eQTL/Minor_Salivary_Gland.v8.signif_variant_gene_pairs.txt.gz
+    jobid: 139
+    reason: Missing output files: GTEx_Analysis_v8_eQTL/Minor_Salivary_Gland.v8.signif_variant_gene_pairs.txt.gz; Input files updated by another job: GTEx_Analysis_v8_eQTL.tar
+    wildcards: tissue=Minor_Salivary_Gland
+    resources: tmpdir=/tmp
+
+tar -xf GTEx_Analysis_v8_eQTL.tar GTEx_Analysis_v8_eQTL/Minor_Salivary_Gland.v8.signif_variant_gene_pairs.txt.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule extract_eqtls:
+    input: GTEx_Analysis_v8_eQTL.tar
+    output: GTEx_Analysis_v8_eQTL/Vagina.v8.signif_variant_gene_pairs.txt.gz
+    jobid: 199
+    reason: Missing output files: GTEx_Analysis_v8_eQTL/Vagina.v8.signif_variant_gene_pairs.txt.gz; Input files updated by another job: GTEx_Analysis_v8_eQTL.tar
+    wildcards: tissue=Vagina
+    resources: tmpdir=/tmp
+
+tar -xf GTEx_Analysis_v8_eQTL.tar GTEx_Analysis_v8_eQTL/Vagina.v8.signif_variant_gene_pairs.txt.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule extract_eqtls:
+    input: GTEx_Analysis_v8_eQTL.tar
+    output: GTEx_Analysis_v8_eQTL/Artery_Coronary.v8.signif_variant_gene_pairs.txt.gz
+    jobid: 27
+    reason: Missing output files: GTEx_Analysis_v8_eQTL/Artery_Coronary.v8.signif_variant_gene_pairs.txt.gz; Input files updated by another job: GTEx_Analysis_v8_eQTL.tar
+    wildcards: tissue=Artery_Coronary
+    resources: tmpdir=/tmp
+
+tar -xf GTEx_Analysis_v8_eQTL.tar GTEx_Analysis_v8_eQTL/Artery_Coronary.v8.signif_variant_gene_pairs.txt.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule extract_eqtls:
+    input: GTEx_Analysis_v8_eQTL.tar
+    output: GTEx_Analysis_v8_eQTL/Breast_Mammary_Tissue.v8.signif_variant_gene_pairs.txt.gz
+    jobid: 87
+    reason: Missing output files: GTEx_Analysis_v8_eQTL/Breast_Mammary_Tissue.v8.signif_variant_gene_pairs.txt.gz; Input files updated by another job: GTEx_Analysis_v8_eQTL.tar
+    wildcards: tissue=Breast_Mammary_Tissue
+    resources: tmpdir=/tmp
+
+tar -xf GTEx_Analysis_v8_eQTL.tar GTEx_Analysis_v8_eQTL/Breast_Mammary_Tissue.v8.signif_variant_gene_pairs.txt.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule extract_eqtls:
+    input: GTEx_Analysis_v8_eQTL.tar
+    output: GTEx_Analysis_v8_eQTL/Nerve_Tibial.v8.signif_variant_gene_pairs.txt.gz
+    jobid: 147
+    reason: Missing output files: GTEx_Analysis_v8_eQTL/Nerve_Tibial.v8.signif_variant_gene_pairs.txt.gz; Input files updated by another job: GTEx_Analysis_v8_eQTL.tar
+    wildcards: tissue=Nerve_Tibial
+    resources: tmpdir=/tmp
+
+tar -xf GTEx_Analysis_v8_eQTL.tar GTEx_Analysis_v8_eQTL/Nerve_Tibial.v8.signif_variant_gene_pairs.txt.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule convert_pg:
+    input: hprc-v1.1-mc-grch38.gbz
+    output: hprc-v1.1-mc-grch38.pg
+    jobid: 5
+    reason: Input files updated by another job: hprc-v1.1-mc-grch38.gbz
+    resources: tmpdir=/tmp
+
+vg convert -t 1 -H -p hprc-v1.1-mc-grch38.gbz > hprc-v1.1-mc-grch38.pg
+
+[Tue Aug 27 10:45:29 2024]
+rule extract_eqtls:
+    input: GTEx_Analysis_v8_eQTL.tar
+    output: GTEx_Analysis_v8_eQTL/Brain_Amygdala.v8.signif_variant_gene_pairs.txt.gz
+    jobid: 35
+    reason: Missing output files: GTEx_Analysis_v8_eQTL/Brain_Amygdala.v8.signif_variant_gene_pairs.txt.gz; Input files updated by another job: GTEx_Analysis_v8_eQTL.tar
+    wildcards: tissue=Brain_Amygdala
+    resources: tmpdir=/tmp
+
+tar -xf GTEx_Analysis_v8_eQTL.tar GTEx_Analysis_v8_eQTL/Brain_Amygdala.v8.signif_variant_gene_pairs.txt.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule extract_eqtls:
+    input: GTEx_Analysis_v8_eQTL.tar
+    output: GTEx_Analysis_v8_eQTL/Cells_EBV-transformed_lymphocytes.v8.signif_variant_gene_pairs.txt.gz
+    jobid: 95
+    reason: Missing output files: GTEx_Analysis_v8_eQTL/Cells_EBV-transformed_lymphocytes.v8.signif_variant_gene_pairs.txt.gz; Input files updated by another job: GTEx_Analysis_v8_eQTL.tar
+    wildcards: tissue=Cells_EBV-transformed_lymphocytes
+    resources: tmpdir=/tmp
+
+tar -xf GTEx_Analysis_v8_eQTL.tar GTEx_Analysis_v8_eQTL/Cells_EBV-transformed_lymphocytes.v8.signif_variant_gene_pairs.txt.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule extract_eqtls:
+    input: GTEx_Analysis_v8_eQTL.tar
+    output: GTEx_Analysis_v8_eQTL/Pancreas.v8.signif_variant_gene_pairs.txt.gz
+    jobid: 155
+    reason: Missing output files: GTEx_Analysis_v8_eQTL/Pancreas.v8.signif_variant_gene_pairs.txt.gz; Input files updated by another job: GTEx_Analysis_v8_eQTL.tar
+    wildcards: tissue=Pancreas
+    resources: tmpdir=/tmp
+
+tar -xf GTEx_Analysis_v8_eQTL.tar GTEx_Analysis_v8_eQTL/Pancreas.v8.signif_variant_gene_pairs.txt.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule extract_eqtls:
+    input: GTEx_Analysis_v8_eQTL.tar
+    output: GTEx_Analysis_v8_eQTL/Whole_Blood.v8.signif_variant_gene_pairs.txt.gz
+    jobid: 203
+    reason: Missing output files: GTEx_Analysis_v8_eQTL/Whole_Blood.v8.signif_variant_gene_pairs.txt.gz; Input files updated by another job: GTEx_Analysis_v8_eQTL.tar
+    wildcards: tissue=Whole_Blood
+    resources: tmpdir=/tmp
+
+tar -xf GTEx_Analysis_v8_eQTL.tar GTEx_Analysis_v8_eQTL/Whole_Blood.v8.signif_variant_gene_pairs.txt.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule extract_eqtls:
+    input: GTEx_Analysis_v8_eQTL.tar
+    output: GTEx_Analysis_v8_eQTL/Brain_Caudate_basal_ganglia.v8.signif_variant_gene_pairs.txt.gz
+    jobid: 43
+    reason: Missing output files: GTEx_Analysis_v8_eQTL/Brain_Caudate_basal_ganglia.v8.signif_variant_gene_pairs.txt.gz; Input files updated by another job: GTEx_Analysis_v8_eQTL.tar
+    wildcards: tissue=Brain_Caudate_basal_ganglia
+    resources: tmpdir=/tmp
+
+tar -xf GTEx_Analysis_v8_eQTL.tar GTEx_Analysis_v8_eQTL/Brain_Caudate_basal_ganglia.v8.signif_variant_gene_pairs.txt.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule extract_eqtls:
+    input: GTEx_Analysis_v8_eQTL.tar
+    output: GTEx_Analysis_v8_eQTL/Colon_Transverse.v8.signif_variant_gene_pairs.txt.gz
+    jobid: 103
+    reason: Missing output files: GTEx_Analysis_v8_eQTL/Colon_Transverse.v8.signif_variant_gene_pairs.txt.gz; Input files updated by another job: GTEx_Analysis_v8_eQTL.tar
+    wildcards: tissue=Colon_Transverse
+    resources: tmpdir=/tmp
+
+tar -xf GTEx_Analysis_v8_eQTL.tar GTEx_Analysis_v8_eQTL/Colon_Transverse.v8.signif_variant_gene_pairs.txt.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule extract_eqtls:
+    input: GTEx_Analysis_v8_eQTL.tar
+    output: GTEx_Analysis_v8_eQTL/Prostate.v8.signif_variant_gene_pairs.txt.gz
+    jobid: 163
+    reason: Missing output files: GTEx_Analysis_v8_eQTL/Prostate.v8.signif_variant_gene_pairs.txt.gz; Input files updated by another job: GTEx_Analysis_v8_eQTL.tar
+    wildcards: tissue=Prostate
+    resources: tmpdir=/tmp
+
+tar -xf GTEx_Analysis_v8_eQTL.tar GTEx_Analysis_v8_eQTL/Prostate.v8.signif_variant_gene_pairs.txt.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule extract_eqtls:
+    input: GTEx_Analysis_v8_eQTL.tar
+    output: GTEx_Analysis_v8_eQTL/Brain_Cerebellum.v8.signif_variant_gene_pairs.txt.gz
+    jobid: 51
+    reason: Missing output files: GTEx_Analysis_v8_eQTL/Brain_Cerebellum.v8.signif_variant_gene_pairs.txt.gz; Input files updated by another job: GTEx_Analysis_v8_eQTL.tar
+    wildcards: tissue=Brain_Cerebellum
+    resources: tmpdir=/tmp
+
+tar -xf GTEx_Analysis_v8_eQTL.tar GTEx_Analysis_v8_eQTL/Brain_Cerebellum.v8.signif_variant_gene_pairs.txt.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule extract_eqtls:
+    input: GTEx_Analysis_v8_eQTL.tar
+    output: GTEx_Analysis_v8_eQTL/Esophagus_Mucosa.v8.signif_variant_gene_pairs.txt.gz
+    jobid: 111
+    reason: Missing output files: GTEx_Analysis_v8_eQTL/Esophagus_Mucosa.v8.signif_variant_gene_pairs.txt.gz; Input files updated by another job: GTEx_Analysis_v8_eQTL.tar
+    wildcards: tissue=Esophagus_Mucosa
+    resources: tmpdir=/tmp
+
+tar -xf GTEx_Analysis_v8_eQTL.tar GTEx_Analysis_v8_eQTL/Esophagus_Mucosa.v8.signif_variant_gene_pairs.txt.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule extract_eqtls:
+    input: GTEx_Analysis_v8_eQTL.tar
+    output: GTEx_Analysis_v8_eQTL/Skin_Sun_Exposed_Lower_leg.v8.signif_variant_gene_pairs.txt.gz
+    jobid: 171
+    reason: Missing output files: GTEx_Analysis_v8_eQTL/Skin_Sun_Exposed_Lower_leg.v8.signif_variant_gene_pairs.txt.gz; Input files updated by another job: GTEx_Analysis_v8_eQTL.tar
+    wildcards: tissue=Skin_Sun_Exposed_Lower_leg
+    resources: tmpdir=/tmp
+
+tar -xf GTEx_Analysis_v8_eQTL.tar GTEx_Analysis_v8_eQTL/Skin_Sun_Exposed_Lower_leg.v8.signif_variant_gene_pairs.txt.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule extract_eqtls:
+    input: GTEx_Analysis_v8_eQTL.tar
+    output: GTEx_Analysis_v8_eQTL/Brain_Frontal_Cortex_BA9.v8.signif_variant_gene_pairs.txt.gz
+    jobid: 59
+    reason: Missing output files: GTEx_Analysis_v8_eQTL/Brain_Frontal_Cortex_BA9.v8.signif_variant_gene_pairs.txt.gz; Input files updated by another job: GTEx_Analysis_v8_eQTL.tar
+    wildcards: tissue=Brain_Frontal_Cortex_BA9
+    resources: tmpdir=/tmp
+
+tar -xf GTEx_Analysis_v8_eQTL.tar GTEx_Analysis_v8_eQTL/Brain_Frontal_Cortex_BA9.v8.signif_variant_gene_pairs.txt.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule extract_eqtls:
+    input: GTEx_Analysis_v8_eQTL.tar
+    output: GTEx_Analysis_v8_eQTL/Heart_Atrial_Appendage.v8.signif_variant_gene_pairs.txt.gz
+    jobid: 119
+    reason: Missing output files: GTEx_Analysis_v8_eQTL/Heart_Atrial_Appendage.v8.signif_variant_gene_pairs.txt.gz; Input files updated by another job: GTEx_Analysis_v8_eQTL.tar
+    wildcards: tissue=Heart_Atrial_Appendage
+    resources: tmpdir=/tmp
+
+tar -xf GTEx_Analysis_v8_eQTL.tar GTEx_Analysis_v8_eQTL/Heart_Atrial_Appendage.v8.signif_variant_gene_pairs.txt.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule extract_eqtls:
+    input: GTEx_Analysis_v8_eQTL.tar
+    output: GTEx_Analysis_v8_eQTL/Spleen.v8.signif_variant_gene_pairs.txt.gz
+    jobid: 179
+    reason: Missing output files: GTEx_Analysis_v8_eQTL/Spleen.v8.signif_variant_gene_pairs.txt.gz; Input files updated by another job: GTEx_Analysis_v8_eQTL.tar
+    wildcards: tissue=Spleen
+    resources: tmpdir=/tmp
+
+tar -xf GTEx_Analysis_v8_eQTL.tar GTEx_Analysis_v8_eQTL/Spleen.v8.signif_variant_gene_pairs.txt.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule extract_eqtls:
+    input: GTEx_Analysis_v8_eQTL.tar
+    output: GTEx_Analysis_v8_eQTL/Brain_Hypothalamus.v8.signif_variant_gene_pairs.txt.gz
+    jobid: 67
+    reason: Missing output files: GTEx_Analysis_v8_eQTL/Brain_Hypothalamus.v8.signif_variant_gene_pairs.txt.gz; Input files updated by another job: GTEx_Analysis_v8_eQTL.tar
+    wildcards: tissue=Brain_Hypothalamus
+    resources: tmpdir=/tmp
+
+tar -xf GTEx_Analysis_v8_eQTL.tar GTEx_Analysis_v8_eQTL/Brain_Hypothalamus.v8.signif_variant_gene_pairs.txt.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule extract_eqtls:
+    input: GTEx_Analysis_v8_eQTL.tar
+    output: GTEx_Analysis_v8_eQTL/Kidney_Cortex.v8.signif_variant_gene_pairs.txt.gz
+    jobid: 127
+    reason: Missing output files: GTEx_Analysis_v8_eQTL/Kidney_Cortex.v8.signif_variant_gene_pairs.txt.gz; Input files updated by another job: GTEx_Analysis_v8_eQTL.tar
+    wildcards: tissue=Kidney_Cortex
+    resources: tmpdir=/tmp
+
+tar -xf GTEx_Analysis_v8_eQTL.tar GTEx_Analysis_v8_eQTL/Kidney_Cortex.v8.signif_variant_gene_pairs.txt.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule extract_eqtls:
+    input: GTEx_Analysis_v8_eQTL.tar
+    output: GTEx_Analysis_v8_eQTL/Testis.v8.signif_variant_gene_pairs.txt.gz
+    jobid: 187
+    reason: Missing output files: GTEx_Analysis_v8_eQTL/Testis.v8.signif_variant_gene_pairs.txt.gz; Input files updated by another job: GTEx_Analysis_v8_eQTL.tar
+    wildcards: tissue=Testis
+    resources: tmpdir=/tmp
+
+tar -xf GTEx_Analysis_v8_eQTL.tar GTEx_Analysis_v8_eQTL/Testis.v8.signif_variant_gene_pairs.txt.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule extract_eqtls:
+    input: GTEx_Analysis_v8_eQTL.tar
+    output: GTEx_Analysis_v8_eQTL/Artery_Aorta.v8.signif_variant_gene_pairs.txt.gz
+    jobid: 23
+    reason: Missing output files: GTEx_Analysis_v8_eQTL/Artery_Aorta.v8.signif_variant_gene_pairs.txt.gz; Input files updated by another job: GTEx_Analysis_v8_eQTL.tar
+    wildcards: tissue=Artery_Aorta
+    resources: tmpdir=/tmp
+
+tar -xf GTEx_Analysis_v8_eQTL.tar GTEx_Analysis_v8_eQTL/Artery_Aorta.v8.signif_variant_gene_pairs.txt.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule extract_eqtls:
+    input: GTEx_Analysis_v8_eQTL.tar
+    output: GTEx_Analysis_v8_eQTL/Adipose_Visceral_Omentum.v8.signif_variant_gene_pairs.txt.gz
+    jobid: 15
+    reason: Missing output files: GTEx_Analysis_v8_eQTL/Adipose_Visceral_Omentum.v8.signif_variant_gene_pairs.txt.gz; Input files updated by another job: GTEx_Analysis_v8_eQTL.tar
+    wildcards: tissue=Adipose_Visceral_Omentum
+    resources: tmpdir=/tmp
+
+tar -xf GTEx_Analysis_v8_eQTL.tar GTEx_Analysis_v8_eQTL/Adipose_Visceral_Omentum.v8.signif_variant_gene_pairs.txt.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule extract_eqtls:
+    input: GTEx_Analysis_v8_eQTL.tar
+    output: GTEx_Analysis_v8_eQTL/Brain_Putamen_basal_ganglia.v8.signif_variant_gene_pairs.txt.gz
+    jobid: 75
+    reason: Missing output files: GTEx_Analysis_v8_eQTL/Brain_Putamen_basal_ganglia.v8.signif_variant_gene_pairs.txt.gz; Input files updated by another job: GTEx_Analysis_v8_eQTL.tar
+    wildcards: tissue=Brain_Putamen_basal_ganglia
+    resources: tmpdir=/tmp
+
+tar -xf GTEx_Analysis_v8_eQTL.tar GTEx_Analysis_v8_eQTL/Brain_Putamen_basal_ganglia.v8.signif_variant_gene_pairs.txt.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule extract_eqtls:
+    input: GTEx_Analysis_v8_eQTL.tar
+    output: GTEx_Analysis_v8_eQTL/Lung.v8.signif_variant_gene_pairs.txt.gz
+    jobid: 135
+    reason: Missing output files: GTEx_Analysis_v8_eQTL/Lung.v8.signif_variant_gene_pairs.txt.gz; Input files updated by another job: GTEx_Analysis_v8_eQTL.tar
+    wildcards: tissue=Lung
+    resources: tmpdir=/tmp
+
+tar -xf GTEx_Analysis_v8_eQTL.tar GTEx_Analysis_v8_eQTL/Lung.v8.signif_variant_gene_pairs.txt.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule extract_eqtls:
+    input: GTEx_Analysis_v8_eQTL.tar
+    output: GTEx_Analysis_v8_eQTL/Uterus.v8.signif_variant_gene_pairs.txt.gz
+    jobid: 195
+    reason: Missing output files: GTEx_Analysis_v8_eQTL/Uterus.v8.signif_variant_gene_pairs.txt.gz; Input files updated by another job: GTEx_Analysis_v8_eQTL.tar
+    wildcards: tissue=Uterus
+    resources: tmpdir=/tmp
+
+tar -xf GTEx_Analysis_v8_eQTL.tar GTEx_Analysis_v8_eQTL/Uterus.v8.signif_variant_gene_pairs.txt.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule extract_eqtls:
+    input: GTEx_Analysis_v8_eQTL.tar
+    output: GTEx_Analysis_v8_eQTL/Brain_Substantia_nigra.v8.signif_variant_gene_pairs.txt.gz
+    jobid: 83
+    reason: Missing output files: GTEx_Analysis_v8_eQTL/Brain_Substantia_nigra.v8.signif_variant_gene_pairs.txt.gz; Input files updated by another job: GTEx_Analysis_v8_eQTL.tar
+    wildcards: tissue=Brain_Substantia_nigra
+    resources: tmpdir=/tmp
+
+tar -xf GTEx_Analysis_v8_eQTL.tar GTEx_Analysis_v8_eQTL/Brain_Substantia_nigra.v8.signif_variant_gene_pairs.txt.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule annotate_eqtls:
+    input: prepare_variant_paths.py, GTEx_Analysis_v8_eQTL/Brain_Cerebellar_Hemisphere.v8.signif_variant_gene_pairs.txt.gz, hprc-v1.1-mc-grch38.small.vcf.gz, hprc-v1.1-mc-grch38.pg
+    output: Brain_Cerebellar_Hemisphere.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    log: log/annotate_eqtls.Brain_Cerebellar_Hemisphere.tsv
+    jobid: 46
+    benchmark: benchmark/annotate_eqtls.Brain_Cerebellar_Hemisphere.tsv
+    reason: Missing output files: Brain_Cerebellar_Hemisphere.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf; Input files updated by another job: GTEx_Analysis_v8_eQTL/Brain_Cerebellar_Hemisphere.v8.signif_variant_gene_pairs.txt.gz, hprc-v1.1-mc-grch38.pg
+    wildcards: tissue=Brain_Cerebellar_Hemisphere
+    resources: tmpdir=/tmp
+
+
+        python3 prepare_variant_paths.py -v GTEx_Analysis_v8_eQTL/Brain_Cerebellar_Hemisphere.v8.signif_variant_gene_pairs.txt.gz -s gtex_eqtls -l Brain_Cerebellar_Hemisphere -p hprc-v1.1-mc-grch38.small.vcf.gz -g hprc-v1.1-mc-grch38.pg -o Brain_Cerebellar_Hemisphere.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf > log/annotate_eqtls.Brain_Cerebellar_Hemisphere.tsv
+        
+
+[Tue Aug 27 10:45:29 2024]
+rule annotate_eqtls:
+    input: prepare_variant_paths.py, GTEx_Analysis_v8_eQTL/Esophagus_Gastroesophageal_Junction.v8.signif_variant_gene_pairs.txt.gz, hprc-v1.1-mc-grch38.small.vcf.gz, hprc-v1.1-mc-grch38.pg
+    output: Esophagus_Gastroesophageal_Junction.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    log: log/annotate_eqtls.Esophagus_Gastroesophageal_Junction.tsv
+    jobid: 106
+    benchmark: benchmark/annotate_eqtls.Esophagus_Gastroesophageal_Junction.tsv
+    reason: Missing output files: Esophagus_Gastroesophageal_Junction.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf; Input files updated by another job: GTEx_Analysis_v8_eQTL/Esophagus_Gastroesophageal_Junction.v8.signif_variant_gene_pairs.txt.gz, hprc-v1.1-mc-grch38.pg
+    wildcards: tissue=Esophagus_Gastroesophageal_Junction
+    resources: tmpdir=/tmp
+
+
+        python3 prepare_variant_paths.py -v GTEx_Analysis_v8_eQTL/Esophagus_Gastroesophageal_Junction.v8.signif_variant_gene_pairs.txt.gz -s gtex_eqtls -l Esophagus_Gastroesophageal_Junction -p hprc-v1.1-mc-grch38.small.vcf.gz -g hprc-v1.1-mc-grch38.pg -o Esophagus_Gastroesophageal_Junction.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf > log/annotate_eqtls.Esophagus_Gastroesophageal_Junction.tsv
+        
+
+[Tue Aug 27 10:45:29 2024]
+rule annotate_eqtls:
+    input: prepare_variant_paths.py, GTEx_Analysis_v8_eQTL/Skin_Not_Sun_Exposed_Suprapubic.v8.signif_variant_gene_pairs.txt.gz, hprc-v1.1-mc-grch38.small.vcf.gz, hprc-v1.1-mc-grch38.pg
+    output: Skin_Not_Sun_Exposed_Suprapubic.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    log: log/annotate_eqtls.Skin_Not_Sun_Exposed_Suprapubic.tsv
+    jobid: 166
+    benchmark: benchmark/annotate_eqtls.Skin_Not_Sun_Exposed_Suprapubic.tsv
+    reason: Missing output files: Skin_Not_Sun_Exposed_Suprapubic.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf; Input files updated by another job: GTEx_Analysis_v8_eQTL/Skin_Not_Sun_Exposed_Suprapubic.v8.signif_variant_gene_pairs.txt.gz, hprc-v1.1-mc-grch38.pg
+    wildcards: tissue=Skin_Not_Sun_Exposed_Suprapubic
+    resources: tmpdir=/tmp
+
+
+        python3 prepare_variant_paths.py -v GTEx_Analysis_v8_eQTL/Skin_Not_Sun_Exposed_Suprapubic.v8.signif_variant_gene_pairs.txt.gz -s gtex_eqtls -l Skin_Not_Sun_Exposed_Suprapubic -p hprc-v1.1-mc-grch38.small.vcf.gz -g hprc-v1.1-mc-grch38.pg -o Skin_Not_Sun_Exposed_Suprapubic.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf > log/annotate_eqtls.Skin_Not_Sun_Exposed_Suprapubic.tsv
+        
+
+[Tue Aug 27 10:45:29 2024]
+rule annotate_eqtls:
+    input: prepare_variant_paths.py, GTEx_Analysis_v8_eQTL/Adipose_Subcutaneous.v8.signif_variant_gene_pairs.txt.gz, hprc-v1.1-mc-grch38.small.vcf.gz, hprc-v1.1-mc-grch38.pg
+    output: Adipose_Subcutaneous.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    log: log/annotate_eqtls.Adipose_Subcutaneous.tsv
+    jobid: 9
+    benchmark: benchmark/annotate_eqtls.Adipose_Subcutaneous.tsv
+    reason: Missing output files: Adipose_Subcutaneous.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf; Input files updated by another job: hprc-v1.1-mc-grch38.pg, GTEx_Analysis_v8_eQTL/Adipose_Subcutaneous.v8.signif_variant_gene_pairs.txt.gz
+    wildcards: tissue=Adipose_Subcutaneous
+    resources: tmpdir=/tmp
+
+
+        python3 prepare_variant_paths.py -v GTEx_Analysis_v8_eQTL/Adipose_Subcutaneous.v8.signif_variant_gene_pairs.txt.gz -s gtex_eqtls -l Adipose_Subcutaneous -p hprc-v1.1-mc-grch38.small.vcf.gz -g hprc-v1.1-mc-grch38.pg -o Adipose_Subcutaneous.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf > log/annotate_eqtls.Adipose_Subcutaneous.tsv
+        
+
+[Tue Aug 27 10:45:29 2024]
+rule annotate_eqtls:
+    input: prepare_variant_paths.py, GTEx_Analysis_v8_eQTL/Brain_Cortex.v8.signif_variant_gene_pairs.txt.gz, hprc-v1.1-mc-grch38.small.vcf.gz, hprc-v1.1-mc-grch38.pg
+    output: Brain_Cortex.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    log: log/annotate_eqtls.Brain_Cortex.tsv
+    jobid: 54
+    benchmark: benchmark/annotate_eqtls.Brain_Cortex.tsv
+    reason: Missing output files: Brain_Cortex.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf; Input files updated by another job: GTEx_Analysis_v8_eQTL/Brain_Cortex.v8.signif_variant_gene_pairs.txt.gz, hprc-v1.1-mc-grch38.pg
+    wildcards: tissue=Brain_Cortex
+    resources: tmpdir=/tmp
+
+
+        python3 prepare_variant_paths.py -v GTEx_Analysis_v8_eQTL/Brain_Cortex.v8.signif_variant_gene_pairs.txt.gz -s gtex_eqtls -l Brain_Cortex -p hprc-v1.1-mc-grch38.small.vcf.gz -g hprc-v1.1-mc-grch38.pg -o Brain_Cortex.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf > log/annotate_eqtls.Brain_Cortex.tsv
+        
+
+[Tue Aug 27 10:45:29 2024]
+rule annotate_eqtls:
+    input: prepare_variant_paths.py, GTEx_Analysis_v8_eQTL/Esophagus_Muscularis.v8.signif_variant_gene_pairs.txt.gz, hprc-v1.1-mc-grch38.small.vcf.gz, hprc-v1.1-mc-grch38.pg
+    output: Esophagus_Muscularis.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    log: log/annotate_eqtls.Esophagus_Muscularis.tsv
+    jobid: 114
+    benchmark: benchmark/annotate_eqtls.Esophagus_Muscularis.tsv
+    reason: Missing output files: Esophagus_Muscularis.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf; Input files updated by another job: hprc-v1.1-mc-grch38.pg, GTEx_Analysis_v8_eQTL/Esophagus_Muscularis.v8.signif_variant_gene_pairs.txt.gz
+    wildcards: tissue=Esophagus_Muscularis
+    resources: tmpdir=/tmp
+
+
+        python3 prepare_variant_paths.py -v GTEx_Analysis_v8_eQTL/Esophagus_Muscularis.v8.signif_variant_gene_pairs.txt.gz -s gtex_eqtls -l Esophagus_Muscularis -p hprc-v1.1-mc-grch38.small.vcf.gz -g hprc-v1.1-mc-grch38.pg -o Esophagus_Muscularis.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf > log/annotate_eqtls.Esophagus_Muscularis.tsv
+        
+
+[Tue Aug 27 10:45:29 2024]
+rule annotate_eqtls:
+    input: prepare_variant_paths.py, GTEx_Analysis_v8_eQTL/Small_Intestine_Terminal_Ileum.v8.signif_variant_gene_pairs.txt.gz, hprc-v1.1-mc-grch38.small.vcf.gz, hprc-v1.1-mc-grch38.pg
+    output: Small_Intestine_Terminal_Ileum.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    log: log/annotate_eqtls.Small_Intestine_Terminal_Ileum.tsv
+    jobid: 174
+    benchmark: benchmark/annotate_eqtls.Small_Intestine_Terminal_Ileum.tsv
+    reason: Missing output files: Small_Intestine_Terminal_Ileum.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf; Input files updated by another job: hprc-v1.1-mc-grch38.pg, GTEx_Analysis_v8_eQTL/Small_Intestine_Terminal_Ileum.v8.signif_variant_gene_pairs.txt.gz
+    wildcards: tissue=Small_Intestine_Terminal_Ileum
+    resources: tmpdir=/tmp
+
+
+        python3 prepare_variant_paths.py -v GTEx_Analysis_v8_eQTL/Small_Intestine_Terminal_Ileum.v8.signif_variant_gene_pairs.txt.gz -s gtex_eqtls -l Small_Intestine_Terminal_Ileum -p hprc-v1.1-mc-grch38.small.vcf.gz -g hprc-v1.1-mc-grch38.pg -o Small_Intestine_Terminal_Ileum.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf > log/annotate_eqtls.Small_Intestine_Terminal_Ileum.tsv
+        
+
+[Tue Aug 27 10:45:29 2024]
+rule annotate_eqtls:
+    input: prepare_variant_paths.py, GTEx_Analysis_v8_eQTL/Brain_Hippocampus.v8.signif_variant_gene_pairs.txt.gz, hprc-v1.1-mc-grch38.small.vcf.gz, hprc-v1.1-mc-grch38.pg
+    output: Brain_Hippocampus.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    log: log/annotate_eqtls.Brain_Hippocampus.tsv
+    jobid: 62
+    benchmark: benchmark/annotate_eqtls.Brain_Hippocampus.tsv
+    reason: Missing output files: Brain_Hippocampus.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf; Input files updated by another job: hprc-v1.1-mc-grch38.pg, GTEx_Analysis_v8_eQTL/Brain_Hippocampus.v8.signif_variant_gene_pairs.txt.gz
+    wildcards: tissue=Brain_Hippocampus
+    resources: tmpdir=/tmp
+
+
+        python3 prepare_variant_paths.py -v GTEx_Analysis_v8_eQTL/Brain_Hippocampus.v8.signif_variant_gene_pairs.txt.gz -s gtex_eqtls -l Brain_Hippocampus -p hprc-v1.1-mc-grch38.small.vcf.gz -g hprc-v1.1-mc-grch38.pg -o Brain_Hippocampus.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf > log/annotate_eqtls.Brain_Hippocampus.tsv
+        
+
+[Tue Aug 27 10:45:29 2024]
+rule annotate_eqtls:
+    input: prepare_variant_paths.py, GTEx_Analysis_v8_eQTL/Heart_Left_Ventricle.v8.signif_variant_gene_pairs.txt.gz, hprc-v1.1-mc-grch38.small.vcf.gz, hprc-v1.1-mc-grch38.pg
+    output: Heart_Left_Ventricle.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    log: log/annotate_eqtls.Heart_Left_Ventricle.tsv
+    jobid: 122
+    benchmark: benchmark/annotate_eqtls.Heart_Left_Ventricle.tsv
+    reason: Missing output files: Heart_Left_Ventricle.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf; Input files updated by another job: hprc-v1.1-mc-grch38.pg, GTEx_Analysis_v8_eQTL/Heart_Left_Ventricle.v8.signif_variant_gene_pairs.txt.gz
+    wildcards: tissue=Heart_Left_Ventricle
+    resources: tmpdir=/tmp
+
+
+        python3 prepare_variant_paths.py -v GTEx_Analysis_v8_eQTL/Heart_Left_Ventricle.v8.signif_variant_gene_pairs.txt.gz -s gtex_eqtls -l Heart_Left_Ventricle -p hprc-v1.1-mc-grch38.small.vcf.gz -g hprc-v1.1-mc-grch38.pg -o Heart_Left_Ventricle.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf > log/annotate_eqtls.Heart_Left_Ventricle.tsv
+        
+
+[Tue Aug 27 10:45:29 2024]
+rule annotate_eqtls:
+    input: prepare_variant_paths.py, GTEx_Analysis_v8_eQTL/Stomach.v8.signif_variant_gene_pairs.txt.gz, hprc-v1.1-mc-grch38.small.vcf.gz, hprc-v1.1-mc-grch38.pg
+    output: Stomach.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    log: log/annotate_eqtls.Stomach.tsv
+    jobid: 182
+    benchmark: benchmark/annotate_eqtls.Stomach.tsv
+    reason: Missing output files: Stomach.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf; Input files updated by another job: hprc-v1.1-mc-grch38.pg, GTEx_Analysis_v8_eQTL/Stomach.v8.signif_variant_gene_pairs.txt.gz
+    wildcards: tissue=Stomach
+    resources: tmpdir=/tmp
+
+
+        python3 prepare_variant_paths.py -v GTEx_Analysis_v8_eQTL/Stomach.v8.signif_variant_gene_pairs.txt.gz -s gtex_eqtls -l Stomach -p hprc-v1.1-mc-grch38.small.vcf.gz -g hprc-v1.1-mc-grch38.pg -o Stomach.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf > log/annotate_eqtls.Stomach.tsv
+        
+
+[Tue Aug 27 10:45:29 2024]
+rule annotate_eqtls:
+    input: prepare_variant_paths.py, GTEx_Analysis_v8_eQTL/Liver.v8.signif_variant_gene_pairs.txt.gz, hprc-v1.1-mc-grch38.small.vcf.gz, hprc-v1.1-mc-grch38.pg
+    output: Liver.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    log: log/annotate_eqtls.Liver.tsv
+    jobid: 130
+    benchmark: benchmark/annotate_eqtls.Liver.tsv
+    reason: Missing output files: Liver.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf; Input files updated by another job: hprc-v1.1-mc-grch38.pg, GTEx_Analysis_v8_eQTL/Liver.v8.signif_variant_gene_pairs.txt.gz
+    wildcards: tissue=Liver
+    resources: tmpdir=/tmp
+
+
+        python3 prepare_variant_paths.py -v GTEx_Analysis_v8_eQTL/Liver.v8.signif_variant_gene_pairs.txt.gz -s gtex_eqtls -l Liver -p hprc-v1.1-mc-grch38.small.vcf.gz -g hprc-v1.1-mc-grch38.pg -o Liver.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf > log/annotate_eqtls.Liver.tsv
+        
+
+[Tue Aug 27 10:45:29 2024]
+rule annotate_eqtls:
+    input: prepare_variant_paths.py, GTEx_Analysis_v8_eQTL/Brain_Nucleus_accumbens_basal_ganglia.v8.signif_variant_gene_pairs.txt.gz, hprc-v1.1-mc-grch38.small.vcf.gz, hprc-v1.1-mc-grch38.pg
+    output: Brain_Nucleus_accumbens_basal_ganglia.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    log: log/annotate_eqtls.Brain_Nucleus_accumbens_basal_ganglia.tsv
+    jobid: 70
+    benchmark: benchmark/annotate_eqtls.Brain_Nucleus_accumbens_basal_ganglia.tsv
+    reason: Missing output files: Brain_Nucleus_accumbens_basal_ganglia.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf; Input files updated by another job: hprc-v1.1-mc-grch38.pg, GTEx_Analysis_v8_eQTL/Brain_Nucleus_accumbens_basal_ganglia.v8.signif_variant_gene_pairs.txt.gz
+    wildcards: tissue=Brain_Nucleus_accumbens_basal_ganglia
+    resources: tmpdir=/tmp
+
+
+        python3 prepare_variant_paths.py -v GTEx_Analysis_v8_eQTL/Brain_Nucleus_accumbens_basal_ganglia.v8.signif_variant_gene_pairs.txt.gz -s gtex_eqtls -l Brain_Nucleus_accumbens_basal_ganglia -p hprc-v1.1-mc-grch38.small.vcf.gz -g hprc-v1.1-mc-grch38.pg -o Brain_Nucleus_accumbens_basal_ganglia.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf > log/annotate_eqtls.Brain_Nucleus_accumbens_basal_ganglia.tsv
+        
+
+[Tue Aug 27 10:45:29 2024]
+rule annotate_eqtls:
+    input: prepare_variant_paths.py, GTEx_Analysis_v8_eQTL/Thyroid.v8.signif_variant_gene_pairs.txt.gz, hprc-v1.1-mc-grch38.small.vcf.gz, hprc-v1.1-mc-grch38.pg
+    output: Thyroid.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    log: log/annotate_eqtls.Thyroid.tsv
+    jobid: 190
+    benchmark: benchmark/annotate_eqtls.Thyroid.tsv
+    reason: Missing output files: Thyroid.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf; Input files updated by another job: GTEx_Analysis_v8_eQTL/Thyroid.v8.signif_variant_gene_pairs.txt.gz, hprc-v1.1-mc-grch38.pg
+    wildcards: tissue=Thyroid
+    resources: tmpdir=/tmp
+
+
+        python3 prepare_variant_paths.py -v GTEx_Analysis_v8_eQTL/Thyroid.v8.signif_variant_gene_pairs.txt.gz -s gtex_eqtls -l Thyroid -p hprc-v1.1-mc-grch38.small.vcf.gz -g hprc-v1.1-mc-grch38.pg -o Thyroid.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf > log/annotate_eqtls.Thyroid.tsv
+        
+
+[Tue Aug 27 10:45:29 2024]
+rule annotate_gwas:
+    input: prepare_variant_paths.py, gwasCatalog.txt.gz, hprc-v1.1-mc-grch38.small.vcf.gz, hprc-v1.1-mc-grch38.pg
+    output: gwasCatalog.hprc-v1.1-mc-grch38.gaf
+    log: log/annotate_gwas.tsv
+    jobid: 3
+    benchmark: benchmark/annotate_gwas.tsv
+    reason: Missing output files: gwasCatalog.hprc-v1.1-mc-grch38.gaf; Input files updated by another job: hprc-v1.1-mc-grch38.pg, gwasCatalog.txt.gz
+    resources: tmpdir=/tmp
+
+
+        python3 prepare_variant_paths.py -v gwasCatalog.txt.gz -s gwas_catalog -p hprc-v1.1-mc-grch38.small.vcf.gz -g hprc-v1.1-mc-grch38.pg -o gwasCatalog.hprc-v1.1-mc-grch38.gaf > log/annotate_gwas.tsv
+        
+
+[Tue Aug 27 10:45:29 2024]
+rule annotate_eqtls:
+    input: prepare_variant_paths.py, GTEx_Analysis_v8_eQTL/Adrenal_Gland.v8.signif_variant_gene_pairs.txt.gz, hprc-v1.1-mc-grch38.small.vcf.gz, hprc-v1.1-mc-grch38.pg
+    output: Adrenal_Gland.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    log: log/annotate_eqtls.Adrenal_Gland.tsv
+    jobid: 18
+    benchmark: benchmark/annotate_eqtls.Adrenal_Gland.tsv
+    reason: Missing output files: Adrenal_Gland.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf; Input files updated by another job: hprc-v1.1-mc-grch38.pg, GTEx_Analysis_v8_eQTL/Adrenal_Gland.v8.signif_variant_gene_pairs.txt.gz
+    wildcards: tissue=Adrenal_Gland
+    resources: tmpdir=/tmp
+
+
+        python3 prepare_variant_paths.py -v GTEx_Analysis_v8_eQTL/Adrenal_Gland.v8.signif_variant_gene_pairs.txt.gz -s gtex_eqtls -l Adrenal_Gland -p hprc-v1.1-mc-grch38.small.vcf.gz -g hprc-v1.1-mc-grch38.pg -o Adrenal_Gland.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf > log/annotate_eqtls.Adrenal_Gland.tsv
+        
+
+[Tue Aug 27 10:45:29 2024]
+rule annotate_eqtls:
+    input: prepare_variant_paths.py, GTEx_Analysis_v8_eQTL/Brain_Spinal_cord_cervical_c-1.v8.signif_variant_gene_pairs.txt.gz, hprc-v1.1-mc-grch38.small.vcf.gz, hprc-v1.1-mc-grch38.pg
+    output: Brain_Spinal_cord_cervical_c-1.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    log: log/annotate_eqtls.Brain_Spinal_cord_cervical_c-1.tsv
+    jobid: 78
+    benchmark: benchmark/annotate_eqtls.Brain_Spinal_cord_cervical_c-1.tsv
+    reason: Missing output files: Brain_Spinal_cord_cervical_c-1.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf; Input files updated by another job: GTEx_Analysis_v8_eQTL/Brain_Spinal_cord_cervical_c-1.v8.signif_variant_gene_pairs.txt.gz, hprc-v1.1-mc-grch38.pg
+    wildcards: tissue=Brain_Spinal_cord_cervical_c-1
+    resources: tmpdir=/tmp
+
+
+        python3 prepare_variant_paths.py -v GTEx_Analysis_v8_eQTL/Brain_Spinal_cord_cervical_c-1.v8.signif_variant_gene_pairs.txt.gz -s gtex_eqtls -l Brain_Spinal_cord_cervical_c-1 -p hprc-v1.1-mc-grch38.small.vcf.gz -g hprc-v1.1-mc-grch38.pg -o Brain_Spinal_cord_cervical_c-1.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf > log/annotate_eqtls.Brain_Spinal_cord_cervical_c-1.tsv
+        
+
+[Tue Aug 27 10:45:29 2024]
+rule annotate_eqtls:
+    input: prepare_variant_paths.py, GTEx_Analysis_v8_eQTL/Minor_Salivary_Gland.v8.signif_variant_gene_pairs.txt.gz, hprc-v1.1-mc-grch38.small.vcf.gz, hprc-v1.1-mc-grch38.pg
+    output: Minor_Salivary_Gland.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    log: log/annotate_eqtls.Minor_Salivary_Gland.tsv
+    jobid: 138
+    benchmark: benchmark/annotate_eqtls.Minor_Salivary_Gland.tsv
+    reason: Missing output files: Minor_Salivary_Gland.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf; Input files updated by another job: hprc-v1.1-mc-grch38.pg, GTEx_Analysis_v8_eQTL/Minor_Salivary_Gland.v8.signif_variant_gene_pairs.txt.gz
+    wildcards: tissue=Minor_Salivary_Gland
+    resources: tmpdir=/tmp
+
+
+        python3 prepare_variant_paths.py -v GTEx_Analysis_v8_eQTL/Minor_Salivary_Gland.v8.signif_variant_gene_pairs.txt.gz -s gtex_eqtls -l Minor_Salivary_Gland -p hprc-v1.1-mc-grch38.small.vcf.gz -g hprc-v1.1-mc-grch38.pg -o Minor_Salivary_Gland.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf > log/annotate_eqtls.Minor_Salivary_Gland.tsv
+        
+
+[Tue Aug 27 10:45:29 2024]
+rule annotate_eqtls:
+    input: prepare_variant_paths.py, GTEx_Analysis_v8_eQTL/Vagina.v8.signif_variant_gene_pairs.txt.gz, hprc-v1.1-mc-grch38.small.vcf.gz, hprc-v1.1-mc-grch38.pg
+    output: Vagina.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    log: log/annotate_eqtls.Vagina.tsv
+    jobid: 198
+    benchmark: benchmark/annotate_eqtls.Vagina.tsv
+    reason: Missing output files: Vagina.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf; Input files updated by another job: hprc-v1.1-mc-grch38.pg, GTEx_Analysis_v8_eQTL/Vagina.v8.signif_variant_gene_pairs.txt.gz
+    wildcards: tissue=Vagina
+    resources: tmpdir=/tmp
+
+
+        python3 prepare_variant_paths.py -v GTEx_Analysis_v8_eQTL/Vagina.v8.signif_variant_gene_pairs.txt.gz -s gtex_eqtls -l Vagina -p hprc-v1.1-mc-grch38.small.vcf.gz -g hprc-v1.1-mc-grch38.pg -o Vagina.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf > log/annotate_eqtls.Vagina.tsv
+        
+
+[Tue Aug 27 10:45:29 2024]
+rule annotate_eqtls:
+    input: prepare_variant_paths.py, GTEx_Analysis_v8_eQTL/Artery_Coronary.v8.signif_variant_gene_pairs.txt.gz, hprc-v1.1-mc-grch38.small.vcf.gz, hprc-v1.1-mc-grch38.pg
+    output: Artery_Coronary.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    log: log/annotate_eqtls.Artery_Coronary.tsv
+    jobid: 26
+    benchmark: benchmark/annotate_eqtls.Artery_Coronary.tsv
+    reason: Missing output files: Artery_Coronary.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf; Input files updated by another job: hprc-v1.1-mc-grch38.pg, GTEx_Analysis_v8_eQTL/Artery_Coronary.v8.signif_variant_gene_pairs.txt.gz
+    wildcards: tissue=Artery_Coronary
+    resources: tmpdir=/tmp
+
+
+        python3 prepare_variant_paths.py -v GTEx_Analysis_v8_eQTL/Artery_Coronary.v8.signif_variant_gene_pairs.txt.gz -s gtex_eqtls -l Artery_Coronary -p hprc-v1.1-mc-grch38.small.vcf.gz -g hprc-v1.1-mc-grch38.pg -o Artery_Coronary.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf > log/annotate_eqtls.Artery_Coronary.tsv
+        
+
+[Tue Aug 27 10:45:29 2024]
+rule annotate_eqtls:
+    input: prepare_variant_paths.py, GTEx_Analysis_v8_eQTL/Breast_Mammary_Tissue.v8.signif_variant_gene_pairs.txt.gz, hprc-v1.1-mc-grch38.small.vcf.gz, hprc-v1.1-mc-grch38.pg
+    output: Breast_Mammary_Tissue.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    log: log/annotate_eqtls.Breast_Mammary_Tissue.tsv
+    jobid: 86
+    benchmark: benchmark/annotate_eqtls.Breast_Mammary_Tissue.tsv
+    reason: Missing output files: Breast_Mammary_Tissue.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf; Input files updated by another job: GTEx_Analysis_v8_eQTL/Breast_Mammary_Tissue.v8.signif_variant_gene_pairs.txt.gz, hprc-v1.1-mc-grch38.pg
+    wildcards: tissue=Breast_Mammary_Tissue
+    resources: tmpdir=/tmp
+
+
+        python3 prepare_variant_paths.py -v GTEx_Analysis_v8_eQTL/Breast_Mammary_Tissue.v8.signif_variant_gene_pairs.txt.gz -s gtex_eqtls -l Breast_Mammary_Tissue -p hprc-v1.1-mc-grch38.small.vcf.gz -g hprc-v1.1-mc-grch38.pg -o Breast_Mammary_Tissue.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf > log/annotate_eqtls.Breast_Mammary_Tissue.tsv
+        
+
+[Tue Aug 27 10:45:29 2024]
+rule annotate_eqtls:
+    input: prepare_variant_paths.py, GTEx_Analysis_v8_eQTL/Nerve_Tibial.v8.signif_variant_gene_pairs.txt.gz, hprc-v1.1-mc-grch38.small.vcf.gz, hprc-v1.1-mc-grch38.pg
+    output: Nerve_Tibial.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    log: log/annotate_eqtls.Nerve_Tibial.tsv
+    jobid: 146
+    benchmark: benchmark/annotate_eqtls.Nerve_Tibial.tsv
+    reason: Missing output files: Nerve_Tibial.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf; Input files updated by another job: hprc-v1.1-mc-grch38.pg, GTEx_Analysis_v8_eQTL/Nerve_Tibial.v8.signif_variant_gene_pairs.txt.gz
+    wildcards: tissue=Nerve_Tibial
+    resources: tmpdir=/tmp
+
+
+        python3 prepare_variant_paths.py -v GTEx_Analysis_v8_eQTL/Nerve_Tibial.v8.signif_variant_gene_pairs.txt.gz -s gtex_eqtls -l Nerve_Tibial -p hprc-v1.1-mc-grch38.small.vcf.gz -g hprc-v1.1-mc-grch38.pg -o Nerve_Tibial.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf > log/annotate_eqtls.Nerve_Tibial.tsv
+        
+
+[Tue Aug 27 10:45:29 2024]
+rule annotate_eqtls:
+    input: prepare_variant_paths.py, GTEx_Analysis_v8_eQTL/Pituitary.v8.signif_variant_gene_pairs.txt.gz, hprc-v1.1-mc-grch38.small.vcf.gz, hprc-v1.1-mc-grch38.pg
+    output: Pituitary.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    log: log/annotate_eqtls.Pituitary.tsv
+    jobid: 158
+    benchmark: benchmark/annotate_eqtls.Pituitary.tsv
+    reason: Missing output files: Pituitary.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf; Input files updated by another job: GTEx_Analysis_v8_eQTL/Pituitary.v8.signif_variant_gene_pairs.txt.gz, hprc-v1.1-mc-grch38.pg
+    wildcards: tissue=Pituitary
+    resources: tmpdir=/tmp
+
+
+        python3 prepare_variant_paths.py -v GTEx_Analysis_v8_eQTL/Pituitary.v8.signif_variant_gene_pairs.txt.gz -s gtex_eqtls -l Pituitary -p hprc-v1.1-mc-grch38.small.vcf.gz -g hprc-v1.1-mc-grch38.pg -o Pituitary.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf > log/annotate_eqtls.Pituitary.tsv
+        
+
+[Tue Aug 27 10:45:29 2024]
+rule annotate_eqtls:
+    input: prepare_variant_paths.py, GTEx_Analysis_v8_eQTL/Brain_Amygdala.v8.signif_variant_gene_pairs.txt.gz, hprc-v1.1-mc-grch38.small.vcf.gz, hprc-v1.1-mc-grch38.pg
+    output: Brain_Amygdala.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    log: log/annotate_eqtls.Brain_Amygdala.tsv
+    jobid: 34
+    benchmark: benchmark/annotate_eqtls.Brain_Amygdala.tsv
+    reason: Missing output files: Brain_Amygdala.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf; Input files updated by another job: GTEx_Analysis_v8_eQTL/Brain_Amygdala.v8.signif_variant_gene_pairs.txt.gz, hprc-v1.1-mc-grch38.pg
+    wildcards: tissue=Brain_Amygdala
+    resources: tmpdir=/tmp
+
+
+        python3 prepare_variant_paths.py -v GTEx_Analysis_v8_eQTL/Brain_Amygdala.v8.signif_variant_gene_pairs.txt.gz -s gtex_eqtls -l Brain_Amygdala -p hprc-v1.1-mc-grch38.small.vcf.gz -g hprc-v1.1-mc-grch38.pg -o Brain_Amygdala.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf > log/annotate_eqtls.Brain_Amygdala.tsv
+        
+
+[Tue Aug 27 10:45:29 2024]
+rule annotate_eqtls:
+    input: prepare_variant_paths.py, GTEx_Analysis_v8_eQTL/Cells_EBV-transformed_lymphocytes.v8.signif_variant_gene_pairs.txt.gz, hprc-v1.1-mc-grch38.small.vcf.gz, hprc-v1.1-mc-grch38.pg
+    output: Cells_EBV-transformed_lymphocytes.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    log: log/annotate_eqtls.Cells_EBV-transformed_lymphocytes.tsv
+    jobid: 94
+    benchmark: benchmark/annotate_eqtls.Cells_EBV-transformed_lymphocytes.tsv
+    reason: Missing output files: Cells_EBV-transformed_lymphocytes.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf; Input files updated by another job: hprc-v1.1-mc-grch38.pg, GTEx_Analysis_v8_eQTL/Cells_EBV-transformed_lymphocytes.v8.signif_variant_gene_pairs.txt.gz
+    wildcards: tissue=Cells_EBV-transformed_lymphocytes
+    resources: tmpdir=/tmp
+
+
+        python3 prepare_variant_paths.py -v GTEx_Analysis_v8_eQTL/Cells_EBV-transformed_lymphocytes.v8.signif_variant_gene_pairs.txt.gz -s gtex_eqtls -l Cells_EBV-transformed_lymphocytes -p hprc-v1.1-mc-grch38.small.vcf.gz -g hprc-v1.1-mc-grch38.pg -o Cells_EBV-transformed_lymphocytes.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf > log/annotate_eqtls.Cells_EBV-transformed_lymphocytes.tsv
+        
+
+[Tue Aug 27 10:45:29 2024]
+rule annotate_eqtls:
+    input: prepare_variant_paths.py, GTEx_Analysis_v8_eQTL/Pancreas.v8.signif_variant_gene_pairs.txt.gz, hprc-v1.1-mc-grch38.small.vcf.gz, hprc-v1.1-mc-grch38.pg
+    output: Pancreas.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    log: log/annotate_eqtls.Pancreas.tsv
+    jobid: 154
+    benchmark: benchmark/annotate_eqtls.Pancreas.tsv
+    reason: Missing output files: Pancreas.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf; Input files updated by another job: GTEx_Analysis_v8_eQTL/Pancreas.v8.signif_variant_gene_pairs.txt.gz, hprc-v1.1-mc-grch38.pg
+    wildcards: tissue=Pancreas
+    resources: tmpdir=/tmp
+
+
+        python3 prepare_variant_paths.py -v GTEx_Analysis_v8_eQTL/Pancreas.v8.signif_variant_gene_pairs.txt.gz -s gtex_eqtls -l Pancreas -p hprc-v1.1-mc-grch38.small.vcf.gz -g hprc-v1.1-mc-grch38.pg -o Pancreas.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf > log/annotate_eqtls.Pancreas.tsv
+        
+
+[Tue Aug 27 10:45:29 2024]
+rule annotate_eqtls:
+    input: prepare_variant_paths.py, GTEx_Analysis_v8_eQTL/Brain_Caudate_basal_ganglia.v8.signif_variant_gene_pairs.txt.gz, hprc-v1.1-mc-grch38.small.vcf.gz, hprc-v1.1-mc-grch38.pg
+    output: Brain_Caudate_basal_ganglia.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    log: log/annotate_eqtls.Brain_Caudate_basal_ganglia.tsv
+    jobid: 42
+    benchmark: benchmark/annotate_eqtls.Brain_Caudate_basal_ganglia.tsv
+    reason: Missing output files: Brain_Caudate_basal_ganglia.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf; Input files updated by another job: hprc-v1.1-mc-grch38.pg, GTEx_Analysis_v8_eQTL/Brain_Caudate_basal_ganglia.v8.signif_variant_gene_pairs.txt.gz
+    wildcards: tissue=Brain_Caudate_basal_ganglia
+    resources: tmpdir=/tmp
+
+
+        python3 prepare_variant_paths.py -v GTEx_Analysis_v8_eQTL/Brain_Caudate_basal_ganglia.v8.signif_variant_gene_pairs.txt.gz -s gtex_eqtls -l Brain_Caudate_basal_ganglia -p hprc-v1.1-mc-grch38.small.vcf.gz -g hprc-v1.1-mc-grch38.pg -o Brain_Caudate_basal_ganglia.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf > log/annotate_eqtls.Brain_Caudate_basal_ganglia.tsv
+        
+
+[Tue Aug 27 10:45:29 2024]
+rule annotate_eqtls:
+    input: prepare_variant_paths.py, GTEx_Analysis_v8_eQTL/Colon_Transverse.v8.signif_variant_gene_pairs.txt.gz, hprc-v1.1-mc-grch38.small.vcf.gz, hprc-v1.1-mc-grch38.pg
+    output: Colon_Transverse.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    log: log/annotate_eqtls.Colon_Transverse.tsv
+    jobid: 102
+    benchmark: benchmark/annotate_eqtls.Colon_Transverse.tsv
+    reason: Missing output files: Colon_Transverse.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf; Input files updated by another job: hprc-v1.1-mc-grch38.pg, GTEx_Analysis_v8_eQTL/Colon_Transverse.v8.signif_variant_gene_pairs.txt.gz
+    wildcards: tissue=Colon_Transverse
+    resources: tmpdir=/tmp
+
+
+        python3 prepare_variant_paths.py -v GTEx_Analysis_v8_eQTL/Colon_Transverse.v8.signif_variant_gene_pairs.txt.gz -s gtex_eqtls -l Colon_Transverse -p hprc-v1.1-mc-grch38.small.vcf.gz -g hprc-v1.1-mc-grch38.pg -o Colon_Transverse.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf > log/annotate_eqtls.Colon_Transverse.tsv
+        
+
+[Tue Aug 27 10:45:29 2024]
+rule annotate_eqtls:
+    input: prepare_variant_paths.py, GTEx_Analysis_v8_eQTL/Prostate.v8.signif_variant_gene_pairs.txt.gz, hprc-v1.1-mc-grch38.small.vcf.gz, hprc-v1.1-mc-grch38.pg
+    output: Prostate.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    log: log/annotate_eqtls.Prostate.tsv
+    jobid: 162
+    benchmark: benchmark/annotate_eqtls.Prostate.tsv
+    reason: Missing output files: Prostate.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf; Input files updated by another job: hprc-v1.1-mc-grch38.pg, GTEx_Analysis_v8_eQTL/Prostate.v8.signif_variant_gene_pairs.txt.gz
+    wildcards: tissue=Prostate
+    resources: tmpdir=/tmp
+
+
+        python3 prepare_variant_paths.py -v GTEx_Analysis_v8_eQTL/Prostate.v8.signif_variant_gene_pairs.txt.gz -s gtex_eqtls -l Prostate -p hprc-v1.1-mc-grch38.small.vcf.gz -g hprc-v1.1-mc-grch38.pg -o Prostate.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf > log/annotate_eqtls.Prostate.tsv
+        
+
+[Tue Aug 27 10:45:29 2024]
+rule annotate_eqtls:
+    input: prepare_variant_paths.py, GTEx_Analysis_v8_eQTL/Brain_Cerebellum.v8.signif_variant_gene_pairs.txt.gz, hprc-v1.1-mc-grch38.small.vcf.gz, hprc-v1.1-mc-grch38.pg
+    output: Brain_Cerebellum.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    log: log/annotate_eqtls.Brain_Cerebellum.tsv
+    jobid: 50
+    benchmark: benchmark/annotate_eqtls.Brain_Cerebellum.tsv
+    reason: Missing output files: Brain_Cerebellum.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf; Input files updated by another job: hprc-v1.1-mc-grch38.pg, GTEx_Analysis_v8_eQTL/Brain_Cerebellum.v8.signif_variant_gene_pairs.txt.gz
+    wildcards: tissue=Brain_Cerebellum
+    resources: tmpdir=/tmp
+
+
+        python3 prepare_variant_paths.py -v GTEx_Analysis_v8_eQTL/Brain_Cerebellum.v8.signif_variant_gene_pairs.txt.gz -s gtex_eqtls -l Brain_Cerebellum -p hprc-v1.1-mc-grch38.small.vcf.gz -g hprc-v1.1-mc-grch38.pg -o Brain_Cerebellum.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf > log/annotate_eqtls.Brain_Cerebellum.tsv
+        
+
+[Tue Aug 27 10:45:29 2024]
+rule annotate_eqtls:
+    input: prepare_variant_paths.py, GTEx_Analysis_v8_eQTL/Esophagus_Mucosa.v8.signif_variant_gene_pairs.txt.gz, hprc-v1.1-mc-grch38.small.vcf.gz, hprc-v1.1-mc-grch38.pg
+    output: Esophagus_Mucosa.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    log: log/annotate_eqtls.Esophagus_Mucosa.tsv
+    jobid: 110
+    benchmark: benchmark/annotate_eqtls.Esophagus_Mucosa.tsv
+    reason: Missing output files: Esophagus_Mucosa.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf; Input files updated by another job: hprc-v1.1-mc-grch38.pg, GTEx_Analysis_v8_eQTL/Esophagus_Mucosa.v8.signif_variant_gene_pairs.txt.gz
+    wildcards: tissue=Esophagus_Mucosa
+    resources: tmpdir=/tmp
+
+
+        python3 prepare_variant_paths.py -v GTEx_Analysis_v8_eQTL/Esophagus_Mucosa.v8.signif_variant_gene_pairs.txt.gz -s gtex_eqtls -l Esophagus_Mucosa -p hprc-v1.1-mc-grch38.small.vcf.gz -g hprc-v1.1-mc-grch38.pg -o Esophagus_Mucosa.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf > log/annotate_eqtls.Esophagus_Mucosa.tsv
+        
+
+[Tue Aug 27 10:45:29 2024]
+rule annotate_eqtls:
+    input: prepare_variant_paths.py, GTEx_Analysis_v8_eQTL/Skin_Sun_Exposed_Lower_leg.v8.signif_variant_gene_pairs.txt.gz, hprc-v1.1-mc-grch38.small.vcf.gz, hprc-v1.1-mc-grch38.pg
+    output: Skin_Sun_Exposed_Lower_leg.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    log: log/annotate_eqtls.Skin_Sun_Exposed_Lower_leg.tsv
+    jobid: 170
+    benchmark: benchmark/annotate_eqtls.Skin_Sun_Exposed_Lower_leg.tsv
+    reason: Missing output files: Skin_Sun_Exposed_Lower_leg.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf; Input files updated by another job: hprc-v1.1-mc-grch38.pg, GTEx_Analysis_v8_eQTL/Skin_Sun_Exposed_Lower_leg.v8.signif_variant_gene_pairs.txt.gz
+    wildcards: tissue=Skin_Sun_Exposed_Lower_leg
+    resources: tmpdir=/tmp
+
+
+        python3 prepare_variant_paths.py -v GTEx_Analysis_v8_eQTL/Skin_Sun_Exposed_Lower_leg.v8.signif_variant_gene_pairs.txt.gz -s gtex_eqtls -l Skin_Sun_Exposed_Lower_leg -p hprc-v1.1-mc-grch38.small.vcf.gz -g hprc-v1.1-mc-grch38.pg -o Skin_Sun_Exposed_Lower_leg.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf > log/annotate_eqtls.Skin_Sun_Exposed_Lower_leg.tsv
+        
+
+[Tue Aug 27 10:45:29 2024]
+rule annotate_eqtls:
+    input: prepare_variant_paths.py, GTEx_Analysis_v8_eQTL/Brain_Frontal_Cortex_BA9.v8.signif_variant_gene_pairs.txt.gz, hprc-v1.1-mc-grch38.small.vcf.gz, hprc-v1.1-mc-grch38.pg
+    output: Brain_Frontal_Cortex_BA9.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    log: log/annotate_eqtls.Brain_Frontal_Cortex_BA9.tsv
+    jobid: 58
+    benchmark: benchmark/annotate_eqtls.Brain_Frontal_Cortex_BA9.tsv
+    reason: Missing output files: Brain_Frontal_Cortex_BA9.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf; Input files updated by another job: hprc-v1.1-mc-grch38.pg, GTEx_Analysis_v8_eQTL/Brain_Frontal_Cortex_BA9.v8.signif_variant_gene_pairs.txt.gz
+    wildcards: tissue=Brain_Frontal_Cortex_BA9
+    resources: tmpdir=/tmp
+
+
+        python3 prepare_variant_paths.py -v GTEx_Analysis_v8_eQTL/Brain_Frontal_Cortex_BA9.v8.signif_variant_gene_pairs.txt.gz -s gtex_eqtls -l Brain_Frontal_Cortex_BA9 -p hprc-v1.1-mc-grch38.small.vcf.gz -g hprc-v1.1-mc-grch38.pg -o Brain_Frontal_Cortex_BA9.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf > log/annotate_eqtls.Brain_Frontal_Cortex_BA9.tsv
+        
+
+[Tue Aug 27 10:45:29 2024]
+rule annotate_eqtls:
+    input: prepare_variant_paths.py, GTEx_Analysis_v8_eQTL/Heart_Atrial_Appendage.v8.signif_variant_gene_pairs.txt.gz, hprc-v1.1-mc-grch38.small.vcf.gz, hprc-v1.1-mc-grch38.pg
+    output: Heart_Atrial_Appendage.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    log: log/annotate_eqtls.Heart_Atrial_Appendage.tsv
+    jobid: 118
+    benchmark: benchmark/annotate_eqtls.Heart_Atrial_Appendage.tsv
+    reason: Missing output files: Heart_Atrial_Appendage.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf; Input files updated by another job: hprc-v1.1-mc-grch38.pg, GTEx_Analysis_v8_eQTL/Heart_Atrial_Appendage.v8.signif_variant_gene_pairs.txt.gz
+    wildcards: tissue=Heart_Atrial_Appendage
+    resources: tmpdir=/tmp
+
+
+        python3 prepare_variant_paths.py -v GTEx_Analysis_v8_eQTL/Heart_Atrial_Appendage.v8.signif_variant_gene_pairs.txt.gz -s gtex_eqtls -l Heart_Atrial_Appendage -p hprc-v1.1-mc-grch38.small.vcf.gz -g hprc-v1.1-mc-grch38.pg -o Heart_Atrial_Appendage.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf > log/annotate_eqtls.Heart_Atrial_Appendage.tsv
+        
+
+[Tue Aug 27 10:45:29 2024]
+rule annotate_eqtls:
+    input: prepare_variant_paths.py, GTEx_Analysis_v8_eQTL/Spleen.v8.signif_variant_gene_pairs.txt.gz, hprc-v1.1-mc-grch38.small.vcf.gz, hprc-v1.1-mc-grch38.pg
+    output: Spleen.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    log: log/annotate_eqtls.Spleen.tsv
+    jobid: 178
+    benchmark: benchmark/annotate_eqtls.Spleen.tsv
+    reason: Missing output files: Spleen.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf; Input files updated by another job: hprc-v1.1-mc-grch38.pg, GTEx_Analysis_v8_eQTL/Spleen.v8.signif_variant_gene_pairs.txt.gz
+    wildcards: tissue=Spleen
+    resources: tmpdir=/tmp
+
+
+        python3 prepare_variant_paths.py -v GTEx_Analysis_v8_eQTL/Spleen.v8.signif_variant_gene_pairs.txt.gz -s gtex_eqtls -l Spleen -p hprc-v1.1-mc-grch38.small.vcf.gz -g hprc-v1.1-mc-grch38.pg -o Spleen.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf > log/annotate_eqtls.Spleen.tsv
+        
+
+[Tue Aug 27 10:45:29 2024]
+rule annotate_eqtls:
+    input: prepare_variant_paths.py, GTEx_Analysis_v8_eQTL/Brain_Hypothalamus.v8.signif_variant_gene_pairs.txt.gz, hprc-v1.1-mc-grch38.small.vcf.gz, hprc-v1.1-mc-grch38.pg
+    output: Brain_Hypothalamus.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    log: log/annotate_eqtls.Brain_Hypothalamus.tsv
+    jobid: 66
+    benchmark: benchmark/annotate_eqtls.Brain_Hypothalamus.tsv
+    reason: Missing output files: Brain_Hypothalamus.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf; Input files updated by another job: hprc-v1.1-mc-grch38.pg, GTEx_Analysis_v8_eQTL/Brain_Hypothalamus.v8.signif_variant_gene_pairs.txt.gz
+    wildcards: tissue=Brain_Hypothalamus
+    resources: tmpdir=/tmp
+
+
+        python3 prepare_variant_paths.py -v GTEx_Analysis_v8_eQTL/Brain_Hypothalamus.v8.signif_variant_gene_pairs.txt.gz -s gtex_eqtls -l Brain_Hypothalamus -p hprc-v1.1-mc-grch38.small.vcf.gz -g hprc-v1.1-mc-grch38.pg -o Brain_Hypothalamus.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf > log/annotate_eqtls.Brain_Hypothalamus.tsv
+        
+
+[Tue Aug 27 10:45:29 2024]
+rule annotate_eqtls:
+    input: prepare_variant_paths.py, GTEx_Analysis_v8_eQTL/Kidney_Cortex.v8.signif_variant_gene_pairs.txt.gz, hprc-v1.1-mc-grch38.small.vcf.gz, hprc-v1.1-mc-grch38.pg
+    output: Kidney_Cortex.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    log: log/annotate_eqtls.Kidney_Cortex.tsv
+    jobid: 126
+    benchmark: benchmark/annotate_eqtls.Kidney_Cortex.tsv
+    reason: Missing output files: Kidney_Cortex.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf; Input files updated by another job: hprc-v1.1-mc-grch38.pg, GTEx_Analysis_v8_eQTL/Kidney_Cortex.v8.signif_variant_gene_pairs.txt.gz
+    wildcards: tissue=Kidney_Cortex
+    resources: tmpdir=/tmp
+
+
+        python3 prepare_variant_paths.py -v GTEx_Analysis_v8_eQTL/Kidney_Cortex.v8.signif_variant_gene_pairs.txt.gz -s gtex_eqtls -l Kidney_Cortex -p hprc-v1.1-mc-grch38.small.vcf.gz -g hprc-v1.1-mc-grch38.pg -o Kidney_Cortex.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf > log/annotate_eqtls.Kidney_Cortex.tsv
+        
+
+[Tue Aug 27 10:45:29 2024]
+rule annotate_eqtls:
+    input: prepare_variant_paths.py, GTEx_Analysis_v8_eQTL/Testis.v8.signif_variant_gene_pairs.txt.gz, hprc-v1.1-mc-grch38.small.vcf.gz, hprc-v1.1-mc-grch38.pg
+    output: Testis.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    log: log/annotate_eqtls.Testis.tsv
+    jobid: 186
+    benchmark: benchmark/annotate_eqtls.Testis.tsv
+    reason: Missing output files: Testis.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf; Input files updated by another job: hprc-v1.1-mc-grch38.pg, GTEx_Analysis_v8_eQTL/Testis.v8.signif_variant_gene_pairs.txt.gz
+    wildcards: tissue=Testis
+    resources: tmpdir=/tmp
+
+
+        python3 prepare_variant_paths.py -v GTEx_Analysis_v8_eQTL/Testis.v8.signif_variant_gene_pairs.txt.gz -s gtex_eqtls -l Testis -p hprc-v1.1-mc-grch38.small.vcf.gz -g hprc-v1.1-mc-grch38.pg -o Testis.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf > log/annotate_eqtls.Testis.tsv
+        
+
+[Tue Aug 27 10:45:29 2024]
+rule annotate_eqtls:
+    input: prepare_variant_paths.py, GTEx_Analysis_v8_eQTL/Adipose_Visceral_Omentum.v8.signif_variant_gene_pairs.txt.gz, hprc-v1.1-mc-grch38.small.vcf.gz, hprc-v1.1-mc-grch38.pg
+    output: Adipose_Visceral_Omentum.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    log: log/annotate_eqtls.Adipose_Visceral_Omentum.tsv
+    jobid: 14
+    benchmark: benchmark/annotate_eqtls.Adipose_Visceral_Omentum.tsv
+    reason: Missing output files: Adipose_Visceral_Omentum.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf; Input files updated by another job: hprc-v1.1-mc-grch38.pg, GTEx_Analysis_v8_eQTL/Adipose_Visceral_Omentum.v8.signif_variant_gene_pairs.txt.gz
+    wildcards: tissue=Adipose_Visceral_Omentum
+    resources: tmpdir=/tmp
+
+
+        python3 prepare_variant_paths.py -v GTEx_Analysis_v8_eQTL/Adipose_Visceral_Omentum.v8.signif_variant_gene_pairs.txt.gz -s gtex_eqtls -l Adipose_Visceral_Omentum -p hprc-v1.1-mc-grch38.small.vcf.gz -g hprc-v1.1-mc-grch38.pg -o Adipose_Visceral_Omentum.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf > log/annotate_eqtls.Adipose_Visceral_Omentum.tsv
+        
+
+[Tue Aug 27 10:45:29 2024]
+rule annotate_eqtls:
+    input: prepare_variant_paths.py, GTEx_Analysis_v8_eQTL/Brain_Putamen_basal_ganglia.v8.signif_variant_gene_pairs.txt.gz, hprc-v1.1-mc-grch38.small.vcf.gz, hprc-v1.1-mc-grch38.pg
+    output: Brain_Putamen_basal_ganglia.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    log: log/annotate_eqtls.Brain_Putamen_basal_ganglia.tsv
+    jobid: 74
+    benchmark: benchmark/annotate_eqtls.Brain_Putamen_basal_ganglia.tsv
+    reason: Missing output files: Brain_Putamen_basal_ganglia.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf; Input files updated by another job: hprc-v1.1-mc-grch38.pg, GTEx_Analysis_v8_eQTL/Brain_Putamen_basal_ganglia.v8.signif_variant_gene_pairs.txt.gz
+    wildcards: tissue=Brain_Putamen_basal_ganglia
+    resources: tmpdir=/tmp
+
+
+        python3 prepare_variant_paths.py -v GTEx_Analysis_v8_eQTL/Brain_Putamen_basal_ganglia.v8.signif_variant_gene_pairs.txt.gz -s gtex_eqtls -l Brain_Putamen_basal_ganglia -p hprc-v1.1-mc-grch38.small.vcf.gz -g hprc-v1.1-mc-grch38.pg -o Brain_Putamen_basal_ganglia.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf > log/annotate_eqtls.Brain_Putamen_basal_ganglia.tsv
+        
+
+[Tue Aug 27 10:45:29 2024]
+rule annotate_eqtls:
+    input: prepare_variant_paths.py, GTEx_Analysis_v8_eQTL/Lung.v8.signif_variant_gene_pairs.txt.gz, hprc-v1.1-mc-grch38.small.vcf.gz, hprc-v1.1-mc-grch38.pg
+    output: Lung.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    log: log/annotate_eqtls.Lung.tsv
+    jobid: 134
+    benchmark: benchmark/annotate_eqtls.Lung.tsv
+    reason: Missing output files: Lung.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf; Input files updated by another job: GTEx_Analysis_v8_eQTL/Lung.v8.signif_variant_gene_pairs.txt.gz, hprc-v1.1-mc-grch38.pg
+    wildcards: tissue=Lung
+    resources: tmpdir=/tmp
+
+
+        python3 prepare_variant_paths.py -v GTEx_Analysis_v8_eQTL/Lung.v8.signif_variant_gene_pairs.txt.gz -s gtex_eqtls -l Lung -p hprc-v1.1-mc-grch38.small.vcf.gz -g hprc-v1.1-mc-grch38.pg -o Lung.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf > log/annotate_eqtls.Lung.tsv
+        
+
+[Tue Aug 27 10:45:29 2024]
+rule annotate_eqtls:
+    input: prepare_variant_paths.py, GTEx_Analysis_v8_eQTL/Uterus.v8.signif_variant_gene_pairs.txt.gz, hprc-v1.1-mc-grch38.small.vcf.gz, hprc-v1.1-mc-grch38.pg
+    output: Uterus.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    log: log/annotate_eqtls.Uterus.tsv
+    jobid: 194
+    benchmark: benchmark/annotate_eqtls.Uterus.tsv
+    reason: Missing output files: Uterus.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf; Input files updated by another job: hprc-v1.1-mc-grch38.pg, GTEx_Analysis_v8_eQTL/Uterus.v8.signif_variant_gene_pairs.txt.gz
+    wildcards: tissue=Uterus
+    resources: tmpdir=/tmp
+
+
+        python3 prepare_variant_paths.py -v GTEx_Analysis_v8_eQTL/Uterus.v8.signif_variant_gene_pairs.txt.gz -s gtex_eqtls -l Uterus -p hprc-v1.1-mc-grch38.small.vcf.gz -g hprc-v1.1-mc-grch38.pg -o Uterus.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf > log/annotate_eqtls.Uterus.tsv
+        
+
+[Tue Aug 27 10:45:29 2024]
+rule annotate_eqtls:
+    input: prepare_variant_paths.py, GTEx_Analysis_v8_eQTL/Muscle_Skeletal.v8.signif_variant_gene_pairs.txt.gz, hprc-v1.1-mc-grch38.small.vcf.gz, hprc-v1.1-mc-grch38.pg
+    output: Muscle_Skeletal.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    log: log/annotate_eqtls.Muscle_Skeletal.tsv
+    jobid: 142
+    benchmark: benchmark/annotate_eqtls.Muscle_Skeletal.tsv
+    reason: Missing output files: Muscle_Skeletal.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf; Input files updated by another job: hprc-v1.1-mc-grch38.pg, GTEx_Analysis_v8_eQTL/Muscle_Skeletal.v8.signif_variant_gene_pairs.txt.gz
+    wildcards: tissue=Muscle_Skeletal
+    resources: tmpdir=/tmp
+
+
+        python3 prepare_variant_paths.py -v GTEx_Analysis_v8_eQTL/Muscle_Skeletal.v8.signif_variant_gene_pairs.txt.gz -s gtex_eqtls -l Muscle_Skeletal -p hprc-v1.1-mc-grch38.small.vcf.gz -g hprc-v1.1-mc-grch38.pg -o Muscle_Skeletal.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf > log/annotate_eqtls.Muscle_Skeletal.tsv
+        
+
+[Tue Aug 27 10:45:29 2024]
+rule annotate_eqtls:
+    input: prepare_variant_paths.py, GTEx_Analysis_v8_eQTL/Whole_Blood.v8.signif_variant_gene_pairs.txt.gz, hprc-v1.1-mc-grch38.small.vcf.gz, hprc-v1.1-mc-grch38.pg
+    output: Whole_Blood.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    log: log/annotate_eqtls.Whole_Blood.tsv
+    jobid: 202
+    benchmark: benchmark/annotate_eqtls.Whole_Blood.tsv
+    reason: Missing output files: Whole_Blood.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf; Input files updated by another job: hprc-v1.1-mc-grch38.pg, GTEx_Analysis_v8_eQTL/Whole_Blood.v8.signif_variant_gene_pairs.txt.gz
+    wildcards: tissue=Whole_Blood
+    resources: tmpdir=/tmp
+
+
+        python3 prepare_variant_paths.py -v GTEx_Analysis_v8_eQTL/Whole_Blood.v8.signif_variant_gene_pairs.txt.gz -s gtex_eqtls -l Whole_Blood -p hprc-v1.1-mc-grch38.small.vcf.gz -g hprc-v1.1-mc-grch38.pg -o Whole_Blood.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf > log/annotate_eqtls.Whole_Blood.tsv
+        
+
+[Tue Aug 27 10:45:29 2024]
+rule annotate_eqtls:
+    input: prepare_variant_paths.py, GTEx_Analysis_v8_eQTL/Artery_Aorta.v8.signif_variant_gene_pairs.txt.gz, hprc-v1.1-mc-grch38.small.vcf.gz, hprc-v1.1-mc-grch38.pg
+    output: Artery_Aorta.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    log: log/annotate_eqtls.Artery_Aorta.tsv
+    jobid: 22
+    benchmark: benchmark/annotate_eqtls.Artery_Aorta.tsv
+    reason: Missing output files: Artery_Aorta.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf; Input files updated by another job: hprc-v1.1-mc-grch38.pg, GTEx_Analysis_v8_eQTL/Artery_Aorta.v8.signif_variant_gene_pairs.txt.gz
+    wildcards: tissue=Artery_Aorta
+    resources: tmpdir=/tmp
+
+
+        python3 prepare_variant_paths.py -v GTEx_Analysis_v8_eQTL/Artery_Aorta.v8.signif_variant_gene_pairs.txt.gz -s gtex_eqtls -l Artery_Aorta -p hprc-v1.1-mc-grch38.small.vcf.gz -g hprc-v1.1-mc-grch38.pg -o Artery_Aorta.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf > log/annotate_eqtls.Artery_Aorta.tsv
+        
+
+[Tue Aug 27 10:45:29 2024]
+rule annotate_eqtls:
+    input: prepare_variant_paths.py, GTEx_Analysis_v8_eQTL/Brain_Substantia_nigra.v8.signif_variant_gene_pairs.txt.gz, hprc-v1.1-mc-grch38.small.vcf.gz, hprc-v1.1-mc-grch38.pg
+    output: Brain_Substantia_nigra.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    log: log/annotate_eqtls.Brain_Substantia_nigra.tsv
+    jobid: 82
+    benchmark: benchmark/annotate_eqtls.Brain_Substantia_nigra.tsv
+    reason: Missing output files: Brain_Substantia_nigra.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf; Input files updated by another job: hprc-v1.1-mc-grch38.pg, GTEx_Analysis_v8_eQTL/Brain_Substantia_nigra.v8.signif_variant_gene_pairs.txt.gz
+    wildcards: tissue=Brain_Substantia_nigra
+    resources: tmpdir=/tmp
+
+
+        python3 prepare_variant_paths.py -v GTEx_Analysis_v8_eQTL/Brain_Substantia_nigra.v8.signif_variant_gene_pairs.txt.gz -s gtex_eqtls -l Brain_Substantia_nigra -p hprc-v1.1-mc-grch38.small.vcf.gz -g hprc-v1.1-mc-grch38.pg -o Brain_Substantia_nigra.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf > log/annotate_eqtls.Brain_Substantia_nigra.tsv
+        
+
+[Tue Aug 27 10:45:29 2024]
+rule annotate_eqtls:
+    input: prepare_variant_paths.py, GTEx_Analysis_v8_eQTL/Brain_Anterior_cingulate_cortex_BA24.v8.signif_variant_gene_pairs.txt.gz, hprc-v1.1-mc-grch38.small.vcf.gz, hprc-v1.1-mc-grch38.pg
+    output: Brain_Anterior_cingulate_cortex_BA24.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    log: log/annotate_eqtls.Brain_Anterior_cingulate_cortex_BA24.tsv
+    jobid: 38
+    benchmark: benchmark/annotate_eqtls.Brain_Anterior_cingulate_cortex_BA24.tsv
+    reason: Missing output files: Brain_Anterior_cingulate_cortex_BA24.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf; Input files updated by another job: GTEx_Analysis_v8_eQTL/Brain_Anterior_cingulate_cortex_BA24.v8.signif_variant_gene_pairs.txt.gz, hprc-v1.1-mc-grch38.pg
+    wildcards: tissue=Brain_Anterior_cingulate_cortex_BA24
+    resources: tmpdir=/tmp
+
+
+        python3 prepare_variant_paths.py -v GTEx_Analysis_v8_eQTL/Brain_Anterior_cingulate_cortex_BA24.v8.signif_variant_gene_pairs.txt.gz -s gtex_eqtls -l Brain_Anterior_cingulate_cortex_BA24 -p hprc-v1.1-mc-grch38.small.vcf.gz -g hprc-v1.1-mc-grch38.pg -o Brain_Anterior_cingulate_cortex_BA24.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf > log/annotate_eqtls.Brain_Anterior_cingulate_cortex_BA24.tsv
+        
+
+[Tue Aug 27 10:45:29 2024]
+rule annotate_eqtls:
+    input: prepare_variant_paths.py, GTEx_Analysis_v8_eQTL/Artery_Tibial.v8.signif_variant_gene_pairs.txt.gz, hprc-v1.1-mc-grch38.small.vcf.gz, hprc-v1.1-mc-grch38.pg
+    output: Artery_Tibial.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    log: log/annotate_eqtls.Artery_Tibial.tsv
+    jobid: 30
+    benchmark: benchmark/annotate_eqtls.Artery_Tibial.tsv
+    reason: Missing output files: Artery_Tibial.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf; Input files updated by another job: GTEx_Analysis_v8_eQTL/Artery_Tibial.v8.signif_variant_gene_pairs.txt.gz, hprc-v1.1-mc-grch38.pg
+    wildcards: tissue=Artery_Tibial
+    resources: tmpdir=/tmp
+
+
+        python3 prepare_variant_paths.py -v GTEx_Analysis_v8_eQTL/Artery_Tibial.v8.signif_variant_gene_pairs.txt.gz -s gtex_eqtls -l Artery_Tibial -p hprc-v1.1-mc-grch38.small.vcf.gz -g hprc-v1.1-mc-grch38.pg -o Artery_Tibial.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf > log/annotate_eqtls.Artery_Tibial.tsv
+        
+
+[Tue Aug 27 10:45:29 2024]
+rule annotate_eqtls:
+    input: prepare_variant_paths.py, GTEx_Analysis_v8_eQTL/Cells_Cultured_fibroblasts.v8.signif_variant_gene_pairs.txt.gz, hprc-v1.1-mc-grch38.small.vcf.gz, hprc-v1.1-mc-grch38.pg
+    output: Cells_Cultured_fibroblasts.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    log: log/annotate_eqtls.Cells_Cultured_fibroblasts.tsv
+    jobid: 90
+    benchmark: benchmark/annotate_eqtls.Cells_Cultured_fibroblasts.tsv
+    reason: Missing output files: Cells_Cultured_fibroblasts.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf; Input files updated by another job: hprc-v1.1-mc-grch38.pg, GTEx_Analysis_v8_eQTL/Cells_Cultured_fibroblasts.v8.signif_variant_gene_pairs.txt.gz
+    wildcards: tissue=Cells_Cultured_fibroblasts
+    resources: tmpdir=/tmp
+
+
+        python3 prepare_variant_paths.py -v GTEx_Analysis_v8_eQTL/Cells_Cultured_fibroblasts.v8.signif_variant_gene_pairs.txt.gz -s gtex_eqtls -l Cells_Cultured_fibroblasts -p hprc-v1.1-mc-grch38.small.vcf.gz -g hprc-v1.1-mc-grch38.pg -o Cells_Cultured_fibroblasts.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf > log/annotate_eqtls.Cells_Cultured_fibroblasts.tsv
+        
+
+[Tue Aug 27 10:45:29 2024]
+rule annotate_eqtls:
+    input: prepare_variant_paths.py, GTEx_Analysis_v8_eQTL/Ovary.v8.signif_variant_gene_pairs.txt.gz, hprc-v1.1-mc-grch38.small.vcf.gz, hprc-v1.1-mc-grch38.pg
+    output: Ovary.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    log: log/annotate_eqtls.Ovary.tsv
+    jobid: 150
+    benchmark: benchmark/annotate_eqtls.Ovary.tsv
+    reason: Missing output files: Ovary.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf; Input files updated by another job: hprc-v1.1-mc-grch38.pg, GTEx_Analysis_v8_eQTL/Ovary.v8.signif_variant_gene_pairs.txt.gz
+    wildcards: tissue=Ovary
+    resources: tmpdir=/tmp
+
+
+        python3 prepare_variant_paths.py -v GTEx_Analysis_v8_eQTL/Ovary.v8.signif_variant_gene_pairs.txt.gz -s gtex_eqtls -l Ovary -p hprc-v1.1-mc-grch38.small.vcf.gz -g hprc-v1.1-mc-grch38.pg -o Ovary.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf > log/annotate_eqtls.Ovary.tsv
+        
+
+[Tue Aug 27 10:45:29 2024]
+rule annotate_eqtls:
+    input: prepare_variant_paths.py, GTEx_Analysis_v8_eQTL/Colon_Sigmoid.v8.signif_variant_gene_pairs.txt.gz, hprc-v1.1-mc-grch38.small.vcf.gz, hprc-v1.1-mc-grch38.pg
+    output: Colon_Sigmoid.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    log: log/annotate_eqtls.Colon_Sigmoid.tsv
+    jobid: 98
+    benchmark: benchmark/annotate_eqtls.Colon_Sigmoid.tsv
+    reason: Missing output files: Colon_Sigmoid.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf; Input files updated by another job: hprc-v1.1-mc-grch38.pg, GTEx_Analysis_v8_eQTL/Colon_Sigmoid.v8.signif_variant_gene_pairs.txt.gz
+    wildcards: tissue=Colon_Sigmoid
+    resources: tmpdir=/tmp
+
+
+        python3 prepare_variant_paths.py -v GTEx_Analysis_v8_eQTL/Colon_Sigmoid.v8.signif_variant_gene_pairs.txt.gz -s gtex_eqtls -l Colon_Sigmoid -p hprc-v1.1-mc-grch38.small.vcf.gz -g hprc-v1.1-mc-grch38.pg -o Colon_Sigmoid.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf > log/annotate_eqtls.Colon_Sigmoid.tsv
+        
+Would remove temporary output GTEx_Analysis_v8_eQTL/Brain_Cerebellar_Hemisphere.v8.signif_variant_gene_pairs.txt.gz
+Would remove temporary output GTEx_Analysis_v8_eQTL/Esophagus_Gastroesophageal_Junction.v8.signif_variant_gene_pairs.txt.gz
+Would remove temporary output GTEx_Analysis_v8_eQTL/Skin_Not_Sun_Exposed_Suprapubic.v8.signif_variant_gene_pairs.txt.gz
+Would remove temporary output GTEx_Analysis_v8_eQTL/Adipose_Subcutaneous.v8.signif_variant_gene_pairs.txt.gz
+Would remove temporary output GTEx_Analysis_v8_eQTL/Brain_Cortex.v8.signif_variant_gene_pairs.txt.gz
+Would remove temporary output GTEx_Analysis_v8_eQTL/Esophagus_Muscularis.v8.signif_variant_gene_pairs.txt.gz
+Would remove temporary output GTEx_Analysis_v8_eQTL/Small_Intestine_Terminal_Ileum.v8.signif_variant_gene_pairs.txt.gz
+Would remove temporary output GTEx_Analysis_v8_eQTL/Brain_Hippocampus.v8.signif_variant_gene_pairs.txt.gz
+Would remove temporary output GTEx_Analysis_v8_eQTL/Heart_Left_Ventricle.v8.signif_variant_gene_pairs.txt.gz
+Would remove temporary output GTEx_Analysis_v8_eQTL/Stomach.v8.signif_variant_gene_pairs.txt.gz
+Would remove temporary output GTEx_Analysis_v8_eQTL/Liver.v8.signif_variant_gene_pairs.txt.gz
+Would remove temporary output GTEx_Analysis_v8_eQTL/Brain_Nucleus_accumbens_basal_ganglia.v8.signif_variant_gene_pairs.txt.gz
+Would remove temporary output GTEx_Analysis_v8_eQTL/Thyroid.v8.signif_variant_gene_pairs.txt.gz
+Would remove temporary output GTEx_Analysis_v8_eQTL/Adrenal_Gland.v8.signif_variant_gene_pairs.txt.gz
+Would remove temporary output GTEx_Analysis_v8_eQTL/Brain_Spinal_cord_cervical_c-1.v8.signif_variant_gene_pairs.txt.gz
+Would remove temporary output GTEx_Analysis_v8_eQTL/Minor_Salivary_Gland.v8.signif_variant_gene_pairs.txt.gz
+Would remove temporary output GTEx_Analysis_v8_eQTL/Vagina.v8.signif_variant_gene_pairs.txt.gz
+Would remove temporary output GTEx_Analysis_v8_eQTL/Artery_Coronary.v8.signif_variant_gene_pairs.txt.gz
+Would remove temporary output GTEx_Analysis_v8_eQTL/Breast_Mammary_Tissue.v8.signif_variant_gene_pairs.txt.gz
+Would remove temporary output GTEx_Analysis_v8_eQTL/Nerve_Tibial.v8.signif_variant_gene_pairs.txt.gz
+Would remove temporary output GTEx_Analysis_v8_eQTL/Pituitary.v8.signif_variant_gene_pairs.txt.gz
+Would remove temporary output GTEx_Analysis_v8_eQTL/Brain_Amygdala.v8.signif_variant_gene_pairs.txt.gz
+Would remove temporary output GTEx_Analysis_v8_eQTL/Cells_EBV-transformed_lymphocytes.v8.signif_variant_gene_pairs.txt.gz
+Would remove temporary output GTEx_Analysis_v8_eQTL/Pancreas.v8.signif_variant_gene_pairs.txt.gz
+Would remove temporary output GTEx_Analysis_v8_eQTL/Brain_Caudate_basal_ganglia.v8.signif_variant_gene_pairs.txt.gz
+Would remove temporary output GTEx_Analysis_v8_eQTL/Colon_Transverse.v8.signif_variant_gene_pairs.txt.gz
+Would remove temporary output GTEx_Analysis_v8_eQTL/Prostate.v8.signif_variant_gene_pairs.txt.gz
+Would remove temporary output GTEx_Analysis_v8_eQTL/Brain_Cerebellum.v8.signif_variant_gene_pairs.txt.gz
+Would remove temporary output GTEx_Analysis_v8_eQTL/Esophagus_Mucosa.v8.signif_variant_gene_pairs.txt.gz
+Would remove temporary output GTEx_Analysis_v8_eQTL/Skin_Sun_Exposed_Lower_leg.v8.signif_variant_gene_pairs.txt.gz
+Would remove temporary output GTEx_Analysis_v8_eQTL/Brain_Frontal_Cortex_BA9.v8.signif_variant_gene_pairs.txt.gz
+Would remove temporary output GTEx_Analysis_v8_eQTL/Heart_Atrial_Appendage.v8.signif_variant_gene_pairs.txt.gz
+Would remove temporary output GTEx_Analysis_v8_eQTL/Spleen.v8.signif_variant_gene_pairs.txt.gz
+Would remove temporary output GTEx_Analysis_v8_eQTL/Brain_Hypothalamus.v8.signif_variant_gene_pairs.txt.gz
+Would remove temporary output GTEx_Analysis_v8_eQTL/Kidney_Cortex.v8.signif_variant_gene_pairs.txt.gz
+Would remove temporary output GTEx_Analysis_v8_eQTL/Testis.v8.signif_variant_gene_pairs.txt.gz
+Would remove temporary output GTEx_Analysis_v8_eQTL/Adipose_Visceral_Omentum.v8.signif_variant_gene_pairs.txt.gz
+Would remove temporary output GTEx_Analysis_v8_eQTL/Brain_Putamen_basal_ganglia.v8.signif_variant_gene_pairs.txt.gz
+Would remove temporary output GTEx_Analysis_v8_eQTL/Lung.v8.signif_variant_gene_pairs.txt.gz
+Would remove temporary output GTEx_Analysis_v8_eQTL/Uterus.v8.signif_variant_gene_pairs.txt.gz
+Would remove temporary output GTEx_Analysis_v8_eQTL/Muscle_Skeletal.v8.signif_variant_gene_pairs.txt.gz
+Would remove temporary output GTEx_Analysis_v8_eQTL/Whole_Blood.v8.signif_variant_gene_pairs.txt.gz
+Would remove temporary output GTEx_Analysis_v8_eQTL/Artery_Aorta.v8.signif_variant_gene_pairs.txt.gz
+Would remove temporary output GTEx_Analysis_v8_eQTL/Brain_Substantia_nigra.v8.signif_variant_gene_pairs.txt.gz
+Would remove temporary output GTEx_Analysis_v8_eQTL/Brain_Anterior_cingulate_cortex_BA24.v8.signif_variant_gene_pairs.txt.gz
+Would remove temporary output GTEx_Analysis_v8_eQTL/Artery_Tibial.v8.signif_variant_gene_pairs.txt.gz
+Would remove temporary output GTEx_Analysis_v8_eQTL/Cells_Cultured_fibroblasts.v8.signif_variant_gene_pairs.txt.gz
+Would remove temporary output GTEx_Analysis_v8_eQTL/Ovary.v8.signif_variant_gene_pairs.txt.gz
+Would remove temporary output GTEx_Analysis_v8_eQTL/Colon_Sigmoid.v8.signif_variant_gene_pairs.txt.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule sort_gaf:
+    input: Brain_Hippocampus.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    output: Brain_Hippocampus.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    jobid: 61
+    benchmark: benchmark/sort_gaf.Brain_Hippocampus.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Brain_Hippocampus.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    wildcards: file=Brain_Hippocampus.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+vg gamsort -G Brain_Hippocampus.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf | bgzip > Brain_Hippocampus.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule sort_gaf:
+    input: Heart_Left_Ventricle.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    output: Heart_Left_Ventricle.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    jobid: 121
+    benchmark: benchmark/sort_gaf.Heart_Left_Ventricle.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Heart_Left_Ventricle.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    wildcards: file=Heart_Left_Ventricle.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+vg gamsort -G Heart_Left_Ventricle.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf | bgzip > Heart_Left_Ventricle.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule sort_gaf:
+    input: Stomach.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    output: Stomach.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    jobid: 181
+    benchmark: benchmark/sort_gaf.Stomach.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Stomach.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    wildcards: file=Stomach.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+vg gamsort -G Stomach.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf | bgzip > Stomach.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule sort_gaf:
+    input: gwasCatalog.hprc-v1.1-mc-grch38.gaf
+    output: gwasCatalog.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    jobid: 2
+    benchmark: benchmark/sort_gaf.gwasCatalog.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: gwasCatalog.hprc-v1.1-mc-grch38.gaf
+    wildcards: file=gwasCatalog.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+vg gamsort -G gwasCatalog.hprc-v1.1-mc-grch38.gaf | bgzip > gwasCatalog.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule sort_gaf:
+    input: Liver.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    output: Liver.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    jobid: 129
+    benchmark: benchmark/sort_gaf.Liver.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Liver.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    wildcards: file=Liver.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+vg gamsort -G Liver.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf | bgzip > Liver.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule sort_gaf:
+    input: Brain_Nucleus_accumbens_basal_ganglia.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    output: Brain_Nucleus_accumbens_basal_ganglia.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    jobid: 69
+    benchmark: benchmark/sort_gaf.Brain_Nucleus_accumbens_basal_ganglia.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Brain_Nucleus_accumbens_basal_ganglia.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    wildcards: file=Brain_Nucleus_accumbens_basal_ganglia.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+vg gamsort -G Brain_Nucleus_accumbens_basal_ganglia.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf | bgzip > Brain_Nucleus_accumbens_basal_ganglia.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule sort_gaf:
+    input: Thyroid.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    output: Thyroid.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    jobid: 189
+    benchmark: benchmark/sort_gaf.Thyroid.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Thyroid.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    wildcards: file=Thyroid.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+vg gamsort -G Thyroid.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf | bgzip > Thyroid.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule sort_gaf:
+    input: Adrenal_Gland.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    output: Adrenal_Gland.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    jobid: 17
+    benchmark: benchmark/sort_gaf.Adrenal_Gland.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Adrenal_Gland.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    wildcards: file=Adrenal_Gland.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+vg gamsort -G Adrenal_Gland.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf | bgzip > Adrenal_Gland.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule sort_gaf:
+    input: Brain_Spinal_cord_cervical_c-1.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    output: Brain_Spinal_cord_cervical_c-1.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    jobid: 77
+    benchmark: benchmark/sort_gaf.Brain_Spinal_cord_cervical_c-1.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Brain_Spinal_cord_cervical_c-1.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    wildcards: file=Brain_Spinal_cord_cervical_c-1.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+vg gamsort -G Brain_Spinal_cord_cervical_c-1.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf | bgzip > Brain_Spinal_cord_cervical_c-1.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule sort_gaf:
+    input: Minor_Salivary_Gland.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    output: Minor_Salivary_Gland.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    jobid: 137
+    benchmark: benchmark/sort_gaf.Minor_Salivary_Gland.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Minor_Salivary_Gland.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    wildcards: file=Minor_Salivary_Gland.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+vg gamsort -G Minor_Salivary_Gland.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf | bgzip > Minor_Salivary_Gland.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule sort_gaf:
+    input: Vagina.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    output: Vagina.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    jobid: 197
+    benchmark: benchmark/sort_gaf.Vagina.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Vagina.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    wildcards: file=Vagina.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+vg gamsort -G Vagina.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf | bgzip > Vagina.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule sort_gaf:
+    input: Artery_Coronary.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    output: Artery_Coronary.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    jobid: 25
+    benchmark: benchmark/sort_gaf.Artery_Coronary.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Artery_Coronary.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    wildcards: file=Artery_Coronary.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+vg gamsort -G Artery_Coronary.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf | bgzip > Artery_Coronary.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule sort_gaf:
+    input: Breast_Mammary_Tissue.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    output: Breast_Mammary_Tissue.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    jobid: 85
+    benchmark: benchmark/sort_gaf.Breast_Mammary_Tissue.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Breast_Mammary_Tissue.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    wildcards: file=Breast_Mammary_Tissue.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+vg gamsort -G Breast_Mammary_Tissue.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf | bgzip > Breast_Mammary_Tissue.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule sort_gaf:
+    input: Nerve_Tibial.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    output: Nerve_Tibial.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    jobid: 145
+    benchmark: benchmark/sort_gaf.Nerve_Tibial.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Nerve_Tibial.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    wildcards: file=Nerve_Tibial.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+vg gamsort -G Nerve_Tibial.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf | bgzip > Nerve_Tibial.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule sort_gaf:
+    input: Brain_Amygdala.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    output: Brain_Amygdala.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    jobid: 33
+    benchmark: benchmark/sort_gaf.Brain_Amygdala.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Brain_Amygdala.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    wildcards: file=Brain_Amygdala.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+vg gamsort -G Brain_Amygdala.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf | bgzip > Brain_Amygdala.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule sort_gaf:
+    input: Cells_EBV-transformed_lymphocytes.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    output: Cells_EBV-transformed_lymphocytes.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    jobid: 93
+    benchmark: benchmark/sort_gaf.Cells_EBV-transformed_lymphocytes.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Cells_EBV-transformed_lymphocytes.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    wildcards: file=Cells_EBV-transformed_lymphocytes.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+vg gamsort -G Cells_EBV-transformed_lymphocytes.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf | bgzip > Cells_EBV-transformed_lymphocytes.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule sort_gaf:
+    input: Pancreas.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    output: Pancreas.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    jobid: 153
+    benchmark: benchmark/sort_gaf.Pancreas.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Pancreas.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    wildcards: file=Pancreas.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+vg gamsort -G Pancreas.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf | bgzip > Pancreas.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule sort_gaf:
+    input: Brain_Caudate_basal_ganglia.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    output: Brain_Caudate_basal_ganglia.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    jobid: 41
+    benchmark: benchmark/sort_gaf.Brain_Caudate_basal_ganglia.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Brain_Caudate_basal_ganglia.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    wildcards: file=Brain_Caudate_basal_ganglia.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+vg gamsort -G Brain_Caudate_basal_ganglia.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf | bgzip > Brain_Caudate_basal_ganglia.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule sort_gaf:
+    input: Colon_Transverse.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    output: Colon_Transverse.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    jobid: 101
+    benchmark: benchmark/sort_gaf.Colon_Transverse.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Colon_Transverse.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    wildcards: file=Colon_Transverse.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+vg gamsort -G Colon_Transverse.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf | bgzip > Colon_Transverse.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule sort_gaf:
+    input: Prostate.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    output: Prostate.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    jobid: 161
+    benchmark: benchmark/sort_gaf.Prostate.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Prostate.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    wildcards: file=Prostate.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+vg gamsort -G Prostate.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf | bgzip > Prostate.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule sort_gaf:
+    input: Small_Intestine_Terminal_Ileum.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    output: Small_Intestine_Terminal_Ileum.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    jobid: 173
+    benchmark: benchmark/sort_gaf.Small_Intestine_Terminal_Ileum.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Small_Intestine_Terminal_Ileum.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    wildcards: file=Small_Intestine_Terminal_Ileum.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+vg gamsort -G Small_Intestine_Terminal_Ileum.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf | bgzip > Small_Intestine_Terminal_Ileum.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule sort_gaf:
+    input: Brain_Cerebellum.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    output: Brain_Cerebellum.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    jobid: 49
+    benchmark: benchmark/sort_gaf.Brain_Cerebellum.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Brain_Cerebellum.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    wildcards: file=Brain_Cerebellum.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+vg gamsort -G Brain_Cerebellum.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf | bgzip > Brain_Cerebellum.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule sort_gaf:
+    input: Esophagus_Mucosa.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    output: Esophagus_Mucosa.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    jobid: 109
+    benchmark: benchmark/sort_gaf.Esophagus_Mucosa.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Esophagus_Mucosa.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    wildcards: file=Esophagus_Mucosa.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+vg gamsort -G Esophagus_Mucosa.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf | bgzip > Esophagus_Mucosa.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule sort_gaf:
+    input: Skin_Sun_Exposed_Lower_leg.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    output: Skin_Sun_Exposed_Lower_leg.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    jobid: 169
+    benchmark: benchmark/sort_gaf.Skin_Sun_Exposed_Lower_leg.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Skin_Sun_Exposed_Lower_leg.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    wildcards: file=Skin_Sun_Exposed_Lower_leg.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+vg gamsort -G Skin_Sun_Exposed_Lower_leg.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf | bgzip > Skin_Sun_Exposed_Lower_leg.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule sort_gaf:
+    input: Brain_Frontal_Cortex_BA9.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    output: Brain_Frontal_Cortex_BA9.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    jobid: 57
+    benchmark: benchmark/sort_gaf.Brain_Frontal_Cortex_BA9.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Brain_Frontal_Cortex_BA9.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    wildcards: file=Brain_Frontal_Cortex_BA9.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+vg gamsort -G Brain_Frontal_Cortex_BA9.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf | bgzip > Brain_Frontal_Cortex_BA9.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule sort_gaf:
+    input: Heart_Atrial_Appendage.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    output: Heart_Atrial_Appendage.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    jobid: 117
+    benchmark: benchmark/sort_gaf.Heart_Atrial_Appendage.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Heart_Atrial_Appendage.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    wildcards: file=Heart_Atrial_Appendage.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+vg gamsort -G Heart_Atrial_Appendage.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf | bgzip > Heart_Atrial_Appendage.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule sort_gaf:
+    input: Spleen.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    output: Spleen.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    jobid: 177
+    benchmark: benchmark/sort_gaf.Spleen.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Spleen.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    wildcards: file=Spleen.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+vg gamsort -G Spleen.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf | bgzip > Spleen.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule sort_gaf:
+    input: Brain_Hypothalamus.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    output: Brain_Hypothalamus.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    jobid: 65
+    benchmark: benchmark/sort_gaf.Brain_Hypothalamus.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Brain_Hypothalamus.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    wildcards: file=Brain_Hypothalamus.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+vg gamsort -G Brain_Hypothalamus.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf | bgzip > Brain_Hypothalamus.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule sort_gaf:
+    input: Kidney_Cortex.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    output: Kidney_Cortex.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    jobid: 125
+    benchmark: benchmark/sort_gaf.Kidney_Cortex.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Kidney_Cortex.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    wildcards: file=Kidney_Cortex.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+vg gamsort -G Kidney_Cortex.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf | bgzip > Kidney_Cortex.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule sort_gaf:
+    input: Testis.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    output: Testis.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    jobid: 185
+    benchmark: benchmark/sort_gaf.Testis.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Testis.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    wildcards: file=Testis.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+vg gamsort -G Testis.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf | bgzip > Testis.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule sort_gaf:
+    input: Adipose_Visceral_Omentum.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    output: Adipose_Visceral_Omentum.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    jobid: 13
+    benchmark: benchmark/sort_gaf.Adipose_Visceral_Omentum.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Adipose_Visceral_Omentum.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    wildcards: file=Adipose_Visceral_Omentum.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+vg gamsort -G Adipose_Visceral_Omentum.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf | bgzip > Adipose_Visceral_Omentum.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule sort_gaf:
+    input: Brain_Putamen_basal_ganglia.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    output: Brain_Putamen_basal_ganglia.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    jobid: 73
+    benchmark: benchmark/sort_gaf.Brain_Putamen_basal_ganglia.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Brain_Putamen_basal_ganglia.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    wildcards: file=Brain_Putamen_basal_ganglia.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+vg gamsort -G Brain_Putamen_basal_ganglia.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf | bgzip > Brain_Putamen_basal_ganglia.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule sort_gaf:
+    input: Lung.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    output: Lung.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    jobid: 133
+    benchmark: benchmark/sort_gaf.Lung.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Lung.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    wildcards: file=Lung.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+vg gamsort -G Lung.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf | bgzip > Lung.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule sort_gaf:
+    input: Uterus.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    output: Uterus.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    jobid: 193
+    benchmark: benchmark/sort_gaf.Uterus.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Uterus.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    wildcards: file=Uterus.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+vg gamsort -G Uterus.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf | bgzip > Uterus.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule sort_gaf:
+    input: Muscle_Skeletal.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    output: Muscle_Skeletal.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    jobid: 141
+    benchmark: benchmark/sort_gaf.Muscle_Skeletal.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Muscle_Skeletal.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    wildcards: file=Muscle_Skeletal.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+vg gamsort -G Muscle_Skeletal.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf | bgzip > Muscle_Skeletal.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule sort_gaf:
+    input: Whole_Blood.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    output: Whole_Blood.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    jobid: 201
+    benchmark: benchmark/sort_gaf.Whole_Blood.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Whole_Blood.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    wildcards: file=Whole_Blood.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+vg gamsort -G Whole_Blood.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf | bgzip > Whole_Blood.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule sort_gaf:
+    input: Artery_Aorta.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    output: Artery_Aorta.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    jobid: 21
+    benchmark: benchmark/sort_gaf.Artery_Aorta.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Artery_Aorta.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    wildcards: file=Artery_Aorta.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+vg gamsort -G Artery_Aorta.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf | bgzip > Artery_Aorta.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule sort_gaf:
+    input: Brain_Substantia_nigra.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    output: Brain_Substantia_nigra.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    jobid: 81
+    benchmark: benchmark/sort_gaf.Brain_Substantia_nigra.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Brain_Substantia_nigra.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    wildcards: file=Brain_Substantia_nigra.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+vg gamsort -G Brain_Substantia_nigra.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf | bgzip > Brain_Substantia_nigra.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule sort_gaf:
+    input: Artery_Tibial.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    output: Artery_Tibial.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    jobid: 29
+    benchmark: benchmark/sort_gaf.Artery_Tibial.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Artery_Tibial.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    wildcards: file=Artery_Tibial.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+vg gamsort -G Artery_Tibial.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf | bgzip > Artery_Tibial.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule sort_gaf:
+    input: Cells_Cultured_fibroblasts.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    output: Cells_Cultured_fibroblasts.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    jobid: 89
+    benchmark: benchmark/sort_gaf.Cells_Cultured_fibroblasts.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Cells_Cultured_fibroblasts.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    wildcards: file=Cells_Cultured_fibroblasts.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+vg gamsort -G Cells_Cultured_fibroblasts.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf | bgzip > Cells_Cultured_fibroblasts.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule sort_gaf:
+    input: Ovary.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    output: Ovary.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    jobid: 149
+    benchmark: benchmark/sort_gaf.Ovary.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Ovary.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    wildcards: file=Ovary.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+vg gamsort -G Ovary.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf | bgzip > Ovary.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule sort_gaf:
+    input: Pituitary.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    output: Pituitary.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    jobid: 157
+    benchmark: benchmark/sort_gaf.Pituitary.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Pituitary.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    wildcards: file=Pituitary.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+vg gamsort -G Pituitary.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf | bgzip > Pituitary.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule sort_gaf:
+    input: Brain_Anterior_cingulate_cortex_BA24.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    output: Brain_Anterior_cingulate_cortex_BA24.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    jobid: 37
+    benchmark: benchmark/sort_gaf.Brain_Anterior_cingulate_cortex_BA24.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Brain_Anterior_cingulate_cortex_BA24.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    wildcards: file=Brain_Anterior_cingulate_cortex_BA24.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+vg gamsort -G Brain_Anterior_cingulate_cortex_BA24.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf | bgzip > Brain_Anterior_cingulate_cortex_BA24.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule sort_gaf:
+    input: Colon_Sigmoid.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    output: Colon_Sigmoid.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    jobid: 97
+    benchmark: benchmark/sort_gaf.Colon_Sigmoid.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Colon_Sigmoid.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    wildcards: file=Colon_Sigmoid.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+vg gamsort -G Colon_Sigmoid.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf | bgzip > Colon_Sigmoid.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule sort_gaf:
+    input: Brain_Cerebellar_Hemisphere.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    output: Brain_Cerebellar_Hemisphere.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    jobid: 45
+    benchmark: benchmark/sort_gaf.Brain_Cerebellar_Hemisphere.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Brain_Cerebellar_Hemisphere.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    wildcards: file=Brain_Cerebellar_Hemisphere.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+vg gamsort -G Brain_Cerebellar_Hemisphere.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf | bgzip > Brain_Cerebellar_Hemisphere.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule sort_gaf:
+    input: Skin_Not_Sun_Exposed_Suprapubic.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    output: Skin_Not_Sun_Exposed_Suprapubic.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    jobid: 165
+    benchmark: benchmark/sort_gaf.Skin_Not_Sun_Exposed_Suprapubic.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Skin_Not_Sun_Exposed_Suprapubic.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    wildcards: file=Skin_Not_Sun_Exposed_Suprapubic.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+vg gamsort -G Skin_Not_Sun_Exposed_Suprapubic.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf | bgzip > Skin_Not_Sun_Exposed_Suprapubic.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule sort_gaf:
+    input: Esophagus_Gastroesophageal_Junction.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    output: Esophagus_Gastroesophageal_Junction.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    jobid: 105
+    benchmark: benchmark/sort_gaf.Esophagus_Gastroesophageal_Junction.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Esophagus_Gastroesophageal_Junction.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    wildcards: file=Esophagus_Gastroesophageal_Junction.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+vg gamsort -G Esophagus_Gastroesophageal_Junction.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf | bgzip > Esophagus_Gastroesophageal_Junction.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule sort_gaf:
+    input: Brain_Cortex.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    output: Brain_Cortex.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    jobid: 53
+    benchmark: benchmark/sort_gaf.Brain_Cortex.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Brain_Cortex.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    wildcards: file=Brain_Cortex.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+vg gamsort -G Brain_Cortex.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf | bgzip > Brain_Cortex.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule sort_gaf:
+    input: Adipose_Subcutaneous.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    output: Adipose_Subcutaneous.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    jobid: 8
+    benchmark: benchmark/sort_gaf.Adipose_Subcutaneous.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Adipose_Subcutaneous.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    wildcards: file=Adipose_Subcutaneous.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+vg gamsort -G Adipose_Subcutaneous.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf | bgzip > Adipose_Subcutaneous.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule sort_gaf:
+    input: Esophagus_Muscularis.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    output: Esophagus_Muscularis.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    jobid: 113
+    benchmark: benchmark/sort_gaf.Esophagus_Muscularis.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Esophagus_Muscularis.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+    wildcards: file=Esophagus_Muscularis.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+vg gamsort -G Esophagus_Muscularis.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf | bgzip > Esophagus_Muscularis.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+Would remove temporary output Brain_Hippocampus.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+Would remove temporary output Heart_Left_Ventricle.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+Would remove temporary output Stomach.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+Would remove temporary output gwasCatalog.hprc-v1.1-mc-grch38.gaf
+Would remove temporary output Liver.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+Would remove temporary output Brain_Nucleus_accumbens_basal_ganglia.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+Would remove temporary output Thyroid.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+Would remove temporary output Adrenal_Gland.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+Would remove temporary output Brain_Spinal_cord_cervical_c-1.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+Would remove temporary output Minor_Salivary_Gland.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+Would remove temporary output Vagina.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+Would remove temporary output Artery_Coronary.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+Would remove temporary output Breast_Mammary_Tissue.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+Would remove temporary output Nerve_Tibial.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+Would remove temporary output Brain_Amygdala.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+Would remove temporary output Cells_EBV-transformed_lymphocytes.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+Would remove temporary output Pancreas.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+Would remove temporary output Brain_Caudate_basal_ganglia.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+Would remove temporary output Colon_Transverse.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+Would remove temporary output Prostate.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+Would remove temporary output Small_Intestine_Terminal_Ileum.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+Would remove temporary output Brain_Cerebellum.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+Would remove temporary output Esophagus_Mucosa.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+Would remove temporary output Skin_Sun_Exposed_Lower_leg.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+Would remove temporary output Brain_Frontal_Cortex_BA9.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+Would remove temporary output Heart_Atrial_Appendage.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+Would remove temporary output Spleen.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+Would remove temporary output Brain_Hypothalamus.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+Would remove temporary output Kidney_Cortex.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+Would remove temporary output Testis.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+Would remove temporary output Adipose_Visceral_Omentum.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+Would remove temporary output Brain_Putamen_basal_ganglia.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+Would remove temporary output Lung.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+Would remove temporary output Uterus.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+Would remove temporary output Muscle_Skeletal.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+Would remove temporary output Whole_Blood.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+Would remove temporary output Artery_Aorta.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+Would remove temporary output Brain_Substantia_nigra.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+Would remove temporary output Artery_Tibial.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+Would remove temporary output Cells_Cultured_fibroblasts.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+Would remove temporary output Ovary.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+Would remove temporary output Pituitary.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+Would remove temporary output Brain_Anterior_cingulate_cortex_BA24.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+Would remove temporary output Colon_Sigmoid.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+Would remove temporary output Brain_Cerebellar_Hemisphere.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+Would remove temporary output Skin_Not_Sun_Exposed_Suprapubic.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+Would remove temporary output Esophagus_Gastroesophageal_Junction.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+Would remove temporary output Brain_Cortex.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+Would remove temporary output Adipose_Subcutaneous.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+Would remove temporary output Esophagus_Muscularis.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
+
+[Tue Aug 27 10:45:29 2024]
+rule index_gaf:
+    input: Adrenal_Gland.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    output: Adrenal_Gland.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi
+    jobid: 16
+    benchmark: benchmark/index_gaf.Adrenal_Gland.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Adrenal_Gland.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    wildcards: file=Adrenal_Gland.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+tabix -p gaf Adrenal_Gland.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule index_gaf:
+    input: Brain_Spinal_cord_cervical_c-1.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    output: Brain_Spinal_cord_cervical_c-1.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi
+    jobid: 76
+    benchmark: benchmark/index_gaf.Brain_Spinal_cord_cervical_c-1.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Brain_Spinal_cord_cervical_c-1.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    wildcards: file=Brain_Spinal_cord_cervical_c-1.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+tabix -p gaf Brain_Spinal_cord_cervical_c-1.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule index_gaf:
+    input: Minor_Salivary_Gland.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    output: Minor_Salivary_Gland.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi
+    jobid: 136
+    benchmark: benchmark/index_gaf.Minor_Salivary_Gland.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Minor_Salivary_Gland.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    wildcards: file=Minor_Salivary_Gland.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+tabix -p gaf Minor_Salivary_Gland.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule index_gaf:
+    input: Vagina.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    output: Vagina.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi
+    jobid: 196
+    benchmark: benchmark/index_gaf.Vagina.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Vagina.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    wildcards: file=Vagina.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+tabix -p gaf Vagina.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule index_gaf:
+    input: Artery_Coronary.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    output: Artery_Coronary.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi
+    jobid: 24
+    benchmark: benchmark/index_gaf.Artery_Coronary.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Artery_Coronary.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    wildcards: file=Artery_Coronary.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+tabix -p gaf Artery_Coronary.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule index_gaf:
+    input: Breast_Mammary_Tissue.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    output: Breast_Mammary_Tissue.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi
+    jobid: 84
+    benchmark: benchmark/index_gaf.Breast_Mammary_Tissue.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Breast_Mammary_Tissue.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    wildcards: file=Breast_Mammary_Tissue.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+tabix -p gaf Breast_Mammary_Tissue.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule index_gaf:
+    input: Nerve_Tibial.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    output: Nerve_Tibial.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi
+    jobid: 144
+    benchmark: benchmark/index_gaf.Nerve_Tibial.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Nerve_Tibial.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    wildcards: file=Nerve_Tibial.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+tabix -p gaf Nerve_Tibial.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule index_gaf:
+    input: gwasCatalog.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    output: gwasCatalog.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi
+    jobid: 1
+    benchmark: benchmark/index_gaf.gwasCatalog.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: gwasCatalog.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    wildcards: file=gwasCatalog.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+tabix -p gaf gwasCatalog.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule index_gaf:
+    input: Brain_Amygdala.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    output: Brain_Amygdala.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi
+    jobid: 32
+    benchmark: benchmark/index_gaf.Brain_Amygdala.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Brain_Amygdala.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    wildcards: file=Brain_Amygdala.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+tabix -p gaf Brain_Amygdala.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule index_gaf:
+    input: Cells_EBV-transformed_lymphocytes.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    output: Cells_EBV-transformed_lymphocytes.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi
+    jobid: 92
+    benchmark: benchmark/index_gaf.Cells_EBV-transformed_lymphocytes.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Cells_EBV-transformed_lymphocytes.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    wildcards: file=Cells_EBV-transformed_lymphocytes.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+tabix -p gaf Cells_EBV-transformed_lymphocytes.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule index_gaf:
+    input: Pancreas.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    output: Pancreas.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi
+    jobid: 152
+    benchmark: benchmark/index_gaf.Pancreas.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Pancreas.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    wildcards: file=Pancreas.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+tabix -p gaf Pancreas.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule index_gaf:
+    input: Colon_Transverse.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    output: Colon_Transverse.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi
+    jobid: 100
+    benchmark: benchmark/index_gaf.Colon_Transverse.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Colon_Transverse.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    wildcards: file=Colon_Transverse.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+tabix -p gaf Colon_Transverse.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule index_gaf:
+    input: Brain_Caudate_basal_ganglia.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    output: Brain_Caudate_basal_ganglia.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi
+    jobid: 40
+    benchmark: benchmark/index_gaf.Brain_Caudate_basal_ganglia.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Brain_Caudate_basal_ganglia.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    wildcards: file=Brain_Caudate_basal_ganglia.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+tabix -p gaf Brain_Caudate_basal_ganglia.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule index_gaf:
+    input: Prostate.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    output: Prostate.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi
+    jobid: 160
+    benchmark: benchmark/index_gaf.Prostate.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Prostate.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    wildcards: file=Prostate.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+tabix -p gaf Prostate.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule index_gaf:
+    input: Brain_Cerebellum.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    output: Brain_Cerebellum.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi
+    jobid: 48
+    benchmark: benchmark/index_gaf.Brain_Cerebellum.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Brain_Cerebellum.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    wildcards: file=Brain_Cerebellum.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+tabix -p gaf Brain_Cerebellum.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule index_gaf:
+    input: Esophagus_Mucosa.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    output: Esophagus_Mucosa.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi
+    jobid: 108
+    benchmark: benchmark/index_gaf.Esophagus_Mucosa.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Esophagus_Mucosa.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    wildcards: file=Esophagus_Mucosa.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+tabix -p gaf Esophagus_Mucosa.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule index_gaf:
+    input: Skin_Sun_Exposed_Lower_leg.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    output: Skin_Sun_Exposed_Lower_leg.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi
+    jobid: 168
+    benchmark: benchmark/index_gaf.Skin_Sun_Exposed_Lower_leg.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Skin_Sun_Exposed_Lower_leg.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    wildcards: file=Skin_Sun_Exposed_Lower_leg.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+tabix -p gaf Skin_Sun_Exposed_Lower_leg.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule index_gaf:
+    input: Brain_Frontal_Cortex_BA9.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    output: Brain_Frontal_Cortex_BA9.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi
+    jobid: 56
+    benchmark: benchmark/index_gaf.Brain_Frontal_Cortex_BA9.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Brain_Frontal_Cortex_BA9.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    wildcards: file=Brain_Frontal_Cortex_BA9.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+tabix -p gaf Brain_Frontal_Cortex_BA9.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule index_gaf:
+    input: Heart_Atrial_Appendage.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    output: Heart_Atrial_Appendage.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi
+    jobid: 116
+    benchmark: benchmark/index_gaf.Heart_Atrial_Appendage.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Heart_Atrial_Appendage.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    wildcards: file=Heart_Atrial_Appendage.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+tabix -p gaf Heart_Atrial_Appendage.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule index_gaf:
+    input: Spleen.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    output: Spleen.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi
+    jobid: 176
+    benchmark: benchmark/index_gaf.Spleen.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Spleen.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    wildcards: file=Spleen.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+tabix -p gaf Spleen.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule index_gaf:
+    input: Thyroid.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    output: Thyroid.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi
+    jobid: 188
+    benchmark: benchmark/index_gaf.Thyroid.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Thyroid.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    wildcards: file=Thyroid.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+tabix -p gaf Thyroid.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule index_gaf:
+    input: Liver.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    output: Liver.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi
+    jobid: 128
+    benchmark: benchmark/index_gaf.Liver.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Liver.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    wildcards: file=Liver.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+tabix -p gaf Liver.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule index_gaf:
+    input: Brain_Hypothalamus.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    output: Brain_Hypothalamus.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi
+    jobid: 64
+    benchmark: benchmark/index_gaf.Brain_Hypothalamus.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Brain_Hypothalamus.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    wildcards: file=Brain_Hypothalamus.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+tabix -p gaf Brain_Hypothalamus.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule index_gaf:
+    input: Kidney_Cortex.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    output: Kidney_Cortex.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi
+    jobid: 124
+    benchmark: benchmark/index_gaf.Kidney_Cortex.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Kidney_Cortex.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    wildcards: file=Kidney_Cortex.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+tabix -p gaf Kidney_Cortex.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule index_gaf:
+    input: Testis.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    output: Testis.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi
+    jobid: 184
+    benchmark: benchmark/index_gaf.Testis.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Testis.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    wildcards: file=Testis.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+tabix -p gaf Testis.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule index_gaf:
+    input: Adipose_Visceral_Omentum.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    output: Adipose_Visceral_Omentum.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi
+    jobid: 12
+    benchmark: benchmark/index_gaf.Adipose_Visceral_Omentum.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Adipose_Visceral_Omentum.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    wildcards: file=Adipose_Visceral_Omentum.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+tabix -p gaf Adipose_Visceral_Omentum.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule index_gaf:
+    input: Brain_Putamen_basal_ganglia.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    output: Brain_Putamen_basal_ganglia.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi
+    jobid: 72
+    benchmark: benchmark/index_gaf.Brain_Putamen_basal_ganglia.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Brain_Putamen_basal_ganglia.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    wildcards: file=Brain_Putamen_basal_ganglia.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+tabix -p gaf Brain_Putamen_basal_ganglia.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule index_gaf:
+    input: Lung.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    output: Lung.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi
+    jobid: 132
+    benchmark: benchmark/index_gaf.Lung.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Lung.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    wildcards: file=Lung.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+tabix -p gaf Lung.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule index_gaf:
+    input: Uterus.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    output: Uterus.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi
+    jobid: 192
+    benchmark: benchmark/index_gaf.Uterus.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Uterus.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    wildcards: file=Uterus.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+tabix -p gaf Uterus.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule index_gaf:
+    input: Muscle_Skeletal.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    output: Muscle_Skeletal.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi
+    jobid: 140
+    benchmark: benchmark/index_gaf.Muscle_Skeletal.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Muscle_Skeletal.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    wildcards: file=Muscle_Skeletal.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+tabix -p gaf Muscle_Skeletal.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule index_gaf:
+    input: Whole_Blood.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    output: Whole_Blood.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi
+    jobid: 200
+    benchmark: benchmark/index_gaf.Whole_Blood.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Whole_Blood.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    wildcards: file=Whole_Blood.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+tabix -p gaf Whole_Blood.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule index_gaf:
+    input: Artery_Aorta.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    output: Artery_Aorta.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi
+    jobid: 20
+    benchmark: benchmark/index_gaf.Artery_Aorta.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Artery_Aorta.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    wildcards: file=Artery_Aorta.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+tabix -p gaf Artery_Aorta.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule index_gaf:
+    input: Brain_Substantia_nigra.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    output: Brain_Substantia_nigra.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi
+    jobid: 80
+    benchmark: benchmark/index_gaf.Brain_Substantia_nigra.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Brain_Substantia_nigra.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    wildcards: file=Brain_Substantia_nigra.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+tabix -p gaf Brain_Substantia_nigra.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule index_gaf:
+    input: Artery_Tibial.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    output: Artery_Tibial.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi
+    jobid: 28
+    benchmark: benchmark/index_gaf.Artery_Tibial.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Artery_Tibial.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    wildcards: file=Artery_Tibial.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+tabix -p gaf Artery_Tibial.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule index_gaf:
+    input: Cells_Cultured_fibroblasts.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    output: Cells_Cultured_fibroblasts.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi
+    jobid: 88
+    benchmark: benchmark/index_gaf.Cells_Cultured_fibroblasts.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Cells_Cultured_fibroblasts.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    wildcards: file=Cells_Cultured_fibroblasts.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+tabix -p gaf Cells_Cultured_fibroblasts.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule index_gaf:
+    input: Ovary.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    output: Ovary.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi
+    jobid: 148
+    benchmark: benchmark/index_gaf.Ovary.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Ovary.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    wildcards: file=Ovary.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+tabix -p gaf Ovary.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule index_gaf:
+    input: Pituitary.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    output: Pituitary.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi
+    jobid: 156
+    benchmark: benchmark/index_gaf.Pituitary.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Pituitary.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    wildcards: file=Pituitary.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+tabix -p gaf Pituitary.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule index_gaf:
+    input: Brain_Anterior_cingulate_cortex_BA24.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    output: Brain_Anterior_cingulate_cortex_BA24.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi
+    jobid: 36
+    benchmark: benchmark/index_gaf.Brain_Anterior_cingulate_cortex_BA24.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Brain_Anterior_cingulate_cortex_BA24.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    wildcards: file=Brain_Anterior_cingulate_cortex_BA24.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+tabix -p gaf Brain_Anterior_cingulate_cortex_BA24.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule index_gaf:
+    input: Colon_Sigmoid.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    output: Colon_Sigmoid.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi
+    jobid: 96
+    benchmark: benchmark/index_gaf.Colon_Sigmoid.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Colon_Sigmoid.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    wildcards: file=Colon_Sigmoid.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+tabix -p gaf Colon_Sigmoid.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule index_gaf:
+    input: Brain_Cerebellar_Hemisphere.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    output: Brain_Cerebellar_Hemisphere.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi
+    jobid: 44
+    benchmark: benchmark/index_gaf.Brain_Cerebellar_Hemisphere.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Brain_Cerebellar_Hemisphere.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    wildcards: file=Brain_Cerebellar_Hemisphere.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+tabix -p gaf Brain_Cerebellar_Hemisphere.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule index_gaf:
+    input: Skin_Not_Sun_Exposed_Suprapubic.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    output: Skin_Not_Sun_Exposed_Suprapubic.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi
+    jobid: 164
+    benchmark: benchmark/index_gaf.Skin_Not_Sun_Exposed_Suprapubic.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Skin_Not_Sun_Exposed_Suprapubic.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    wildcards: file=Skin_Not_Sun_Exposed_Suprapubic.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+tabix -p gaf Skin_Not_Sun_Exposed_Suprapubic.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule index_gaf:
+    input: Esophagus_Gastroesophageal_Junction.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    output: Esophagus_Gastroesophageal_Junction.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi
+    jobid: 104
+    benchmark: benchmark/index_gaf.Esophagus_Gastroesophageal_Junction.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Esophagus_Gastroesophageal_Junction.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    wildcards: file=Esophagus_Gastroesophageal_Junction.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+tabix -p gaf Esophagus_Gastroesophageal_Junction.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule index_gaf:
+    input: Adipose_Subcutaneous.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    output: Adipose_Subcutaneous.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi
+    jobid: 7
+    benchmark: benchmark/index_gaf.Adipose_Subcutaneous.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Adipose_Subcutaneous.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    wildcards: file=Adipose_Subcutaneous.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+tabix -p gaf Adipose_Subcutaneous.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule index_gaf:
+    input: Small_Intestine_Terminal_Ileum.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    output: Small_Intestine_Terminal_Ileum.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi
+    jobid: 172
+    benchmark: benchmark/index_gaf.Small_Intestine_Terminal_Ileum.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Small_Intestine_Terminal_Ileum.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    wildcards: file=Small_Intestine_Terminal_Ileum.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+tabix -p gaf Small_Intestine_Terminal_Ileum.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule index_gaf:
+    input: Brain_Cortex.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    output: Brain_Cortex.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi
+    jobid: 52
+    benchmark: benchmark/index_gaf.Brain_Cortex.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Brain_Cortex.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    wildcards: file=Brain_Cortex.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+tabix -p gaf Brain_Cortex.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule index_gaf:
+    input: Esophagus_Muscularis.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    output: Esophagus_Muscularis.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi
+    jobid: 112
+    benchmark: benchmark/index_gaf.Esophagus_Muscularis.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Esophagus_Muscularis.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    wildcards: file=Esophagus_Muscularis.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+tabix -p gaf Esophagus_Muscularis.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule index_gaf:
+    input: Brain_Hippocampus.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    output: Brain_Hippocampus.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi
+    jobid: 60
+    benchmark: benchmark/index_gaf.Brain_Hippocampus.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Brain_Hippocampus.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    wildcards: file=Brain_Hippocampus.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+tabix -p gaf Brain_Hippocampus.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule index_gaf:
+    input: Stomach.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    output: Stomach.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi
+    jobid: 180
+    benchmark: benchmark/index_gaf.Stomach.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Stomach.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    wildcards: file=Stomach.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+tabix -p gaf Stomach.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule index_gaf:
+    input: Heart_Left_Ventricle.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    output: Heart_Left_Ventricle.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi
+    jobid: 120
+    benchmark: benchmark/index_gaf.Heart_Left_Ventricle.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Heart_Left_Ventricle.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    wildcards: file=Heart_Left_Ventricle.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+tabix -p gaf Heart_Left_Ventricle.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+rule index_gaf:
+    input: Brain_Nucleus_accumbens_basal_ganglia.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    output: Brain_Nucleus_accumbens_basal_ganglia.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi
+    jobid: 68
+    benchmark: benchmark/index_gaf.Brain_Nucleus_accumbens_basal_ganglia.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.tsv
+    reason: Input files updated by another job: Brain_Nucleus_accumbens_basal_ganglia.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+    wildcards: file=Brain_Nucleus_accumbens_basal_ganglia.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38
+    resources: tmpdir=/tmp
+
+tabix -p gaf Brain_Nucleus_accumbens_basal_ganglia.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz
+
+[Tue Aug 27 10:45:29 2024]
+localrule main:
+    input: gwasCatalog.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Adipose_Subcutaneous.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Adipose_Visceral_Omentum.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Adrenal_Gland.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Artery_Aorta.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Artery_Coronary.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Artery_Tibial.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Brain_Amygdala.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Brain_Anterior_cingulate_cortex_BA24.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Brain_Caudate_basal_ganglia.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Brain_Cerebellar_Hemisphere.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Brain_Cerebellum.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Brain_Cortex.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Brain_Frontal_Cortex_BA9.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Brain_Hippocampus.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Brain_Hypothalamus.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Brain_Nucleus_accumbens_basal_ganglia.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Brain_Putamen_basal_ganglia.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Brain_Spinal_cord_cervical_c-1.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Brain_Substantia_nigra.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Breast_Mammary_Tissue.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Cells_Cultured_fibroblasts.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Cells_EBV-transformed_lymphocytes.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Colon_Sigmoid.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Colon_Transverse.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Esophagus_Gastroesophageal_Junction.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Esophagus_Mucosa.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Esophagus_Muscularis.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Heart_Atrial_Appendage.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Heart_Left_Ventricle.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Kidney_Cortex.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Liver.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Lung.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Minor_Salivary_Gland.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Muscle_Skeletal.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Nerve_Tibial.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Ovary.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Pancreas.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Pituitary.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Prostate.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Skin_Not_Sun_Exposed_Suprapubic.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Skin_Sun_Exposed_Lower_leg.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Small_Intestine_Terminal_Ileum.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Spleen.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Stomach.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Testis.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Thyroid.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Uterus.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Vagina.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Whole_Blood.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi
+    jobid: 0
+    reason: Input files updated by another job: Ovary.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Artery_Coronary.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Testis.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Brain_Amygdala.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Colon_Sigmoid.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Brain_Substantia_nigra.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Brain_Hippocampus.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Brain_Frontal_Cortex_BA9.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Heart_Left_Ventricle.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Pancreas.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Prostate.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Spleen.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Brain_Spinal_cord_cervical_c-1.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Brain_Anterior_cingulate_cortex_BA24.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Adrenal_Gland.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Brain_Hypothalamus.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Skin_Sun_Exposed_Lower_leg.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Colon_Transverse.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Uterus.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Brain_Cerebellar_Hemisphere.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Brain_Putamen_basal_ganglia.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, gwasCatalog.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Lung.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Artery_Tibial.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Esophagus_Mucosa.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Cells_Cultured_fibroblasts.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Brain_Nucleus_accumbens_basal_ganglia.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Stomach.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Muscle_Skeletal.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Brain_Cortex.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Nerve_Tibial.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Adipose_Subcutaneous.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Whole_Blood.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Skin_Not_Sun_Exposed_Suprapubic.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Esophagus_Gastroesophageal_Junction.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Vagina.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Adipose_Visceral_Omentum.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Esophagus_Muscularis.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Liver.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Pituitary.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Artery_Aorta.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Breast_Mammary_Tissue.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Brain_Cerebellum.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Thyroid.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Minor_Salivary_Gland.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Kidney_Cortex.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Brain_Caudate_basal_ganglia.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Heart_Atrial_Appendage.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Small_Intestine_Terminal_Ileum.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi, Cells_EBV-transformed_lymphocytes.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi
+    resources: tmpdir=/tmp
+
+Job stats:
+job               count
+--------------  -------
+annotate_eqtls       49
+annotate_gwas         1
+convert_pg            1
+dwl_eqtl              1
+dwl_gwas              1
+dwl_pg                1
+extract_eqtls        49
+index_gaf            50
+main                  1
+sort_gaf             50
+total               204
+
+Reasons:
+    (check individual jobs above for details)
+    forced:
+        dwl_eqtl, dwl_gwas, dwl_pg
+    input files updated by another job:
+        annotate_eqtls, annotate_gwas, convert_pg, extract_eqtls, index_gaf, main, sort_gaf
+    missing output files:
+        annotate_eqtls, annotate_gwas, dwl_pg, extract_eqtls
+
+This was a dry-run (flag -n). The order of jobs does not reflect the order of execution.

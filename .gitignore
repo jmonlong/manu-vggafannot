@@ -41,3 +41,8 @@ Thumbs.db
 
 ## Text Editors
 .vscode
+*.gaf.gz
+*.tbi
+.snakemake
+/analysis/variants/GTEx_Analysis_v8_eQTL.tar
+/analysis/variants/gwasCatalog.txt.gz
