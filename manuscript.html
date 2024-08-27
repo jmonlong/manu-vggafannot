@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Jean Monlong" />
-  <meta name="dcterms.date" content="2024-08-26" />
+  <meta name="dcterms.date" content="2024-08-27" />
   <meta name="keywords" content="pangenome, annotation, alignment" />
   <title>Current options to index, represent, and visualize annotations in a pangenome with the vg toolkit</title>
   <style>
@@ -50,11 +50,11 @@
   <meta name="citation_title" content="Current options to index, represent, and visualize annotations in a pangenome with the vg toolkit" />
   <meta property="og:title" content="Current options to index, represent, and visualize annotations in a pangenome with the vg toolkit" />
   <meta property="twitter:title" content="Current options to index, represent, and visualize annotations in a pangenome with the vg toolkit" />
-  <meta name="dc.date" content="2024-08-26" />
-  <meta name="citation_publication_date" content="2024-08-26" />
-  <meta property="article:published_time" content="2024-08-26" />
-  <meta name="dc.modified" content="2024-08-26T13:27:13+00:00" />
-  <meta property="article:modified_time" content="2024-08-26T13:27:13+00:00" />
+  <meta name="dc.date" content="2024-08-27" />
+  <meta name="citation_publication_date" content="2024-08-27" />
+  <meta property="article:published_time" content="2024-08-27" />
+  <meta name="dc.modified" content="2024-08-27T08:56:50+00:00" />
+  <meta property="article:modified_time" content="2024-08-27T08:56:50+00:00" />
   <meta name="dc.language" content="en-US" />
   <meta name="citation_language" content="en-US" />
   <meta name="dc.relation.ispartof" content="Manubot" />
@@ -70,9 +70,9 @@
   <meta name="citation_fulltext_html_url" content="https://jmonlong.github.io/manu-vggafannot/" />
   <meta name="citation_pdf_url" content="https://jmonlong.github.io/manu-vggafannot/manuscript.pdf" />
   <link rel="alternate" type="application/pdf" href="https://jmonlong.github.io/manu-vggafannot/manuscript.pdf" />
-  <link rel="alternate" type="text/html" href="https://jmonlong.github.io/manu-vggafannot/v/8f09ee0e70dab85f2214c8e8fd9e9eebe3cceb9a/" />
-  <meta name="manubot_html_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/8f09ee0e70dab85f2214c8e8fd9e9eebe3cceb9a/" />
-  <meta name="manubot_pdf_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/8f09ee0e70dab85f2214c8e8fd9e9eebe3cceb9a/manuscript.pdf" />
+  <link rel="alternate" type="text/html" href="https://jmonlong.github.io/manu-vggafannot/v/67a345f1bdefcc70f6a005b8ab6c5f87d25eb48e/" />
+  <meta name="manubot_html_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/67a345f1bdefcc70f6a005b8ab6c5f87d25eb48e/" />
+  <meta name="manubot_pdf_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/67a345f1bdefcc70f6a005b8ab6c5f87d25eb48e/manuscript.pdf" />
   <meta property="og:type" content="article" />
   <meta property="twitter:card" content="summary_large_image" />
   <link rel="icon" type="image/png" sizes="192x192" href="https://manubot.org/favicon-192x192.png" />
@@ -89,10 +89,10 @@
 </header>
 <p><small><em>
 This manuscript
-(<a href="https://jmonlong.github.io/manu-vggafannot/v/8f09ee0e70dab85f2214c8e8fd9e9eebe3cceb9a/">permalink</a>)
+(<a href="https://jmonlong.github.io/manu-vggafannot/v/67a345f1bdefcc70f6a005b8ab6c5f87d25eb48e/">permalink</a>)
 was automatically generated
-from <a href="https://github.com/jmonlong/manu-vggafannot/tree/8f09ee0e70dab85f2214c8e8fd9e9eebe3cceb9a">jmonlong/manu-vggafannot@8f09ee0</a>
-on August 26, 2024.
+from <a href="https://github.com/jmonlong/manu-vggafannot/tree/67a345f1bdefcc70f6a005b8ab6c5f87d25eb48e">jmonlong/manu-vggafannot@67a345f</a>
+on August 27, 2024.
 </em></small></p>
 <h2 id="authors">Authors</h2>
 <ul>
@@ -223,6 +223,24 @@ The paths are written in the GAF format, recording the coverage class and the av
 <p><code class="red">cartoon to explain this in supplement?</code></p>
 <p>This algorithm was implemented in Python and uses the <em>libbdsg</em> module<span class="citation" data-cites="libbdsg">[<a href="#ref-libbdsg" role="doc-biblioref"><strong>libbdsg?</strong></a>]</span> to query the pangenome.
 It is made available in the public repository of this study at <code class="red">GITHUB_REPO/analysis/encode</code>.</p>
+<h3 id="annotating-known-variants">Annotating known variants</h3>
+<p>Variants from public databases were annotated when matching a variant site in the pangenome.
+We implemented an approach to look for input variants in the pangenome and write a GAF file with the path followed by those variants in the pangenome.
+The variants are matched with the VCF representation of the HPRC Minigraph-Cactus v1.1 pangenome, produced by running <code>vg deconstruct</code> on the pangenome file.
+This VCF file contains the all variants and their paths through the pangenome in the <em>AT</em> <em>INFO</em> field.
+We look for the variants of interest in this VCF and extract the appropriate path using the <em>AT</em> field.
+The annotation path follows either the alternate allele of the variant if known and present in the pangenome, or the reference allele path if the alternate allele is unknown but there is a variant at this position in the pangenome.
+Variant that are not matched in the pangenome are skipped.
+This algorithm was implemented in Python and uses the <em>libbdsg</em> module<span class="citation" data-cites="libbdsg">[<a href="#ref-libbdsg" role="doc-biblioref"><strong>libbdsg?</strong></a>]</span> internally to get node size information necessary to write proper GAF records.</p>
+<p>We test this approach on the GWAS catalog (REF??) and GTEX expression QTLs (REF??).
+The GWAS catalog was downloaded from the UCSC Genome Browser <code>??</code> table.
+The eQTLs from GTEX were downloaded from ??.
+The files defining associations between variant/gene pairs were parsed for each tissue.
+As before, the output annotation in GAF were bgzipped, sorted and indexed.</p>
+<p>We implemented another, more straightforward approach, to annotate variants that were genotyped using the pangenome.
+Here we simply convert a VCF that contain allele traversal information (<em>AT</em> field) to a GAF file representing the alternate allele.
+We test this approach by genotyping HG002 from short-reads Illumina Novaseq data<code class="red">improve</code>.</p>
+<p>The scripts and pipeline to annotate variants is available in the public repository of this study at <code class="red">GITHUB_REPO/analysis/variants</code>.</p>
 <h3 id="visualization-in-the-sequencetubemap">Visualization in the sequenceTubeMap</h3>
 <p>The sequenceTubeMap was develop to interactively explore a pangenome graph, haplotypes traversing it, and reads mapping to it<span class="citation" data-cites="tubemap">[<a href="#ref-tubemap" role="doc-biblioref"><strong>tubemap?</strong></a>]</span>.
 It internally calls <em>vg</em> to extract the relevant slice of the pangenome graph and reads.
@@ -252,6 +270,18 @@ The helper script and a tutorial are available at <code class="red">GITHUB_REPO/
 This included genes, segmental duplications, tandem repeats and repeats annotations.
 <code>vg annotate</code> can annotate ~4M gene annotations in ~16 mins, and ~5.5M repeats from RepeatMasker in ~9 mins on a single-threaded machine.
 Finally, these rich annotations can then be quickly queried with <code>vg</code> and visualized using existing tools like the sequenceTubeMap or Bandage.</p>
+<p>We also matched and annotated ?? variants from the GWAS catalog(REF??) and ?? variants expression QTLs from the GTEx catalog(REF??).
+On average, ??% variants were found in the HPRC pangenome.
+The variants files in GAF take only ??Gb of space and can be queried fast for visualization in the sequenceTubeMap or Bandage.
+This annotation is showcased in example ?? described in more detail below (see <em>Example??</em> section).
+Of note, it is also straightforward to convert genotypes for variants from the pangenome to annotated paths.
+This could be the case when the pangenome is used as the backbone of the genotyping of new samples, for example with Pangenie or <em>vg call</em>.
+To illustrate this use case, we genotyped HG002 using short Illumina reads aligned on the draft human pangenome with vg giraffe and vg call.
+The predicted genotypes were converted to GAF and indexed.
+They could be visualized using the sequenceTubeMap, for example, along with the aligned reads.
+This type of annotation can help a developer explore variant calls and aligned reads.
+A example is shown in figure ?? and described in more details below.
+On the traditional reference genome, the equivalent would be to load both reads and variants in IGV(<span class="citation" data-cites="igv">[<a href="#ref-igv" role="doc-biblioref"><strong>igv?</strong></a>]</span>).</p>
 <h3 id="coverage-of-functional-datasets-from-encode">Coverage of ?? functional datasets from ENCODE</h3>
 <p>We aligned ?ATAC-seq? datasets from ?? cell types to the draft human pangenome to produce coverage tracks as indexed GAF files.
 On average, there were about ?? paths representing high read coverage which were ?? nodes (?? bases) long.

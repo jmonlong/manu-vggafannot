@@ -5,7 +5,7 @@ keywords:
 - annotation
 - alignment
 lang: en-US
-date-meta: '2024-08-26'
+date-meta: '2024-08-27'
 author-meta:
 - Jean Monlong
 header-includes: |
@@ -19,11 +19,11 @@ header-includes: |
   <meta name="citation_title" content="Current options to index, represent, and visualize annotations in a pangenome with the vg toolkit" />
   <meta property="og:title" content="Current options to index, represent, and visualize annotations in a pangenome with the vg toolkit" />
   <meta property="twitter:title" content="Current options to index, represent, and visualize annotations in a pangenome with the vg toolkit" />
-  <meta name="dc.date" content="2024-08-26" />
-  <meta name="citation_publication_date" content="2024-08-26" />
-  <meta property="article:published_time" content="2024-08-26" />
-  <meta name="dc.modified" content="2024-08-26T13:27:13+00:00" />
-  <meta property="article:modified_time" content="2024-08-26T13:27:13+00:00" />
+  <meta name="dc.date" content="2024-08-27" />
+  <meta name="citation_publication_date" content="2024-08-27" />
+  <meta property="article:published_time" content="2024-08-27" />
+  <meta name="dc.modified" content="2024-08-27T08:56:50+00:00" />
+  <meta property="article:modified_time" content="2024-08-27T08:56:50+00:00" />
   <meta name="dc.language" content="en-US" />
   <meta name="citation_language" content="en-US" />
   <meta name="dc.relation.ispartof" content="Manubot" />
@@ -39,9 +39,9 @@ header-includes: |
   <meta name="citation_fulltext_html_url" content="https://jmonlong.github.io/manu-vggafannot/" />
   <meta name="citation_pdf_url" content="https://jmonlong.github.io/manu-vggafannot/manuscript.pdf" />
   <link rel="alternate" type="application/pdf" href="https://jmonlong.github.io/manu-vggafannot/manuscript.pdf" />
-  <link rel="alternate" type="text/html" href="https://jmonlong.github.io/manu-vggafannot/v/8f09ee0e70dab85f2214c8e8fd9e9eebe3cceb9a/" />
-  <meta name="manubot_html_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/8f09ee0e70dab85f2214c8e8fd9e9eebe3cceb9a/" />
-  <meta name="manubot_pdf_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/8f09ee0e70dab85f2214c8e8fd9e9eebe3cceb9a/manuscript.pdf" />
+  <link rel="alternate" type="text/html" href="https://jmonlong.github.io/manu-vggafannot/v/67a345f1bdefcc70f6a005b8ab6c5f87d25eb48e/" />
+  <meta name="manubot_html_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/67a345f1bdefcc70f6a005b8ab6c5f87d25eb48e/" />
+  <meta name="manubot_pdf_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/67a345f1bdefcc70f6a005b8ab6c5f87d25eb48e/manuscript.pdf" />
   <meta property="og:type" content="article" />
   <meta property="twitter:card" content="summary_large_image" />
   <link rel="icon" type="image/png" sizes="192x192" href="https://manubot.org/favicon-192x192.png" />
@@ -63,10 +63,10 @@ manubot-clear-requests-cache: false
 
 <small><em>
 This manuscript
-([permalink](https://jmonlong.github.io/manu-vggafannot/v/8f09ee0e70dab85f2214c8e8fd9e9eebe3cceb9a/))
+([permalink](https://jmonlong.github.io/manu-vggafannot/v/67a345f1bdefcc70f6a005b8ab6c5f87d25eb48e/))
 was automatically generated
-from [jmonlong/manu-vggafannot@8f09ee0](https://github.com/jmonlong/manu-vggafannot/tree/8f09ee0e70dab85f2214c8e8fd9e9eebe3cceb9a)
-on August 26, 2024.
+from [jmonlong/manu-vggafannot@67a345f](https://github.com/jmonlong/manu-vggafannot/tree/67a345f1bdefcc70f6a005b8ab6c5f87d25eb48e)
+on August 27, 2024.
 </em></small>
 
 
@@ -239,6 +239,29 @@ The paths are written in the GAF format, recording the coverage class and the av
 This algorithm was implemented in Python and uses the *libbdsg* module[@libbdsg] to query the pangenome.
 It is made available in the public repository of this study at `GITHUB_REPO/analysis/encode`{.red}.
 
+### Annotating known variants
+
+Variants from public databases were annotated when matching a variant site in the pangenome. 
+We implemented an approach to look for input variants in the pangenome and write a GAF file with the path followed by those variants in the pangenome. 
+The variants are matched with the VCF representation of the HPRC Minigraph-Cactus v1.1 pangenome, produced by running `vg deconstruct` on the pangenome file.
+This VCF file contains the all variants and their paths through the pangenome in the *AT* *INFO* field.
+We look for the variants of interest in this VCF and extract the appropriate path using the *AT* field.
+The annotation path follows either the alternate allele of the variant if known and present in the pangenome, or the reference allele path if the alternate allele is unknown but there is a variant at this position in the pangenome.
+Variant that are not matched in the pangenome are skipped.
+This algorithm was implemented in Python and uses the *libbdsg* module[@libbdsg] internally to get node size information necessary to write proper GAF records.
+
+We test this approach on the GWAS catalog (REF??) and GTEX expression QTLs (REF??).
+The GWAS catalog was downloaded from the UCSC Genome Browser `??` table.
+The eQTLs from GTEX were downloaded from ??.
+The files defining associations between variant/gene pairs were parsed for each tissue.
+As before, the output annotation in GAF were bgzipped, sorted and indexed.
+
+We implemented another, more straightforward approach, to annotate variants that were genotyped using the pangenome.
+Here we simply convert a VCF that contain allele traversal information (*AT* field) to a GAF file representing the alternate allele.
+We test this approach by genotyping HG002 from short-reads Illumina Novaseq data`improve`{.red}. 
+
+The scripts and pipeline to annotate variants is available in the public repository of this study at `GITHUB_REPO/analysis/variants`{.red}.
+
 ### Visualization in the sequenceTubeMap
 
 The sequenceTubeMap was develop to interactively explore a pangenome graph, haplotypes traversing it, and reads mapping to it[@tubemap]. 
@@ -279,6 +302,19 @@ To showcase these commands, we projected annotations for all haplotypes in the l
 This included genes, segmental duplications, tandem repeats and repeats annotations. 
 `vg annotate` can annotate ~4M gene annotations in ~16 mins, and ~5.5M repeats from RepeatMasker in ~9 mins on a single-threaded machine. 
 Finally, these rich annotations can then be quickly queried with `vg` and visualized using existing tools like the sequenceTubeMap or Bandage.
+
+We also matched and annotated ?? variants from the GWAS catalog(REF??) and ?? variants expression QTLs from the GTEx catalog(REF??).
+On average, ??% variants were found in the HPRC pangenome.
+The variants files in GAF take only ??Gb of space and can be queried fast for visualization in the sequenceTubeMap or Bandage.
+This annotation is showcased in example ?? described in more detail below (see *Example??* section).
+Of note, it is also straightforward to convert genotypes for variants from the pangenome to annotated paths. 
+This could be the case when the pangenome is used as the backbone of the genotyping of new samples, for example with Pangenie or *vg call*.
+To illustrate this use case, we genotyped HG002 using short Illumina reads aligned on the draft human pangenome with vg giraffe and vg call.
+The predicted genotypes were converted to GAF and indexed.
+They could be visualized using the sequenceTubeMap, for example, along with the aligned reads. 
+This type of annotation can help a developer explore variant calls and aligned reads. 
+A example is shown in figure ?? and described in more details below.
+On the traditional reference genome, the equivalent would be to load both reads and variants in IGV(@igv).
 
 ### Coverage of ?? functional datasets from ENCODE
 
