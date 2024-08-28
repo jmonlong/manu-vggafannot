@@ -7,7 +7,7 @@ bgzipped
 centromeres
 Consotium
 cov
-Dataset
+dataset
 datasets
 duplications
 ENVT
@@ -24,10 +24,10 @@ GFA
 GFF
 GraphAligner
 GRCh
-GTEx
+GTEX
 GWAS
 haplotype
-haplotypes
+Haplotypes
 HPRC
 HTSlib
 igv
@@ -39,13 +39,13 @@ IRSD
 jmonlong
 libbdsg
 mem
-Minigraph
+minigraph
 mins
 Monlong
 NG
 Novaseq
 Pangenie
-Pangenome
+pangenome
 pangenomes
 pangenomic
 personnalized
