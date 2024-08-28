@@ -11,9 +11,7 @@ if 'sample_info' in config:
             sinfo = {}
             for coli, headn in enumerate(heads):
                 sinfo[headn] = line[coli]
-            if sinfo['sample'] not in sample_info:
-                sample_info[sinfo['sample']] = []
-            sample_info[sinfo['sample']].append(sinfo)
+            sample_info[sinfo['sample']] = sinfo
 
 # if no sample(s) specified, analyze all the ones in the info TSV
 if 'sample' not in config:
@@ -34,30 +32,42 @@ rule main:
 #
 #
 
-rule dwl_reads_part:
-    output: temp('reads_dwl/{sample}.{part}.fastq.gz')
+rule dwl_reads:
+    output: temp('reads/{sample}.{part}.fastq.gz')
     params:
-        url=lambda wildcards: sample_info[wildcards.sample][int(wildcards.part)]['url_fq']
+        url=lambda wildcards: sample_info[wildcards.sample]['url_fq' + wildcards.part]
     localrule: True
-    resources:
-        mem='4G',
-        runtime='3h'
     shell: "wget --quiet -O {output} {params.url}"
 
-def get_dwl_reads(wildcards):
-    if wildcards.sample not in sample_info:
-        return ('reads_dwl/{sample}.0.fastq.gz')
-    else:
-        return (['reads_dwl/{sample}.' + str(ii) + '.fastq.gz' for ii in range(len(sample_info[wildcards.sample]))])
-
-rule concat_reads:
-    input: get_dwl_reads
-    output: temp('reads/{sample}.fastq.gz')
+rule dwl_fastq_shuffle:
+    output: 'fastq-shuffle.pl'
     localrule: True
+    shell: "wget --quiet -O {output} https://raw.githubusercontent.com/chloroExtractorTeam/fastq-shuffle/master/fastq-shuffle.pl"
+
+rule shuffle_reads:
+    input:
+        script='fastq-shuffle.pl',
+        fq1='reads/{sample}.1.fastq.gz',
+        fq2='reads/{sample}.2.fastq.gz'
+    output:
+        fq1=temp('reads_shuffled/{sample}.1.fastq.gz'),
+        fq2=temp('reads_shuffled/{sample}.2.fastq.gz')
+    params: 
+        fq1='reads/{sample}.1.fastq',
+        fq2='reads/{sample}.2.fastq'
     resources:
-        mem='4G',
-        runtime='3h'
-    shell: "cat {input} > {output}"
+        mem='16G',
+        runtime='12h'
+    shell:
+        """
+        zcat {input.fq1} > {params.fq1}
+        zcat {input.fq2} > {params.fq2}
+        perl {input.script} -s 5G -1 {params.fq1} -2 {params.fq2}
+        rm {params.fq1} {params.fq2}
+        gzip {params.fq1}.shuffled {params.fq2}.shuffled
+        mv {params.fq1}.shuffled.gz {output.fq1}
+        mv {params.fq2}.shuffled.gz {output.fq2}
+        """
 
 # map reads and call peaks
 rule map_reads:
@@ -65,18 +75,19 @@ rule map_reads:
         gbz=config['gbz'],
         dist=config['dist'],
         min=config['min'],
-        fq='reads/{sample}.fastq.gz'
+        fq1='reads_shuffled/{sample}.1.fastq.gz',
+        fq2='reads_shuffled/{sample}.2.fastq.gz'
     output: 'results/{sample}/{sample}.gaf.gz'
     log: 'log/map_reads.{sample}.log'
     benchmark: 'benchmark/map_reads.{sample}.tsv'
     container: 'docker://quay.io/jmonlong/vg-work:1.59.0_v1'
     resources:
         mem='80G',
-        runtime='6h'
+        runtime='12h'
     threads: 8
     shell:
         """
-        vg giraffe -p -t {threads} -Z {input.gbz} -d {input.dist} -m {input.min} -f {input.fq} -o gaf | gzip > {output}
+        vg giraffe -p -t {threads} -Z {input.gbz} -d {input.dist} -m {input.min} -f {input.fq1} -f {input.fq2} -o gaf | gzip > {output}
         """
 
 rule convert_gbz_to_pg:

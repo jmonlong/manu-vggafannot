@@ -1,3 +1,2 @@
-sample	url_fq
-ENCSR917WJS	https://www.encodeproject.org/files/ENCFF914WXE/@@download/ENCFF914WXE.fastq.gz
-ENCSR917WJS	https://www.encodeproject.org/files/ENCFF344YVS/@@download/ENCFF344YVS.fastq.gz
+sample	url_fq1	url_fq2
+ENCSR917WJS	https://www.encodeproject.org/files/ENCFF914WXE/@@download/ENCFF914WXE.fastq.gz	https://www.encodeproject.org/files/ENCFF344YVS/@@download/ENCFF344YVS.fastq.gz
