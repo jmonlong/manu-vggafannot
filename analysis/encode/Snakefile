@@ -82,12 +82,12 @@ rule map_reads:
     benchmark: 'benchmark/map_reads.{sample}.tsv'
     container: 'docker://quay.io/jmonlong/vg-work:1.59.0_v1'
     resources:
-        mem='80G',
-        runtime='12h'
+        mem='100G',
+        runtime='24h'
     threads: 8
     shell:
         """
-        vg giraffe -p -t {threads} -Z {input.gbz} -d {input.dist} -m {input.min} -f {input.fq1} -f {input.fq2} -o gaf | gzip > {output}
+        vg giraffe -b fast -p -t {threads} -Z {input.gbz} -d {input.dist} -m {input.min} -f {input.fq1} -f {input.fq2} -o gaf | gzip > {output}
         """
 
 rule convert_gbz_to_pg:
