@@ -5,7 +5,7 @@ keywords:
 - annotation
 - alignment
 lang: en-US
-date-meta: '2024-08-28'
+date-meta: '2024-08-30'
 author-meta:
 - Jean Monlong
 header-includes: |
@@ -19,11 +19,11 @@ header-includes: |
   <meta name="citation_title" content="Current options to index, represent, and visualize annotations in a pangenome with the vg toolkit" />
   <meta property="og:title" content="Current options to index, represent, and visualize annotations in a pangenome with the vg toolkit" />
   <meta property="twitter:title" content="Current options to index, represent, and visualize annotations in a pangenome with the vg toolkit" />
-  <meta name="dc.date" content="2024-08-28" />
-  <meta name="citation_publication_date" content="2024-08-28" />
-  <meta property="article:published_time" content="2024-08-28" />
-  <meta name="dc.modified" content="2024-08-28T12:44:33+00:00" />
-  <meta property="article:modified_time" content="2024-08-28T12:44:33+00:00" />
+  <meta name="dc.date" content="2024-08-30" />
+  <meta name="citation_publication_date" content="2024-08-30" />
+  <meta property="article:published_time" content="2024-08-30" />
+  <meta name="dc.modified" content="2024-08-30T12:25:24+00:00" />
+  <meta property="article:modified_time" content="2024-08-30T12:25:24+00:00" />
   <meta name="dc.language" content="en-US" />
   <meta name="citation_language" content="en-US" />
   <meta name="dc.relation.ispartof" content="Manubot" />
@@ -39,9 +39,9 @@ header-includes: |
   <meta name="citation_fulltext_html_url" content="https://jmonlong.github.io/manu-vggafannot/" />
   <meta name="citation_pdf_url" content="https://jmonlong.github.io/manu-vggafannot/manuscript.pdf" />
   <link rel="alternate" type="application/pdf" href="https://jmonlong.github.io/manu-vggafannot/manuscript.pdf" />
-  <link rel="alternate" type="text/html" href="https://jmonlong.github.io/manu-vggafannot/v/cfa17206b322672e8c64ee919fe6660f4d49cea6/" />
-  <meta name="manubot_html_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/cfa17206b322672e8c64ee919fe6660f4d49cea6/" />
-  <meta name="manubot_pdf_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/cfa17206b322672e8c64ee919fe6660f4d49cea6/manuscript.pdf" />
+  <link rel="alternate" type="text/html" href="https://jmonlong.github.io/manu-vggafannot/v/f1f4970b9f473a3972663a5469dbf995ca16ea12/" />
+  <meta name="manubot_html_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/f1f4970b9f473a3972663a5469dbf995ca16ea12/" />
+  <meta name="manubot_pdf_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/f1f4970b9f473a3972663a5469dbf995ca16ea12/manuscript.pdf" />
   <meta property="og:type" content="article" />
   <meta property="twitter:card" content="summary_large_image" />
   <link rel="icon" type="image/png" sizes="192x192" href="https://manubot.org/favicon-192x192.png" />
@@ -63,10 +63,10 @@ manubot-clear-requests-cache: false
 
 <small><em>
 This manuscript
-([permalink](https://jmonlong.github.io/manu-vggafannot/v/cfa17206b322672e8c64ee919fe6660f4d49cea6/))
+([permalink](https://jmonlong.github.io/manu-vggafannot/v/f1f4970b9f473a3972663a5469dbf995ca16ea12/))
 was automatically generated
-from [jmonlong/manu-vggafannot@cfa1720](https://github.com/jmonlong/manu-vggafannot/tree/cfa17206b322672e8c64ee919fe6660f4d49cea6)
-on August 28, 2024.
+from [jmonlong/manu-vggafannot@f1f4970](https://github.com/jmonlong/manu-vggafannot/tree/f1f4970b9f473a3972663a5469dbf995ca16ea12)
+on August 30, 2024.
 </em></small>
 
 
