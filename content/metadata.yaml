@@ -7,6 +7,50 @@ keywords:
   - alignment
 lang: en-US
 authors:
+  - name: Adam M. Novak
+    github: adamnovak
+    orcid: 0000-0001-5828-047X
+    initials: AMN
+    email: anovak@soe.ucsc.edu
+    affiliations:
+      - UC Santa Cruz Genomics Institute, University of California, Santa Cruz, Santa Cruz, CA, USA
+  - name: Dickson Chung
+    initials: DC
+    email: dchung10@ucsc.edu
+    affiliations:
+      - UC Santa Cruz Genomics Institute, University of California, Santa Cruz, Santa Cruz, CA, USA
+  - name: Glenn Hickey
+    github: glennhickey
+    initials: GH
+    email: glenn.hickey@gmail.com
+    affiliations:
+      - UC Santa Cruz Genomics Institute, University of California, Santa Cruz, Santa Cruz, CA, USA
+  - github: sdjebali
+    name: Sarah Djebali
+    initials: SD
+    orcid: 0000-0002-0599-1267
+    email: sarah.djebali@inserm.fr
+    affiliations:
+      - IRSD - Digestive Health Research Institute, University of Toulouse, INSERM, INRAE, ENVT, UPS, Toulouse, France
+  - name: Toshiyuki T. Yokoyama
+    initials: TTY
+    email: toshiyuki.t.yokoyama@gmail.com
+    affiliations:
+      - Department of Computational Biology and Medical Sciences, Graduate School of Frontier Sciences, The University of Tokyo, Chiba, Japan
+  - name: Erik Garrison
+    orcid: 0000-0003-3821-631X
+    github: ekg
+    initials: EG
+    email: egarris5@uthsc.edu
+    affiliations:
+      - Department of Genetics, Genomics and Informatics, University of Tennessee Health Science Center, Memphis, TN, USA
+  - name: Benedict Paten
+    github: benedictpaten
+    orcid: 0000-0001-8863-3539
+    initials: BP
+    email: bpaten@ucsc.edu
+    affiliations:
+      - UC Santa Cruz Genomics Institute, University of California, Santa Cruz, Santa Cruz, CA, USA
   - github: jmonlong
     name: Jean Monlong
     initials: JM
