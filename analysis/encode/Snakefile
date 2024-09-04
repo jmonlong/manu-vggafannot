@@ -24,7 +24,10 @@ if 'sample' not in config:
 #
 
 rule main:
-    input: expand('results/{sample}/{sample}.cov.gaf.bgz.tbi', sample=config['sample'])
+    input:
+        cov=expand('results/{sample}/{sample}.cov.gaf.bgz.tbi', sample=config['sample']),
+        readstat=expand('results/{sample}/{sample}.gaf.wc.txt', sample=config['sample']),
+        sum=expand('results/{sample}/{sample}.cov.sum.tsv', sample=config['sample'])
 
 #
 #
@@ -104,6 +107,15 @@ rule convert_gbz_to_pg:
         vg convert -H -t {threads} {input} > {output}
         """
 
+rule count_reads:
+    input: 'results/{sample}/{sample}.gaf.gz',
+    output: 'results/{sample}/{sample}.gaf.wc.txt'
+    threads: 1
+    resources:
+        mem='2G',
+        runtime='3h'
+    shell: "zcat {input} | wc -l > {output}"
+
 rule make_cov:
     input:
         gbz=config['gbz'],
@@ -141,3 +153,12 @@ rule index_gaf:
     localrule: True
     shell: "tabix -p gaf {input}"
     
+rule summarize_cov_gaf:
+    input:
+        cov='results/{sample}/{sample}.cov.gaf.bgz',
+        script='summarize_cov_gaf.py'
+    output: 'results/{sample}/{sample}.cov.sum.tsv'
+    resources:
+        mem='4G',
+        runtime='3h'
+    shell: "zcat {input.cov} | python3 {input.script} > {output}"

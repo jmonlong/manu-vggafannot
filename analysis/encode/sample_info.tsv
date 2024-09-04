@@ -1,2 +1,8 @@
 sample	url_fq1	url_fq2
-ENCSR917WJS	https://www.encodeproject.org/files/ENCFF914WXE/@@download/ENCFF914WXE.fastq.gz	https://www.encodeproject.org/files/ENCFF344YVS/@@download/ENCFF344YVS.fastq.gz
+PeyersPatch	https://www.encodeproject.org/files/ENCFF272PIN/@@download/ENCFF272PIN.fastq.gz	https://www.encodeproject.org/files/ENCFF735IXH/@@download/ENCFF735IXH.fastq.gz
+sigmoid_colon	https://www.encodeproject.org/files/ENCFF775DFR/@@download/ENCFF775DFR.fastq.gz	https://www.encodeproject.org/files/ENCFF543BUC/@@download/ENCFF543BUC.fastq.gz
+thyroid_gland	https://www.encodeproject.org/files/ENCFF579WLS/@@download/ENCFF579WLS.fastq.gz	https://www.encodeproject.org/files/ENCFF513OIA/@@download/ENCFF513OIA.fastq.gz
+gastrocnemius_medialis	https://www.encodeproject.org/files/ENCFF968KAQ/@@download/ENCFF968KAQ.fastq.gz	https://www.encodeproject.org/files/ENCFF797AHS/@@download/ENCFF797AHS.fastq.gz
+breast_epithelium	https://www.encodeproject.org/files/ENCFF210QPG/@@download/ENCFF210QPG.fastq.gz	https://www.encodeproject.org/files/ENCFF180RBC/@@download/ENCFF180RBC.fastq.gz
+gastroesophageal_sphincter	https://www.encodeproject.org/files/ENCFF553SEZ/@@download/ENCFF553SEZ.fastq.gz	https://www.encodeproject.org/files/ENCFF493REK/@@download/ENCFF493REK.fastq.gz
+spleen	https://www.encodeproject.org/files/ENCFF391IHY/@@download/ENCFF391IHY.fastq.gz	https://www.encodeproject.org/files/ENCFF726YQA/@@download/ENCFF726YQA.fastq.gz
