@@ -1,0 +1,110 @@
+---
+output: github_document
+---
+
+```{r}
+library(dplyr)
+library(knitr)
+library(tidyr)
+```
+
+## Benchmark files produced by snakemake
+
+```{r}
+bm.df = lapply(list.files('benchmark'), function(fpath){
+  df = read.table(paste0('benchmark/', fpath), as.is=TRUE, sep='\t', header=TRUE)
+  df$task = gsub('.tsv', '', fpath)
+  df
+}) %>% bind_rows
+
+bm.df = bm.df %>% mutate(sample=gsub(".+\\.(.+)", "\\1", task),
+                         task=gsub("(.+)\\..+", "\\1", task)) %>%
+  select(task, sample, everything())
+kable(bm.df)
+```
+
+## Number of reads
+
+Computed by the snakemake pipeline
+
+```{r}
+rc.df = lapply(list.files('results', 'wc', recursive=TRUE), function(fn){
+  tibble(sample=gsub('.*/(.*).gaf.wc.txt', '\\1', fn),
+         read=scan(paste0('results/', fn), 1, quiet=TRUE))
+}) %>% bind_rows
+kable(rc.df)
+```
+
+## Summary table
+
+### Average resources per task
+
+```{r}
+bm.df %>% group_by(task) %>% summarize(cpu_time=mean(cpu_time),
+                                       s=mean(s),
+                                       mean_load=mean(mean_load),
+                                       max_rss=mean(max_rss)) %>%
+  kable(format.args=list(big.mark=','))
+```
+
+### Summary for each sample
+
+```{r}
+samp.levs = c("breast_epithelium", "gastrocnemius_medialis", "gastroesophageal_sphincter",
+              "PeyersPatch", "sigmoid_colon", "spleen", "thyroid_gland")
+samp.labs = c("Breast epithelium", "Gastrocnemius medialis", "Gastroesophageal sphincter",
+              "Peyer's patch", "Sigmoid colon", "Spleen", "Thyroid gland")
+
+merge(bm.df, rc.df) %>%
+  mutate(res=paste0(round(cpu_time/3600, 1), ' cpu.h (', round(max_rss/1024), ' Gb)'),
+         read=round(read/1e6, 1),
+         task=factor(task,
+                     c('make_cov', 'map_reads', 'sort_cov_gaf'),
+                     c('coverage track', 'read mapping', 'sorting + compressing + indexing')),
+         sample=factor(sample, samp.levs, samp.labs)) %>%
+  filter(!is.na(task)) %>%
+  select(sample, read, task, res) %>% 
+  pivot_wider(names_from=task, values_from=res) %>%
+  kable
+```
+
+## Summary of the coverage tracks
+
+Read summaries:
+
+```{r}
+cs.df = lapply(list.files('results', 'cov.sum.tsv', recursive=TRUE), function(fn){
+  read.table(paste0('results/', fn), as.is=TRUE, header=TRUE, sep='\t') %>%
+    mutate(sample=gsub('.*/(.*).cov.sum.tsv', '\\1', fn))
+}) %>% bind_rows
+head(cs.df)
+```
+
+Summarize the coverage track for each sample:
+
+```{r}
+min.coverage = 10
+cs.s = cs.df %>% filter(coverage_bin>=min.coverage) %>% 
+  group_by(sample) %>%
+  summarize(paths=sum(n),
+            mean_bases=sum(n*n_bp)/paths,
+            mean_nodes=sum(n*n_node)/paths,
+            n_mt2nodes=sum(n*n_node>2),
+            prop_mt2nodes=n_mt2nodes/paths)
+
+cs.s %>% 
+  mutate(mt2nodes=paste0(format(n_mt2nodes, big.mark=','),
+                         ' (', round(100*prop_mt2nodes, 1), '%)'),
+         mean_bases=round(mean_bases, 2),
+         mean_nodes=round(mean_nodes, 2),
+         sample=factor(sample, samp.levs, samp.labs)) %>%
+  select(-n_mt2nodes, -prop_mt2nodes) %>%
+  arrange(sample) %>% 
+  kable(format.args=list(big.mark=','))
+```
+
+Average across samples:
+
+```{r}
+cs.s %>% select(-sample) %>% summarize_all(mean) %>% kable
+```
