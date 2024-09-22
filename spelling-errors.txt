@@ -35,7 +35,7 @@ GfaViz
 GFF
 glennhickey
 GRCh
-GTEx
+GTEX
 GWAS
 gzip
 gzipped
@@ -54,14 +54,14 @@ jmonlong
 libbdsg
 linearized
 medialis
-Minigraph
+minigraph
 mins
 MoMI
 Monlong
 Novak
 Novaseq
 Pangenie
-pangenome
+Pangenome
 pangenomes
 pangenomic
 Paten
@@ -88,6 +88,7 @@ tabix
 TF
 Toshiyuki
 transposable
+transposon
 UC
 UCSC
 VCF

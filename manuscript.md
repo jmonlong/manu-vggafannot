@@ -29,8 +29,8 @@ header-includes: |
   <meta name="dc.date" content="2024-09-22" />
   <meta name="citation_publication_date" content="2024-09-22" />
   <meta property="article:published_time" content="2024-09-22" />
-  <meta name="dc.modified" content="2024-09-22T19:52:28+00:00" />
-  <meta property="article:modified_time" content="2024-09-22T19:52:28+00:00" />
+  <meta name="dc.modified" content="2024-09-22T21:00:25+00:00" />
+  <meta property="article:modified_time" content="2024-09-22T21:00:25+00:00" />
   <meta name="dc.language" content="en-US" />
   <meta name="citation_language" content="en-US" />
   <meta name="dc.relation.ispartof" content="Manubot" />
@@ -64,9 +64,9 @@ header-includes: |
   <meta name="citation_fulltext_html_url" content="https://jmonlong.github.io/manu-vggafannot/" />
   <meta name="citation_pdf_url" content="https://jmonlong.github.io/manu-vggafannot/manuscript.pdf" />
   <link rel="alternate" type="application/pdf" href="https://jmonlong.github.io/manu-vggafannot/manuscript.pdf" />
-  <link rel="alternate" type="text/html" href="https://jmonlong.github.io/manu-vggafannot/v/27be919ee2f2dcc536d91ff82553e36c21ec8c18/" />
-  <meta name="manubot_html_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/27be919ee2f2dcc536d91ff82553e36c21ec8c18/" />
-  <meta name="manubot_pdf_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/27be919ee2f2dcc536d91ff82553e36c21ec8c18/manuscript.pdf" />
+  <link rel="alternate" type="text/html" href="https://jmonlong.github.io/manu-vggafannot/v/3cc3f5363a5371507d31d635c00f008acb5cef87/" />
+  <meta name="manubot_html_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/3cc3f5363a5371507d31d635c00f008acb5cef87/" />
+  <meta name="manubot_pdf_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/3cc3f5363a5371507d31d635c00f008acb5cef87/manuscript.pdf" />
   <meta property="og:type" content="article" />
   <meta property="twitter:card" content="summary_large_image" />
   <link rel="icon" type="image/png" sizes="192x192" href="https://manubot.org/favicon-192x192.png" />
@@ -88,9 +88,9 @@ manubot-clear-requests-cache: false
 
 <small><em>
 This manuscript
-([permalink](https://jmonlong.github.io/manu-vggafannot/v/27be919ee2f2dcc536d91ff82553e36c21ec8c18/))
+([permalink](https://jmonlong.github.io/manu-vggafannot/v/3cc3f5363a5371507d31d635c00f008acb5cef87/))
 was automatically generated
-from [jmonlong/manu-vggafannot@27be919](https://github.com/jmonlong/manu-vggafannot/tree/27be919ee2f2dcc536d91ff82553e36c21ec8c18)
+from [jmonlong/manu-vggafannot@3cc3f53](https://github.com/jmonlong/manu-vggafannot/tree/3cc3f5363a5371507d31d635c00f008acb5cef87)
 on September 22, 2024.
 </em></small>
 
@@ -446,6 +446,22 @@ They could be visualized using the sequenceTubeMap, for example, along with the 
 This type of annotation can help a developer explore variant calls and aligned reads. 
 A example is shown in figure ?? and described in more details below.
 On the traditional reference genome, the equivalent would be to load both reads and variants in IGV[@igv].
+
+![
+**sequenceTubeMap examples**
+`In progress...`
+**A.** *black*: Reference path (GRCh38), *pale colors*: other human haplotypes, *reds*: GWAS catalog, *blues*: eQTLs across tissues (GTEx).
+**B.** *yellow*/*green*: annotation paths from `vg call` genotypes. *reds*/*blues*: short sequencing reads.
+**C.** Compressed view (no sequence shown, node size not to scale).
+Reference paths CHM13/GRCh38 (*black*/*grey*) and ATAC-seq coverage track for different tissues (*colors*).
+Opacity represents coverage level.
+](figures/tubemap.examples.svg "Tubemap examples"){#fig:tubemap}
+
+![
+**Bandage example**
+`In progress...`
+Node color: *blue* for the reference path, *orange* for the AluYa5 transposon.
+](figures/bandage-mei.png "Bandage example"){#fig:bandage}
 
 ### Coverage of seven functional datasets from ENCODE
 
