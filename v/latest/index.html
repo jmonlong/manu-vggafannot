@@ -60,8 +60,8 @@
   <meta name="dc.date" content="2024-09-22" />
   <meta name="citation_publication_date" content="2024-09-22" />
   <meta property="article:published_time" content="2024-09-22" />
-  <meta name="dc.modified" content="2024-09-22T19:52:28+00:00" />
-  <meta property="article:modified_time" content="2024-09-22T19:52:28+00:00" />
+  <meta name="dc.modified" content="2024-09-22T21:00:25+00:00" />
+  <meta property="article:modified_time" content="2024-09-22T21:00:25+00:00" />
   <meta name="dc.language" content="en-US" />
   <meta name="citation_language" content="en-US" />
   <meta name="dc.relation.ispartof" content="Manubot" />
@@ -95,9 +95,9 @@
   <meta name="citation_fulltext_html_url" content="https://jmonlong.github.io/manu-vggafannot/" />
   <meta name="citation_pdf_url" content="https://jmonlong.github.io/manu-vggafannot/manuscript.pdf" />
   <link rel="alternate" type="application/pdf" href="https://jmonlong.github.io/manu-vggafannot/manuscript.pdf" />
-  <link rel="alternate" type="text/html" href="https://jmonlong.github.io/manu-vggafannot/v/27be919ee2f2dcc536d91ff82553e36c21ec8c18/" />
-  <meta name="manubot_html_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/27be919ee2f2dcc536d91ff82553e36c21ec8c18/" />
-  <meta name="manubot_pdf_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/27be919ee2f2dcc536d91ff82553e36c21ec8c18/manuscript.pdf" />
+  <link rel="alternate" type="text/html" href="https://jmonlong.github.io/manu-vggafannot/v/3cc3f5363a5371507d31d635c00f008acb5cef87/" />
+  <meta name="manubot_html_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/3cc3f5363a5371507d31d635c00f008acb5cef87/" />
+  <meta name="manubot_pdf_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/3cc3f5363a5371507d31d635c00f008acb5cef87/manuscript.pdf" />
   <meta property="og:type" content="article" />
   <meta property="twitter:card" content="summary_large_image" />
   <link rel="icon" type="image/png" sizes="192x192" href="https://manubot.org/favicon-192x192.png" />
@@ -114,9 +114,9 @@
 </header>
 <p><small><em>
 This manuscript
-(<a href="https://jmonlong.github.io/manu-vggafannot/v/27be919ee2f2dcc536d91ff82553e36c21ec8c18/">permalink</a>)
+(<a href="https://jmonlong.github.io/manu-vggafannot/v/3cc3f5363a5371507d31d635c00f008acb5cef87/">permalink</a>)
 was automatically generated
-from <a href="https://github.com/jmonlong/manu-vggafannot/tree/27be919ee2f2dcc536d91ff82553e36c21ec8c18">jmonlong/manu-vggafannot@27be919</a>
+from <a href="https://github.com/jmonlong/manu-vggafannot/tree/3cc3f5363a5371507d31d635c00f008acb5cef87">jmonlong/manu-vggafannot@3cc3f53</a>
 on September 22, 2024.
 </em></small></p>
 <h2 id="authors">Authors</h2>
@@ -423,6 +423,26 @@ They could be visualized using the sequenceTubeMap, for example, along with the 
 This type of annotation can help a developer explore variant calls and aligned reads.
 A example is shown in figure ?? and described in more details below.
 On the traditional reference genome, the equivalent would be to load both reads and variants in IGV<span class="citation" data-cites="83I525eg">[<a href="#ref-83I525eg" role="doc-biblioref">2</a>]</span>.</p>
+<div id="fig:tubemap" class="fignos">
+<figure>
+<img src="figures/tubemap.examples.svg" alt="Figure 1: sequenceTubeMap examples In progress... A. black: Reference path (GRCh38), pale colors: other human haplotypes, reds: GWAS catalog, blues: eQTLs across tissues (GTEx). B. yellow/green: annotation paths from vg call genotypes. reds/blues: short sequencing reads. C. Compressed view (no sequence shown, node size not to scale). Reference paths CHM13/GRCh38 (black/grey) and ATAC-seq coverage track for different tissues (colors). Opacity represents coverage level." />
+<figcaption aria-hidden="true"><span>Figure 1:</span> <strong>sequenceTubeMap examples</strong>
+<code>In progress...</code>
+<strong>A.</strong> <em>black</em>: Reference path (GRCh38), <em>pale colors</em>: other human haplotypes, <em>reds</em>: GWAS catalog, <em>blues</em>: eQTLs across tissues (GTEx).
+<strong>B.</strong> <em>yellow</em>/<em>green</em>: annotation paths from <code>vg call</code> genotypes. <em>reds</em>/<em>blues</em>: short sequencing reads.
+<strong>C.</strong> Compressed view (no sequence shown, node size not to scale).
+Reference paths CHM13/GRCh38 (<em>black</em>/<em>grey</em>) and ATAC-seq coverage track for different tissues (<em>colors</em>).
+Opacity represents coverage level.</figcaption>
+</figure>
+</div>
+<div id="fig:bandage" class="fignos">
+<figure>
+<img src="figures/bandage-mei.png" alt="Figure 2: Bandage example In progress... Node color: blue for the reference path, orange for the AluYa5 transposon." />
+<figcaption aria-hidden="true"><span>Figure 2:</span> <strong>Bandage example</strong>
+<code>In progress...</code>
+Node color: <em>blue</em> for the reference path, <em>orange</em> for the AluYa5 transposon.</figcaption>
+</figure>
+</div>
 <h3 id="coverage-of-seven-functional-datasets-from-encode">Coverage of seven functional datasets from ENCODE</h3>
 <p>We aligned ATAC-seq datasets from 7 cell types to the draft human pangenome to produce coverage tracks as indexed GAF files.
 On average, there were about 488 thousand paths representing high read coverage which were 2.5 nodes (101.9 bases) long.
@@ -504,7 +524,7 @@ On average, 65 thousand paths with high ATAC-seq read coverage traversed more th
 Sorting, compressing and indexing them took only 0.16 cpu.hours, on average.
 Table <a href="#tbl:coverage_benchmark">3</a> compiles the runtimes and memory used for each step across all samples.</p>
 <p><code class="red">example of what we could look for and describe</code>
-Fig <a href="#fig:cov_examples">1</a> shows examples of those tracks visualized using the sequenceTubeMap.
+Fig <a href="#fig:cov_examples">3</a> shows examples of those tracks visualized using the sequenceTubeMap.
 In Fig ??a, the promoter of the <em>??</em> gene is seen to be open in the ?? cell type.
 Thanks to the pangenomic view, we see differential coverage of the functional tracks across the variants in the region.
 For instance, we notice a small insertion-deletion (indel) where the alternate allele is only covered by 2 reads, while the reference allele is covered by more than 30 reads.
@@ -513,8 +533,8 @@ The RepeatMasker annotation in this region, also extracted from an indexed GAF f
 ?? can indeed attract TF?? that lead to open chromatin ?REF?.</p>
 <div id="fig:cov_examples" class="fignos">
 <figure>
-<img src="figures/wide.png" alt="Figure 1: Coverage tracks visualized interactively using the sequenceTubeMap. a) Promoter… b) Structural variant…." />
-<figcaption aria-hidden="true"><span>Figure 1:</span> <strong>Coverage tracks visualized interactively using the sequenceTubeMap.</strong>
+<img src="figures/wide.png" alt="Figure 3: Coverage tracks visualized interactively using the sequenceTubeMap. a) Promoter… b) Structural variant…." />
+<figcaption aria-hidden="true"><span>Figure 3:</span> <strong>Coverage tracks visualized interactively using the sequenceTubeMap.</strong>
 a) Promoter… b) Structural variant….</figcaption>
 </figure>
 </div>
