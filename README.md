@@ -1,23 +1,32 @@
 [![HTML Manuscript](https://img.shields.io/badge/manuscript-HTML-blue.svg)](https://jmonlong.github.io/manu-vggafannot/)
 [![PDF Manuscript](https://img.shields.io/badge/manuscript-PDF-blue.svg)](https://jmonlong.github.io/manu-vggafannot/manuscript.pdf)
+[![HTML slides](https://img.shields.io/badge/slides-HTML-blue.svg)](https://jmonlong.github.io/manu-vggafannot/vggafannot-miggs24.html)
 [![GitHub Actions Status](https://github.com/jmonlong/manu-vggafannot/workflows/Manubot/badge.svg)](https://github.com/jmonlong/manu-vggafannot/actions)
 
-## Manuscript description
+## Manuscript: Current options to index, represent, and visualize annotations in a pangenome with the vg toolkit
 
-<!-- usage note: edit this section. -->
+**Work in progress!**
 
-This repository is a manuscript about how to represent and index annotations in a pangenome graph. 
-**It's a work in progress.**
-The current manuscript is available in HTML at [https://jmonlong.github.io/manu-vggafannot/](https://jmonlong.github.io/manu-vggafannot/) or in PDF at [https://jmonlong.github.io/manu-vggafannot/manuscript.pdf](https://jmonlong.github.io/manu-vggafannot/manuscript.pdf).
+This repository is a manuscript about how to represent and index annotations in a pangenome graph using GAF files.
+See links to the manuscript or slides in the badges above.
 
-The [`analysis`](analysis) folder hosts scripts and workflows used for the analysis. 
-The [`talks`](talks) folder has slides.
+Moreover, the [`analysis`](analysis) folder hosts scripts and workflows used for the analysis. 
+The [`talks`](talks) folder has slides (e.g. see the [MIGGS workshop slides](https://jmonlong.github.io/manu-vggafannot/vggafannot-miggs24.html)).
 
-# Build manuscript locally
+## Build manuscript locally
+
+The manuscript files are built automatically on GitHub. 
+To build them locally, I use a docker container.
+
+Build the docker container (do this once):
 
 ```sh
 docker build -t jmonlong-manubot .
+```
 
+Then, make the manuscript's files:
+
+```sh
 docker run -v `pwd`:/app -w /app -u `id -u $USER` -it jmonlong-manubot
 
 micromamba activate manubot
@@ -25,9 +34,6 @@ bash build/build.sh
 ```
 
 The HTML/PDF outputs are then in the `output` folder.
-
-Note: the automated GitHub CI outputs are in the [*output* branch](https://github.com/jmonlong/manu-vggafannot/tree/output) (e.g. [PDF](https://github.com/jmonlong/manu-vggafannot/blob/output/manuscript.pdf)).
-
 
 ## Manubot
 
