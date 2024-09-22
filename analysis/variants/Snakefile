@@ -3,6 +3,9 @@ rule main:
         gwas="gwasCatalog.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi",
         eqtls=expand('{tissue}.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.sorted.gaf.gz.tbi', tissue=config['tissue'])
 
+rule genotype:
+    input: "HG002.gt.min30bp.sorted.gaf.gz.tbi"
+
 #
 # tasks
 #
@@ -69,3 +72,44 @@ rule index_gaf:
     output: "{file}.sorted.gaf.gz.tbi"
     benchmark: 'benchmark/index_gaf.{file}.tsv'
     shell: "tabix -p gaf {input}"
+
+rule pack_read_cov:
+    input:
+        gam=config['gam'],
+        gbz=config['gbz']
+    output: temp('{sample}.pack')
+    benchmark: 'benchmark/{sample}.pack_read_cov.tsv'
+    container: "docker://quay.io/jmonlong/vg-work:1.59.0_v1"
+    threads: 4
+    resources:
+        mem='64GB',
+        runtime='6h'
+    shell: "vg pack -x {input.gbz} -g {input.gam} -Q 5 -t {threads} -o {output}"
+
+rule genotype_vg_call:
+    input:
+        pack='{sample}.pack',
+        gbz=config['gbz']
+    output: '{sample}.gt.min30bp.vcf.gz'
+    benchmark: 'benchmark/{sample}.genotype_vg_call.tsv'
+    container: "docker://quay.io/jmonlong/vg-work:1.59.0_v1"
+    threads: 4
+    resources:
+        mem='64GB',
+        runtime='6h'
+    shell:
+        """
+        vg call -t {threads} -k {input.pack} -Az -S GRCh38 -s {wildcards.sample} -c 30 {input.gbz} | gzip > {output}
+        """
+
+rule annotate_calls:
+    input:
+        script='prepare_variant_paths_from_gt_vcf.py',
+        calls='HG002.gt.min30bp.vcf.gz',
+        hprc_pg='hprc-v1.1-mc-grch38.pg'
+    output: temp('HG002.gt.min30bp.gaf')
+    benchmark: 'benchmark/annotate_calls.tsv'
+    shell:
+        """
+        python3 {input.script} -v {input.calls} -g {input.hprc_pg} -o {output}
+        """

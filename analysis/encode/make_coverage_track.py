@@ -115,15 +115,107 @@ class Node:
         return (sum(self.cov_len))
 
 
-def getNextNodes(pg, node, goleft=False):
-    node = pg.get_handle(int(node))
+def getNextNodes(pg, node_id, forward=True):
+    node = pg.get_handle(int(node_id), not forward)
     next_nodes = []
 
     def addToNextNodes(nhandle):
-        next_nodes.append(pg.get_id(nhandle))
+        next_nodes.append([pg.get_id(nhandle),
+                           not pg.get_is_reverse(nhandle)])
         return (True)
-    pg.follow_edges(node, goleft, addToNextNodes)
+    pg.follow_edges(node, False, addToNextNodes)
     return (next_nodes)
+
+
+def extendPath(path, bnodes, forward=True, debug_mode=False):
+    # init coverage stats
+    cov_total = 0
+    # init current node
+    path_pos = 0
+    if forward:
+        path_pos = -1
+    # get the starting Node object
+    cnode = bnodes[path[path_pos][0]]
+    # current node direction of traversal
+    if forward:
+        corient_fwd = path[path_pos][1]
+    else:
+        corient_fwd = not path[path_pos][1]
+    # should we try to extend more? multiple cases when we should
+    # we're extending forward and we're at the last bin of a node
+    extend_more = corient_fwd and cnode.flank_end
+    # we're extending backward and we're at the first bin of a node
+    extend_more = extend_more or (not corient_fwd and cnode.flank_start)
+    # extend as long as current node is the "end" of a node
+    while extend_more:
+        if debug_mode:
+            print('\tcurrent node: {} ({})'.format(cnode.id, corient_fwd),
+                  file=sys.stderr)
+        # get next nodes, going in the current orientation
+        nnodes_ids = getNextNodes(pg, cnode.id, corient_fwd)
+        if debug_mode:
+            print('\t\tnext nodes: {}'.format(nnodes_ids), file=sys.stderr)
+        # find a candidate next node
+        nbin_id_or = []
+        for nnodeid_or in nnodes_ids:
+            nnode_id = nnodeid_or[0]
+            if nnodeid_or[1]:
+                # we'd traverse this node forward
+                # find the first bin of that node
+                if nnode_id not in first_bin:
+                    # skip (for now) if we don't have coverage info
+                    if debug_mode:
+                        print('\t\t{} not first bin'.format(nnode_id),
+                              file=sys.stderr)
+                    continue
+                nnode_bid = first_bin[nnode_id]
+            else:
+                # we'd traverse this node backward
+                # find the last bin of that node
+                if nnode_id not in last_bin:
+                    # skip (for now) if we don't have coverage info
+                    if debug_mode:
+                        print('\t\t{} not last bin'.format(nnode_id),
+                              file=sys.stderr)
+                    continue
+                nnode_bid = last_bin[nnode_id]
+            # skip if already part of a path
+            if bnodes[nnode_bid].flag:
+                if debug_mode:
+                    print('\t\t{} already done'.format(nnode_bid),
+                          file=sys.stderr)
+                continue
+            # skip if different bin
+            if bnodes[nnode_bid].bin != cnode.bin:
+                continue
+            # we've found a suitable next node
+            nbin_id_or = [nnode_bid, nnodeid_or[1]]
+            break
+        if debug_mode:
+            print('\t\tnext: {}'.format(nbin_id_or), file=sys.stderr)
+        if len(nbin_id_or) != 0:
+            # if we've found a next node, extend the path
+            if forward:
+                path.append(nbin_id_or)
+            else:
+                # flip and add to the beginning of the path
+                path.insert(0, [nbin_id_or[0], not nbin_id_or[1]])
+            # mark that bin as "done"
+            bnodes[nbin_id_or[0]].flag = True
+            # get the Node object for the new current node
+            cnode = bnodes[nbin_id_or[0]]
+            # and traversal orientation
+            corient_fwd = nbin_id_or[1]
+            # increment the total coverage
+            cov_total += cnode.getCoverageSum()
+            # should we try to extend more? multiple cases when we should
+            # we're extending forward and we're at the last bin of a node
+            extend_more = corient_fwd and cnode.flank_end
+            # we're extending backward and we're at the first bin of a node
+            extend_more = extend_more or (not corient_fwd and cnode.flank_start)
+        else:
+            extend_more = False
+    return (cov_total)
 
 
 def writeGAF(path, bnodes):
@@ -132,31 +224,35 @@ def writeGAF(path, bnodes):
     path_len = 0
     path_string = []
     full_path_len = 0
-    for node in path:
+    for bin_or in path:
         # get binned node object
-        node = bnodes[node]
-        cov_sum += node.getCoverageSum()
-        path_len += node.getLength()
+        bin = bnodes[bin_or[0]]
+        cov_sum += bin.getCoverageSum()
+        path_len += bin.getLength()
         # full length from the full node
-        full_path_len += node.full_len
-        # full_path_len += nodes[node.id].getLength()
+        full_path_len += bin.full_len
         # string representation of the path
-        path_string.append('>' + str(node.id))
+        if bin_or[1]:
+            path_string.append('>' + str(bin.id))
+        else:
+            path_string.append('<' + str(bin.id))
     # compute the mean coverage and make an id
     fake_mapq = min(round(float(cov_sum) / path_len), 254)
     cov_mean = round(float(cov_sum) / path_len, 1)
-    gaf_v = '{}_{}_{}'.format(node.id, node.bin, cov_mean)
+    gaf_v = '{}_{}_{}'.format(bin.id, bin.bin, cov_mean)
     # path length/start/end/strand
     gaf_v += '\t{}\t0\t{}\t+'.format(path_len, path_len)
     # path information: string representation and length
     gaf_v += '\t{}\t{}'.format(''.join(path_string),
                                full_path_len)
-    # start at the first node's offset
+    # start at the first bin's offset
     # end at the length of the path + offset
-    offset = bnodes[path[0]].offset
+    offset = bnodes[path[0][0]].offset
     gaf_v += '\t{}\t{}'.format(offset, path_len + offset)
     # residues matching, alignment block size, and mapping quality
     gaf_v += '\t{}\t{}\t{}'.format(path_len, path_len, fake_mapq)
+    # cigar string
+    gaf_v += '\tcs:Z::{}'.format(path_len)
     print(gaf_v)
     # return (True)
 
@@ -222,92 +318,24 @@ print('{} binned nodes'.format(len(bnodes)), file=sys.stderr)
 
 # enumerate some paths
 npaths = 0
-for snode in bnodes.keys():
+for sbin in bnodes.keys():
     # get next starting node that was not already put in a path
-    if bnodes[snode].flag:
+    if bnodes[sbin].flag:
         continue
     if debug_mode:
-        print('starting node: ' + snode, file=sys.stderr)
+        print('starting node: ' + sbin, file=sys.stderr)
     # mark this node as done
-    bnodes[snode].flag = True
-    # init a path
-    path = [snode]
-    # work with the Node object from now on
-    snode = bnodes[snode]
+    bnodes[sbin].flag = True
+    # init a path made of pairs (node-bin id, is oriented fwd)
+    path = [[sbin, True]]
     # to make sure there is some coverage
-    cov_total = snode.getCoverageSum()
-    # try to extend it to the "right"
-    cnode = snode
-    extend_more = True
-    # extend as long as current node is the "end" of a node
-    while cnode.flank_end and extend_more:
-        if debug_mode:
-            print('\tcurrent node: ' + cnode.id, file=sys.stderr)
-        nnodes = getNextNodes(pg, cnode.id)
-        if debug_mode:
-            print('\t\tnext nodes: {}'.format(nnodes), file=sys.stderr)
-        # find best next node
-        nnode_ext = ''
-        for nnode in nnodes:
-            # find the first bin of that node
-            if nnode not in first_bin:
-                # skip (for now) if we don't have coverage info
-                if debug_mode:
-                    print('\t\t{} not first bin'.format(nnode),
-                          file=sys.stderr)
-                continue
-            nnode = first_bin[nnode]
-            # skip if already part of a path
-            if bnodes[nnode].flag:
-                if debug_mode:
-                    print('\t\t{} already done'.format(nnode), file=sys.stderr)
-                continue
-            # skip if different bin
-            if bnodes[nnode].bin != snode.bin:
-                continue
-            # we've found a suitable next node
-            nnode_ext = nnode
-            break
-        if debug_mode:
-            print('\t\tnext: {}'.format(nnode_ext), file=sys.stderr)
-        if nnode_ext != '':
-            # if we've found a next node, extend the path
-            path += [nnode_ext]
-            bnodes[nnode_ext].flag = True
-            cnode = bnodes[nnode_ext]
-            cov_total += cnode.getCoverageSum()
-        else:
-            extend_more = False
-    # try to extend it to the "left"
-    cnode = snode
-    extend_more = True
-    while cnode.flank_start and extend_more:
-        nnodes = getNextNodes(pg, cnode.id, goleft=True)
-        # find best next node
-        nnode_ext = ''
-        for nnode in nnodes:
-            # find the last bin of that node
-            if nnode not in last_bin:
-                # skip (for now) if we don't have coverage info
-                continue
-            nnode = last_bin[nnode]
-            # skip if already part of a path
-            if bnodes[nnode].flag:
-                continue
-            # skip if different bin
-            if bnodes[nnode].bin != snode.bin:
-                continue
-            # we've found a suitable next node
-            nnode_ext = nnode
-            break
-        if nnode_ext != '':
-            # if we've found a next node, extend the path
-            path = [nnode_ext] + path
-            bnodes[nnode_ext].flag = True
-            cnode = bnodes[nnode_ext]
-            cov_total += cnode.getCoverageSum()
-        else:
-            extend_more = False
+    cov_total = bnodes[sbin].getCoverageSum()
+    # try to extend it to the forward direction
+    cov_total += extendPath(path, bnodes, forward=True,
+                            debug_mode=debug_mode)
+    # try to extend it to the backward direction
+    cov_total += extendPath(path, bnodes, forward=False,
+                            debug_mode=debug_mode)
     # write the path if there is some coverage
     if cov_total > 0:
         npaths += 1
@@ -315,3 +343,16 @@ for snode in bnodes.keys():
 
 
 print('{} paths created'.format(npaths), file=sys.stderr)
+
+
+x = [1, 3]
+
+def update(xx):
+    xx += [5]
+    xx.insert(0, 4)
+    xx.append(6)
+    return(True)
+
+x
+update(x)
+x

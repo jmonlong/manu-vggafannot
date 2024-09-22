@@ -1,0 +1,129 @@
+Building DAG of jobs...
+Job stats:
+job                 count
+----------------  -------
+annotate_calls          1
+convert_pg              1
+dwl_pg                  1
+genotype                1
+genotype_vg_call        1
+index_gaf               1
+pack_read_cov           1
+sort_gaf                1
+total                   8
+
+
+[Fri Sep 20 22:27:37 2024]
+rule pack_read_cov:
+    input: ../readsorting/results/unsorted/HG002.gam, ../readsorting/hprc-v1.1-mc-grch38.gbz
+    output: HG002.pack
+    jobid: 5
+    benchmark: benchmark/HG002.pack_read_cov.tsv
+    reason: Forced execution
+    wildcards: sample=HG002
+    resources: tmpdir=/tmp, mem=64GB, mem_mb=64000, runtime=360
+
+vg pack -x ../readsorting/hprc-v1.1-mc-grch38.gbz -g ../readsorting/results/unsorted/HG002.gam -Q 5 -t 1 -o HG002.pack
+
+[Fri Sep 20 22:27:37 2024]
+rule dwl_pg:
+    output: hprc-v1.1-mc-grch38.gbz
+    jobid: 7
+    reason: Forced execution
+    resources: tmpdir=/tmp
+
+wget https://s3-us-west-2.amazonaws.com/human-pangenomics/pangenomes/freeze/freeze1/minigraph-cactus/hprc-v1.1-mc-grch38/hprc-v1.1-mc-grch38.gbz
+
+[Fri Sep 20 22:27:37 2024]
+rule genotype_vg_call:
+    input: HG002.pack, ../readsorting/hprc-v1.1-mc-grch38.gbz
+    output: HG002.gt.min30bp.vcf.gz
+    jobid: 4
+    benchmark: benchmark/HG002.genotype_vg_call.tsv
+    reason: Input files updated by another job: HG002.pack
+    wildcards: sample=HG002
+    resources: tmpdir=/tmp, mem=64GB, mem_mb=64000, runtime=360
+
+
+        vg call -t 1 -k HG002.pack -Az -S GRCh38 -s HG002 -c 30 ../readsorting/hprc-v1.1-mc-grch38.gbz | gzip > HG002.gt.min30bp.vcf.gz
+        
+
+[Fri Sep 20 22:27:37 2024]
+rule convert_pg:
+    input: hprc-v1.1-mc-grch38.gbz
+    output: hprc-v1.1-mc-grch38.pg
+    jobid: 6
+    reason: Input files updated by another job: hprc-v1.1-mc-grch38.gbz
+    resources: tmpdir=/tmp
+
+vg convert -t 1 -H -p hprc-v1.1-mc-grch38.gbz > hprc-v1.1-mc-grch38.pg
+Would remove temporary output HG002.pack
+
+[Fri Sep 20 22:27:37 2024]
+rule annotate_calls:
+    input: prepare_variant_paths_from_gt_vcf.py, HG002.gt.min30bp.vcf.gz, hprc-v1.1-mc-grch38.pg
+    output: HG002.gt.min30bp.gaf
+    jobid: 3
+    benchmark: benchmark/annotate_calls.tsv
+    reason: Missing output files: HG002.gt.min30bp.gaf; Input files updated by another job: hprc-v1.1-mc-grch38.pg, HG002.gt.min30bp.vcf.gz
+    resources: tmpdir=/tmp
+
+
+        python3 prepare_variant_paths_from_gt_vcf.py -v HG002.gt.min30bp.vcf.gz -g hprc-v1.1-mc-grch38.pg -o HG002.gt.min30bp.gaf
+        
+
+[Fri Sep 20 22:27:37 2024]
+rule sort_gaf:
+    input: HG002.gt.min30bp.gaf
+    output: HG002.gt.min30bp.sorted.gaf.gz
+    jobid: 2
+    benchmark: benchmark/sort_gaf.HG002.gt.min30bp.tsv
+    reason: Input files updated by another job: HG002.gt.min30bp.gaf
+    wildcards: file=HG002.gt.min30bp
+    resources: tmpdir=/tmp
+
+vg gamsort -G HG002.gt.min30bp.gaf | bgzip > HG002.gt.min30bp.sorted.gaf.gz
+Would remove temporary output HG002.gt.min30bp.gaf
+
+[Fri Sep 20 22:27:37 2024]
+rule index_gaf:
+    input: HG002.gt.min30bp.sorted.gaf.gz
+    output: HG002.gt.min30bp.sorted.gaf.gz.tbi
+    jobid: 1
+    benchmark: benchmark/index_gaf.HG002.gt.min30bp.tsv
+    reason: Input files updated by another job: HG002.gt.min30bp.sorted.gaf.gz
+    wildcards: file=HG002.gt.min30bp
+    resources: tmpdir=/tmp
+
+tabix -p gaf HG002.gt.min30bp.sorted.gaf.gz
+
+[Fri Sep 20 22:27:37 2024]
+localrule genotype:
+    input: HG002.gt.min30bp.sorted.gaf.gz.tbi
+    jobid: 0
+    reason: Input files updated by another job: HG002.gt.min30bp.sorted.gaf.gz.tbi
+    resources: tmpdir=/tmp
+
+Job stats:
+job                 count
+----------------  -------
+annotate_calls          1
+convert_pg              1
+dwl_pg                  1
+genotype                1
+genotype_vg_call        1
+index_gaf               1
+pack_read_cov           1
+sort_gaf                1
+total                   8
+
+Reasons:
+    (check individual jobs above for details)
+    forced:
+        dwl_pg, pack_read_cov
+    input files updated by another job:
+        annotate_calls, convert_pg, genotype, genotype_vg_call, index_gaf, sort_gaf
+    missing output files:
+        annotate_calls, dwl_pg, pack_read_cov
+
+This was a dry-run (flag -n). The order of jobs does not reflect the order of execution.

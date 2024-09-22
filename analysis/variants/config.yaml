@@ -1,3 +1,5 @@
+gbz: ../readsorting/hprc-v1.1-mc-grch38.gbz
+gam: ../readsorting/results/unsorted/HG002.gam
 tissue:
   - Adipose_Subcutaneous
   - Adipose_Visceral_Omentum

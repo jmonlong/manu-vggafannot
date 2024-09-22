@@ -1,0 +1,301 @@
+## read index files to match GENOME.[1/2] to each annotation file
+def read_index(filen):
+    inf = open(filen, 'rt')
+    index_files = {}
+    heads = next(inf).rstrip().split('\t')
+    for line in inf:
+        line = line.rstrip().split('\t')
+        if 'reference' in heads and line[heads.index('reference')] != 'hg38':
+            continue
+        if line[heads.index('haplotype')] == '-':
+            continue
+        hap_name = '1' if line[heads.index('haplotype')] == 'paternal' else '2'
+        hap_name = '{}.{}'.format(line[heads.index('sample')],
+                                  hap_name)
+        file_loc = line[heads.index('file_location')].replace('s3://human-pangenomics',
+                                                             'https://s3-us-west-2.amazonaws.com/human-pangenomics')
+        index_files[hap_name] = file_loc
+    inf.close()
+    return index_files
+
+ann_files = {}
+ann_files['gene'] = read_index('Year1_assemblies_v2_genbank_CAT_genes.index')
+ann_files['trf'] = read_index('Year1_assemblies_v2_genbank_TRF.index')
+ann_files['rm'] = read_index('Year1_assemblies_v2_genbank_Repeat_Masker.index')
+ann_files['sd'] = read_index('Year1_assemblies_v2_genbank_Seg_Dups.index')
+
+TYPES = ['gene', 'trf', 'sd', 'rm']
+HAPS = list(ann_files['gene'].keys())
+GENE_TYPE = ['CDS']
+
+## run the workflow on just one haplotype
+if 'one_hap' in config:
+    HAPS = HAPS[0]
+
+rule run:
+    input:
+        gaf=expand('results/gaf/{type}_{haplotype}.gaf.gz', type=TYPES, haplotype=HAPS),
+        gaf_idx=expand('results/gaf/{type}_{haplotype}.gaf.gz.tbi', type=TYPES, haplotype=HAPS)
+
+rule merged:
+    input:
+        gt_gaf=expand('results/merged/gene_{gene_type}.gaf.gz', gene_type=GENE_TYPE, haplotype=HAPS),
+        gt_gaf_idx=expand('results/merged/gene_{gene_type}.gaf.gz.tbi', gene_type=GENE_TYPE, haplotype=HAPS),
+        others_gaf=expand('results/merged/{type}.gaf.gz', type=['rm', 'trf']),
+        others_gaf_idx=expand('results/merged/{type}.gaf.gz.tbi', type=['rm', 'trf'])
+
+##
+## TASKS
+##
+
+rule extract_type:
+    input: 'results/gaf/gene_{haplotype}.gaf.gz'
+    output: temp('results/temp/merged/gene_{haplotype}_{gene_type}.gaf.gz')
+    benchmark: 'benchmark/extract_type.{haplotype}_{gene_type}.benchmark.tsv'
+    threads: 1
+    resources:
+        mem_mb="8GB",
+        runtime="6h"
+    singularity: 'docker://quay.io/jmonlong/vg-work:1.59.0_v1'
+    shell:
+        """
+        python3 gaftk.py -i {input} -gt CDS -st -u | bgzip > {output}
+        """
+
+rule merge_type:
+    input: expand('results/temp/merged/gene_{haplotype}_{{gene_type}}.gaf.gz', haplotype=HAPS)
+    output:
+        gaf='results/merged/gene_{gene_type}.gaf.gz',
+        gaf_idx='results/merged/gene_{gene_type}.gaf.gz.tbi'
+    benchmark: 'benchmark/merge_type.{gene_type}.benchmark.tsv'
+    threads: 1
+    resources:
+        mem_mb="8GB",
+        runtime="3h"
+    singularity: 'docker://quay.io/jmonlong/vg-work:1.59.0_v1'
+    params:
+        tmp_gaf='temp.merged.{gene_type}.gaf.gz'
+    shell:
+        """
+        zcat {input} | vg gamsort -G - | bgzip > {params.tmp_gaf}
+        python3 gaftk.py -i {params.tmp_gaf} -c | vg gamsort -G - | bgzip > {output.gaf}
+        rm -f {params.tmp_gaf}
+        tabix -p gaf {output.gaf}
+        """
+
+rule merge_rm:
+    input: expand('results/gaf/rm_{haplotype}.gaf.gz', haplotype=HAPS)
+    output:
+        gaf='results/merged/rm.gaf.gz',
+        gaf_idx='results/merged/rm.gaf.gz.tbi'
+    benchmark: 'benchmark/merge_rm.benchmark.tsv'
+    threads: 1
+    resources:
+        mem_mb="8GB",
+        runtime="8h"
+    singularity: 'docker://quay.io/jmonlong/vg-work:1.59.0_v1'
+    params:
+        tmp_gaf='temp.merged.rm.gaf.gz'
+    shell:
+        """
+        zcat {input} | vg gamsort -G - | bgzip > {params.tmp_gaf}
+        python3 gaftk.py -i {params.tmp_gaf} -c | vg gamsort -G - | bgzip > {output.gaf}
+        rm -f {params.tmp_gaf}
+        tabix -p gaf {output.gaf}
+        """
+
+rule merge_trf:
+    input: expand('results/gaf/trf_{haplotype}.gaf.gz', haplotype=HAPS)
+    output:
+        gaf='results/merged/trf.gaf.gz',
+        gaf_idx='results/merged/trf.gaf.gz.tbi'
+    benchmark: 'benchmark/merge_trf.benchmark.tsv'
+    threads: 1
+    resources:
+        mem_mb="8GB",
+        runtime="8h"
+    singularity: 'docker://quay.io/jmonlong/vg-work:1.59.0_v1'
+    params:
+        tmp_gaf='temp.merged.trf.gaf.gz'
+    shell:
+        """
+        zcat {input} | vg gamsort -G - | bgzip > {params.tmp_gaf}
+        python3 gaftk.py -i {params.tmp_gaf} -c | vg gamsort -G - | bgzip > {output.gaf}
+        rm -f {params.tmp_gaf}
+        tabix -p gaf {output.gaf}
+        """
+
+## sort and index the annotation GAFs
+rule index_gaf:
+    input: 'results/gaf/{type}_{haplotype}.gaf.gz'
+    output: 'results/gaf/{type}_{haplotype}.gaf.gz.tbi'
+    benchmark: 'benchmark/index_gaf.{type}_{haplotype}.benchmark.tsv'
+    threads: 1
+    resources:
+        mem_mb="8GB",
+        runtime="1h"
+    singularity: 'docker://quay.io/jmonlong/vg-work:1.59.0_v1'
+    shell: "tabix -p gaf {input}"
+
+rule sort_gaf:
+    input: 'results/unsorted_gaf/{type}_{haplotype}.gaf.gz'
+    output: 'results/gaf/{type}_{haplotype}.gaf.gz'
+    benchmark: 'benchmark/sort_gaf.{type}_{haplotype}.benchmark.tsv'
+    threads: 1
+    resources:
+        mem_mb="8GB",
+        runtime="3h"
+    singularity: 'docker://quay.io/jmonlong/vg-work:1.59.0_v1'
+    shell:
+        """
+        vg gamsort -t 1 -pG {input} | bgzip > {output}
+        """
+
+## make annotation GAFs
+rule vg_annotate_bed:
+    input:
+        anno='results/prep_annotation/{anno_type}_{sample}.{haplotype}.bed.gz',
+        gbz='results/gbz/{sample}.hprc-v1.1-mc-grch38.gbz'
+    output: temp('results/unsorted_gaf/{anno_type}_{sample}.{haplotype}.gaf.gz')
+    log: 'log/vg_annotate.{anno_type}_{sample}.{haplotype}.log'
+    benchmark: 'benchmark/vg_annotate.{anno_type}_{sample}.{haplotype}.benchmark.tsv'
+    threads: 2
+    resources:
+        mem_mb="100GB",
+        runtime="20h"
+    singularity: 'docker://quay.io/jmonlong/vg-work:1.59.0_v1'
+    shell: "gunzip -c {input.anno} | vg annotate -x {input.gbz} -b - 2> {log} | vg convert -G - {input.gbz} | gzip > {output}"
+    
+rule vg_annotate_gff3:
+    input:
+        anno='results/prep_annotation/{anno_type}_{sample}.{haplotype}.gff3.gz',
+        gbz='results/gbz/{sample}.hprc-v1.1-mc-grch38.gbz'
+    output: temp('results/unsorted_gaf/{anno_type}_{sample}.{haplotype}.gaf.gz')
+    log: 'log/vg_annotate.{anno_type}_{sample}.{haplotype}.log'
+    benchmark: 'benchmark/vg_annotate.{anno_type}_{sample}.{haplotype}.benchmark.tsv'
+    threads: 2
+    resources:
+        mem_mb="100GB",
+        runtime="10h"
+    singularity: 'docker://quay.io/jmonlong/vg-work:1.59.0_v1'
+    shell: "gunzip -c {input.anno} | vg annotate -x {input.gbz} -f - 2> {log} | vg convert -G - {input.gbz} | gzip > {output}"    
+
+## prepare the GBZ pangenome
+rule prepare_haplotype_gbz:
+    input: config['gbz']
+    output: temp('results/gbz/{sample}.hprc{graph}.gbz')
+    benchmark: 'benchmark/prep_haplotype_gbz.{sample}.{graph}.benchmark.tsv'
+    threads: 1
+    resources:
+        mem_mb="25GB",
+        runtime="1h"
+    singularity: 'docker://quay.io/jmonlong/vg-work:1.59.0_v1'
+    shell:
+        """
+        vg gbwt -Z --set-tag "reference_samples={wildcards.sample}" --gbz-format -g {output} {input}
+        """
+
+## prepare annotation files
+rule prepare_cat_genes:
+    input: 'results/raw_annotation/{haplotype}.grch38.gff3.gz'
+    output: temp('results/prep_annotation/gene_{haplotype}.gff3.gz')
+    benchmark: 'benchmark/prep_cat_gene.{haplotype}.benchmark.tsv'
+    threads: 1
+    resources:
+        mem_mb="8GB",
+        runtime="3h"
+    singularity: 'docker://quay.io/jmonlong/vg-work:1.59.0_v1'
+    params:
+        pref=lambda wildcards: wildcards.haplotype.replace('.', '#') + '#'
+    shell: "python3 pre-vg-annotate.py -i {input} --add-prefix {params.pref} --use-name-id | gzip > {output}"
+
+rule prepare_trf_repeats:
+    input: 'results/raw_annotation/{haplotype}.trf.bed.gz'
+    output: temp('results/prep_annotation/trf_{haplotype}.bed.gz')
+    benchmark: 'benchmark/prep_trf_repeats.{haplotype}.benchmark.tsv'
+    threads: 1
+    resources:
+        mem_mb="8GB",
+        runtime="3h"
+    params:
+        suff=lambda wildcards: "#" + wildcards.haplotype.replace('.', '#')
+    singularity: 'docker://quay.io/jmonlong/vg-work:1.59.0_v1'
+    shell:
+        """
+        python3 pre-vg-annotate.py -i {input} --add-suffix "{params.suff}" --add-rep-n | gzip > {output}
+        """
+
+rule prepare_segdups:
+    input: 'results/raw_annotation/{haplotype}.sedef.bedpe'
+    output: temp('results/prep_annotation/sd_{haplotype}.bed.gz')
+    benchmark: 'benchmark/prep_segdups.{haplotype}.benchmark.tsv'
+    threads: 1
+    resources:
+        mem_mb="8GB",
+        runtime="3h"
+    params:
+        suff=lambda wildcards: "#" + wildcards.haplotype.replace('.', '#')
+    singularity: 'docker://quay.io/jmonlong/vg-work:1.59.0_v1'
+    shell:
+        """
+        python3 pre-vg-annotate.py -i {input} --add-suffix "{params.suff}" --add-len-fracm | gzip > {output}
+        """
+
+rule prepare_repeat_masker:
+    input: 'results/raw_annotation/{haplotype}.f1_assembly_v2_genbank_rm.bed'
+    output: temp('results/prep_annotation/rm_{haplotype}.bed.gz')
+    benchmark: 'benchmark/prep_repeat_masker.{haplotype}.benchmark.tsv'
+    threads: 1
+    resources:
+        mem_mb="8GB",
+        runtime="3h"
+    params:
+        suff=lambda wildcards: "#" + wildcards.haplotype.replace('.', '#')
+    singularity: 'docker://quay.io/jmonlong/vg-work:1.59.0_v1'
+    shell:
+        """
+        python3 pre-vg-annotate.py -i {input} --add-suffix "{params.suff}" --add-rm-class | gzip > {output}
+        """
+
+## download annotation files
+rule dwl_rm_annotation:
+    output: temp('results/raw_annotation/{haplotype}.f1_assembly_v2_genbank_rm.bed')
+    threads: 1
+    localrule: True
+    params:
+        url=lambda wildcards: ann_files['rm'][wildcards.haplotype]
+    shell: "wget -O {output} {params.url}"
+
+rule dwl_cat_gene_annotation:
+    output: temp('results/raw_annotation/{haplotype}.grch38.gff3.gz')
+    threads: 1
+    localrule: True
+    params:
+        url=lambda wildcards: ann_files['gene'][wildcards.haplotype]
+    shell: "wget -O {output} {params.url}"
+
+rule dwl_sd_annotation:
+    output: temp('results/raw_annotation/{haplotype}.sedef.bedpe')
+    threads: 1
+    localrule: True
+    params:
+        url=lambda wildcards: ann_files['sd'][wildcards.haplotype]
+    shell: "wget -O {output} {params.url}"
+
+rule dwl_trf_annotation:
+    output: temp('results/raw_annotation/{haplotype}.trf.bed.gz')
+    threads: 1
+    localrule: True
+    params:
+        url=lambda wildcards: ann_files['trf'][wildcards.haplotype]
+    shell: "wget -O {output} {params.url}"
+
+## download the pangenome
+rule dwl_gbz:
+    output: "hprc-v1.1-mc-grch38.gbz"
+    threads: 1
+    localrule: True
+    shell:
+        """
+        wget https://s3-us-west-2.amazonaws.com/human-pangenomics/pangenomes/freeze/freeze1/minigraph-cactus/hprc-v1.1-mc-grch38/hprc-v1.1-mc-grch38.gbz
+        """

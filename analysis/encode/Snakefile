@@ -25,7 +25,7 @@ if 'sample' not in config:
 
 rule main:
     input:
-        cov=expand('results/{sample}/{sample}.cov.gaf.bgz.tbi', sample=config['sample']),
+        cov=expand('results/{sample}/{sample}.cov.gaf.gz.tbi', sample=config['sample']),
         readstat=expand('results/{sample}/{sample}.gaf.wc.txt', sample=config['sample']),
         sum=expand('results/{sample}/{sample}.cov.sum.tsv', sample=config['sample'])
 
@@ -122,7 +122,7 @@ rule make_cov:
         pg='results/pg/pg.pg',
         reads='results/{sample}/{sample}.gaf.gz',
         script='make_coverage_track.py'
-    output: temp('results/{sample}/{sample}.cov.gaf.gz')
+    output: temp('results/{sample}/{sample}.cov.unsorted.gaf.gz')
     threads: 4
     resources:
         mem='120G',
@@ -135,8 +135,8 @@ rule make_cov:
         """
 
 rule sort_cov_gaf:
-    input: 'results/{sample}/{sample}.cov.gaf.gz'
-    output: 'results/{sample}/{sample}.cov.gaf.bgz'
+    input: 'results/{sample}/{sample}.cov.unsorted.gaf.gz'
+    output: 'results/{sample}/{sample}.cov.gaf.gz'
     benchmark: 'benchmark/sort_cov_gaf.{sample}.tsv'
     container: 'docker://quay.io/jmonlong/vg-work:1.59.0_v1'
     threads: 2
@@ -146,8 +146,8 @@ rule sort_cov_gaf:
     shell: "vg gamsort -G {input} | bgzip > {output}"
 
 rule index_gaf:
-    input: 'results/{sample}/{sample}.cov.gaf.bgz'
-    output: 'results/{sample}/{sample}.cov.gaf.bgz.tbi'
+    input: 'results/{sample}/{sample}.cov.gaf.gz'
+    output: 'results/{sample}/{sample}.cov.gaf.gz.tbi'
     container: 'docker://quay.io/jmonlong/vg-work:1.59.0_v1'
     benchmark: 'benchmark/index_gaf.{sample}.tsv'
     localrule: True
@@ -155,7 +155,7 @@ rule index_gaf:
     
 rule summarize_cov_gaf:
     input:
-        cov='results/{sample}/{sample}.cov.gaf.bgz',
+        cov='results/{sample}/{sample}.cov.gaf.gz',
         script='summarize_cov_gaf.py'
     output: 'results/{sample}/{sample}.cov.sum.tsv'
     resources:

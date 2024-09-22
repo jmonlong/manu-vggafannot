@@ -1,0 +1,61 @@
+---
+output: github_document
+---
+
+```{r}
+library(dplyr)
+library(knitr)
+```
+
+```{r}
+logs = list.files('log')
+
+logs.df = lapply(logs, function(fn){
+  l.r = scan(paste0('log/', fn), '', quiet=TRUE, sep='\t')
+  tibble(name=gsub('annotate_(.*).tsv', '\\1', fn),
+         total=gsub("Read information about (.+) variants.", '\\1', l.r[1]),
+         converted=gsub("(.+) variants converted.*", '\\1', l.r[3]),
+         converted.alt=gsub(".*inc. (.+) with matched ALT allele.", '\\1', l.r[3])) %>%
+    mutate(total=as.numeric(total),
+           converted=as.numeric(converted),
+           converted.alt=as.numeric(converted.alt))
+}) %>% bind_rows
+
+logs.df = logs.df %>% mutate(prop.converted=converted/total,
+                             prop.converted.alt=converted.alt/total)
+```
+
+Table with all data
+
+```{r}
+logs.df %>% arrange(total) %>% kable(format.args=list(big.mark=','), digits=4)
+```
+
+Average values for the eQTLs:
+
+```{r}
+logs.df %>% filter(name!='gwas') %>% select(-name) %>%
+  mutate(n=n()) %>% 
+  summarize_all(mean)  %>% kable(format.args=list(big.mark=','), digits=4)
+```
+
+Average pooling all variants annotated:
+
+```{r}
+logs.df %>% select(converted, total) %>% summarize_all(sum) %>%
+  mutate(prop.converted=converted/total) %>%
+  kable(format.args=list(big.mark=','), digits=4)
+```
+
+## GAF file size
+
+```{r}
+gaf.l = list.files('.', '.gaf.gz$')
+
+gaf.df = lapply(gaf.l, function(fn){
+  tibble(file=fn, size.mb=file.info(fn)$size/(1024*1024))
+}) %>% bind_rows
+
+mean(gaf.df$size.mb)
+sum(gaf.df$size.mb)
+```

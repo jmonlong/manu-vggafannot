@@ -70,5 +70,34 @@ Summaries about the annotation and resources used are available in the [`log`](l
 A list of all the commands ran by the workflow is shown in `workflow.log`.
 
 ```sh
-snakemake --configfile config.yaml -Fn > workflow.log
+snakemake --configfile config.yaml -Fpn > workflow.log
+```
+
+A combined GAF with all variants was prepared with:
+
+```sh
+zcat *GTEx*sorted.gaf.gz gwasCatalog.hprc-v1.1-mc-grch38.sorted.gaf.gz | vg gamsort -G - | bgzip > gwas.eQTLs.gaf.gz
+tabix -p gaf gwas.eQTLs.gaf.gz
+```
+
+## Variants from genotyping analysis
+
+For this test, HG002 was genotyped using `vg call` from the aligned reads produced by the read sorting analysis ([`../readsorting`](../readsorting)).
+
+```sh
+snakemake --configfile config.yaml -pn genotype
+```
+
+A list of all the commands ran by the workflow for this analysis is shown in `workflow.genotype.log`.
+
+```sh
+snakemake --configfile config.yaml -Fpn genotype > workflow.genotype.log
+```
+
+Briefly, the VCF containing the genotype calls was converted to GAF using the `prepare_variant_paths_from_gt_vcf.py` script, sorted and indexed:
+
+```sh
+python3 prepare_variant_paths_from_gt_vcf.py -v HG002.gt.min30bp.vcf.gz -g hprc-v1.1-mc-grch38.pg -o HG002.gt.min30bp.gaf
+vg gamsort -G HG002.gt.min30bp.gaf | bgzip > HG002.gt.min30bp.gaf.gz
+tabix -p gaf HG002.gt.min30bp.gaf.gz
 ```

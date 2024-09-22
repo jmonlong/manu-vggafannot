@@ -1,0 +1,156 @@
+rule main:
+    input:
+        gaf='results/sorted/HG002.gaf.gz.tbi',
+        gam='results/sorted/HG002.gam.gai'
+
+#
+# tasks
+#
+
+rule count_kmer_in_reads:
+    input:
+        fq1=config['fq1'],
+        fq2=config['fq2']
+    output: temp("results/{sample}.kff")
+    params:
+        wdir="temp_kmc_{sample}",
+        ofile="results/{sample}",
+        filel="temp_kmc_filelist_{sample}.txt"
+    benchmark: 'benchmark/{sample}.count_kmer_in_reads.tsv'
+    container: "docker://quay.io/biocontainers/kmc:3.2.1--hf1761c0_2"
+    threads: 8
+    resources:
+        mem='64GB',
+        runtime='1h'
+    shell:
+        """
+        echo {input.fq1} > {params.filel}
+        echo {input.fq2} >> {params.filel}
+        rm -rf {params.wdir}
+        mkdir -p {params.wdir}
+        kmc -k29 -m64 -okff -t{threads} @{params.filel} {params.ofile} {params.wdir}
+        rm -r {params.filel} {params.wdir}
+        """
+
+rule sample_haplotypes:
+    input: 
+        gbz=config['gbz'],
+        hapl=config['hapl'],
+        read_kmer="results/{sample}.kff"
+    output: "results/sample_pg.{sample}.gbz"
+    benchmark: 'benchmark/{sample}.sample_haplotypes.tsv'
+    container: "docker://quay.io/jmonlong/vg-work:1.59.0_v1"
+    threads: 8
+    resources:
+        mem='40GB',
+        runtime='1h'
+    shell:
+        """
+        vg haplotypes -v 2 -t {threads} \
+        --num-haplotypes 4 \
+        --present-discount 0.9 \
+        --het-adjustment 0.05 \
+        --absent-score 0.8 \
+        --include-reference \
+        --diploid-sampling \
+        -i {input.hapl} \
+        -k {input.read_kmer} \
+        -g {output} {input.gbz}
+        """
+
+rule index_distance:
+    input: "results/sample_pg.{sample}.gbz"
+    output: temp("results/sample_pg.{sample}.dist")
+    benchmark: 'benchmark/{sample}.index_distance.tsv'
+    container: "docker://quay.io/jmonlong/vg-work:1.59.0_v1"
+    resources:
+        mem='64GB',
+        runtime='1h'
+    shell: "vg index -j {output} {input}"
+
+rule index_minimizer:
+    input:
+        gbz="results/sample_pg.{sample}.gbz",
+        dist="results/sample_pg.{sample}.dist"
+    output: temp("results/sample_pg.{sample}.min")
+    benchmark: 'benchmark/{sample}.index_minimizer.tsv'
+    container: "docker://quay.io/jmonlong/vg-work:1.59.0_v1"
+    threads: 8
+    resources:
+        mem='64GB',
+        runtime='3h'
+    shell: "vg minimizer -t {threads} -d {input.dist} -o {output} {input.gbz}"
+
+rule map_short_reads_giraffe:
+    input: 
+        fq1=config['fq1'],
+        fq2=config['fq2'],
+        gbz="results/sample_pg.{sample}.gbz",
+        dist='results/sample_pg.{sample}.dist',
+        min='results/sample_pg.{sample}.min'
+    output: "results/unsorted/{sample}.gam"
+    benchmark: 'benchmark/{sample}.map_short_reads_giraffe.tsv'
+    container: "docker://quay.io/jmonlong/vg-work:1.59.0_v1"
+    threads: 16
+    resources:
+        mem='64GB',
+        runtime='6h'
+    shell:
+        """
+        vg giraffe --progress \
+        --sample "{wildcards.sample}" \
+        --output-format gam \
+        -f {input.fq1} -f {input.fq2} \
+        -Z {input.gbz} \
+        -d {input.dist} \
+        -m {input.min} \
+        -t {threads} > {output}
+        """
+
+rule sort_gam:
+    input: "results/unsorted/{sample}.gam"
+    output:
+        gam="results/sorted/{sample}.gam",
+        gai="results/sorted/{sample}.gam.gai"
+    benchmark: 'benchmark/{sample}.sort_gam.tsv'
+    container: "docker://quay.io/jmonlong/vg-work:1.59.0_v1"
+    threads: 1
+    resources:
+        mem='16GB',
+        runtime='24h'
+    shell: "vg gamsort -t 1 -i {output.gai} {input} > {output.gam}"
+
+rule gam_to_gaf:
+    input:
+        gam="results/unsorted/{sample}.gam",
+        gbz="results/sample_pg.{sample}.gbz"
+    output: "results/unsorted/{sample}.gaf.gz"
+    benchmark: 'benchmark/{sample}.gam_to_gaf.tsv'
+    container: "docker://quay.io/jmonlong/vg-work:1.59.0_v1"
+    threads: 4
+    resources:
+        mem='64GB',
+        runtime='16h'
+    shell: "vg convert -t {threads} -G {input.gam} {input.gbz} | gzip > {output}"
+
+rule sort_gaf:
+    input: "results/unsorted/{sample}.gaf.gz"
+    output: "results/sorted/{sample}.gaf.gz"
+    benchmark: 'benchmark/{sample}.sort_gaf.tsv'
+    container: "docker://quay.io/jmonlong/vg-work:1.59.0_v1"
+    threads: 1
+    resources:
+        mem='16GB',
+        runtime='24h'
+    shell: "vg gamsort -G {input} | bgzip > {output}"
+
+rule index_gaf:
+    input: "results/sorted/{sample}.gaf.gz"
+    output: "results/sorted/{sample}.gaf.gz.tbi"
+    benchmark: 'benchmark/{sample}.index_gaf.tsv'
+    container: "docker://quay.io/jmonlong/vg-work:1.59.0_v1"
+    threads: 1
+    resources:
+        mem='8GB',
+        runtime='1h'
+    shell: "tabix -p gaf {input}"

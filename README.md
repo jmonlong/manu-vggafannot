@@ -1,3 +1,18 @@
+[![HTML Manuscript](https://img.shields.io/badge/manuscript-HTML-blue.svg)](https://jmonlong.github.io/manu-vggafannot/)
+[![PDF Manuscript](https://img.shields.io/badge/manuscript-PDF-blue.svg)](https://jmonlong.github.io/manu-vggafannot/manuscript.pdf)
+[![GitHub Actions Status](https://github.com/jmonlong/manu-vggafannot/workflows/Manubot/badge.svg)](https://github.com/jmonlong/manu-vggafannot/actions)
+
+## Manuscript description
+
+<!-- usage note: edit this section. -->
+
+This repository is a manuscript about how to represent and index annotations in a pangenome graph. 
+**It's a work in progress.**
+The current manuscript is available in HTML at [https://jmonlong.github.io/manu-vggafannot/](https://jmonlong.github.io/manu-vggafannot/) or in PDF at [https://jmonlong.github.io/manu-vggafannot/manuscript.pdf](https://jmonlong.github.io/manu-vggafannot/manuscript.pdf).
+
+The [`analysis`](analysis) folder hosts scripts and workflows used for the analysis. 
+The [`talks`](talks) folder has slides.
+
 # Build manuscript locally
 
 ```sh
@@ -13,20 +28,6 @@ The HTML/PDF outputs are then in the `output` folder.
 
 Note: the automated GitHub CI outputs are in the [*output* branch](https://github.com/jmonlong/manu-vggafannot/tree/output) (e.g. [PDF](https://github.com/jmonlong/manu-vggafannot/blob/output/manuscript.pdf)).
 
-# Automated scholarly manuscripts on GitHub
-
-<!-- usage note: edit the H1 title above to personalize the manuscript -->
-
-[![HTML Manuscript](https://img.shields.io/badge/manuscript-HTML-blue.svg)](https://jmonlong.github.io/manu-vggafannot/)
-[![PDF Manuscript](https://img.shields.io/badge/manuscript-PDF-blue.svg)](https://jmonlong.github.io/manu-vggafannot/manuscript.pdf)
-[![GitHub Actions Status](https://github.com/jmonlong/manu-vggafannot/workflows/Manubot/badge.svg)](https://github.com/jmonlong/manu-vggafannot/actions)
-
-## Manuscript description
-
-<!-- usage note: edit this section. -->
-
-This repository is a template manuscript (a.k.a. rootstock).
-Actual manuscript instances will clone this repository (see [`SETUP.md`](SETUP.md)) and replace this paragraph with a description of their manuscript.
 
 ## Manubot
 

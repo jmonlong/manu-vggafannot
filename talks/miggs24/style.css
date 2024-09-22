@@ -1,0 +1,112 @@
+.reveal section img {
+    max-width:100%;
+    max-height:800px;
+    height: auto;
+    width:auto;
+    border: none;
+    box-shadow: none;
+    margin: 0 0 0 0;
+}
+
+.reveal .himg {
+    max-width:50%;
+    max-height:400px;
+    height: auto;
+    width:auto;
+}
+
+.reveal .simg {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+}
+
+.reveal .h2img {
+    max-height:400px;
+}
+
+.reveal .cite {
+    font-size: 30%;
+    font-style: italic;
+}
+
+.reveal .legend {
+    font-size: 50%;
+}
+
+.reveal .smcode {
+    font-size: 45%
+}
+
+.reveal .legend em {
+    font-weight: bold;
+}
+
+.reveal h2 {
+    font-size: 1.4em;
+}
+
+.reveal h1, .reveal h2 {
+    text-transform: none;
+}
+
+.reveal .title {
+    font-size: 1.6em;
+}
+
+.reveal .subtitle {
+    font-size: 1em;
+    margin: 60px 0 20px 0
+}
+
+.reveal .author {
+    font-size: .6em;
+    margin: 40px 0 20px 0
+}
+
+p code {
+    color: #2a76aa;
+}
+
+li code {
+    color: #2a76aa;
+}
+
+.fragment code {
+    color: #2a76aa;
+}
+
+.reveal strong {
+    color: #aaa00a;
+}
+
+div.sourceCode {
+    margin: 0 0 0 0;
+}
+
+/* .fragment .subpoint { */
+/*     text-transform: none; */
+/*     color: grey; */
+/*     font-size: 70%; */
+/*     font-family: inher; */
+/* } */
+
+.reveal ul ul {
+    list-style-type: square;
+    color: grey;
+    font-size: 70%;
+}
+
+.reveal ul ol {
+    color: grey;
+    font-size: 70%;
+}
+
+.reveal ol ul {
+    color: grey;
+    font-size: 70%;
+}
+
+.shadow {
+    text-shadow: 3px 3px;
+    background-color: rgba(255,255,255,0.5);
+}
+

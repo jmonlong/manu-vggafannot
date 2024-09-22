@@ -162,6 +162,8 @@ for line in pg_in:
         gaf_v += '\t{}\t{}'.format(offset, path_len + offset)
         # residues matching, alignment block size, and mapping quality
         gaf_v += '\t{}\t{}\t60'.format(path_len, path_len)
+        # cigar string
+        gaf_v += '\tcs:Z::{}'.format(path_len)
         outf.write(gaf_v + '\n')
         tot += 1
 

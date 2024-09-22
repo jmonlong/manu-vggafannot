@@ -49,7 +49,8 @@ If not, download the files (see [HPRC pangenome](#hprc-pangenome)) and update th
 
 Copy the following files from this repo to Genotoul:
 
-- `make_coverage_track.py` script which bins the read coverage.
+- `make_coverage_track.py` script which bins the read coverage
+- `summarize_cov_gaf.py` script to compute some summary statistics for the coverage track
 - `Snakefile` which defines the workflow
 - `config.yaml` with some general info, e.g. where the pangenome indexes are
 - `sample_info.tsv` which define each sample and the URL of their FASTQs.

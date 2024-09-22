@@ -1,0 +1,5 @@
+gbz: hprc-v1.1-mc-grch38.gbz
+hapl: hprc-v1.1-mc-grch38.hapl
+sample: HG002
+fq1: HG002_HiSeq30x_subsampled_R1.fastq.gz
+fq2: HG002_HiSeq30x_subsampled_R2.fastq.gz
