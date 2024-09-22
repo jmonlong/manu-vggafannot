@@ -21,7 +21,7 @@ duplications
 ENVT
 epigenetic
 eQTLs
-gaf
+GAF
 GAM
 Gastrocnemius
 Gastroesophageal
@@ -40,7 +40,7 @@ GWAS
 gzip
 gzipped
 haplotype
-Haplotypes
+haplotypes
 HiSeq
 HPRC
 HTSlib
@@ -54,7 +54,7 @@ jmonlong
 libbdsg
 linearized
 medialis
-Minigraph
+minigraph
 mins
 MoMI
 Monlong

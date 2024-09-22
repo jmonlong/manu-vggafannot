@@ -29,8 +29,8 @@ header-includes: |
   <meta name="dc.date" content="2024-09-22" />
   <meta name="citation_publication_date" content="2024-09-22" />
   <meta property="article:published_time" content="2024-09-22" />
-  <meta name="dc.modified" content="2024-09-22T19:17:18+00:00" />
-  <meta property="article:modified_time" content="2024-09-22T19:17:18+00:00" />
+  <meta name="dc.modified" content="2024-09-22T19:22:57+00:00" />
+  <meta property="article:modified_time" content="2024-09-22T19:22:57+00:00" />
   <meta name="dc.language" content="en-US" />
   <meta name="citation_language" content="en-US" />
   <meta name="dc.relation.ispartof" content="Manubot" />
@@ -64,9 +64,9 @@ header-includes: |
   <meta name="citation_fulltext_html_url" content="https://jmonlong.github.io/manu-vggafannot/" />
   <meta name="citation_pdf_url" content="https://jmonlong.github.io/manu-vggafannot/manuscript.pdf" />
   <link rel="alternate" type="application/pdf" href="https://jmonlong.github.io/manu-vggafannot/manuscript.pdf" />
-  <link rel="alternate" type="text/html" href="https://jmonlong.github.io/manu-vggafannot/v/f57c8c11758770b9aeb1d0e57ee280968b7f4e74/" />
-  <meta name="manubot_html_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/f57c8c11758770b9aeb1d0e57ee280968b7f4e74/" />
-  <meta name="manubot_pdf_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/f57c8c11758770b9aeb1d0e57ee280968b7f4e74/manuscript.pdf" />
+  <link rel="alternate" type="text/html" href="https://jmonlong.github.io/manu-vggafannot/v/20282611bf373d4dd335e9f6915ec58636a5ea66/" />
+  <meta name="manubot_html_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/20282611bf373d4dd335e9f6915ec58636a5ea66/" />
+  <meta name="manubot_pdf_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/20282611bf373d4dd335e9f6915ec58636a5ea66/manuscript.pdf" />
   <meta property="og:type" content="article" />
   <meta property="twitter:card" content="summary_large_image" />
   <link rel="icon" type="image/png" sizes="192x192" href="https://manubot.org/favicon-192x192.png" />
@@ -88,9 +88,9 @@ manubot-clear-requests-cache: false
 
 <small><em>
 This manuscript
-([permalink](https://jmonlong.github.io/manu-vggafannot/v/f57c8c11758770b9aeb1d0e57ee280968b7f4e74/))
+([permalink](https://jmonlong.github.io/manu-vggafannot/v/20282611bf373d4dd335e9f6915ec58636a5ea66/))
 was automatically generated
-from [jmonlong/manu-vggafannot@f57c8c1](https://github.com/jmonlong/manu-vggafannot/tree/f57c8c11758770b9aeb1d0e57ee280968b7f4e74)
+from [jmonlong/manu-vggafannot@2028261](https://github.com/jmonlong/manu-vggafannot/tree/20282611bf373d4dd335e9f6915ec58636a5ea66)
 on September 22, 2024.
 </em></small>
 
