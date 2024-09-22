@@ -35,12 +35,12 @@ GfaViz
 GFF
 glennhickey
 GRCh
-GTEX
+GTEx
 GWAS
 gzip
 gzipped
 haplotype
-haplotypes
+Haplotypes
 HiSeq
 HPRC
 HTSlib
@@ -54,7 +54,7 @@ jmonlong
 libbdsg
 linearized
 medialis
-minigraph
+Minigraph
 mins
 MoMI
 Monlong
