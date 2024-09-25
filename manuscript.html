@@ -12,7 +12,7 @@
   <meta name="author" content="Erik Garrison" />
   <meta name="author" content="Benedict Paten" />
   <meta name="author" content="Jean Monlong" />
-  <meta name="dcterms.date" content="2024-09-22" />
+  <meta name="dcterms.date" content="2024-09-25" />
   <meta name="keywords" content="pangenome, annotation, alignment" />
   <title>Current options to index, represent, and visualize annotations in a pangenome with the vg toolkit</title>
   <style>
@@ -57,11 +57,11 @@
   <meta name="citation_title" content="Current options to index, represent, and visualize annotations in a pangenome with the vg toolkit" />
   <meta property="og:title" content="Current options to index, represent, and visualize annotations in a pangenome with the vg toolkit" />
   <meta property="twitter:title" content="Current options to index, represent, and visualize annotations in a pangenome with the vg toolkit" />
-  <meta name="dc.date" content="2024-09-22" />
-  <meta name="citation_publication_date" content="2024-09-22" />
-  <meta property="article:published_time" content="2024-09-22" />
-  <meta name="dc.modified" content="2024-09-22T21:00:25+00:00" />
-  <meta property="article:modified_time" content="2024-09-22T21:00:25+00:00" />
+  <meta name="dc.date" content="2024-09-25" />
+  <meta name="citation_publication_date" content="2024-09-25" />
+  <meta property="article:published_time" content="2024-09-25" />
+  <meta name="dc.modified" content="2024-09-25T16:40:48+00:00" />
+  <meta property="article:modified_time" content="2024-09-25T16:40:48+00:00" />
   <meta name="dc.language" content="en-US" />
   <meta name="citation_language" content="en-US" />
   <meta name="dc.relation.ispartof" content="Manubot" />
@@ -95,9 +95,9 @@
   <meta name="citation_fulltext_html_url" content="https://jmonlong.github.io/manu-vggafannot/" />
   <meta name="citation_pdf_url" content="https://jmonlong.github.io/manu-vggafannot/manuscript.pdf" />
   <link rel="alternate" type="application/pdf" href="https://jmonlong.github.io/manu-vggafannot/manuscript.pdf" />
-  <link rel="alternate" type="text/html" href="https://jmonlong.github.io/manu-vggafannot/v/3cc3f5363a5371507d31d635c00f008acb5cef87/" />
-  <meta name="manubot_html_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/3cc3f5363a5371507d31d635c00f008acb5cef87/" />
-  <meta name="manubot_pdf_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/3cc3f5363a5371507d31d635c00f008acb5cef87/manuscript.pdf" />
+  <link rel="alternate" type="text/html" href="https://jmonlong.github.io/manu-vggafannot/v/19016ce6cfd97af5f0ec703d07a493fb553a212b/" />
+  <meta name="manubot_html_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/19016ce6cfd97af5f0ec703d07a493fb553a212b/" />
+  <meta name="manubot_pdf_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/19016ce6cfd97af5f0ec703d07a493fb553a212b/manuscript.pdf" />
   <meta property="og:type" content="article" />
   <meta property="twitter:card" content="summary_large_image" />
   <link rel="icon" type="image/png" sizes="192x192" href="https://manubot.org/favicon-192x192.png" />
@@ -114,10 +114,10 @@
 </header>
 <p><small><em>
 This manuscript
-(<a href="https://jmonlong.github.io/manu-vggafannot/v/3cc3f5363a5371507d31d635c00f008acb5cef87/">permalink</a>)
+(<a href="https://jmonlong.github.io/manu-vggafannot/v/19016ce6cfd97af5f0ec703d07a493fb553a212b/">permalink</a>)
 was automatically generated
-from <a href="https://github.com/jmonlong/manu-vggafannot/tree/3cc3f5363a5371507d31d635c00f008acb5cef87">jmonlong/manu-vggafannot@3cc3f53</a>
-on September 22, 2024.
+from <a href="https://github.com/jmonlong/manu-vggafannot/tree/19016ce6cfd97af5f0ec703d07a493fb553a212b">jmonlong/manu-vggafannot@19016ce</a>
+on September 25, 2024.
 </em></small></p>
 <h2 id="authors">Authors</h2>
 <ul>
@@ -196,16 +196,15 @@ Jean Monlong &lt;jean.monlong@inserm.fr&gt;.</p>
 </div>
 <h2 class="page_break_before" id="abstract">Abstract</h2>
 <p>The current reference genome is the backbone of diverse and rich annotations.
-To enable similar enrichment of a pangenome reference, there is a dire need for tools and formats for pangenomic annotation.
 Simple text formats, like VCF or BED, have been widely adopted and helped this critical exchange of genomic information.
-The Graph Alignment Format (GAF) text format, which was proposed to represent alignments, could be used to represent any type of annotation in a pangenome graph.
-Here I review how some features of the <code>vg</code> ecosystem can already provide indexing, querying, and visualization capabilities for annotations represented as paths.</p>
-<p>We developed efficient sorting, indexing and querying for GAF files.
-This approach can for example extract annotations overlapping a subgraph quickly.
-Alignments are currently sorted based on the covered node IDs, similar to the approach for sorting read alignments in the GAM format, a binary format used previously by the <code>vg</code> toolkit.
-To index the bgzipped GAF file, we extended HTSlib/tabix to work with the GAF format.
-Second, <code>vg annotate</code> was recently updated to better produce graph annotations as paths, starting from annotation files relative to linear references.
-More precisely, it can to take annotations in BED or GFF3 files, written relative to reference paths or haplotypes, and produce GAF files representing the equivalent paths through the pangenome.</p>
+To enable similar enrichment of a pangenome reference, there is a dire need for tools and formats for pangenomic annotation.
+The Graph Alignment Format (GAF) is a text format, tab-delimitted like BED/VCF files, which was proposed to represent alignments
+While tt could be used to represent any type of annotation in a pangenome graph, there is no tools to query them efficiently.</p>
+<p>Here, we present extension to vg and HTSlib that provide efficient sorting, indexing and querying for GAF files.
+With this approach, annotations overlapping a subgraph can be extracted quickly.
+Paths are sorted based on the IDs of traversed nodes, compressed with BGZIP, and indexed with HTSlib/tabix that we extended to work with the GAF format.
+In addition, we updated <code>vg annotate</code> to better produce graph annotations as paths, starting from annotation files relative to linear references.
+More precisely, it can to take annotations in BED or GFF3 files, written relative to reference paths or haplotypes, and produce GAF files representing their paths through the pangenome.</p>
 <p>To showcase these commands, we projected annotations for all haplotypes in the latest draft human pangenome (HPRC v1.1 GRCh38-based Minigraph-Cactus pangenome).
 This included genes, segmental duplications, tandem repeats and repeats annotations.
 <code>vg annotate</code> can annotate ~4M gene annotations in ~16 mins, and ~5.5M repeats from RepeatMasker in ~9 mins on a single-threaded machine.
@@ -228,7 +227,7 @@ This means that we are now manipulating genomic objects like sequencing reads, e
 Currently, those results are typically projected to the linear reference genome.
 As for linear genome reference, it will be essential to be able to organize and visualize genomic annotation in the pangenome.
 A lack of user-friendly querying and visualization options would hamper the adoption of the pangenomic paradigm.</p>
-<p>Several visualization tools for pangenomes already exist but mostly focus on representing the graph topology with specialized integration of additional information layers.
+<p>Several interactive visualization tools for pangenomes already exist but mostly focus on representing the graph topology with specialized integration of additional information layers.
 Bandage is an interactive assembly graph visualization tool which can scale to pangenomes up to hundreds of thousands of nodes on modern computers<span class="citation" data-cites="hbEIE3nt">[<a href="#ref-hbEIE3nt" role="doc-biblioref">10</a>]</span>.
 GfaViz is another interactive sequence graph visualization tool which supports the GFA 2 format and its new features<span class="citation" data-cites="18wtkgoQ8">[<a href="#ref-18wtkgoQ8" role="doc-biblioref">11</a>]</span>.
 In particular, it can represent the different paths annotated in the GFA file.
@@ -243,16 +242,23 @@ Panache is another pangenomic tool specializing in gene-centric visualization of
 The blocks are interactively explored in a web-based application to explore their gene content and their absence/presence in the different genimes.
 Panache is notably used in the Banana Genome Hub<span class="citation" data-cites="rlcThVtQ">[<a href="#ref-rlcThVtQ" role="doc-biblioref">15</a>]</span>.
 In summary, some visualization tools exist but it is not yet clear how to best provide additional annotation layers to their graph representation.</p>
-<p>Simple text formats, like VCF or BED, have been widely adopted and helped this critical exchange of genomic information for the linear reference genome.
-To enable similar enrichment of a pangenome reference, there is a dire need for tools and formats for pangenomic annotation.
+<p>A few options also exist to display static representations of a pangenome graph (or subgraph).
+The <code>vg</code> toolkit can output a pangenome and alignments in the DOT format.
+Paths can be displayed too, although the image can become hard to read when many paths are included or in large grahs.
+The <code>odgi</code> toolkit offers visualizations that scale better to larger graphs and annotations<span class="citation" data-cites="17heHmmBb">[<a href="#ref-17heHmmBb" role="doc-biblioref">16</a>]</span>.
+The pangenome is, for example, linearized using an 1D layout<span class="citation" data-cites="AohKwXF4">[<a href="#ref-AohKwXF4" role="doc-biblioref">17</a>]</span> and annotations displayed on top of the graph as an array/heatmap.
+Of note, <code>odgi</code> implemented two options to add annotations from external BED files: one to convert annotations to a CSV file to help color nodes in Bandage, another by injecting new paths into a graph before visualization.</p>
+<p>There is a dire need for a format supporting annotations in the pangenome and that can is easy to create, index and query.
+As demonstrated by the success of the BED, GFF or VCF formats, it could help the critical exchange of (pan)genomic information, and allow pangenomic tools access additional information in the pangenomic space.
 The Graph Alignment Format (GAF) text format, which was proposed to represent alignments, could be used to represent any type of annotation in a pangenome graph.
-Here, we present new features of the <code>vg</code> ecosystem that provide indexing, querying, and visualization capabilities for annotations represented as paths in the GAF format.</p>
-<!-- GraphAligner, vg giraffe[@giraffe]. -->
+It’s the lack of techniques to compress, index and query it that limits its adoption at a larger scale.
+Here, we present new features of the <code>vg</code> and HTSlib ecosystem that provide efficient indexing and querying for pangenomic annotations represented as paths in the GAF format.
+We illustrate its values in several applications: projecting and visualizing gene and repeat annotations, summarizing open-chromatin from epigenomics sequencing datasets, or positioning known variants in the pangenome.</p>
 <h2 id="methods">Methods</h2>
 <h3 id="indexing-paths-in-gaf-files">Indexing paths in GAF files</h3>
 <p>The sorting and indexing algorithm is most efficient and makes sense when node IDs are integer sorted based on the topology of the pangenome graph.
-This is the case for pangenomes constructed by minigraph-cactus<span class="citation" data-cites="dv6WIAcd">[<a href="#ref-dv6WIAcd" role="doc-biblioref">16</a>]</span> or PGGB<span class="citation" data-cites="62knLjdQ">[<a href="#ref-62knLjdQ" role="doc-biblioref">17</a>]</span>.
-Otherwise, the pangenome graph can be <em>sorted</em>, i.e. changing the node IDs, using <code>vg</code><span class="citation" data-cites="10jxt15v0">[<a href="#ref-10jxt15v0" role="doc-biblioref">4</a>]</span> or <code>odgi</code><span class="citation" data-cites="17heHmmBb">[<a href="#ref-17heHmmBb" role="doc-biblioref">18</a>]</span>.
+This is the case for pangenomes constructed by minigraph-cactus<span class="citation" data-cites="dv6WIAcd">[<a href="#ref-dv6WIAcd" role="doc-biblioref">18</a>]</span>, PGGB<span class="citation" data-cites="62knLjdQ">[<a href="#ref-62knLjdQ" role="doc-biblioref">19</a>]</span>, or <code>vg construct</code><span class="citation" data-cites="10jxt15v0">[<a href="#ref-10jxt15v0" role="doc-biblioref">4</a>]</span>.
+Otherwise, the pangenome graph can be <em>sorted</em>, i.e. changing the node IDs, using <code>vg</code> or <code>odgi</code><span class="citation" data-cites="17heHmmBb">[<a href="#ref-17heHmmBb" role="doc-biblioref">16</a>]</span>.
 If the node IDs are sorted integers, a short path through the graph should only traverse nodes with IDs contained in a small interval.
 The main approach of the GAF sorting and indexing approach is to work with those intervals.
 Hence, to sort a GAF file, each path is first parsed to extract the minimum and maximum node IDs.
@@ -266,13 +272,13 @@ A sorted GAF file can be compressed in the BGZF format using <code>bgzip</code>.
 The BGZF format is an implementation of the standard gzip format that compresses a file by block to facilitate their random access.
 It is used to compress among others, VCF, BED, or BAM files with HTSlib<span class="citation" data-cites="RYg86QqB">[<a href="#ref-RYg86QqB" role="doc-biblioref">1</a>]</span>.</p>
 <p>HTSlib<span class="citation" data-cites="RYg86QqB">[<a href="#ref-RYg86QqB" role="doc-biblioref">1</a>]</span> was then modified to index bgzipped GAF files.
-Similar than for other tab-separated file like VCF or BED, a <em>gaf</em> preset was added to <code>tabix</code>.
-For BED or VCF, <code>tabix</code> extract the interval information from the columns with the sequence names and genomic position<span class="citation" data-cites="wKJ68II7">[<a href="#ref-wKJ68II7" role="doc-biblioref">19</a>]</span>.
+Similar to other tab-separated file like VCF or BED, a <em>gaf</em> preset was added to <code>tabix</code>.
+For BED or VCF, <code>tabix</code> extract the interval information from the columns with the sequence names and genomic position<span class="citation" data-cites="wKJ68II7">[<a href="#ref-wKJ68II7" role="doc-biblioref">20</a>]</span>.
 In the new <em>gaf</em> preset, it instead parses the path information in the GAF file to extract the minimum and maximum node IDs.
 The indexing is then based on this interval, the same as used for the sorting described above.</p>
 <p>We tested the GAF sorting and indexing performance on 30X coverage Illumina short reads from HG002.
 The reads were downloaded from <code>https://s3-us-west-2.amazonaws.com/human-pangenomics/NHGRI_UCSC_panel/HG002/hpp_HG002_NA24385_son_v1/ILMN/downsampled/</code>.
-We mapped them using giraffe<span class="citation" data-cites="WCEeLZ0k">[<a href="#ref-WCEeLZ0k" role="doc-biblioref">5</a>]</span> on a personnalized pangenome<span class="citation" data-cites="F6tIe3Ob">[<a href="#ref-F6tIe3Ob" role="doc-biblioref">20</a>]</span> from the HPRC v1.1 Minigraph-Cactus pangenome.
+We mapped them using giraffe<span class="citation" data-cites="WCEeLZ0k">[<a href="#ref-WCEeLZ0k" role="doc-biblioref">5</a>]</span> on a personnalized pangenome<span class="citation" data-cites="F6tIe3Ob">[<a href="#ref-F6tIe3Ob" role="doc-biblioref">21</a>]</span> from the HPRC v1.1 Minigraph-Cactus pangenome.
 The reads were outputted in GAM first to compare the file size and sorting runtimes.
 The GAM file was sorted with <code>vg gamsort</code>.
 It was then converted to a GAF file using <code>vg convert</code> and sorted using <code>vg gamsort</code> with the new GAF sorting mode described above.
@@ -306,7 +312,7 @@ It happens in the recent human draft pangenome when some regions are clipped out
 Projected annotations are hence also broken up if needed when they overlap with breakpoints.
 The name of the annotated path in the output GAF is picked from the BED file’s 4th column, or the <em>Name</em> and <em>ID</em> GFF field.</p>
 <p>We test this approach by projecting the gene annotation, repeat annotations, and segmental duplication annotation for each of the 88 assembled haplotypes in the draft human pangenome from the HPRC (v1.1).
-The gene annotations from CAT<span class="citation" data-cites="1BnfHjbCA">[<a href="#ref-1BnfHjbCA" role="doc-biblioref">21</a>]</span> (GFF files) were downloaded from ??.
+The gene annotations from CAT<span class="citation" data-cites="1BnfHjbCA">[<a href="#ref-1BnfHjbCA" role="doc-biblioref">22</a>]</span> (GFF files) were downloaded from ??.
 The repeat annotations from RepeatMasker (BED files) were downloaded from ??.
 The predicted segmental duplications from ?? (BED files) were downloaded from ??.
 A helper script was implemented to prepare the BED files with informative names.
@@ -323,7 +329,7 @@ Once the coverage is binned, we extend greedily to connected nodes and bins if i
 This extension step produces path through the pangenome with consistent coverage.
 The paths are written in the GAF format, recording the coverage class and the average coverage across the path.</p>
 <p><code class="red">cartoon to explain this in supplement?</code></p>
-<p>This algorithm was implemented in Python and uses the <em>libbdsg</em> module<span class="citation" data-cites="bbLg7oSS">[<a href="#ref-bbLg7oSS" role="doc-biblioref">22</a>]</span> to query the pangenome.
+<p>This algorithm was implemented in Python and uses the <em>libbdsg</em> module<span class="citation" data-cites="bbLg7oSS">[<a href="#ref-bbLg7oSS" role="doc-biblioref">23</a>]</span> to query the pangenome.
 It is made available in the public repository of this study in the <code>analysis/encode</code> folder of this paper’s repository<span class="citation" data-cites="repo">[<a href="#ref-repo" role="doc-biblioref"><strong>repo?</strong></a>]</span>.</p>
 <h3 id="annotating-known-variants">Annotating known variants</h3>
 <p>Variants from public databases were annotated when matching a variant site in the pangenome.
@@ -333,8 +339,8 @@ This VCF file contains the all variants and their paths through the pangenome in
 We look for the variants of interest in this VCF and extract the appropriate path using the <em>AT</em> field.
 The annotation path follows either the alternate allele of the variant if known and present in the pangenome, or the reference allele path if the alternate allele is unknown but there is a variant at this position in the pangenome.
 Variant that are not matched in the pangenome are skipped.
-This algorithm was implemented in Python and uses the <em>libbdsg</em> module<span class="citation" data-cites="bbLg7oSS">[<a href="#ref-bbLg7oSS" role="doc-biblioref">22</a>]</span> internally to get node size information necessary to write proper GAF records.</p>
-<p>We test this approach on the GWAS catalog<span class="citation" data-cites="VRCjjZ9L">[<a href="#ref-VRCjjZ9L" role="doc-biblioref">23</a>]</span> and GTEX expression QTLs<span class="citation" data-cites="187XBwaz7">[<a href="#ref-187XBwaz7" role="doc-biblioref">24</a>]</span>.
+This algorithm was implemented in Python and uses the <em>libbdsg</em> module<span class="citation" data-cites="bbLg7oSS">[<a href="#ref-bbLg7oSS" role="doc-biblioref">23</a>]</span> internally to get node size information necessary to write proper GAF records.</p>
+<p>We test this approach on the GWAS catalog<span class="citation" data-cites="VRCjjZ9L">[<a href="#ref-VRCjjZ9L" role="doc-biblioref">24</a>]</span> and GTEX expression QTLs<span class="citation" data-cites="187XBwaz7">[<a href="#ref-187XBwaz7" role="doc-biblioref">25</a>]</span>.
 The GWAS catalog was downloaded from the UCSC Genome Browser <code>gwasCatalog</code> table<span class="citation" data-cites="84lVwRrR">[<a href="#ref-84lVwRrR" role="doc-biblioref">3</a> ]</span>.
 The eQTLs from GTEX v8 were downloaded from <code>https://storage.googleapis.com/adult-gtex/bulk-qtl/v8/single-tissue-cis-qtl/GTEx_Analysis_v8_eQTL.tar</code>.
 The files defining associations between variant/gene pairs were parsed for each tissue.
@@ -353,7 +359,7 @@ As <em>reads</em>, the user can now add layers of annotations represented and pr
 A different color or color palette can be assigned to each layer to facilitate the visualization of different datasets in the same local pangenome region.
 For example, one could visualize the coding regions of genes and coverage tracks for different cell types from the ENCODE project (Fig ??).</p>
 <h3 id="visualization-in-bandage">Visualization in Bandage</h3>
-<p>A fork of Bandage<span class="citation" data-cites="hbEIE3nt">[<a href="#ref-hbEIE3nt" role="doc-biblioref">10</a>]</span>, called BandageNG<span class="citation" data-cites="1Fp6JRSHg">[<a href="#ref-1Fp6JRSHg" role="doc-biblioref">25</a>]</span>, can visualize paths of the input graph by coloring the nodes.
+<p>A fork of Bandage<span class="citation" data-cites="hbEIE3nt">[<a href="#ref-hbEIE3nt" role="doc-biblioref">10</a>]</span>, called BandageNG<span class="citation" data-cites="1Fp6JRSHg">[<a href="#ref-1Fp6JRSHg" role="doc-biblioref">26</a>]</span>, can visualize paths of the input graph by coloring the nodes.
 We implemented a wrapper script to facilitate the preprocessing of a subgraph to visualize with BandageNG.
 It starts by extracting the subgraph of a full pangenome for a region of interest.
 It also extract annotations from indexed files on that same region.
@@ -376,7 +382,8 @@ The main reason for this reduced space is that GAF doesn’t save the full read 
 GAM files produced by <code>vg giraffe</code> can also save additional information as annotations, like the mapping time of each read, that are currently not kept when converting to the GAF format.
 Overall, the bgzipped GAF files are half as small and twice as fast to sort for short sequencing reads.</p>
 <p>Once indexed, extracting a slice of the pangenome is as efficient as extracting a slice of an indexed BAM, VCF, or BED file in a genomic regions, as it uses the same approach.
-For example, extracting reads for ten thousand random regions in the pangenome took about 0.07 second per region to retrieve an average of 1707 reads.</p>
+For example, extracting reads for ten thousand random regions in the pangenome took about 0.07 second per region to retrieve an average of 1707 reads.
+For comparison, the same extraction took on average XX second using the GAM format<code class="red">TODO</code>.</p>
 <div id="tbl:readsorting_summary" class="tablenos">
 <table id="tbl:readsorting_summary">
 <caption><span>Table 1:</span> Resources used to sort short sequencing reads for a 30x coverage Illumina human dataset.
@@ -406,12 +413,12 @@ For example, extracting reads for ten thousand random regions in the pangenome t
 </table>
 </div>
 <h3 id="annotation-of-a-human-pangenome">Annotation of a human pangenome</h3>
-<p>Human Pangenome Reference Consotium<span class="citation" data-cites="CqG8RQye">[<a href="#ref-CqG8RQye" role="doc-biblioref">26</a>]</span></p>
+<p>Human Pangenome Reference Consotium<span class="citation" data-cites="CqG8RQye">[<a href="#ref-CqG8RQye" role="doc-biblioref">27</a>]</span></p>
 <p>To showcase these commands, we projected annotations for all haplotypes in the latest draft human pangenome (HPRC v1.1 GRCh38-based Minigraph-Cactus pangenome).
 This included genes, segmental duplications, tandem repeats and repeats annotations.
 <code>vg annotate</code> can annotate ~4M gene annotations in ~16 mins, and ~5.5M repeats from RepeatMasker in ~9 mins on a single-threaded machine.
 Finally, these rich annotations can then be quickly queried with <code>vg</code> and visualized using existing tools like the sequenceTubeMap or Bandage.</p>
-<p>We also matched and annotated more than 660 thousand variants from the GWAS catalog<span class="citation" data-cites="VRCjjZ9L">[<a href="#ref-VRCjjZ9L" role="doc-biblioref">23</a>]</span> and expression QTLs from the GTEx catalog<span class="citation" data-cites="187XBwaz7">[<a href="#ref-187XBwaz7" role="doc-biblioref">24</a>]</span> across 49 tissues (on average 1.45 million variants per tissue).
+<p>We also matched and annotated more than 660 thousand variants from the GWAS catalog<span class="citation" data-cites="VRCjjZ9L">[<a href="#ref-VRCjjZ9L" role="doc-biblioref">24</a>]</span> and expression QTLs from the GTEx catalog<span class="citation" data-cites="187XBwaz7">[<a href="#ref-187XBwaz7" role="doc-biblioref">25</a>]</span> across 49 tissues (on average 1.45 million variants per tissue).
 On average, 94% variants were found in the HPRC pangenome.
 The variants files in GAF take only 907Mb of space and can be queried fast for visualization in the sequenceTubeMap or Bandage.
 This annotation is showcased in example ?? described in more detail below (see <em>Example??</em> section).
@@ -550,15 +557,24 @@ Hovering on a path displays its name, here the ID of a coding region of the BOLA
 </blockquote>
 <h2 id="discussion">Discussion</h2>
 <p>The tools and applications described here present an option to streamline the production of annotations in the GAF format, their indexing and efficient querying.
-Although informative annotations could be analyzed already, the current approach has multiple limitations.
+First, these techniques will help integrate additional information into existing or future pangenomic tools.
+They will simplify the integration of information like gene or repeat annotations, known variants, or more generally other functional annotations, in pangenomic analysis.
+These analysis will be able to work with those annotations in light of underlying genomic variation recapitulated in the pangenome.
+Visualization is a specific example where the users typically want to include several layer of annotations, including some custom-made.
+Tools to visualize pangenomes will greatly benefit from a simple pipeline to create or load pangenomic annotations.
+Second, this work is critical to allow the community to make, share and reuse annotations in the pangenome space.
+The GAF format is already used by multiple independent tools, although mostly read mappers.
+Thanks to our work, GAF files can now be indexed and queried efficiently, like BED, VCF, or GFF on a linear reference genome.
+We also showcase how annotations on a linear genome can be converted to a path in the pangenome in the GAF format.
+For these reasons, we believe it could become the de facto format to represent annotations in the pangenome and accelerate the adoption of the new pangenomic paradigm by the broader genomics field.
+Although informative annotations could be analyzed already, the current approach has some limitations.
 <!-- - Simplistic handling of clipped paths. --></p>
 <p>The indexing scheme relies on integer node IDs, compacted relative to their position in the pangenome.
 If node IDs are not integer, it adds a layer of complexity for the user as they will need to convert them to integers and keep track of the translation between original pangenome and new pangenome.
 Both <code>vg</code> and <code>odgi</code> offer ways to convert pangenome to a new pangenome with compact integer node IDs.</p>
 <p>The current implementation is designed with short paths in mind, where the user wants to extract the full annotated paths in a region.
 It is convenient when working with short reads, gene annotations, and most genomic repeats, for example.
-Larger genomic regions can still be represented and manipulated.
-For example, chromosome bands, large assembled contigs, large segmental duplications could be relevant annotations to work with.
+Larger genomic regions, like chromosome bands, large assembled contigs, or large segmental duplications, can still be represented and manipulated, but might be less practical to work with.
 With the current implementation, the full annotated region will be extracted when querying an overlapping region.
 The extracted annotations are not clipped to the specified range which could be inconvenient to a user who zooming into a small region but would still like to know about the much larger annotated path traversing this subgraph.
 To address this use case, we plan to implement an extraction mode where output annotations are trimmed to keep only the queried subgraph.</p>
@@ -568,18 +584,19 @@ In our applications, those label would contain for example a gene name and haplo
 This was easy to implement and sufficient for now because there are no tools that handle more advanced metadata organization.
 For many annotations, it would be useful to keep the metadata better organized, so that the user can access/use it within visualization tools.
 The different metadata could be saved using optional tags that can be added at the end of each GAF record.</p>
-<p>We are assuming that we have annotations of the different haplotypes in the pangenome.
+<p>Our approach to convert annotations from a linear genome to the pangenome assumes that we have annotations of the different haplotypes in the pangenome.
 There is still no clear solution to lift annotations from one reference/haplotype to other haplotypes in the pangenome, except through reanalysis/reannotation of each haplotype.
 The homology information embedded in the pangenome could potentially be used to propagate annotations from one haplotype to others more easily.
-This strategy can already be used by annotation tools like CAT<span class="citation" data-cites="1BnfHjbCA">[<a href="#ref-1BnfHjbCA" role="doc-biblioref">21</a>]</span>, as a additional source of gene annotation evidence.
-In the future, these techniques might help propagate other types of annotations across the pangenome more efficiently than by reanalyzing the raw data from scratch on each haplotype.</p>
+This strategy can already be used by annotation tools like CAT<span class="citation" data-cites="1BnfHjbCA">[<a href="#ref-1BnfHjbCA" role="doc-biblioref">22</a>]</span>, as a additional source of gene annotation evidence.
+In the future, these techniques might help propagate other types of annotations across the pangenome more efficiently than by reanalyzing the raw data from scratch on each haplotype.
+<code class="red">something about odgi paths/untangle maybe</code></p>
 <p>It also highlights the limitations of the existing tools to integrate these files.
-Some tools, like Bandage or GfaViz, require manual pre-processing in the form of the extraction of a subgraph and integration of the annotations as embedded paths.
+Some tools, like Bandage or GfaViz, require manual pre-processing, for example extracting a subgraph and integrating the annotations as embedded paths.
 The sequenceTubeMap can now handle indexed bgzipped GAF files, but the query time for large pangenome remains long in practice.
 Defining and integrating annotation metadata into its interface will also require a significant amount of development.
 Overall, we stress the need for visualization tools that can efficiently layout and organize many paths through a pangenome.</p>
 <p>We showed that the GAF format, thanks to new tools for their efficient manipulation, could offer a path for the future of annotations in pangenome graphs.
-Still, it is clear that more needs to be done to make it a useful solution for the community.</p>
+While it provides an important building block, it is clear that more needs to be done to make it a useful solution for the community.</p>
 <h2 id="code-and-data-availability">Code and data availability</h2>
 <p><code>vg</code> is available at <a href="https://github.com/vgteam/vg">https://github.com/vgteam/vg</a>.
 The fork of Bandage that allow for path coloring is available at <a href="https://github.com/asl/BandageNG">https://github.com/asl/BandageNG</a>.
@@ -637,38 +654,41 @@ Coverage tracks for the <code>??</code> ENCODE ATAC-seq samples are also availab
 <div id="ref-rlcThVtQ" class="csl-entry" role="doc-biblioentry">
 <div class="csl-left-margin">15. </div><div class="csl-right-inline"><strong>The Banana Genome Hub</strong> <div class="csl-block">Gaëtan Droc, Delphine Larivière, Valentin Guignon, Nabila Yahiaoui, Dominique This, Olivier Garsmeur, Alexis Dereeper, Chantal Hamelin, Xavier Argout, Jean-François Dufayard, … Stéphanie Bocs</div> <em>Database</em> (2013-01-01) <a href="https://doi.org/gxn9mc">https://doi.org/gxn9mc</a> <div class="csl-block">DOI: <a href="https://doi.org/10.1093/database/bat035">10.1093/database/bat035</a> · PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/23707967">23707967</a> · PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3662865">PMC3662865</a></div></div>
 </div>
+<div id="ref-17heHmmBb" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">16. </div><div class="csl-right-inline"><strong>ODGI: understanding pangenome graphs</strong> <div class="csl-block">Andrea Guarracino, Simon Heumos, Sven Nahnsen, Pjotr Prins, Erik Garrison</div> <em>Bioinformatics</em> (2022-05-13) <a href="https://doi.org/gt9fj8">https://doi.org/gt9fj8</a> <div class="csl-block">DOI: <a href="https://doi.org/10.1093/bioinformatics/btac308">10.1093/bioinformatics/btac308</a> · PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/35552372">35552372</a> · PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9237687">PMC9237687</a></div></div>
+</div>
+<div id="ref-AohKwXF4" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">17. </div><div class="csl-right-inline"><strong>Pangenome graph layout by Path-Guided Stochastic Gradient Descent</strong> <div class="csl-block">Simon Heumos, Andrea Guarracino, Jan-Niklas M Schmelzle, Jiajie Li, Zhiru Zhang, Jörg Hagmann, Sven Nahnsen, Pjotr Prins, Erik Garrison</div> <em>Bioinformatics</em> (2024-07-01) <a href="https://doi.org/g5gwzs">https://doi.org/g5gwzs</a> <div class="csl-block">DOI: <a href="https://doi.org/10.1093/bioinformatics/btae363">10.1093/bioinformatics/btae363</a> · PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/38960860">38960860</a> · PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11227364">PMC11227364</a></div></div>
+</div>
 <div id="ref-dv6WIAcd" class="csl-entry" role="doc-biblioentry">
-<div class="csl-left-margin">16. </div><div class="csl-right-inline"><strong>Pangenome graph construction from genome alignments with Minigraph-Cactus</strong> <div class="csl-block">Glenn Hickey, Jean Monlong, Jana Ebler, Adam M Novak, Jordan M Eizenga, Yan Gao, Haley J Abel, Lucinda L Antonacci-Fulton, Mobin Asri, … Benedict Paten</div> <em>Nature Biotechnology</em> (2023-05-10) <a href="https://doi.org/gsfwq7">https://doi.org/gsfwq7</a> <div class="csl-block">DOI: <a href="https://doi.org/10.1038/s41587-023-01793-w">10.1038/s41587-023-01793-w</a> · PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/37165083">37165083</a> · PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10638906">PMC10638906</a></div></div>
+<div class="csl-left-margin">18. </div><div class="csl-right-inline"><strong>Pangenome graph construction from genome alignments with Minigraph-Cactus</strong> <div class="csl-block">Glenn Hickey, Jean Monlong, Jana Ebler, Adam M Novak, Jordan M Eizenga, Yan Gao, Haley J Abel, Lucinda L Antonacci-Fulton, Mobin Asri, … Benedict Paten</div> <em>Nature Biotechnology</em> (2023-05-10) <a href="https://doi.org/gsfwq7">https://doi.org/gsfwq7</a> <div class="csl-block">DOI: <a href="https://doi.org/10.1038/s41587-023-01793-w">10.1038/s41587-023-01793-w</a> · PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/37165083">37165083</a> · PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10638906">PMC10638906</a></div></div>
 </div>
 <div id="ref-62knLjdQ" class="csl-entry" role="doc-biblioentry">
-<div class="csl-left-margin">17. </div><div class="csl-right-inline"><strong>Building pangenome graphs</strong> <div class="csl-block">Erik Garrison, Andrea Guarracino, Simon Heumos, Flavia Villani, Zhigui Bao, Lorenzo Tattini, Jörg Hagmann, Sebastian Vorbrugg, Santiago Marco-Sola, Christian Kubica, … Pjotr Prins</div> <em>Cold Spring Harbor Laboratory</em> (2023-04-06) <a href="https://doi.org/gt9fj9">https://doi.org/gt9fj9</a> <div class="csl-block">DOI: <a href="https://doi.org/10.1101/2023.04.05.535718">10.1101/2023.04.05.535718</a> · PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/37066137">37066137</a> · PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10104075">PMC10104075</a></div></div>
-</div>
-<div id="ref-17heHmmBb" class="csl-entry" role="doc-biblioentry">
-<div class="csl-left-margin">18. </div><div class="csl-right-inline"><strong>ODGI: understanding pangenome graphs</strong> <div class="csl-block">Andrea Guarracino, Simon Heumos, Sven Nahnsen, Pjotr Prins, Erik Garrison</div> <em>Bioinformatics</em> (2022-05-13) <a href="https://doi.org/gt9fj8">https://doi.org/gt9fj8</a> <div class="csl-block">DOI: <a href="https://doi.org/10.1093/bioinformatics/btac308">10.1093/bioinformatics/btac308</a> · PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/35552372">35552372</a> · PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9237687">PMC9237687</a></div></div>
+<div class="csl-left-margin">19. </div><div class="csl-right-inline"><strong>Building pangenome graphs</strong> <div class="csl-block">Erik Garrison, Andrea Guarracino, Simon Heumos, Flavia Villani, Zhigui Bao, Lorenzo Tattini, Jörg Hagmann, Sebastian Vorbrugg, Santiago Marco-Sola, Christian Kubica, … Pjotr Prins</div> <em>Cold Spring Harbor Laboratory</em> (2023-04-06) <a href="https://doi.org/gt9fj9">https://doi.org/gt9fj9</a> <div class="csl-block">DOI: <a href="https://doi.org/10.1101/2023.04.05.535718">10.1101/2023.04.05.535718</a> · PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/37066137">37066137</a> · PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10104075">PMC10104075</a></div></div>
 </div>
 <div id="ref-wKJ68II7" class="csl-entry" role="doc-biblioentry">
-<div class="csl-left-margin">19. </div><div class="csl-right-inline"><strong>Tabix: fast retrieval of sequence features from generic TAB-delimited files</strong> <div class="csl-block">Heng Li</div> <em>Bioinformatics</em> (2011-01-05) <a href="https://doi.org/bb9">https://doi.org/bb9</a> <div class="csl-block">DOI: <a href="https://doi.org/10.1093/bioinformatics/btq671">10.1093/bioinformatics/btq671</a> · PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/21208982">21208982</a> · PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3042176">PMC3042176</a></div></div>
+<div class="csl-left-margin">20. </div><div class="csl-right-inline"><strong>Tabix: fast retrieval of sequence features from generic TAB-delimited files</strong> <div class="csl-block">Heng Li</div> <em>Bioinformatics</em> (2011-01-05) <a href="https://doi.org/bb9">https://doi.org/bb9</a> <div class="csl-block">DOI: <a href="https://doi.org/10.1093/bioinformatics/btq671">10.1093/bioinformatics/btq671</a> · PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/21208982">21208982</a> · PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3042176">PMC3042176</a></div></div>
 </div>
 <div id="ref-F6tIe3Ob" class="csl-entry" role="doc-biblioentry">
-<div class="csl-left-margin">20. </div><div class="csl-right-inline"><strong>Personalized Pangenome References</strong> <div class="csl-block">Jouni Sirén, Parsa Eskandar, Matteo Tommaso Ungaro, Glenn Hickey, Jordan M Eizenga, Adam M Novak, Xian Chang, Pi-Chuan Chang, Mikhail Kolmogorov, Andrew Carroll, … Benedict Paten</div> <em>Cold Spring Harbor Laboratory</em> (2023-12-14) <a href="https://doi.org/gt9fkb">https://doi.org/gt9fkb</a> <div class="csl-block">DOI: <a href="https://doi.org/10.1101/2023.12.13.571553">10.1101/2023.12.13.571553</a> · PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/38168361">38168361</a> · PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10760139">PMC10760139</a></div></div>
+<div class="csl-left-margin">21. </div><div class="csl-right-inline"><strong>Personalized Pangenome References</strong> <div class="csl-block">Jouni Sirén, Parsa Eskandar, Matteo Tommaso Ungaro, Glenn Hickey, Jordan M Eizenga, Adam M Novak, Xian Chang, Pi-Chuan Chang, Mikhail Kolmogorov, Andrew Carroll, … Benedict Paten</div> <em>Cold Spring Harbor Laboratory</em> (2023-12-14) <a href="https://doi.org/gt9fkb">https://doi.org/gt9fkb</a> <div class="csl-block">DOI: <a href="https://doi.org/10.1101/2023.12.13.571553">10.1101/2023.12.13.571553</a> · PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/38168361">38168361</a> · PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10760139">PMC10760139</a></div></div>
 </div>
 <div id="ref-1BnfHjbCA" class="csl-entry" role="doc-biblioentry">
-<div class="csl-left-margin">21. </div><div class="csl-right-inline"><strong>Comparative Annotation Toolkit (CAT)—simultaneous clade and personal genome annotation</strong> <div class="csl-block">Ian T Fiddes, Joel Armstrong, Mark Diekhans, Stefanie Nachtweide, Zev N Kronenberg, Jason G Underwood, David Gordon, Dent Earl, Thomas Keane, Evan E Eichler, … Benedict Paten</div> <em>Genome Research</em> (2018-06-08) <a href="https://doi.org/gdpg7n">https://doi.org/gdpg7n</a> <div class="csl-block">DOI: <a href="https://doi.org/10.1101/gr.233460.117">10.1101/gr.233460.117</a> · PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/29884752">29884752</a> · PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6028123">PMC6028123</a></div></div>
+<div class="csl-left-margin">22. </div><div class="csl-right-inline"><strong>Comparative Annotation Toolkit (CAT)—simultaneous clade and personal genome annotation</strong> <div class="csl-block">Ian T Fiddes, Joel Armstrong, Mark Diekhans, Stefanie Nachtweide, Zev N Kronenberg, Jason G Underwood, David Gordon, Dent Earl, Thomas Keane, Evan E Eichler, … Benedict Paten</div> <em>Genome Research</em> (2018-06-08) <a href="https://doi.org/gdpg7n">https://doi.org/gdpg7n</a> <div class="csl-block">DOI: <a href="https://doi.org/10.1101/gr.233460.117">10.1101/gr.233460.117</a> · PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/29884752">29884752</a> · PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6028123">PMC6028123</a></div></div>
 </div>
 <div id="ref-bbLg7oSS" class="csl-entry" role="doc-biblioentry">
-<div class="csl-left-margin">22. </div><div class="csl-right-inline"><strong>Efficient dynamic variation graphs</strong> <div class="csl-block">Jordan M Eizenga, Adam M Novak, Emily Kobayashi, Flavia Villani, Cecilia Cisar, Simon Heumos, Glenn Hickey, Vincenza Colonna, Benedict Paten, Erik Garrison</div> <em>Bioinformatics</em> (2020-07-16) <a href="https://doi.org/ghqdzw">https://doi.org/ghqdzw</a> <div class="csl-block">DOI: <a href="https://doi.org/10.1093/bioinformatics/btaa640">10.1093/bioinformatics/btaa640</a> · PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/33040146">33040146</a> · PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7850124">PMC7850124</a></div></div>
+<div class="csl-left-margin">23. </div><div class="csl-right-inline"><strong>Efficient dynamic variation graphs</strong> <div class="csl-block">Jordan M Eizenga, Adam M Novak, Emily Kobayashi, Flavia Villani, Cecilia Cisar, Simon Heumos, Glenn Hickey, Vincenza Colonna, Benedict Paten, Erik Garrison</div> <em>Bioinformatics</em> (2020-07-16) <a href="https://doi.org/ghqdzw">https://doi.org/ghqdzw</a> <div class="csl-block">DOI: <a href="https://doi.org/10.1093/bioinformatics/btaa640">10.1093/bioinformatics/btaa640</a> · PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/33040146">33040146</a> · PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7850124">PMC7850124</a></div></div>
 </div>
 <div id="ref-VRCjjZ9L" class="csl-entry" role="doc-biblioentry">
-<div class="csl-left-margin">23. </div><div class="csl-right-inline"><strong>The NHGRI-EBI GWAS Catalog: knowledgebase and deposition resource</strong> <div class="csl-block">Elliot Sollis, Abayomi Mosaku, Ala Abid, Annalisa Buniello, Maria Cerezo, Laurent Gil, Tudor Groza, Osman Güneş, Peggy Hall, James Hayhurst, … Laura W Harris</div> <em>Nucleic Acids Research</em> (2022-11-09) <a href="https://doi.org/gq73r5">https://doi.org/gq73r5</a> <div class="csl-block">DOI: <a href="https://doi.org/10.1093/nar/gkac1010">10.1093/nar/gkac1010</a> · PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/36350656">36350656</a> · PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9825413">PMC9825413</a></div></div>
+<div class="csl-left-margin">24. </div><div class="csl-right-inline"><strong>The NHGRI-EBI GWAS Catalog: knowledgebase and deposition resource</strong> <div class="csl-block">Elliot Sollis, Abayomi Mosaku, Ala Abid, Annalisa Buniello, Maria Cerezo, Laurent Gil, Tudor Groza, Osman Güneş, Peggy Hall, James Hayhurst, … Laura W Harris</div> <em>Nucleic Acids Research</em> (2022-11-09) <a href="https://doi.org/gq73r5">https://doi.org/gq73r5</a> <div class="csl-block">DOI: <a href="https://doi.org/10.1093/nar/gkac1010">10.1093/nar/gkac1010</a> · PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/36350656">36350656</a> · PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9825413">PMC9825413</a></div></div>
 </div>
 <div id="ref-187XBwaz7" class="csl-entry" role="doc-biblioentry">
-<div class="csl-left-margin">24. </div><div class="csl-right-inline"><strong>The Genotype-Tissue Expression (GTEx) project</strong> <div class="csl-block">John Lonsdale, Jeffrey Thomas, Mike Salvatore, Rebecca Phillips, Edmund Lo, Saboor Shad, Richard Hasz, Gary Walters, Fernando Garcia, Nancy Young, … Helen F Moore</div> <em>Nature Genetics</em> (2013-05-29) <a href="https://doi.org/gd5z68">https://doi.org/gd5z68</a> <div class="csl-block">DOI: <a href="https://doi.org/10.1038/ng.2653">10.1038/ng.2653</a> · PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/23715323">23715323</a> · PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4010069">PMC4010069</a></div></div>
+<div class="csl-left-margin">25. </div><div class="csl-right-inline"><strong>The Genotype-Tissue Expression (GTEx) project</strong> <div class="csl-block">John Lonsdale, Jeffrey Thomas, Mike Salvatore, Rebecca Phillips, Edmund Lo, Saboor Shad, Richard Hasz, Gary Walters, Fernando Garcia, Nancy Young, … Helen F Moore</div> <em>Nature Genetics</em> (2013-05-29) <a href="https://doi.org/gd5z68">https://doi.org/gd5z68</a> <div class="csl-block">DOI: <a href="https://doi.org/10.1038/ng.2653">10.1038/ng.2653</a> · PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/23715323">23715323</a> · PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4010069">PMC4010069</a></div></div>
 </div>
 <div id="ref-1Fp6JRSHg" class="csl-entry" role="doc-biblioentry">
-<div class="csl-left-margin">25. </div><div class="csl-right-inline"><strong>asl/BandageNG</strong> <div class="csl-block">Anton Korobeynikov</div> (2024-09-06) <a href="https://github.com/asl/BandageNG">https://github.com/asl/BandageNG</a></div>
+<div class="csl-left-margin">26. </div><div class="csl-right-inline"><strong>asl/BandageNG</strong> <div class="csl-block">Anton Korobeynikov</div> (2024-09-06) <a href="https://github.com/asl/BandageNG">https://github.com/asl/BandageNG</a></div>
 </div>
 <div id="ref-CqG8RQye" class="csl-entry" role="doc-biblioentry">
-<div class="csl-left-margin">26. </div><div class="csl-right-inline"><strong>A draft human pangenome reference</strong> <div class="csl-block">Wen-Wei Liao, Mobin Asri, Jana Ebler, Daniel Doerr, Marina Haukness, Glenn Hickey, Shuangjia Lu, Julian K Lucas, Jean Monlong, Haley J Abel, … Benedict Paten</div> <em>Nature</em> (2023-05-10) <a href="https://doi.org/gr8b6s">https://doi.org/gr8b6s</a> <div class="csl-block">DOI: <a href="https://doi.org/10.1038/s41586-023-05896-x">10.1038/s41586-023-05896-x</a> · PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/37165242">37165242</a> · PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10172123">PMC10172123</a></div></div>
+<div class="csl-left-margin">27. </div><div class="csl-right-inline"><strong>A draft human pangenome reference</strong> <div class="csl-block">Wen-Wei Liao, Mobin Asri, Jana Ebler, Daniel Doerr, Marina Haukness, Glenn Hickey, Shuangjia Lu, Julian K Lucas, Jean Monlong, Haley J Abel, … Benedict Paten</div> <em>Nature</em> (2023-05-10) <a href="https://doi.org/gr8b6s">https://doi.org/gr8b6s</a> <div class="csl-block">DOI: <a href="https://doi.org/10.1038/s41586-023-05896-x">10.1038/s41586-023-05896-x</a> · PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/37165242">37165242</a> · PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10172123">PMC10172123</a></div></div>
 </div>
 </div>
 <h2 class="page_break_before" id="supplementary-material">Supplementary material</h2>
