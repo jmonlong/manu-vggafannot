@@ -41,12 +41,12 @@ GFF
 glennhickey
 grahs
 GRCh
-GTEX
+GTEx
 GWAS
 gzip
 gzipped
 haplotype
-Haplotypes
+haplotypes
 heatmap
 HiSeq
 HPRC
@@ -92,6 +92,7 @@ subcommand
 subcommands
 subgraph
 tabix
+tbi
 TF
 Toshiyuki
 transposable

@@ -60,8 +60,8 @@
   <meta name="dc.date" content="2024-09-25" />
   <meta name="citation_publication_date" content="2024-09-25" />
   <meta property="article:published_time" content="2024-09-25" />
-  <meta name="dc.modified" content="2024-09-25T16:40:48+00:00" />
-  <meta property="article:modified_time" content="2024-09-25T16:40:48+00:00" />
+  <meta name="dc.modified" content="2024-09-25T21:44:42+00:00" />
+  <meta property="article:modified_time" content="2024-09-25T21:44:42+00:00" />
   <meta name="dc.language" content="en-US" />
   <meta name="citation_language" content="en-US" />
   <meta name="dc.relation.ispartof" content="Manubot" />
@@ -95,9 +95,9 @@
   <meta name="citation_fulltext_html_url" content="https://jmonlong.github.io/manu-vggafannot/" />
   <meta name="citation_pdf_url" content="https://jmonlong.github.io/manu-vggafannot/manuscript.pdf" />
   <link rel="alternate" type="application/pdf" href="https://jmonlong.github.io/manu-vggafannot/manuscript.pdf" />
-  <link rel="alternate" type="text/html" href="https://jmonlong.github.io/manu-vggafannot/v/19016ce6cfd97af5f0ec703d07a493fb553a212b/" />
-  <meta name="manubot_html_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/19016ce6cfd97af5f0ec703d07a493fb553a212b/" />
-  <meta name="manubot_pdf_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/19016ce6cfd97af5f0ec703d07a493fb553a212b/manuscript.pdf" />
+  <link rel="alternate" type="text/html" href="https://jmonlong.github.io/manu-vggafannot/v/727fe073e5f4db8aba2a1993c358bcee6d61a653/" />
+  <meta name="manubot_html_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/727fe073e5f4db8aba2a1993c358bcee6d61a653/" />
+  <meta name="manubot_pdf_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/727fe073e5f4db8aba2a1993c358bcee6d61a653/manuscript.pdf" />
   <meta property="og:type" content="article" />
   <meta property="twitter:card" content="summary_large_image" />
   <link rel="icon" type="image/png" sizes="192x192" href="https://manubot.org/favicon-192x192.png" />
@@ -114,9 +114,9 @@
 </header>
 <p><small><em>
 This manuscript
-(<a href="https://jmonlong.github.io/manu-vggafannot/v/19016ce6cfd97af5f0ec703d07a493fb553a212b/">permalink</a>)
+(<a href="https://jmonlong.github.io/manu-vggafannot/v/727fe073e5f4db8aba2a1993c358bcee6d61a653/">permalink</a>)
 was automatically generated
-from <a href="https://github.com/jmonlong/manu-vggafannot/tree/19016ce6cfd97af5f0ec703d07a493fb553a212b">jmonlong/manu-vggafannot@19016ce</a>
+from <a href="https://github.com/jmonlong/manu-vggafannot/tree/727fe073e5f4db8aba2a1993c358bcee6d61a653">jmonlong/manu-vggafannot@727fe07</a>
 on September 25, 2024.
 </em></small></p>
 <h2 id="authors">Authors</h2>
@@ -259,11 +259,24 @@ We illustrate its values in several applications: projecting and visualizing gen
 <p>The sorting and indexing algorithm is most efficient and makes sense when node IDs are integer sorted based on the topology of the pangenome graph.
 This is the case for pangenomes constructed by minigraph-cactus<span class="citation" data-cites="dv6WIAcd">[<a href="#ref-dv6WIAcd" role="doc-biblioref">18</a>]</span>, PGGB<span class="citation" data-cites="62knLjdQ">[<a href="#ref-62knLjdQ" role="doc-biblioref">19</a>]</span>, or <code>vg construct</code><span class="citation" data-cites="10jxt15v0">[<a href="#ref-10jxt15v0" role="doc-biblioref">4</a>]</span>.
 Otherwise, the pangenome graph can be <em>sorted</em>, i.e. changing the node IDs, using <code>vg</code> or <code>odgi</code><span class="citation" data-cites="17heHmmBb">[<a href="#ref-17heHmmBb" role="doc-biblioref">16</a>]</span>.
-If the node IDs are sorted integers, a short path through the graph should only traverse nodes with IDs contained in a small interval.
+If the node IDs are sorted integers, a short path through the graph should only traverse nodes with IDs contained in a small interval (see Fig <a href="#fig:index">1</a>).
 The main approach of the GAF sorting and indexing approach is to work with those intervals.
 Hence, to sort a GAF file, each path is first parsed to extract the minimum and maximum node IDs.
 The paths are then sorted first by their minimum ID, and then by their maximum ID.
 This is similar to the approach used to sort BED or VCF files on linear genomes: they are sorted by sequence name, then start position, then end position.</p>
+<div id="fig:index" class="fignos">
+<figure>
+<img src="figures/gafindexing.png" alt="Figure 1: Path sorting and indexing using vg and HTSlib/tabix A. A region of pangenome is represented with nodes (containing sequences) in yellow and edges in black. The node IDs are topologically sorted integers, ranging here from 23 to 36. Three paths are highlighted in red, blue and green. B. The three paths are written with the GAF syntax, by specifying the orientations (&lt;/&gt;) and IDs of the traversed nodes. For each path, the node range n-N, between the minimum and maximum node IDs, is used for sorting the path. C. Overview of the workflow to sort a GAF file using vg gamsort, compress it with bgzip and index using tabix. D. The small .tbi index file helps query slices of the GAF file quickly. For example using tabix, or vg subcommands like find or chunk." />
+<figcaption aria-hidden="true"><span>Figure 1:</span> <strong>Path sorting and indexing using vg and HTSlib/tabix</strong>
+<strong>A.</strong> A region of pangenome is represented with nodes (containing sequences) in yellow and edges in black.
+The node IDs are topologically sorted integers, ranging here from 23 to 36.
+Three paths are highlighted in red, blue and green.
+<strong>B.</strong> The three paths are written with the GAF syntax, by specifying the orientations (<code>&lt;</code>/<code>&gt;</code>) and IDs of the traversed nodes.
+For each path, the node range <em>n-N</em>, between the minimum and maximum node IDs, is used for sorting the path.
+<strong>C.</strong> Overview of the workflow to sort a GAF file using <code>vg gamsort</code>, compress it with <code>bgzip</code> and index using <code>tabix</code>.
+<strong>D.</strong> The small <em>.tbi</em> index file helps query slices of the GAF file quickly. For example using <code>tabix</code>, or <code>vg</code> subcommands like <code>find</code> or <code>chunk</code>.</figcaption>
+</figure>
+</div>
 <p>A GAF sorting feature has been added to the <code>vg</code> toolkit, within the <code>gamsort</code> subcommand.
 It first sorts chunks of GAF records (e.g. reads), to avoid having to hold the entire set in memory.
 The sorted chunks are then merged into the final sorted GAF file.
@@ -432,8 +445,8 @@ A example is shown in figure ?? and described in more details below.
 On the traditional reference genome, the equivalent would be to load both reads and variants in IGV<span class="citation" data-cites="83I525eg">[<a href="#ref-83I525eg" role="doc-biblioref">2</a>]</span>.</p>
 <div id="fig:tubemap" class="fignos">
 <figure>
-<img src="figures/tubemap.examples.svg" alt="Figure 1: sequenceTubeMap examples In progress... A. black: Reference path (GRCh38), pale colors: other human haplotypes, reds: GWAS catalog, blues: eQTLs across tissues (GTEx). B. yellow/green: annotation paths from vg call genotypes. reds/blues: short sequencing reads. C. Compressed view (no sequence shown, node size not to scale). Reference paths CHM13/GRCh38 (black/grey) and ATAC-seq coverage track for different tissues (colors). Opacity represents coverage level." />
-<figcaption aria-hidden="true"><span>Figure 1:</span> <strong>sequenceTubeMap examples</strong>
+<img src="figures/tubemap.examples.svg" alt="Figure 2: sequenceTubeMap examples In progress... A. black: Reference path (GRCh38), pale colors: other human haplotypes, reds: GWAS catalog, blues: eQTLs across tissues (GTEx). B. yellow/green: annotation paths from vg call genotypes. reds/blues: short sequencing reads. C. Compressed view (no sequence shown, node size not to scale). Reference paths CHM13/GRCh38 (black/grey) and ATAC-seq coverage track for different tissues (colors). Opacity represents coverage level." />
+<figcaption aria-hidden="true"><span>Figure 2:</span> <strong>sequenceTubeMap examples</strong>
 <code>In progress...</code>
 <strong>A.</strong> <em>black</em>: Reference path (GRCh38), <em>pale colors</em>: other human haplotypes, <em>reds</em>: GWAS catalog, <em>blues</em>: eQTLs across tissues (GTEx).
 <strong>B.</strong> <em>yellow</em>/<em>green</em>: annotation paths from <code>vg call</code> genotypes. <em>reds</em>/<em>blues</em>: short sequencing reads.
@@ -444,8 +457,8 @@ Opacity represents coverage level.</figcaption>
 </div>
 <div id="fig:bandage" class="fignos">
 <figure>
-<img src="figures/bandage-mei.png" alt="Figure 2: Bandage example In progress... Node color: blue for the reference path, orange for the AluYa5 transposon." />
-<figcaption aria-hidden="true"><span>Figure 2:</span> <strong>Bandage example</strong>
+<img src="figures/bandage-mei.png" alt="Figure 3: Bandage example In progress... Node color: blue for the reference path, orange for the AluYa5 transposon." />
+<figcaption aria-hidden="true"><span>Figure 3:</span> <strong>Bandage example</strong>
 <code>In progress...</code>
 Node color: <em>blue</em> for the reference path, <em>orange</em> for the AluYa5 transposon.</figcaption>
 </figure>
@@ -531,7 +544,7 @@ On average, 65 thousand paths with high ATAC-seq read coverage traversed more th
 Sorting, compressing and indexing them took only 0.16 cpu.hours, on average.
 Table <a href="#tbl:coverage_benchmark">3</a> compiles the runtimes and memory used for each step across all samples.</p>
 <p><code class="red">example of what we could look for and describe</code>
-Fig <a href="#fig:cov_examples">3</a> shows examples of those tracks visualized using the sequenceTubeMap.
+Fig <a href="#fig:cov_examples">4</a> shows examples of those tracks visualized using the sequenceTubeMap.
 In Fig ??a, the promoter of the <em>??</em> gene is seen to be open in the ?? cell type.
 Thanks to the pangenomic view, we see differential coverage of the functional tracks across the variants in the region.
 For instance, we notice a small insertion-deletion (indel) where the alternate allele is only covered by 2 reads, while the reference allele is covered by more than 30 reads.
@@ -540,8 +553,8 @@ The RepeatMasker annotation in this region, also extracted from an indexed GAF f
 ?? can indeed attract TF?? that lead to open chromatin ?REF?.</p>
 <div id="fig:cov_examples" class="fignos">
 <figure>
-<img src="figures/wide.png" alt="Figure 3: Coverage tracks visualized interactively using the sequenceTubeMap. a) Promoter… b) Structural variant…." />
-<figcaption aria-hidden="true"><span>Figure 3:</span> <strong>Coverage tracks visualized interactively using the sequenceTubeMap.</strong>
+<img src="figures/wide.png" alt="Figure 4: Coverage tracks visualized interactively using the sequenceTubeMap. a) Promoter… b) Structural variant…." />
+<figcaption aria-hidden="true"><span>Figure 4:</span> <strong>Coverage tracks visualized interactively using the sequenceTubeMap.</strong>
 a) Promoter… b) Structural variant….</figcaption>
 </figure>
 </div>
