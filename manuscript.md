@@ -5,7 +5,7 @@ keywords:
 - annotation
 - alignment
 lang: en-US
-date-meta: '2024-09-25'
+date-meta: '2024-09-30'
 author-meta:
 - Adam M. Novak
 - Dickson Chung
@@ -26,11 +26,11 @@ header-includes: |
   <meta name="citation_title" content="Current options to index, represent, and visualize annotations in a pangenome with the vg toolkit" />
   <meta property="og:title" content="Current options to index, represent, and visualize annotations in a pangenome with the vg toolkit" />
   <meta property="twitter:title" content="Current options to index, represent, and visualize annotations in a pangenome with the vg toolkit" />
-  <meta name="dc.date" content="2024-09-25" />
-  <meta name="citation_publication_date" content="2024-09-25" />
-  <meta property="article:published_time" content="2024-09-25" />
-  <meta name="dc.modified" content="2024-09-25T21:44:42+00:00" />
-  <meta property="article:modified_time" content="2024-09-25T21:44:42+00:00" />
+  <meta name="dc.date" content="2024-09-30" />
+  <meta name="citation_publication_date" content="2024-09-30" />
+  <meta property="article:published_time" content="2024-09-30" />
+  <meta name="dc.modified" content="2024-09-30T16:21:55+00:00" />
+  <meta property="article:modified_time" content="2024-09-30T16:21:55+00:00" />
   <meta name="dc.language" content="en-US" />
   <meta name="citation_language" content="en-US" />
   <meta name="dc.relation.ispartof" content="Manubot" />
@@ -64,9 +64,9 @@ header-includes: |
   <meta name="citation_fulltext_html_url" content="https://jmonlong.github.io/manu-vggafannot/" />
   <meta name="citation_pdf_url" content="https://jmonlong.github.io/manu-vggafannot/manuscript.pdf" />
   <link rel="alternate" type="application/pdf" href="https://jmonlong.github.io/manu-vggafannot/manuscript.pdf" />
-  <link rel="alternate" type="text/html" href="https://jmonlong.github.io/manu-vggafannot/v/727fe073e5f4db8aba2a1993c358bcee6d61a653/" />
-  <meta name="manubot_html_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/727fe073e5f4db8aba2a1993c358bcee6d61a653/" />
-  <meta name="manubot_pdf_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/727fe073e5f4db8aba2a1993c358bcee6d61a653/manuscript.pdf" />
+  <link rel="alternate" type="text/html" href="https://jmonlong.github.io/manu-vggafannot/v/c6bc9986b50440aa9c86f028e9350fad26bcd9a5/" />
+  <meta name="manubot_html_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/c6bc9986b50440aa9c86f028e9350fad26bcd9a5/" />
+  <meta name="manubot_pdf_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/c6bc9986b50440aa9c86f028e9350fad26bcd9a5/manuscript.pdf" />
   <meta property="og:type" content="article" />
   <meta property="twitter:card" content="summary_large_image" />
   <link rel="icon" type="image/png" sizes="192x192" href="https://manubot.org/favicon-192x192.png" />
@@ -88,10 +88,10 @@ manubot-clear-requests-cache: false
 
 <small><em>
 This manuscript
-([permalink](https://jmonlong.github.io/manu-vggafannot/v/727fe073e5f4db8aba2a1993c358bcee6d61a653/))
+([permalink](https://jmonlong.github.io/manu-vggafannot/v/c6bc9986b50440aa9c86f028e9350fad26bcd9a5/))
 was automatically generated
-from [jmonlong/manu-vggafannot@727fe07](https://github.com/jmonlong/manu-vggafannot/tree/727fe073e5f4db8aba2a1993c358bcee6d61a653)
-on September 25, 2024.
+from [jmonlong/manu-vggafannot@c6bc998](https://github.com/jmonlong/manu-vggafannot/tree/c6bc9986b50440aa9c86f028e9350fad26bcd9a5)
+on September 30, 2024.
 </em></small>
 
 
@@ -188,21 +188,23 @@ Jean Monlong \<jean.monlong@inserm.fr\>.
 ## Abstract {.page_break_before}
 
 The current reference genome is the backbone of diverse and rich annotations. 
-Simple text formats, like VCF or BED, have been widely adopted and helped this critical exchange of genomic information. 
-To enable similar enrichment of a pangenome reference, there is a dire need for tools and formats for pangenomic annotation. 
-The Graph Alignment Format (GAF) is a text format, tab-delimitted like BED/VCF files, which was proposed to represent alignments
-While tt could be used to represent any type of annotation in a pangenome graph, there is no tools to query them efficiently.
+Simple text formats, like VCF or BED, have been widely adopted and helped the critical exchange of genomic information. 
+To enable similar enrichment for a pangenome reference, there is a dire need for tools and formats enabling pangenomic annotation. 
+The Graph Alignment Format (GAF) is a text format, tab-delimitted like BED/VCF files, which was proposed to represent alignments.
+While it could be used to represent any type of annotation in a pangenome graph, there is no tools to index and query them efficiently.
 
 Here, we present extension to vg and HTSlib that provide efficient sorting, indexing and querying for GAF files.
 With this approach, annotations overlapping a subgraph can be extracted quickly.
 Paths are sorted based on the IDs of traversed nodes, compressed with BGZIP, and indexed with HTSlib/tabix that we extended to work with the GAF format. 
-In addition, we updated `vg annotate` to better produce graph annotations as paths, starting from annotation files relative to linear references. 
+Compared to the GAM format, GAF files are easier to write text files and we show that they are twice as fast to sort and twice as small on disk.
+In addition, we updated `vg annotate` to better produce graph annotations, as paths, starting from annotation files relative to linear references. 
 More precisely, it can to take annotations in BED or GFF3 files, written relative to reference paths or haplotypes, and produce GAF files representing their paths through the pangenome.
 
-To showcase these commands, we projected annotations for all haplotypes in the latest draft human pangenome (HPRC v1.1 GRCh38-based Minigraph-Cactus pangenome). 
-This included genes, segmental duplications, tandem repeats and repeats annotations. 
-`vg annotate` can annotate ~4M gene annotations in ~16 mins, and ~5.5M repeats from RepeatMasker in ~9 mins on a single-threaded machine. 
-Finally, these rich annotations can then be quickly queried with `vg` and visualized using existing tools like the sequenceTubeMap or Bandage.
+We showcased these new commands on several applications. 
+We projected annotations for all haplotypes in the latest draft human pangenome (HPRC v1.1 GRCh38-based Minigraph-Cactus pangenome), including genes, segmental duplications, tandem repeats and repeats annotations. 
+We also projected known variants from the GWAS catalog and expression QTLs from the GTEx project to the pangenome. 
+Finally, we reanalyzed ATAC-seq data from ENCODE to highlight how a coverage track could look like in a pangenome graph.
+In all cases, these rich annotations can be quickly queried with `vg` and visualized using existing tools like the sequenceTubeMap or Bandage.
 
 
 
@@ -252,6 +254,7 @@ Paths can be displayed too, although the image can become hard to read when many
 The `odgi` toolkit offers visualizations that scale better to larger graphs and annotations[@odgi]. 
 The pangenome is, for example, linearized using an 1D layout[@layout] and annotations displayed on top of the graph as an array/heatmap.
 Of note, `odgi` implemented two options to add annotations from external BED files: one to convert annotations to a CSV file to help color nodes in Bandage, another by injecting new paths into a graph before visualization.
+One limitation to injecting new paths into a pangenome is that paths must then start at the beginning of a node as we cannot provide an *offset* value to specify the base at which a path must start.
 
 There is a dire need for a format supporting annotations in the pangenome and that can is easy to create, index and query.
 As demonstrated by the success of the BED, GFF or VCF formats, it could help the critical exchange of (pan)genomic information, and allow pangenomic tools access additional information in the pangenomic space.
@@ -361,7 +364,11 @@ Once the coverage is binned, we extend greedily to connected nodes and bins if i
 This extension step produces path through the pangenome with consistent coverage. 
 The paths are written in the GAF format, recording the coverage class and the average coverage across the path.
 
-`cartoon to explain this in supplement?`{.red}
+![
+**Read coverage bin-and-extend approach to produce coarse-grained coverage tracks**
+In each node (*grey rectangles*), the read coverage is first binned using user-defined coverage bins (*red blocks*).
+Each bin is then extended, one at a time (*green flags*), until reaching a different coverage bin (*red flag*).
+](figures/coverage.bin.pangenome.png "Method to make a coverage track from mapped reads"){#fig:meth_cov}
 
 This algorithm was implemented in Python and uses the *libbdsg* module[@libbdsg] to query the pangenome.
 It is made available in the public repository of this study in the `analysis/encode` folder of this paper's repository[@repo].
@@ -397,7 +404,7 @@ To extract reads, it was only accepting GAM file that had been sorted and indexe
 We have updated it to accept GAF files that have been sorted, compressed and indexed as explained above.
 
 The new version of the sequenceTubeMap can also display multiple layers of haplotypes or reads. 
-As *reads*, the user can now add layers of annotations represented and prepared as indexed GAF files.
+As *reads*, the user can now add layers of annotations represented as indexed GAF files.
 A different color or color palette can be assigned to each layer to facilitate the visualization of different datasets in the same local pangenome region. 
 For example, one could visualize the coding regions of genes and coverage tracks for different cell types from the ENCODE project (Fig ??).
 
@@ -433,7 +440,7 @@ Overall, the bgzipped GAF files are half as small and twice as fast to sort for 
 
 Once indexed, extracting a slice of the pangenome is as efficient as extracting a slice of an indexed BAM, VCF, or BED file in a genomic regions, as it uses the same approach.
 For example, extracting reads for ten thousand random regions in the pangenome took about 0.07 second per region to retrieve an average of 1707 reads.
-For comparison, the same extraction took on average XX second using the GAM format`TODO`{.red}. 
+For comparison, the same extraction took on average 0.8 second per region using the GAM format. 
 
 | Format | Time (H:M:S) | Max. memory used (Kb) | File size (Gb) |
 |:------:|-------------:|----------------------:|---------------:|
@@ -484,24 +491,24 @@ Node color: *blue* for the reference path, *orange* for the AluYa5 transposon.
 ### Coverage of seven functional datasets from ENCODE
 
 We aligned ATAC-seq datasets from 7 cell types to the draft human pangenome to produce coverage tracks as indexed GAF files. 
-On average, there were about 488 thousand paths representing high read coverage which were 2.5 nodes (101.9 bases) long. 
-On average, 65 thousand paths with high ATAC-seq read coverage traversed more than three nodes, i.e. regions of the pangenome with variation (see Table @tbl:coverage_summary).
+On average, there were about 475 thousand paths representing high read coverage which were 2.6 nodes (104.8 bases) long. 
+On average, 63 thousand paths with high ATAC-seq read coverage traversed more three or more nodes, i.e. regions of the pangenome with variation (see Table @tbl:coverage_summary).
 
 | Dataset                    |   Paths | Average bases | Average nodes | Traversing >2 nodes |
 |:---------------------------|--------:|--------------:|--------------:|--------------------:|
-| Breast epithelium          | 587,869 |        106.45 |          2.59 |      67,050 (11.4%) |
-| Gastrocnemius medialis     | 349,293 |         92.39 |          2.38 |      54,953 (15.7%) |
-| Gastroesophageal sphincter | 572,482 |        112.12 |          2.64 |      74,849 (13.1%) |
-| Peyer's patch              | 278,081 |         94.93 |          2.54 |      44,852 (16.1%) |
-| Sigmoid colon              | 697,030 |        111.76 |          2.61 |      85,362 (12.2%) |
-| Spleen                     | 546,530 |        102.00 |          2.59 |      68,880 (12.6%) |
-| Thyroid gland              | 383,558 |         93.70 |          2.36 |      58,042 (15.1%) |
+| Breast epithelium          | 570,155 |        109.80 |          2.68 |      65,095 (11.4%) |
+| Gastrocnemius medialis     | 342,830 |         94.47 |          2.43 |      53,595 (15.6%) |
+| Gastroesophageal sphincter | 555,618 |        115.69 |          2.73 |        72,407 (13%) |
+| Peyer’s patch              | 270,094 |         97.88 |          2.62 |      43,591 (16.1%) |
+| Sigmoid colon              | 678,380 |        115.10 |          2.69 |      82,906 (12.2%) |
+| Spleen                     | 531,910 |        104.97 |          2.66 |      67,153 (12.6%) |
+| Thyroid gland              | 377,157 |         95.63 |          2.41 |        56,441 (15%) |
 
 Table: High coverage tracks from seven functional datasets on the HPRC pangenome. For each sample, the table shows how many paths had a mean coverage of at least 10 reads, and how long they were.
 {#tbl:coverage_summary}
 
-It took on average 7 cpu.hours to map the reads to the pangenome using VG Giraffe, and 2.7 cpu.hours to produce the coverage tracks.
-Sorting, compressing and indexing them took only 0.16  cpu.hours, on average.
+It took on average 7 cpu.hours to map the reads to the pangenome using VG Giraffe, and 2.8 cpu.hours to produce the coverage tracks.
+Sorting, compressing and indexing them took only 0.23 cpu.hours, on average.
 Table @tbl:coverage_benchmark compiles the runtimes and memory used for each step across all samples.
 
 `example of what we could look for and describe`{.red}

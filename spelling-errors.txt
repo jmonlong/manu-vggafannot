@@ -16,7 +16,7 @@ Consotium
 contigs
 cov
 CSV
-Dataset
+dataset
 datasets
 delimitted
 Djebali
@@ -97,7 +97,6 @@ TF
 Toshiyuki
 transposable
 transposon
-tt
 UC
 UCSC
 VCF
