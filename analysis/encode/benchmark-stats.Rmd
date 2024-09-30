@@ -40,8 +40,8 @@ kable(rc.df)
 ### Average resources per task
 
 ```{r}
-bm.df %>% group_by(task) %>% summarize(cpu_time=mean(cpu_time),
-                                       s=mean(s),
+bm.df %>% group_by(task) %>% summarize(cpu_h=mean(cpu_time/3600),
+                                       h=mean(s/3600),
                                        mean_load=mean(mean_load),
                                        max_rss=mean(max_rss)) %>%
   kable(format.args=list(big.mark=','))

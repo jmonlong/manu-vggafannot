@@ -63,8 +63,10 @@ Resources used (from running `Rscript ../sum-benchmark.R`):
 1. Prepare 10,000 node interval of length 50 (nodes) in the reference path (see [sample-nodes.py](sample-nodes.py)).
 2. Extract the reads for each of these slices and time it (approximately).
 
+### GAF
+
 ```sh
-vg paths -x ~/Documents/genomedata/hprc-v1.1-mc-grch38.gbz -A -Q GRCh38 | python3 sample-nodes.py > random-node-intervals.txt
+vg paths -x hprc-v1.1-mc-grch38.gbz -A -Q GRCh38 | python3 sample-nodes.py > random-node-intervals.txt
 
 rm -f slice.gaf
 date
@@ -79,3 +81,52 @@ date
 wc -l slice.gaf
 # 17068487 slice.gaf
 ```
+
+That's about 0.066 seconds per query (657/10000) which extracted about 1707 reads on average.
+
+### GAM 
+
+Querying GAM was slower, so I tested on less intervals (1,000 instead of 10,000).
+
+```sh
+head -1000 random-node-intervals.txt > random-node-intervals.small.txt
+
+rm -f slice.gam
+date
+# 15:00:02
+for nodeint in `cat random-node-intervals.small.txt`
+do
+    nodeint=`echo $nodeint | sed s/{n}:// | sed s/-/:/`
+    vg find -l results/sorted/HG002.gam -o $nodeint >> slice.gam
+done
+date
+# 15:13:38
+
+vg view -a slice.gam | wc -l 
+# 532970
+```
+
+That's about 0.816 seconds per query (816/1000), but extracted only about 533 reads on average.
+
+### GAF with additional filtering
+
+`vg find` extracts less reads because it also double-checks that a node in the path is actually included in the specified range.
+`tabix` all the reads with an overlapping node interval, even if none of the nodes are within the specified range. 
+As a sanity check, we can use [`subset-gaf.py`](subset-gaf.py) to filter the `tabix` output, similar to what `vg find` does.
+
+```sh
+rm -f slice.gaf
+date
+# 15:17:22
+for nodeint in `cat random-node-intervals.small.txt`
+do
+    tabix results/sorted/HG002.gaf.gz $nodeint | python3 subset-gaf.py -p $nodeint >> slice.gaf
+done
+date
+# 15:18:57
+
+wc -l slice.gaf
+# 523565
+```
+
+That's about 0.095 seconds per query (95/1000) which extracted about the same number of reads as from GAM.
