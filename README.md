@@ -27,10 +27,7 @@ docker build -t jmonlong-manubot .
 Then, make the manuscript's files:
 
 ```sh
-docker run -v `pwd`:/app -w /app -u `id -u $USER` -it jmonlong-manubot
-
-micromamba activate manubot
-bash build/build.sh
+docker run -v `pwd`:/app -w /app -u `id -u $USER` -it jmonlong-manubot bash build/build.sh
 ```
 
 The HTML/PDF outputs are then in the `output` folder.

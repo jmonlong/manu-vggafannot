@@ -1,0 +1,910 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="386.83099mm"
+   height="37.354mm"
+   viewBox="0 0 386.831 37.354"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.3.2 (1:1.3.2+202311252150+091e20ef0f)"
+   sodipodi:docname="CFD_CDS.small_insertion.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="0.85146363"
+     inkscape:cx="723.46015"
+     inkscape:cy="64.594656"
+     inkscape:window-width="1920"
+     inkscape:window-height="1016"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(7.9375157,-112.44791)">
+    <rect
+       x="4.7710152"
+       y="127.54227"
+       width="135.96205"
+       height="3.3767116"
+       style="fill:#737373;fill-opacity:1;stroke-width:0.225114"
+       trackID="4"
+       trackName="NA18906#JAHEON010000118.1, HG01109#JAHEOZ010000232.1, HG02559#JAGYVK010000144.1, HG02717#JAHAOS010000147.1, HG03516#JAGYYS010000174.1"
+       class="track4"
+       color="#737373"
+       id="rect41-7">
+      <title
+         id="title40-6">NA18906#JAHEON010000118.1, HG01109#JAHEOZ010000232.1, HG02559#JAGYVK010000144.1, HG02717#JAHAOS010000147.1, HG03516#JAGYYS010000174.1</title>
+    </rect>
+    <rect
+       x="170.09438"
+       y="132.49475"
+       width="104.2278"
+       height="3.3767107"
+       style="fill:#737373;fill-opacity:1;stroke-width:0.225114"
+       trackID="4"
+       trackName="NA18906#JAHEON010000118.1, HG01109#JAHEOZ010000232.1, HG02559#JAGYVK010000144.1, HG02717#JAHAOS010000147.1, HG03516#JAGYYS010000174.1"
+       class="track4"
+       color="#737373"
+       id="rect42-5">
+      <title
+         id="title41-6">NA18906#JAHEON010000118.1, HG01109#JAHEOZ010000232.1, HG02559#JAGYVK010000144.1, HG02717#JAHAOS010000147.1, HG03516#JAGYYS010000174.1</title>
+    </rect>
+    <rect
+       x="286.96075"
+       y="127.54227"
+       width="89.064087"
+       height="3.3767107"
+       style="fill:#737373;fill-opacity:1;stroke-width:0.225114"
+       trackID="4"
+       trackName="NA18906#JAHEON010000118.1, HG01109#JAHEOZ010000232.1, HG02559#JAGYVK010000144.1, HG02717#JAHAOS010000147.1, HG03516#JAGYYS010000174.1"
+       class="track4"
+       color="#737373"
+       id="rect43-93">
+      <title
+         id="title42-7">NA18906#JAHEON010000118.1, HG01109#JAHEOZ010000232.1, HG02559#JAGYVK010000144.1, HG02717#JAHAOS010000147.1, HG03516#JAGYYS010000174.1</title>
+    </rect>
+    <rect
+       x="4.8135996"
+       y="124.16556"
+       width="151.74179"
+       height="3.3767116"
+       style="fill:#969696;fill-opacity:1;stroke-width:0.225114"
+       trackID="3"
+       trackName="HG01106#JAHAMB010000014.1, NA20129#JAHEPE010000334.1, HG01175#JAHALZ010000232.1, HG01978#JAGYVR010000122.1, HG02630#JAHAOQ010000189.1, NA18906#JAHEOO010000124.1, CHM13#chr19, HG00438#JAHBCA010000168.1, HG00733#JAHEPP010000107.1, HG01258#JAGYYU010000154.1, HG01928#JAGYVQ010000130.1, HG02145#JAHKSG010000251.1, HG02145#JAHKSF010000140.1, HG02257#JAGYVI010000151.1, HG02630#JAHAOP010000098.1, HG03453#JAGYVV010000123.1, HG03486#JAHEOQ010000196.1, NA20129#JAHEPD010000229.1, HG01952#JAHAMD010000121.1, HG03492#JAHEPI010000307.1, HG00735#JAHBCG010000128.1, HG02622#JAHAOO010000104.1, HG02886#JAHAOU010000157.1, HG03579#JAGYVU010000196.1, HG00733#JAHEPQ010000193.1, HG02723#JAHEOU010000127.1, HG01978#JAGYVS010000103.1, HG02572#JAHAOV010000254.1, GRCh38#chr19, HG03453#JAGYVW010000134.1, HG02622#JAHAON010000099.1, HG02055#JAHEPJ010000192.1, NA21309#JAHEPC010000305.1, NA21309#JAHEPB010000300.1, HG00673#JAHBBZ010000216.1, HG01952#JAHAME010000088.1, HG02559#JAGYVJ010000144.1, HG03098#JAHEPM010000199.1, HG00621#JAHBCC010000117.1, HG01243#JAHEOX010000057.1, HG02818#JAHEOS010000205.1, HG03098#JAHEPL010000210.1, HG02257#JAGYVH010000084.1, HG02080#JAHEOW010000329.1, HG02818#JAHEOR010000147.1, HG02080#JAHEOV010000296.1, HG02486#JAGYVM010000143.1, HG00735#JAHBCH010000161.1, HG01071#JAHBCE010000229.1"
+       class="track3"
+       color="#969696"
+       id="rect44-4">
+      <title
+         id="title43-5">HG01106#JAHAMB010000014.1, NA20129#JAHEPE010000334.1, HG01175#JAHALZ010000232.1, HG01978#JAGYVR010000122.1, HG02630#JAHAOQ010000189.1, NA18906#JAHEOO010000124.1, CHM13#chr19, HG00438#JAHBCA010000168.1, HG00733#JAHEPP010000107.1, HG01258#JAGYYU010000154.1, HG01928#JAGYVQ010000130.1, HG02145#JAHKSG010000251.1, HG02145#JAHKSF010000140.1, HG02257#JAGYVI010000151.1, HG02630#JAHAOP010000098.1, HG03453#JAGYVV010000123.1, HG03486#JAHEOQ010000196.1, NA20129#JAHEPD010000229.1, HG01952#JAHAMD010000121.1, HG03492#JAHEPI010000307.1, HG00735#JAHBCG010000128.1, HG02622#JAHAOO010000104.1, HG02886#JAHAOU010000157.1, HG03579#JAGYVU010000196.1, HG00733#JAHEPQ010000193.1, HG02723#JAHEOU010000127.1, HG01978#JAGYVS010000103.1, HG02572#JAHAOV010000254.1, GRCh38#chr19, HG03453#JAGYVW010000134.1, HG02622#JAHAON010000099.1, HG02055#JAHEPJ010000192.1, NA21309#JAHEPC010000305.1, NA21309#JAHEPB010000300.1, HG00673#JAHBBZ010000216.1, HG01952#JAHAME010000088.1, HG02559#JAGYVJ010000144.1, HG03098#JAHEPM010000199.1, HG00621#JAHBCC010000117.1, HG01243#JAHEOX010000057.1, HG02818#JAHEOS010000205.1, HG03098#JAHEPL010000210.1, HG02257#JAGYVH010000084.1, HG02080#JAHEOW010000329.1, HG02818#JAHEOR010000147.1, HG02080#JAHEOV010000296.1, HG02486#JAGYVM010000143.1, HG00735#JAHBCH010000161.1, HG01071#JAHBCE010000229.1</title>
+    </rect>
+    <rect
+       x="170.09438"
+       y="129.11804"
+       width="104.2278"
+       height="3.3767107"
+       style="fill:#969696;fill-opacity:1;stroke-width:0.225114"
+       trackID="3"
+       trackName="HG01106#JAHAMB010000014.1, NA20129#JAHEPE010000334.1, HG01175#JAHALZ010000232.1, HG01978#JAGYVR010000122.1, HG02630#JAHAOQ010000189.1, NA18906#JAHEOO010000124.1, CHM13#chr19, HG00438#JAHBCA010000168.1, HG00733#JAHEPP010000107.1, HG01258#JAGYYU010000154.1, HG01928#JAGYVQ010000130.1, HG02145#JAHKSG010000251.1, HG02145#JAHKSF010000140.1, HG02257#JAGYVI010000151.1, HG02630#JAHAOP010000098.1, HG03453#JAGYVV010000123.1, HG03486#JAHEOQ010000196.1, NA20129#JAHEPD010000229.1, HG01952#JAHAMD010000121.1, HG03492#JAHEPI010000307.1, HG00735#JAHBCG010000128.1, HG02622#JAHAOO010000104.1, HG02886#JAHAOU010000157.1, HG03579#JAGYVU010000196.1, HG00733#JAHEPQ010000193.1, HG02723#JAHEOU010000127.1, HG01978#JAGYVS010000103.1, HG02572#JAHAOV010000254.1, GRCh38#chr19, HG03453#JAGYVW010000134.1, HG02622#JAHAON010000099.1, HG02055#JAHEPJ010000192.1, NA21309#JAHEPC010000305.1, NA21309#JAHEPB010000300.1, HG00673#JAHBBZ010000216.1, HG01952#JAHAME010000088.1, HG02559#JAGYVJ010000144.1, HG03098#JAHEPM010000199.1, HG00621#JAHBCC010000117.1, HG01243#JAHEOX010000057.1, HG02818#JAHEOS010000205.1, HG03098#JAHEPL010000210.1, HG02257#JAGYVH010000084.1, HG02080#JAHEOW010000329.1, HG02818#JAHEOR010000147.1, HG02080#JAHEOV010000296.1, HG02486#JAGYVM010000143.1, HG00735#JAHBCH010000161.1, HG01071#JAHBCE010000229.1"
+       class="track3"
+       color="#969696"
+       id="rect45-2">
+      <title
+         id="title44-5">HG01106#JAHAMB010000014.1, NA20129#JAHEPE010000334.1, HG01175#JAHALZ010000232.1, HG01978#JAGYVR010000122.1, HG02630#JAHAOQ010000189.1, NA18906#JAHEOO010000124.1, CHM13#chr19, HG00438#JAHBCA010000168.1, HG00733#JAHEPP010000107.1, HG01258#JAGYYU010000154.1, HG01928#JAGYVQ010000130.1, HG02145#JAHKSG010000251.1, HG02145#JAHKSF010000140.1, HG02257#JAGYVI010000151.1, HG02630#JAHAOP010000098.1, HG03453#JAGYVV010000123.1, HG03486#JAHEOQ010000196.1, NA20129#JAHEPD010000229.1, HG01952#JAHAMD010000121.1, HG03492#JAHEPI010000307.1, HG00735#JAHBCG010000128.1, HG02622#JAHAOO010000104.1, HG02886#JAHAOU010000157.1, HG03579#JAGYVU010000196.1, HG00733#JAHEPQ010000193.1, HG02723#JAHEOU010000127.1, HG01978#JAGYVS010000103.1, HG02572#JAHAOV010000254.1, GRCh38#chr19, HG03453#JAGYVW010000134.1, HG02622#JAHAON010000099.1, HG02055#JAHEPJ010000192.1, NA21309#JAHEPC010000305.1, NA21309#JAHEPB010000300.1, HG00673#JAHBBZ010000216.1, HG01952#JAHAME010000088.1, HG02559#JAGYVJ010000144.1, HG03098#JAHEPM010000199.1, HG00621#JAHBCC010000117.1, HG01243#JAHEOX010000057.1, HG02818#JAHEOS010000205.1, HG03098#JAHEPL010000210.1, HG02257#JAGYVH010000084.1, HG02080#JAHEOW010000329.1, HG02818#JAHEOR010000147.1, HG02080#JAHEOV010000296.1, HG02486#JAGYVM010000143.1, HG00735#JAHBCH010000161.1, HG01071#JAHBCE010000229.1</title>
+    </rect>
+    <rect
+       x="286.96075"
+       y="124.16556"
+       width="89.273201"
+       height="3.3767107"
+       style="fill:#969696;fill-opacity:1;stroke-width:0.225114"
+       trackID="3"
+       trackName="HG01106#JAHAMB010000014.1, NA20129#JAHEPE010000334.1, HG01175#JAHALZ010000232.1, HG01978#JAGYVR010000122.1, HG02630#JAHAOQ010000189.1, NA18906#JAHEOO010000124.1, CHM13#chr19, HG00438#JAHBCA010000168.1, HG00733#JAHEPP010000107.1, HG01258#JAGYYU010000154.1, HG01928#JAGYVQ010000130.1, HG02145#JAHKSG010000251.1, HG02145#JAHKSF010000140.1, HG02257#JAGYVI010000151.1, HG02630#JAHAOP010000098.1, HG03453#JAGYVV010000123.1, HG03486#JAHEOQ010000196.1, NA20129#JAHEPD010000229.1, HG01952#JAHAMD010000121.1, HG03492#JAHEPI010000307.1, HG00735#JAHBCG010000128.1, HG02622#JAHAOO010000104.1, HG02886#JAHAOU010000157.1, HG03579#JAGYVU010000196.1, HG00733#JAHEPQ010000193.1, HG02723#JAHEOU010000127.1, HG01978#JAGYVS010000103.1, HG02572#JAHAOV010000254.1, GRCh38#chr19, HG03453#JAGYVW010000134.1, HG02622#JAHAON010000099.1, HG02055#JAHEPJ010000192.1, NA21309#JAHEPC010000305.1, NA21309#JAHEPB010000300.1, HG00673#JAHBBZ010000216.1, HG01952#JAHAME010000088.1, HG02559#JAGYVJ010000144.1, HG03098#JAHEPM010000199.1, HG00621#JAHBCC010000117.1, HG01243#JAHEOX010000057.1, HG02818#JAHEOS010000205.1, HG03098#JAHEPL010000210.1, HG02257#JAGYVH010000084.1, HG02080#JAHEOW010000329.1, HG02818#JAHEOR010000147.1, HG02080#JAHEOV010000296.1, HG02486#JAGYVM010000143.1, HG00735#JAHBCH010000161.1, HG01071#JAHBCE010000229.1"
+       class="track3"
+       color="#969696"
+       id="rect46-4">
+      <title
+         id="title45-74">HG01106#JAHAMB010000014.1, NA20129#JAHEPE010000334.1, HG01175#JAHALZ010000232.1, HG01978#JAGYVR010000122.1, HG02630#JAHAOQ010000189.1, NA18906#JAHEOO010000124.1, CHM13#chr19, HG00438#JAHBCA010000168.1, HG00733#JAHEPP010000107.1, HG01258#JAGYYU010000154.1, HG01928#JAGYVQ010000130.1, HG02145#JAHKSG010000251.1, HG02145#JAHKSF010000140.1, HG02257#JAGYVI010000151.1, HG02630#JAHAOP010000098.1, HG03453#JAGYVV010000123.1, HG03486#JAHEOQ010000196.1, NA20129#JAHEPD010000229.1, HG01952#JAHAMD010000121.1, HG03492#JAHEPI010000307.1, HG00735#JAHBCG010000128.1, HG02622#JAHAOO010000104.1, HG02886#JAHAOU010000157.1, HG03579#JAGYVU010000196.1, HG00733#JAHEPQ010000193.1, HG02723#JAHEOU010000127.1, HG01978#JAGYVS010000103.1, HG02572#JAHAOV010000254.1, GRCh38#chr19, HG03453#JAGYVW010000134.1, HG02622#JAHAON010000099.1, HG02055#JAHEPJ010000192.1, NA21309#JAHEPC010000305.1, NA21309#JAHEPB010000300.1, HG00673#JAHBBZ010000216.1, HG01952#JAHAME010000088.1, HG02559#JAGYVJ010000144.1, HG03098#JAHEPM010000199.1, HG00621#JAHBCC010000117.1, HG01243#JAHEOX010000057.1, HG02818#JAHEOS010000205.1, HG03098#JAHEPL010000210.1, HG02257#JAGYVH010000084.1, HG02080#JAHEOW010000329.1, HG02818#JAHEOR010000147.1, HG02080#JAHEOV010000296.1, HG02486#JAGYVM010000143.1, HG00735#JAHBCH010000161.1, HG01071#JAHBCE010000229.1</title>
+    </rect>
+    <rect
+       x="4.8897414"
+       y="120.78883"
+       width="371.59088"
+       height="3.3767097"
+       style="fill:#c9c9c9;fill-opacity:1;stroke-width:0.225114"
+       trackID="7"
+       trackName="HG00438#JAHBCB010000156.1"
+       class="track7"
+       color="#000000"
+       id="rect47-4">
+      <title
+         id="title46-3">HG00438#JAHBCB010000156.1</title>
+    </rect>
+    <rect
+       x="4.8615131"
+       y="117.41212"
+       width="151.69388"
+       height="3.3767097"
+       style="fill:#9467bd;fill-opacity:1;stroke-width:0.225114"
+       trackID="0"
+       trackName="chr19"
+       class="track0"
+       color="#9467bd"
+       id="rect48-0">
+      <title
+         id="title47-7">chr19</title>
+    </rect>
+    <rect
+       x="170.09438"
+       y="114.03541"
+       width="104.2278"
+       height="3.3767107"
+       style="fill:#9467bd;fill-opacity:1;stroke-width:0.225114"
+       trackID="0"
+       trackName="chr19"
+       class="track0"
+       color="#9467bd"
+       id="rect49-8">
+      <title
+         id="title48-6">chr19</title>
+    </rect>
+    <rect
+       x="286.96075"
+       y="117.41212"
+       width="89.417656"
+       height="3.3767107"
+       style="fill:#9467bd;fill-opacity:1;stroke-width:0.225114"
+       trackID="0"
+       trackName="chr19"
+       class="track0"
+       color="#9467bd"
+       id="rect108">
+      <title
+         id="title49-8">chr19</title>
+    </rect>
+    <path
+       d="m 140.50798,127.54227 c 8.02371,0 8.02371,11.93104 16.04741,11.93104 v 3.37671 c -8.0237,0 -8.0237,-11.93104 -16.04741,-11.93104 z"
+       style="fill:#737373;fill-opacity:1;stroke-width:0.225114"
+       trackID="4"
+       trackName="NA18906#JAHEON010000118.1, HG01109#JAHEOZ010000232.1, HG02559#JAGYVK010000144.1, HG02717#JAHAOS010000147.1, HG03516#JAGYYS010000174.1"
+       class="track4"
+       color="#737373"
+       id="path50-8">
+      <title
+         id="title50-4">NA18906#JAHEON010000118.1, HG01109#JAHEOZ010000232.1, HG02559#JAGYVK010000144.1, HG02717#JAHAOS010000147.1, HG03516#JAGYYS010000174.1</title>
+    </path>
+    <path
+       d="m 156.33028,139.47331 c 6.9946,0 6.9946,-6.97853 13.98923,-6.97853 v 3.37671 c -6.99463,0 -6.99463,6.97853 -13.98923,6.97853 z"
+       style="fill:#737373;fill-opacity:1;stroke-width:0.225114"
+       trackID="4"
+       trackName="NA18906#JAHEON010000118.1, HG01109#JAHEOZ010000232.1, HG02559#JAGYVK010000144.1, HG02717#JAHAOS010000147.1, HG03516#JAGYYS010000174.1"
+       class="track4"
+       color="#737373"
+       id="path51-3">
+      <title
+         id="title51-1">NA18906#JAHEON010000118.1, HG01109#JAHEOZ010000232.1, HG02559#JAGYVK010000144.1, HG02717#JAHAOS010000147.1, HG03516#JAGYYS010000174.1</title>
+    </path>
+    <path
+       d="m 274.09709,114.03543 c 6.54437,0 6.54437,3.37671 13.08876,3.37671 v 3.37671 c -6.54439,0 -6.54439,-3.37671 -13.08876,-3.37671 z"
+       style="fill:#9467bd;fill-opacity:1;stroke-width:0.225114"
+       trackID="0"
+       trackName="chr19"
+       class="track0"
+       color="#9467bd"
+       id="path52-4">
+      <title
+         id="title52-9">chr19</title>
+    </path>
+    <path
+       d="m 274.09709,129.11807 c 6.54437,0 6.54437,-4.95251 13.08876,-4.95251 v 3.37671 c -6.54439,0 -6.54439,4.95251 -13.08876,4.95251 z"
+       style="fill:#969696;fill-opacity:1;stroke-width:0.225114"
+       trackID="3"
+       trackName="HG01106#JAHAMB010000014.1, NA20129#JAHEPE010000334.1, HG01175#JAHALZ010000232.1, HG01978#JAGYVR010000122.1, HG02630#JAHAOQ010000189.1, NA18906#JAHEOO010000124.1, CHM13#chr19, HG00438#JAHBCA010000168.1, HG00733#JAHEPP010000107.1, HG01258#JAGYYU010000154.1, HG01928#JAGYVQ010000130.1, HG02145#JAHKSG010000251.1, HG02145#JAHKSF010000140.1, HG02257#JAGYVI010000151.1, HG02630#JAHAOP010000098.1, HG03453#JAGYVV010000123.1, HG03486#JAHEOQ010000196.1, NA20129#JAHEPD010000229.1, HG01952#JAHAMD010000121.1, HG03492#JAHEPI010000307.1, HG00735#JAHBCG010000128.1, HG02622#JAHAOO010000104.1, HG02886#JAHAOU010000157.1, HG03579#JAGYVU010000196.1, HG00733#JAHEPQ010000193.1, HG02723#JAHEOU010000127.1, HG01978#JAGYVS010000103.1, HG02572#JAHAOV010000254.1, GRCh38#chr19, HG03453#JAGYVW010000134.1, HG02622#JAHAON010000099.1, HG02055#JAHEPJ010000192.1, NA21309#JAHEPC010000305.1, NA21309#JAHEPB010000300.1, HG00673#JAHBBZ010000216.1, HG01952#JAHAME010000088.1, HG02559#JAGYVJ010000144.1, HG03098#JAHEPM010000199.1, HG00621#JAHBCC010000117.1, HG01243#JAHEOX010000057.1, HG02818#JAHEOS010000205.1, HG03098#JAHEPL010000210.1, HG02257#JAGYVH010000084.1, HG02080#JAHEOW010000329.1, HG02818#JAHEOR010000147.1, HG02080#JAHEOV010000296.1, HG02486#JAGYVM010000143.1, HG00735#JAHBCH010000161.1, HG01071#JAHBCE010000229.1"
+       class="track3"
+       color="#969696"
+       id="path53-20">
+      <title
+         id="title53-6">HG01106#JAHAMB010000014.1, NA20129#JAHEPE010000334.1, HG01175#JAHALZ010000232.1, HG01978#JAGYVR010000122.1, HG02630#JAHAOQ010000189.1, NA18906#JAHEOO010000124.1, CHM13#chr19, HG00438#JAHBCA010000168.1, HG00733#JAHEPP010000107.1, HG01258#JAGYYU010000154.1, HG01928#JAGYVQ010000130.1, HG02145#JAHKSG010000251.1, HG02145#JAHKSF010000140.1, HG02257#JAGYVI010000151.1, HG02630#JAHAOP010000098.1, HG03453#JAGYVV010000123.1, HG03486#JAHEOQ010000196.1, NA20129#JAHEPD010000229.1, HG01952#JAHAMD010000121.1, HG03492#JAHEPI010000307.1, HG00735#JAHBCG010000128.1, HG02622#JAHAOO010000104.1, HG02886#JAHAOU010000157.1, HG03579#JAGYVU010000196.1, HG00733#JAHEPQ010000193.1, HG02723#JAHEOU010000127.1, HG01978#JAGYVS010000103.1, HG02572#JAHAOV010000254.1, GRCh38#chr19, HG03453#JAGYVW010000134.1, HG02622#JAHAON010000099.1, HG02055#JAHEPJ010000192.1, NA21309#JAHEPC010000305.1, NA21309#JAHEPB010000300.1, HG00673#JAHBBZ010000216.1, HG01952#JAHAME010000088.1, HG02559#JAGYVJ010000144.1, HG03098#JAHEPM010000199.1, HG00621#JAHBCC010000117.1, HG01243#JAHEOX010000057.1, HG02818#JAHEOS010000205.1, HG03098#JAHEPL010000210.1, HG02257#JAGYVH010000084.1, HG02080#JAHEOW010000329.1, HG02818#JAHEOR010000147.1, HG02080#JAHEOV010000296.1, HG02486#JAGYVM010000143.1, HG00735#JAHBCH010000161.1, HG01071#JAHBCE010000229.1</title>
+    </path>
+    <path
+       d="m 274.09709,132.49478 c 6.54437,0 6.54437,-4.95251 13.08876,-4.95251 v 3.37671 c -6.54439,0 -6.54439,4.95251 -13.08876,4.95251 z"
+       style="fill:#737373;fill-opacity:1;stroke-width:0.225114"
+       trackID="4"
+       trackName="NA18906#JAHEON010000118.1, HG01109#JAHEOZ010000232.1, HG02559#JAGYVK010000144.1, HG02717#JAHAOS010000147.1, HG03516#JAGYYS010000174.1"
+       class="track4"
+       color="#737373"
+       id="path54-8">
+      <title
+         id="title54-92">NA18906#JAHEON010000118.1, HG01109#JAHEOZ010000232.1, HG02559#JAGYVK010000144.1, HG02717#JAHAOS010000147.1, HG03516#JAGYYS010000174.1</title>
+    </path>
+    <path
+       d="m 156.33028,117.41214 c 6.9946,0 6.9946,-3.37671 13.98923,-3.37671 v 3.37671 c -6.99463,0 -6.99463,3.37671 -13.98923,3.37671 z"
+       style="fill:#9467bd;fill-opacity:1;stroke-width:0.225114"
+       trackID="0"
+       trackName="chr19"
+       class="track0"
+       color="#9467bd"
+       id="path55-6">
+      <title
+         id="title55-6">chr19</title>
+    </path>
+    <path
+       d="m 156.33028,124.16556 c 6.9946,0 6.9946,4.95251 13.98923,4.95251 v 3.37671 c -6.99463,0 -6.99463,-4.95251 -13.98923,-4.95251 z"
+       style="fill:#969696;fill-opacity:1;stroke-width:0.225114"
+       trackID="3"
+       trackName="HG01106#JAHAMB010000014.1, NA20129#JAHEPE010000334.1, HG01175#JAHALZ010000232.1, HG01978#JAGYVR010000122.1, HG02630#JAHAOQ010000189.1, NA18906#JAHEOO010000124.1, CHM13#chr19, HG00438#JAHBCA010000168.1, HG00733#JAHEPP010000107.1, HG01258#JAGYYU010000154.1, HG01928#JAGYVQ010000130.1, HG02145#JAHKSG010000251.1, HG02145#JAHKSF010000140.1, HG02257#JAGYVI010000151.1, HG02630#JAHAOP010000098.1, HG03453#JAGYVV010000123.1, HG03486#JAHEOQ010000196.1, NA20129#JAHEPD010000229.1, HG01952#JAHAMD010000121.1, HG03492#JAHEPI010000307.1, HG00735#JAHBCG010000128.1, HG02622#JAHAOO010000104.1, HG02886#JAHAOU010000157.1, HG03579#JAGYVU010000196.1, HG00733#JAHEPQ010000193.1, HG02723#JAHEOU010000127.1, HG01978#JAGYVS010000103.1, HG02572#JAHAOV010000254.1, GRCh38#chr19, HG03453#JAGYVW010000134.1, HG02622#JAHAON010000099.1, HG02055#JAHEPJ010000192.1, NA21309#JAHEPC010000305.1, NA21309#JAHEPB010000300.1, HG00673#JAHBBZ010000216.1, HG01952#JAHAME010000088.1, HG02559#JAGYVJ010000144.1, HG03098#JAHEPM010000199.1, HG00621#JAHBCC010000117.1, HG01243#JAHEOX010000057.1, HG02818#JAHEOS010000205.1, HG03098#JAHEPL010000210.1, HG02257#JAGYVH010000084.1, HG02080#JAHEOW010000329.1, HG02818#JAHEOR010000147.1, HG02080#JAHEOV010000296.1, HG02486#JAGYVM010000143.1, HG00735#JAHBCH010000161.1, HG01071#JAHBCE010000229.1"
+       class="track3"
+       color="#969696"
+       id="path56-4">
+      <title
+         id="title56-95">HG01106#JAHAMB010000014.1, NA20129#JAHEPE010000334.1, HG01175#JAHALZ010000232.1, HG01978#JAGYVR010000122.1, HG02630#JAHAOQ010000189.1, NA18906#JAHEOO010000124.1, CHM13#chr19, HG00438#JAHBCA010000168.1, HG00733#JAHEPP010000107.1, HG01258#JAGYYU010000154.1, HG01928#JAGYVQ010000130.1, HG02145#JAHKSG010000251.1, HG02145#JAHKSF010000140.1, HG02257#JAGYVI010000151.1, HG02630#JAHAOP010000098.1, HG03453#JAGYVV010000123.1, HG03486#JAHEOQ010000196.1, NA20129#JAHEPD010000229.1, HG01952#JAHAMD010000121.1, HG03492#JAHEPI010000307.1, HG00735#JAHBCG010000128.1, HG02622#JAHAOO010000104.1, HG02886#JAHAOU010000157.1, HG03579#JAGYVU010000196.1, HG00733#JAHEPQ010000193.1, HG02723#JAHEOU010000127.1, HG01978#JAGYVS010000103.1, HG02572#JAHAOV010000254.1, GRCh38#chr19, HG03453#JAGYVW010000134.1, HG02622#JAHAON010000099.1, HG02055#JAHEPJ010000192.1, NA21309#JAHEPC010000305.1, NA21309#JAHEPB010000300.1, HG00673#JAHBBZ010000216.1, HG01952#JAHAME010000088.1, HG02559#JAGYVJ010000144.1, HG03098#JAHEPM010000199.1, HG00621#JAHBCC010000117.1, HG01243#JAHEOX010000057.1, HG02818#JAHEOS010000205.1, HG03098#JAHEPL010000210.1, HG02257#JAGYVH010000084.1, HG02080#JAHEOW010000329.1, HG02818#JAHEOR010000147.1, HG02080#JAHEOV010000296.1, HG02486#JAGYVM010000143.1, HG00735#JAHBCH010000161.1, HG01071#JAHBCE010000229.1</title>
+    </path>
+    <rect
+       x="9.0692568"
+       y="138.79793"
+       width="111.76813"
+       height="1.5757984"
+       style="fill:#089c1a;fill-opacity:1;stroke-width:0.225114"
+       trackID="13"
+       trackName="CFD:CDS:1haps"
+       class="track13"
+       color="#08306b"
+       id="rect57-0">
+      <title
+         id="title57-48">CFD:CDS:1haps</title>
+    </rect>
+    <rect
+       x="9.0692568"
+       y="137.22214"
+       width="131.66382"
+       height="1.5757984"
+       style="fill:#4292c6;fill-opacity:1;stroke-width:0.225114"
+       trackID="17"
+       trackName="CFD:CDS:5haps"
+       class="track17"
+       color="#4292c6"
+       id="rect60-7">
+      <title
+         id="title60-2">CFD:CDS:5haps</title>
+    </rect>
+    <rect
+       x="170.09438"
+       y="142.17465"
+       width="104.2278"
+       height="1.5757984"
+       style="fill:#4292c6;fill-opacity:1;stroke-width:0.225114"
+       trackID="17"
+       trackName="CFD:CDS:5haps"
+       class="track17"
+       color="#4292c6"
+       id="rect113">
+      <title
+         id="title61-2">CFD:CDS:5haps</title>
+    </rect>
+    <rect
+       x="286.96075"
+       y="138.79793"
+       width="89.320068"
+       height="1.5656674"
+       style="fill:#4292c6;fill-opacity:1;stroke-width:0.129059"
+       trackID="17"
+       trackName="CFD:CDS:5haps"
+       class="track17"
+       color="#4292c6"
+       id="rect117">
+      <title
+         id="title62-6">CFD:CDS:5haps</title>
+    </rect>
+    <rect
+       x="7.1787009"
+       y="135.64635"
+       width="133.55438"
+       height="1.5757984"
+       style="fill:#2171b5;fill-opacity:1;stroke-width:0.225114"
+       trackID="18"
+       trackName="CFD:CDS:3haps"
+       class="track18"
+       color="#2171b5"
+       id="rect63-1">
+      <title
+         id="title63-0">CFD:CDS:3haps</title>
+    </rect>
+    <rect
+       x="170.09438"
+       y="140.59886"
+       width="104.2278"
+       height="1.5757984"
+       style="fill:#2171b5;fill-opacity:1;stroke-width:0.225114"
+       trackID="18"
+       trackName="CFD:CDS:3haps"
+       class="track18"
+       color="#2171b5"
+       id="rect64-6">
+      <title
+         id="title64-1">CFD:CDS:3haps</title>
+    </rect>
+    <rect
+       x="286.96075"
+       y="137.22214"
+       width="89.378082"
+       height="1.571859"
+       style="fill:#2171b5;fill-opacity:1;stroke-width:0.129059"
+       trackID="18"
+       trackName="CFD:CDS:3haps"
+       class="track18"
+       color="#2171b5"
+       id="rect65-5">
+      <title
+         id="title65-9">CFD:CDS:3haps</title>
+    </rect>
+    <rect
+       x="9.0692568"
+       y="134.07056"
+       width="131.66382"
+       height="1.5757984"
+       style="fill:#6baed6;fill-opacity:1;stroke-width:0.225114"
+       trackID="16"
+       trackName="CFD:CDS:76haps"
+       class="track16"
+       color="#6baed6"
+       id="rect122">
+      <title
+         id="title67-9">CFD:CDS:76haps</title>
+    </rect>
+    <rect
+       x="170.09438"
+       y="139.02306"
+       width="104.2278"
+       height="1.5757984"
+       style="fill:#6baed6;fill-opacity:1;stroke-width:0.225114"
+       trackID="16"
+       trackName="CFD:CDS:76haps"
+       class="track16"
+       color="#6baed6"
+       id="rect126">
+      <title
+         id="title68-0">CFD:CDS:76haps</title>
+    </rect>
+    <rect
+       x="286.96075"
+       y="135.64635"
+       width="89.429703"
+       height="1.5675894"
+       style="fill:#6baed6;fill-opacity:1;stroke-width:0.129059"
+       trackID="16"
+       trackName="CFD:CDS:76haps"
+       class="track16"
+       color="#6baed6"
+       id="rect127">
+      <title
+         id="title69-9">CFD:CDS:76haps</title>
+    </rect>
+    <rect
+       x="7.1787009"
+       y="132.49475"
+       width="133.55438"
+       height="1.5757984"
+       style="fill:#9ecae1;fill-opacity:1;stroke-width:0.225114"
+       trackID="15"
+       trackName="CFD:CDS:1haps"
+       class="track15"
+       color="#9ecae1"
+       id="rect131">
+      <title
+         id="title70-1">CFD:CDS:1haps</title>
+    </rect>
+    <rect
+       x="170.09438"
+       y="137.44727"
+       width="104.2278"
+       height="1.5757984"
+       style="fill:#9ecae1;fill-opacity:1;stroke-width:0.225114"
+       trackID="15"
+       trackName="CFD:CDS:1haps"
+       class="track15"
+       color="#9ecae1"
+       id="rect137">
+      <title
+         id="title71-7">CFD:CDS:1haps</title>
+    </rect>
+    <rect
+       x="286.96075"
+       y="134.07056"
+       width="89.287582"
+       height="1.5757984"
+       style="fill:#9ecae1;fill-opacity:1;stroke-width:0.129059"
+       trackID="15"
+       trackName="CFD:CDS:1haps"
+       class="track15"
+       color="#9ecae1"
+       id="rect138">
+      <title
+         id="title72-7">CFD:CDS:1haps</title>
+    </rect>
+    <rect
+       x="7.1787009"
+       y="130.91895"
+       width="133.55438"
+       height="1.5757984"
+       style="fill:#c6dbef;fill-opacity:1;stroke-width:0.225114"
+       trackID="14"
+       trackName="CFD:CDS:1haps"
+       class="track14"
+       color="#c6dbef"
+       id="rect139">
+      <title
+         id="title73-11">CFD:CDS:1haps</title>
+    </rect>
+    <rect
+       x="170.09438"
+       y="135.87146"
+       width="104.2278"
+       height="1.5757984"
+       style="fill:#c6dbef;fill-opacity:1;stroke-width:0.225114"
+       trackID="14"
+       trackName="CFD:CDS:1haps"
+       class="track14"
+       color="#c6dbef"
+       id="rect257">
+      <title
+         id="title74-5">CFD:CDS:1haps</title>
+    </rect>
+    <rect
+       x="286.96075"
+       y="132.49475"
+       width="89.394997"
+       height="1.5757984"
+       style="fill:#c6dbef;fill-opacity:1;stroke-width:0.225114"
+       trackID="14"
+       trackName="CFD:CDS:1haps"
+       class="track14"
+       color="#c6dbef"
+       id="rect258">
+      <title
+         id="title75-9">CFD:CDS:1haps</title>
+    </rect>
+    <rect
+       x="252.32532"
+       y="124.16556"
+       width="21.996859"
+       height="1.5757984"
+       style="fill:#089c1a;fill-opacity:1;stroke-width:0.225114"
+       trackID="19"
+       trackName="CFD:CDS:1haps"
+       class="track19"
+       color="#08519c"
+       id="rect260">
+      <title
+         id="title77-7">CFD:CDS:1haps</title>
+    </rect>
+    <rect
+       x="286.96075"
+       y="130.91895"
+       width="89.172913"
+       height="1.5757984"
+       style="fill:#089c1a;fill-opacity:1;stroke-width:0.225114"
+       trackID="19"
+       trackName="CFD:CDS:1haps"
+       class="track19"
+       color="#08519c"
+       id="rect261">
+      <title
+         id="title78-6">CFD:CDS:1haps</title>
+    </rect>
+    <path
+       d="m 140.50798,137.22217 c 8.02371,0 8.02371,5.62785 16.04741,5.62785 v 1.5758 c -8.0237,0 -8.0237,-5.62785 -16.04741,-5.62785 z"
+       style="fill:#4292c6;fill-opacity:1;stroke-width:0.225114"
+       trackID="17"
+       trackName="CFD:CDS:5haps"
+       class="track17"
+       color="#4292c6"
+       id="path79-7">
+      <title
+         id="title79-3">CFD:CDS:5haps</title>
+    </path>
+    <path
+       d="m 156.33028,142.85002 c 6.9946,0 6.9946,-0.67534 13.98923,-0.67534 v 1.5758 c -6.99463,0 -6.99463,0.67534 -13.98923,0.67534 z"
+       style="fill:#4292c6;fill-opacity:1;stroke-width:0.225114"
+       trackID="17"
+       trackName="CFD:CDS:5haps"
+       class="track17"
+       color="#4292c6"
+       id="path80-65">
+      <title
+         id="title80-6">CFD:CDS:5haps</title>
+    </path>
+    <path
+       d="m 274.09709,135.87149 c 6.54437,0 6.54437,-3.37671 13.08876,-3.37671 v 1.5758 c -6.54439,0 -6.54439,3.37671 -13.08876,3.37671 z"
+       style="fill:#c6dbef;fill-opacity:1;stroke-width:0.225114"
+       trackID="14"
+       trackName="CFD:CDS:1haps"
+       class="track14"
+       color="#c6dbef"
+       id="path81-3">
+      <title
+         id="title81-9">CFD:CDS:1haps</title>
+    </path>
+    <path
+       d="m 274.09709,137.44729 c 6.54437,0 6.54437,-3.37671 13.08876,-3.37671 v 1.57579 c -6.54439,0 -6.54439,3.37671 -13.08876,3.37671 z"
+       style="fill:#9ecae1;fill-opacity:1;stroke-width:0.225114"
+       trackID="15"
+       trackName="CFD:CDS:1haps"
+       class="track15"
+       color="#9ecae1"
+       id="path82-4">
+      <title
+         id="title82-8">CFD:CDS:1haps</title>
+    </path>
+    <path
+       d="m 274.09709,139.02308 c 6.54437,0 6.54437,-3.37671 13.08876,-3.37671 v 1.5758 c -6.54439,0 -6.54439,3.37672 -13.08876,3.37672 z"
+       style="fill:#6baed6;fill-opacity:1;stroke-width:0.225114"
+       trackID="16"
+       trackName="CFD:CDS:76haps"
+       class="track16"
+       color="#6baed6"
+       id="path83-1">
+      <title
+         id="title83-29">CFD:CDS:76haps</title>
+    </path>
+    <path
+       d="m 274.09709,140.59889 c 6.54437,0 6.54437,-3.37672 13.08876,-3.37672 v 1.5758 c -6.54439,0 -6.54439,3.37671 -13.08876,3.37671 z"
+       style="fill:#2171b5;fill-opacity:1;stroke-width:0.225114"
+       trackID="18"
+       trackName="CFD:CDS:3haps"
+       class="track18"
+       color="#2171b5"
+       id="path84-3">
+      <title
+         id="title84-90">CFD:CDS:3haps</title>
+    </path>
+    <path
+       d="m 274.09709,142.17468 c 6.54437,0 6.54437,-3.37671 13.08876,-3.37671 v 1.5758 c -6.54439,0 -6.54439,3.37671 -13.08876,3.37671 z"
+       style="fill:#4292c6;fill-opacity:1;stroke-width:0.225114"
+       trackID="17"
+       trackName="CFD:CDS:5haps"
+       class="track17"
+       color="#4292c6"
+       id="path85-8">
+      <title
+         id="title85-8">CFD:CDS:5haps</title>
+    </path>
+    <path
+       d="m 140.50798,130.91898 c 8.02371,0 8.02371,-3.37671 16.04741,-3.37671 v 1.5758 c -8.0237,0 -8.0237,3.37671 -16.04741,3.37671 z"
+       style="fill:#c6dbef;fill-opacity:1;stroke-width:0.225114"
+       trackID="14"
+       trackName="CFD:CDS:1haps"
+       class="track14"
+       color="#c6dbef"
+       id="path86-5">
+      <title
+         id="title86-0">CFD:CDS:1haps</title>
+    </path>
+    <path
+       d="m 140.50798,132.49478 c 8.02371,0 8.02371,-3.37671 16.04741,-3.37671 v 1.5758 c -8.0237,0 -8.0237,3.37671 -16.04741,3.37671 z"
+       style="fill:#9ecae1;fill-opacity:1;stroke-width:0.225114"
+       trackID="15"
+       trackName="CFD:CDS:1haps"
+       class="track15"
+       color="#9ecae1"
+       id="path87-9">
+      <title
+         id="title87-6">CFD:CDS:1haps</title>
+    </path>
+    <path
+       d="m 140.50798,134.07058 c 8.02371,0 8.02371,-3.37671 16.04741,-3.37671 v 1.57579 c -8.0237,0 -8.0237,3.37671 -16.04741,3.37671 z"
+       style="fill:#6baed6;fill-opacity:1;stroke-width:0.225114"
+       trackID="16"
+       trackName="CFD:CDS:76haps"
+       class="track16"
+       color="#6baed6"
+       id="path88-3">
+      <title
+         id="title88-8">CFD:CDS:76haps</title>
+    </path>
+    <path
+       d="m 140.50798,135.64637 c 8.02371,0 8.02371,-3.37671 16.04741,-3.37671 v 1.5758 c -8.0237,0 -8.0237,3.37671 -16.04741,3.37671 z"
+       style="fill:#2171b5;fill-opacity:1;stroke-width:0.225114"
+       trackID="18"
+       trackName="CFD:CDS:3haps"
+       class="track18"
+       color="#2171b5"
+       id="path89-5">
+      <title
+         id="title89-6">CFD:CDS:3haps</title>
+    </path>
+    <path
+       d="m 156.33028,127.54227 c 6.9946,0 6.9946,8.32922 13.98923,8.32922 v 1.5758 c -6.99463,0 -6.99463,-8.32922 -13.98923,-8.32922 z"
+       style="fill:#c6dbef;fill-opacity:1;stroke-width:0.225114"
+       trackID="14"
+       trackName="CFD:CDS:1haps"
+       class="track14"
+       color="#c6dbef"
+       id="path90-1">
+      <title
+         id="title90-15">CFD:CDS:1haps</title>
+    </path>
+    <path
+       d="m 156.33028,129.11807 c 6.9946,0 6.9946,8.32922 13.98923,8.32922 v 1.57579 c -6.99463,0 -6.99463,-8.32921 -13.98923,-8.32921 z"
+       style="fill:#9ecae1;fill-opacity:1;stroke-width:0.225114"
+       trackID="15"
+       trackName="CFD:CDS:1haps"
+       class="track15"
+       color="#9ecae1"
+       id="path91-9">
+      <title
+         id="title91-8">CFD:CDS:1haps</title>
+    </path>
+    <path
+       d="m 156.33028,130.69387 c 6.9946,0 6.9946,8.32921 13.98923,8.32921 v 1.57581 c -6.99463,0 -6.99463,-8.32923 -13.98923,-8.32923 z"
+       style="fill:#6baed6;fill-opacity:1;stroke-width:0.225114"
+       trackID="16"
+       trackName="CFD:CDS:76haps"
+       class="track16"
+       color="#6baed6"
+       id="path92-4">
+      <title
+         id="title92-8">CFD:CDS:76haps</title>
+    </path>
+    <path
+       d="m 156.33028,132.26966 c 6.9946,0 6.9946,8.32923 13.98923,8.32923 v 1.57579 c -6.99463,0 -6.99463,-8.32922 -13.98923,-8.32922 z"
+       style="fill:#2171b5;fill-opacity:1;stroke-width:0.225114"
+       trackID="18"
+       trackName="CFD:CDS:3haps"
+       class="track18"
+       color="#2171b5"
+       id="path93-1">
+      <title
+         id="title93-0">CFD:CDS:3haps</title>
+    </path>
+    <path
+       d="m 274.09709,124.16556 c 6.54437,0 6.54437,6.75342 13.08876,6.75342 v 1.5758 c -6.54439,0 -6.54439,-6.75342 -13.08876,-6.75342 z"
+       style="fill:#089c1a;fill-opacity:1;stroke-width:0.225114"
+       trackID="19"
+       trackName="CFD:CDS:1haps"
+       class="track19"
+       color="#08519c"
+       id="path94-30">
+      <title
+         id="title94-4">CFD:CDS:1haps</title>
+    </path>
+    <path
+       id="33147943"
+       d="m 154.30425,139.47331 q 0,-2.02602 2.02603,-2.02602 2.02602,0 2.02602,2.02602 v 4.95251 q 0,2.02603 -2.02602,2.02603 -2.02603,0 -2.02603,-2.02603 v -4.95251"
+       style="fill:#ffffff;fill-opacity:0.4;stroke:#000000;stroke-width:0.450228px">
+      <title
+         id="title98-3">Node ID: 33147943
+</title>
+    </path>
+    <path
+       id="33147941"
+       d="m 154.30425,117.41214 q 0,-2.02603 2.02603,-2.02603 2.02602,0 2.02602,2.02603 v 16.43332 q 0,2.02603 -2.02602,2.02603 -2.02603,0 -2.02603,-2.02603 v -16.43332"
+       style="fill:#ffffff;fill-opacity:0.4;stroke:#000000;stroke-width:0.450228px">
+      <title
+         id="title99-1">Node ID: 33147941
+</title>
+    </path>
+    <path
+       id="33147942"
+       d="m 168.06837,120.78885 q 0,-2.02603 2.02603,-2.02603 h 104.00269 q 2.02603,0 2.02603,2.02603 v 4.95251 q 0,2.02603 -2.02603,2.02603 H 170.0944 q -2.02603,0 -2.02603,-2.02603 v -4.95251"
+       style="fill:#ffffff;fill-opacity:0.4;stroke:#000000;stroke-width:0.450228px">
+      <title
+         id="title100-7">Node ID: 33147942
+</title>
+    </path>
+    <path
+       id="33147937"
+       d="m 6.2088674,117.41214 c 0,-1.35069 0.675341,-2.02603 2.0260257,-2.02603 H 140.50798 c 1.35068,0 2.02602,0.67534 2.02602,2.02603 v 21.38583 c 0,1.35069 -0.67534,2.02603 -2.02602,2.02603 H 8.2348931 c -1.3506847,0 -2.0260257,-0.67534 -2.0260257,-2.02603 v -21.38583"
+       style="fill:#ffffff;fill-opacity:0.4;stroke:#000000;stroke-width:0.450228px"
+       sodipodi:nodetypes="csssssssc">
+      <title
+         id="title97-6">Node ID: 33147937
+</title>
+    </path>
+    <text
+       x="7.3127365"
+       y="118.53764"
+       font-family="'Courier New', Courier, 'Lucida Console', monospace"
+       font-size="3.15158px"
+       fill="#000000"
+       id="text104"
+       style="stroke-width:0.225114">CTGTCGGAGAAGGCCACACTGGGCCCTGCTGTGCGCCCCCTGCCCTGGCAGCGCGTGGACCGCGACGTGGC</text>
+    <text
+       x="155.42981"
+       y="140.37375"
+       font-family="'Courier New', Courier, 'Lucida Console', monospace"
+       font-size="3.15158px"
+       fill="#000000"
+       id="text105"
+       style="stroke-width:0.225114">G</text>
+    <text
+       x="155.42981"
+       y="118.31258"
+       font-family="'Courier New', Courier, 'Lucida Console', monospace"
+       font-size="3.15158px"
+       fill="#000000"
+       id="text106"
+       style="stroke-width:0.225114">A</text>
+    <text
+       x="169.19391"
+       y="121.6893"
+       font-family="'Courier New', Courier, 'Lucida Console', monospace"
+       font-size="3.15158px"
+       fill="#000000"
+       id="text107"
+       style="stroke-width:0.225114">CCGGGAACTCTGCTGTGCGCCCCCTGCCCTGGCAGCGCGTGGACCGCGACGTGGCA</text>
+    <path
+       id="33147944"
+       d="m 284.93469,117.41214 c 0,-1.35069 0.67535,-2.02603 2.02602,-2.02603 h 87.26797 c 1.35067,0 2.02602,0.67534 2.02602,2.02603 v 22.96163 c 0,1.35068 -0.67535,2.02603 -2.02602,2.02603 h -87.26797 c -1.35067,0 -2.02602,-0.67535 -2.02602,-2.02603 v -22.96163"
+       style="fill:#ffffff;fill-opacity:0.4;stroke:#000000;stroke-width:0.450228px"
+       sodipodi:nodetypes="csssssssc">
+      <title
+         id="title101-5">Node ID: 33147944
+</title>
+    </path>
+    <text
+       x="286.0603"
+       y="118.31258"
+       font-family="'Courier New', Courier, 'Lucida Console', monospace"
+       font-size="3.15158px"
+       fill="#000000"
+       id="text108"
+       style="stroke-width:0.225114">CCGGGAACTCTCTGCGACGTGGCCGGCTGGGGCATAGTCAACCACGC</text>
+    <line
+       x1="157.23073"
+       y1="116.28657"
+       x2="157.23073"
+       y2="116.28657"
+       stroke-width="0.225114"
+       stroke="#000000"
+       id="line112" />
+    <line
+       x1="286.0603"
+       y1="116.28657"
+       x2="286.0603"
+       y2="116.28657"
+       stroke-width="0.225114"
+       stroke="#000000"
+       id="line114" />
+    <line
+       x1="3.3975766"
+       y1="116.28657"
+       x2="3.3975766"
+       y2="116.28657"
+       stroke-width="0.225114"
+       stroke="#000000"
+       id="line118" />
+    <line
+       x1="41.208763"
+       y1="116.28657"
+       x2="41.208763"
+       y2="116.28657"
+       stroke-width="0.225114"
+       stroke="#000000"
+       id="line119" />
+    <line
+       x1="79.019958"
+       y1="116.28657"
+       x2="79.019958"
+       y2="116.28657"
+       stroke-width="0.225114"
+       stroke="#000000"
+       id="line120" />
+    <line
+       x1="116.83115"
+       y1="116.28657"
+       x2="116.83115"
+       y2="116.28657"
+       stroke-width="0.225114"
+       stroke="#000000"
+       id="line121" />
+    <line
+       x1="297.40607"
+       y1="116.28657"
+       x2="297.40607"
+       y2="116.28657"
+       stroke-width="0.225114"
+       stroke="#000000"
+       id="line122" />
+    <line
+       x1="335.22522"
+       y1="116.28657"
+       x2="335.22522"
+       y2="116.28657"
+       stroke-width="0.225114"
+       stroke="#000000"
+       id="line123" />
+    <g
+       id="g261"
+       transform="matrix(0.26458333,0,0,0.26458333,-14.335271,102.57651)">
+      <rect
+         style="fill:#505050;fill-opacity:1;stroke:none;stroke-width:3.20938;stroke-linejoin:round;stroke-opacity:0.701707"
+         id="rect57-2"
+         width="50.43576"
+         height="9.0534573"
+         x="692.86163"
+         y="84.043839"
+         rx="2.1308928"
+         ry="2.1308928" />
+      <text
+         xml:space="preserve"
+         style="font-size:6.79319px;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;letter-spacing:0.254745px;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:#2a2a2a;stroke-width:3.20938;stroke-linejoin:round;stroke-opacity:0.701707"
+         x="694.41473"
+         y="90.812241"
+         id="text59-1"><tspan
+           sodipodi:role="line"
+           x="694.41473"
+           y="90.812241"
+           style="font-size:6.79319px;text-align:start;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:3.20938"
+           id="tspan62-8">Insertion node</tspan></text>
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-size:2.11667px;font-family:Arial;-inkscape-font-specification:Arial;text-align:start;letter-spacing:0.079375px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.529167;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       x="-4.1979547"
+       y="119.77496"
+       id="text265"><tspan
+         sodipodi:role="line"
+         id="tspan261"
+         x="-4.1979547"
+         y="119.77496"
+         style="stroke-width:0.529167">GRCh38</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:2.11667px;font-family:Arial;-inkscape-font-specification:Arial;text-align:start;letter-spacing:0.079375px;text-anchor:start;fill:#505050;fill-opacity:1;stroke:none;stroke-width:0.529167;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       x="4.4629831"
+       y="124.32477"
+       id="text266"><tspan
+         sodipodi:role="line"
+         id="tspan265"
+         x="4.4629831"
+         y="124.32477"
+         style="text-align:end;text-anchor:end;stroke-width:0.529167">HRPC </tspan><tspan
+         sodipodi:role="line"
+         x="4.5423584"
+         y="126.9706"
+         id="tspan266"
+         style="text-align:end;text-anchor:end;stroke-width:0.529167">haplotypes</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:2.11667px;font-family:Arial;-inkscape-font-specification:Arial;text-align:start;letter-spacing:0.079375px;text-anchor:start;fill:#505050;fill-opacity:1;stroke:none;stroke-width:0.529167;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       x="79.401962"
+       y="145.29823"
+       id="text268"><tspan
+         sodipodi:role="line"
+         x="79.401962"
+         y="145.29823"
+         style="text-align:center;text-anchor:middle;stroke-width:0.529167"
+         id="tspan269">coding sequences </tspan><tspan
+         sodipodi:role="line"
+         x="79.44165"
+         y="147.94408"
+         style="text-align:center;text-anchor:middle;stroke-width:0.529167"
+         id="tspan270">of the CFD gene</tspan></text>
+    <path
+       style="fill:none;fill-opacity:1;stroke:#505050;stroke-width:0.529167;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       d="m 77.280505,143.17445 -1.510697,-6.86153"
+       id="path270" />
+    <path
+       style="fill:none;fill-opacity:1;stroke:#505050;stroke-width:0.529167;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       d="m 78.868005,143.17445 2.588077,-3.45747"
+       id="path271"
+       sodipodi:nodetypes="cc" />
+  </g>
+</svg>

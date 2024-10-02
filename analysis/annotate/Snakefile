@@ -26,7 +26,7 @@ ann_files['sd'] = read_index('Year1_assemblies_v2_genbank_Seg_Dups.index')
 
 TYPES = ['gene', 'trf', 'sd', 'rm']
 HAPS = list(ann_files['gene'].keys())
-GENE_TYPE = ['CDS']
+GENE_TYPE = ['CDS', 'exon']
 
 ## run the workflow on just one haplotype
 if 'one_hap' in config:
@@ -59,7 +59,7 @@ rule extract_type:
     singularity: 'docker://quay.io/jmonlong/vg-work:1.59.0_v1'
     shell:
         """
-        python3 gaftk.py -i {input} -gt CDS -st -u | bgzip > {output}
+        python3 gaftk.py -i {input} -gt {wildcards.gene_type} -st -u | bgzip > {output}
         """
 
 rule merge_type:
