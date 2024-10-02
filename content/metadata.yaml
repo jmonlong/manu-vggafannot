@@ -1,5 +1,5 @@
 ---
-title: "Current options to index, represent, and visualize annotations in a pangenome with the vg toolkit"
+title: "Efficient indexing and querying of annotations in a pangenome graph"
 date: null  # Defaults to date generated, but can specify like '2022-10-31'.
 keywords:
   - pangenome

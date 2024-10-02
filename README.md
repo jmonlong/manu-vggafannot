@@ -13,6 +13,17 @@ See links to the manuscript or slides in the badges above.
 Moreover, the [`analysis`](analysis) folder hosts scripts and workflows used for the analysis. 
 The [`talks`](talks) folder has slides (e.g. see the [MIGGS workshop slides](https://jmonlong.github.io/manu-vggafannot/vggafannot-miggs24.html)).
 
+## How to give feedback or contribute?
+
+From easiest/user-friendliest to more advanced:
+
+- Annotate the [HTML](https://jmonlong.github.io/manu-vggafannot/) with hypothes.is (at the top-right corner).
+    - (Create an account)
+    - Select some text and click on *Annotate* to add a comment
+    - Double-check that you're posting "to Public".
+- Post an [issue](https://github.com/jmonlong/manu-vggafannot/issues), ideally tagging/pointing to the relevant text file in [`content`](content).
+- Start a branch/pull request with suggested changes and comments.
+
 ## Build manuscript locally
 
 The manuscript files are built automatically on GitHub. 
