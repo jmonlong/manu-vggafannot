@@ -1,5 +1,4 @@
 adamnovak
-adjancency
 alignemnt
 AluYa
 ATAC
@@ -15,6 +14,7 @@ centromeres
 CFD
 Consoritium
 contigs
+cov
 CSD
 CSV
 dataset
@@ -27,11 +27,10 @@ epigenetic
 epigenomics
 eQTLs
 facto
-gaf
+GAF
 GAM
 Gastrocnemius
 Gastroesophageal
-genimes
 genomic
 genotype
 genotyped
@@ -41,7 +40,6 @@ GFA
 GfaViz
 GFF
 glennhickey
-grahs
 GRCh
 GTEx
 GWAS
@@ -62,7 +60,7 @@ jmonlong
 libbdsg
 linearized
 medialis
-Minigraph
+minigraph
 mins
 MoMI
 Monlong
