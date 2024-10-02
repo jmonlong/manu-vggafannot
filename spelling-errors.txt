@@ -14,12 +14,10 @@ centric
 centromeres
 CFD
 Consoritium
-Consotium
 contigs
-cov
 CSD
 CSV
-Dataset
+dataset
 datasets
 delimitted
 Djebali
@@ -29,7 +27,7 @@ epigenetic
 epigenomics
 eQTLs
 facto
-GAF
+gaf
 GAM
 Gastrocnemius
 Gastroesophageal
@@ -57,7 +55,6 @@ HPRC
 HTSlib
 IGV
 Illumina
-indel
 INRAE
 INSERM
 IRSD
@@ -65,7 +62,7 @@ jmonlong
 libbdsg
 linearized
 medialis
-minigraph
+Minigraph
 mins
 MoMI
 Monlong
@@ -98,11 +95,10 @@ subcommands
 subgraph
 tabix
 tbi
-TF
 Toshiyuki
 TPO
-transposable
 transposon
+tubemap
 UC
 UCSC
 VCF

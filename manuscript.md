@@ -29,8 +29,8 @@ header-includes: |
   <meta name="dc.date" content="2024-10-02" />
   <meta name="citation_publication_date" content="2024-10-02" />
   <meta property="article:published_time" content="2024-10-02" />
-  <meta name="dc.modified" content="2024-10-02T15:28:49+00:00" />
-  <meta property="article:modified_time" content="2024-10-02T15:28:49+00:00" />
+  <meta name="dc.modified" content="2024-10-02T15:54:39+00:00" />
+  <meta property="article:modified_time" content="2024-10-02T15:54:39+00:00" />
   <meta name="dc.language" content="en-US" />
   <meta name="citation_language" content="en-US" />
   <meta name="dc.relation.ispartof" content="Manubot" />
@@ -64,9 +64,9 @@ header-includes: |
   <meta name="citation_fulltext_html_url" content="https://jmonlong.github.io/manu-vggafannot/" />
   <meta name="citation_pdf_url" content="https://jmonlong.github.io/manu-vggafannot/manuscript.pdf" />
   <link rel="alternate" type="application/pdf" href="https://jmonlong.github.io/manu-vggafannot/manuscript.pdf" />
-  <link rel="alternate" type="text/html" href="https://jmonlong.github.io/manu-vggafannot/v/59bb546a2bf53769bb0939e5e55e76b6839680a5/" />
-  <meta name="manubot_html_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/59bb546a2bf53769bb0939e5e55e76b6839680a5/" />
-  <meta name="manubot_pdf_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/59bb546a2bf53769bb0939e5e55e76b6839680a5/manuscript.pdf" />
+  <link rel="alternate" type="text/html" href="https://jmonlong.github.io/manu-vggafannot/v/ee99c50d47cf5abdbadb002f7ab6c89c35bfe659/" />
+  <meta name="manubot_html_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/ee99c50d47cf5abdbadb002f7ab6c89c35bfe659/" />
+  <meta name="manubot_pdf_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/ee99c50d47cf5abdbadb002f7ab6c89c35bfe659/manuscript.pdf" />
   <meta property="og:type" content="article" />
   <meta property="twitter:card" content="summary_large_image" />
   <link rel="icon" type="image/png" sizes="192x192" href="https://manubot.org/favicon-192x192.png" />
@@ -88,9 +88,9 @@ manubot-clear-requests-cache: false
 
 <small><em>
 This manuscript
-([permalink](https://jmonlong.github.io/manu-vggafannot/v/59bb546a2bf53769bb0939e5e55e76b6839680a5/))
+([permalink](https://jmonlong.github.io/manu-vggafannot/v/ee99c50d47cf5abdbadb002f7ab6c89c35bfe659/))
 was automatically generated
-from [jmonlong/manu-vggafannot@59bb546](https://github.com/jmonlong/manu-vggafannot/tree/59bb546a2bf53769bb0939e5e55e76b6839680a5)
+from [jmonlong/manu-vggafannot@ee99c50](https://github.com/jmonlong/manu-vggafannot/tree/ee99c50d47cf5abdbadb002f7ab6c89c35bfe659)
 on October 2, 2024.
 </em></small>
 
@@ -326,7 +326,7 @@ This subgraph is then extended with more *context* to include non-reference regi
 The amount of context is also controlled by the user.
 Finally, the subgraph or the paths (usually reads) overlapping these nodes are extracted.
 This last step was updated to be able to extract paths in an indexed GAF file using HTSlib.
-As for sorted GAM files, it is now possible to extract a slice of a indexed GAF file based on node intervals, coordinates on a reference path, multiple coordinates in a BED file, a provided subgraph (see User Guide at ??).
+As for sorted GAM files, it is now possible to extract a slice of a indexed GAF file based on node intervals, coordinates on a reference path, multiple coordinates in a BED file, a provided subgraph (see User Guide in the `analysis` folder of this paper's repository[@repo]).
 
 ### Projecting annotations onto a pangenome
 
@@ -452,9 +452,7 @@ Table: Resources used to sort short sequencing reads for a 30x coverage Illumina
 
 ### Annotation of a human pangenome
 
-Human Pangenome Reference Consotium[@hprc]
-
-To showcase these commands, we projected annotations for all haplotypes in the latest draft human pangenome (HPRC v1.1 GRCh38-based Minigraph-Cactus pangenome). 
+To showcase these commands, we projected annotations for all haplotypes in the latest draft human pangenome (HPRC v1.1 GRCh38-based Minigraph-Cactus pangenome)[@hprc]. 
 This included genes, segmental duplications, tandem repeats and repeats annotations. 
 `vg annotate` can annotate ~4M gene annotations in ~16 mins, and ~5.5M repeats from RepeatMasker in ~9 mins on a single-threaded machine. 
 Finally, these rich annotations can then be quickly queried with `vg` and visualized using existing tools like the sequenceTubeMap or Bandage.
@@ -471,14 +469,14 @@ The nodes were colored based on those annotations, loaded as paths by BandageNG.
 We also matched and annotated more than 660 thousand variants from the GWAS catalog[@doi:10.1093/nar/gkac1010] and expression QTLs from the GTEx catalog[@doi:10.1038/ng.2653] across 49 tissues (on average 1.45 million variants per tissue).
 On average, 94% variants were found in the HPRC pangenome.
 The variants files in GAF take only 907Mb of space and can be queried fast for visualization in the sequenceTubeMap or Bandage.
-This annotation is showcased in example ?? described in more detail below (see *Example??* section).
+This annotation is showcased in example ??.
 Of note, it is also straightforward to convert genotypes for variants from the pangenome to annotated paths. 
 This could be the case when the pangenome is used as the backbone of the genotyping of new samples, for example with Pangenie or *vg call*.
 To illustrate this use case, we genotyped HG002 using short Illumina reads aligned on the draft human pangenome with vg giraffe and vg call.
 The predicted genotypes were converted to GAF and indexed.
 They could be visualized using the sequenceTubeMap, for example, along with the aligned reads. 
 This type of annotation can help a developer explore variant calls and aligned reads. 
-A example is shown in figure ?? and described in more details below.
+A example is shown in figure ??.
 On the traditional reference genome, the equivalent would be to load both reads and variants in IGV[@igv].
 
 ![
@@ -522,14 +520,19 @@ It took on average 7 cpu.hours to map the reads to the pangenome using VG Giraff
 Sorting, compressing and indexing them took only 0.23 cpu.hours, on average.
 Table @tbl:coverage_benchmark compiles the runtimes and memory used for each step across all samples.
 
-`example of what we could look for and describe`{.red}
-Fig @fig:cov_examples shows examples of those tracks visualized using the sequenceTubeMap.
-In Fig ??a, the promoter of the *??* gene is seen to be open in the ?? cell type. 
-Thanks to the pangenomic view, we see differential coverage of the functional tracks across the variants in the region.
-For instance, we notice a small insertion-deletion (indel) where the alternate allele is only covered by 2 reads, while the reference allele is covered by more than 30 reads.
-Fig ??b highlights a structural variant, a ??bp insertion, that is highly covered by ATAC-seq in several cell types.
-The RepeatMasker annotation in this region, also extracted from an indexed GAF file, flags this insertion as a ?? transposable element.
-?? can indeed attract TF?? that lead to open chromatin ?REF?.
+Figure {@fig:tubemap}D shows an example of a region, visualized with a tweaked version of the sequenceTubeMap (see Methods), near an exon of the *TPO* gene. 
+The exon annotations came from the projection of the HPRC gene annotations described above. 
+The coverage track for the ATAC-seq dataset shows that this region is only opened in the thyroid, consistent with the thyroid-specific role of *TPO*.
+By integrating these two external sources of annotations (gene annotation and ATAC-seq coverage), we can visualize them in the context of the genomic variation in the pangenome.
+
+<!-- `example of what we could look for and describe`{.red} -->
+<!-- Fig @fig:cov_examples shows examples of those tracks visualized using the sequenceTubeMap. -->
+<!-- In Fig ??a, the promoter of the *??* gene is seen to be open in the ?? cell type.  -->
+<!-- Thanks to the pangenomic view, we see differential coverage of the functional tracks across the variants in the region. -->
+<!-- For instance, we notice a small insertion-deletion (indel) where the alternate allele is only covered by 2 reads, while the reference allele is covered by more than 30 reads. -->
+<!-- Fig ??b highlights a structural variant, a ??bp insertion, that is highly covered by ATAC-seq in several cell types. -->
+<!-- The RepeatMasker annotation in this region, also extracted from an indexed GAF file, flags this insertion as a ?? transposable element. -->
+<!-- ?? can indeed attract TF?? that lead to open chromatin ?REF?. -->
 
 <!-- ![ -->
 <!-- **Coverage tracks visualized interactively using the sequenceTubeMap.** -->
@@ -638,7 +641,6 @@ Coverage tracks for the `??` ENCODE ATAC-seq samples are also available in this 
 | Sigmoid colon              |     173.5 | 8.2 cpu.h (54 Gb) |  3 cpu.h (106 Gb) |                 0.3 cpu.h (1 Gb) |
 | Spleen                     |     157.2 | 7.6 cpu.h (54 Gb) |  3 cpu.h (104 Gb) |                 0.2 cpu.h (1 Gb) |
 | Thyroid gland              |      91.4 | 4.6 cpu.h (54 Gb) | 2.5 cpu.h (94 Gb) |                 0.1 cpu.h (1 Gb) |
-
 
 Table: Compute resources used for the analysis of the functional datasets and production of the indexed coverage tracks.
 {#tbl:coverage_benchmark}
