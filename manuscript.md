@@ -5,7 +5,7 @@ keywords:
 - annotation
 - alignment
 lang: en-US
-date-meta: '2024-09-30'
+date-meta: '2024-10-02'
 author-meta:
 - Adam M. Novak
 - Dickson Chung
@@ -26,11 +26,11 @@ header-includes: |
   <meta name="citation_title" content="Current options to index, represent, and visualize annotations in a pangenome with the vg toolkit" />
   <meta property="og:title" content="Current options to index, represent, and visualize annotations in a pangenome with the vg toolkit" />
   <meta property="twitter:title" content="Current options to index, represent, and visualize annotations in a pangenome with the vg toolkit" />
-  <meta name="dc.date" content="2024-09-30" />
-  <meta name="citation_publication_date" content="2024-09-30" />
-  <meta property="article:published_time" content="2024-09-30" />
-  <meta name="dc.modified" content="2024-09-30T16:21:55+00:00" />
-  <meta property="article:modified_time" content="2024-09-30T16:21:55+00:00" />
+  <meta name="dc.date" content="2024-10-02" />
+  <meta name="citation_publication_date" content="2024-10-02" />
+  <meta property="article:published_time" content="2024-10-02" />
+  <meta name="dc.modified" content="2024-10-02T15:15:09+00:00" />
+  <meta property="article:modified_time" content="2024-10-02T15:15:09+00:00" />
   <meta name="dc.language" content="en-US" />
   <meta name="citation_language" content="en-US" />
   <meta name="dc.relation.ispartof" content="Manubot" />
@@ -64,9 +64,9 @@ header-includes: |
   <meta name="citation_fulltext_html_url" content="https://jmonlong.github.io/manu-vggafannot/" />
   <meta name="citation_pdf_url" content="https://jmonlong.github.io/manu-vggafannot/manuscript.pdf" />
   <link rel="alternate" type="application/pdf" href="https://jmonlong.github.io/manu-vggafannot/manuscript.pdf" />
-  <link rel="alternate" type="text/html" href="https://jmonlong.github.io/manu-vggafannot/v/c6bc9986b50440aa9c86f028e9350fad26bcd9a5/" />
-  <meta name="manubot_html_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/c6bc9986b50440aa9c86f028e9350fad26bcd9a5/" />
-  <meta name="manubot_pdf_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/c6bc9986b50440aa9c86f028e9350fad26bcd9a5/manuscript.pdf" />
+  <link rel="alternate" type="text/html" href="https://jmonlong.github.io/manu-vggafannot/v/59ab9710a519d9d1005c6fd46dd0c7ac757fe743/" />
+  <meta name="manubot_html_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/59ab9710a519d9d1005c6fd46dd0c7ac757fe743/" />
+  <meta name="manubot_pdf_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/59ab9710a519d9d1005c6fd46dd0c7ac757fe743/manuscript.pdf" />
   <meta property="og:type" content="article" />
   <meta property="twitter:card" content="summary_large_image" />
   <link rel="icon" type="image/png" sizes="192x192" href="https://manubot.org/favicon-192x192.png" />
@@ -88,10 +88,10 @@ manubot-clear-requests-cache: false
 
 <small><em>
 This manuscript
-([permalink](https://jmonlong.github.io/manu-vggafannot/v/c6bc9986b50440aa9c86f028e9350fad26bcd9a5/))
+([permalink](https://jmonlong.github.io/manu-vggafannot/v/59ab9710a519d9d1005c6fd46dd0c7ac757fe743/))
 was automatically generated
-from [jmonlong/manu-vggafannot@c6bc998](https://github.com/jmonlong/manu-vggafannot/tree/c6bc9986b50440aa9c86f028e9350fad26bcd9a5)
-on September 30, 2024.
+from [jmonlong/manu-vggafannot@59ab971](https://github.com/jmonlong/manu-vggafannot/tree/59ab9710a519d9d1005c6fd46dd0c7ac757fe743)
+on October 2, 2024.
 </em></small>
 
 
@@ -458,6 +458,15 @@ To showcase these commands, we projected annotations for all haplotypes in the l
 This included genes, segmental duplications, tandem repeats and repeats annotations. 
 `vg annotate` can annotate ~4M gene annotations in ~16 mins, and ~5.5M repeats from RepeatMasker in ~9 mins on a single-threaded machine. 
 Finally, these rich annotations can then be quickly queried with `vg` and visualized using existing tools like the sequenceTubeMap or Bandage.
+Using BandageNG, a fork that can import paths in GAF files, paths were searched and colored to illustrate a mobile element insertion.
+
+![
+**Visualization examples with BandageNG**
+Example of a AluYa5 transposon insertion (*red*) within the coding sequence of the *PRAMEF4* gene (*blue*).
+Both annotations were originally produced at the haplotype level by the Human Pangenome Reference Consoritium.
+We projected them to the pangenome, indexed them, and queried a small region to visualize with BandageNG.
+The nodes were colored based on those annotations, loaded as paths by BandageNG.
+](figures/PRAMEF4.AluInsertion.png "Bandage example"){#fig:bandage}
 
 We also matched and annotated more than 660 thousand variants from the GWAS catalog[@doi:10.1093/nar/gkac1010] and expression QTLs from the GTEx catalog[@doi:10.1038/ng.2653] across 49 tissues (on average 1.45 million variants per tissue).
 On average, 94% variants were found in the HPRC pangenome.
@@ -473,20 +482,22 @@ A example is shown in figure ?? and described in more details below.
 On the traditional reference genome, the equivalent would be to load both reads and variants in IGV[@igv].
 
 ![
-**sequenceTubeMap examples**
-`In progress...`
-**A.** *black*: Reference path (GRCh38), *pale colors*: other human haplotypes, *reds*: GWAS catalog, *blues*: eQTLs across tissues (GTEx).
-**B.** *yellow*/*green*: annotation paths from `vg call` genotypes. *reds*/*blues*: short sequencing reads.
-**C.** Compressed view (no sequence shown, node size not to scale).
-Reference paths CHM13/GRCh38 (*black*/*grey*) and ATAC-seq coverage track for different tissues (*colors*).
-Opacity represents coverage level.
-](figures/tubemap.examples.svg "Tubemap examples"){#fig:tubemap}
+**Visualization examples with the sequenceTubeMap**
+**A** Projection of the HPRC gene annotation, here visualizing a coding sequence (CDS) of the *CFD* gene.
+There is an insertion (see *insertion node* in the middle), that the reference path (*violet* on top) skips.
+Most CDS annotations are similar (*blue* paths), but the CSD from the haplotype with the insertion seems to be split in two parts, highlighted in *green*.
+**B.** Projecting known variants in the pangenome. 
+*black*: Reference path (GRCh38), *pale colors*: other human haplotypes, *reds*: GWAS catalog, *blues*: eQTLs across tissues (GTEx).
+**C.** Aligned reads and genotype calls.
+*yellow*/*green*: annotation paths from `vg call` genotypes. *reds*/*blues*: short sequencing reads.
+**D.** ATAC-seq coverage tracks for 7 tissues from the ENCODE project. 
+The reference path (*violet*) and other HPRC haplotypes (*greys*) are shown on top and traverse two variation sites.
+ATAC-seq coverage track for the different tissues are shown in different *colors* with different opacity representing coverage level.
+The thyroid track (*blue*) is more opaque than others suggesting that this region is more open in this tissue.
+The *red* tracks at the bottom show the position of exons from the *TPO* gene, a thyroid-specific gene.
+](figures/tubemap.examples.png "Tubemap examples"){#fig:tubemap}
 
-![
-**Bandage example**
-`In progress...`
-Node color: *blue* for the reference path, *orange* for the AluYa5 transposon.
-](figures/bandage-mei.png "Bandage example"){#fig:bandage}
+Using sequenceTubeMap, haplotypes, read alignments and paths can be visualized interactively. 
 
 ### Coverage of seven functional datasets from ENCODE
 
@@ -520,22 +531,10 @@ Fig ??b highlights a structural variant, a ??bp insertion, that is highly covere
 The RepeatMasker annotation in this region, also extracted from an indexed GAF file, flags this insertion as a ?? transposable element.
 ?? can indeed attract TF?? that lead to open chromatin ?REF?.
 
-![
-**Coverage tracks visualized interactively using the sequenceTubeMap.**
-a) Promoter... b) Structural variant....
-](figures/wide.png "Wide image"){#fig:cov_examples}
-
-
-### Examples
-
-Using sequenceTubeMap, haplotypes, read alignments and paths can be visualized interactively. 
-Hovering on a path displays its name, here the ID of a coding region of the BOLA2B gene.
-
-> Haplotypes: CHM13 (purple), HG00621 (greys). Annotated CDS for HG00621 hap 1 (reds) and 2 (blues).
-
-Using BandageNG, a fork that can import paths in GAF files, paths were searched and colored to illustrate a mobile element insertion.
-
-> Yellow: AluYa5 element annotated in the haplotype 1 of HG00438. Blue: CHM13 reference path.
+<!-- ![ -->
+<!-- **Coverage tracks visualized interactively using the sequenceTubeMap.** -->
+<!-- a) Promoter... b) Structural variant.... -->
+<!-- ](figures/wide.png "Wide image"){#fig:cov_examples} -->
 
 
 ## Discussion
@@ -621,7 +620,7 @@ Coverage tracks for the `??` ENCODE ATAC-seq samples are also available in this 
 [@htslib]: doi:10.1093/gigascience/giab007
 [@tabix]: doi:10.1093/bioinformatics/btq671
 [@igv]: doi:10.1038/nbt.1754
-[@repo]: {https://github.com/jmonlong/manu-vggafannot}
+[@repo]: https://github.com/jmonlong/manu-vggafannot
 
 <!-- Explicitly insert bibliography here -->
 <div id="refs"></div>

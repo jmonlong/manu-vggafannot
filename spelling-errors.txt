@@ -12,11 +12,14 @@ BGZIP
 bgzipped
 centric
 centromeres
+CFD
+Consoritium
 Consotium
 contigs
 cov
+CSD
 CSV
-dataset
+Dataset
 datasets
 delimitted
 Djebali
@@ -26,12 +29,13 @@ epigenetic
 epigenomics
 eQTLs
 facto
-GAF
+gaf
 GAM
 Gastrocnemius
 Gastroesophageal
 genimes
 genomic
+genotype
 genotyped
 genotypes
 genotyping
@@ -75,6 +79,7 @@ Paten
 personnalized
 Peyer’s
 PGGB
+PRAMEF
 pre
 preprocessing
 protobuf
@@ -95,6 +100,7 @@ tabix
 tbi
 TF
 Toshiyuki
+TPO
 transposable
 transposon
 UC
