@@ -29,8 +29,8 @@ header-includes: |
   <meta name="dc.date" content="2024-10-02" />
   <meta name="citation_publication_date" content="2024-10-02" />
   <meta property="article:published_time" content="2024-10-02" />
-  <meta name="dc.modified" content="2024-10-02T15:15:09+00:00" />
-  <meta property="article:modified_time" content="2024-10-02T15:15:09+00:00" />
+  <meta name="dc.modified" content="2024-10-02T15:28:49+00:00" />
+  <meta property="article:modified_time" content="2024-10-02T15:28:49+00:00" />
   <meta name="dc.language" content="en-US" />
   <meta name="citation_language" content="en-US" />
   <meta name="dc.relation.ispartof" content="Manubot" />
@@ -64,9 +64,9 @@ header-includes: |
   <meta name="citation_fulltext_html_url" content="https://jmonlong.github.io/manu-vggafannot/" />
   <meta name="citation_pdf_url" content="https://jmonlong.github.io/manu-vggafannot/manuscript.pdf" />
   <link rel="alternate" type="application/pdf" href="https://jmonlong.github.io/manu-vggafannot/manuscript.pdf" />
-  <link rel="alternate" type="text/html" href="https://jmonlong.github.io/manu-vggafannot/v/59ab9710a519d9d1005c6fd46dd0c7ac757fe743/" />
-  <meta name="manubot_html_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/59ab9710a519d9d1005c6fd46dd0c7ac757fe743/" />
-  <meta name="manubot_pdf_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/59ab9710a519d9d1005c6fd46dd0c7ac757fe743/manuscript.pdf" />
+  <link rel="alternate" type="text/html" href="https://jmonlong.github.io/manu-vggafannot/v/59bb546a2bf53769bb0939e5e55e76b6839680a5/" />
+  <meta name="manubot_html_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/59bb546a2bf53769bb0939e5e55e76b6839680a5/" />
+  <meta name="manubot_pdf_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/59bb546a2bf53769bb0939e5e55e76b6839680a5/manuscript.pdf" />
   <meta property="og:type" content="article" />
   <meta property="twitter:card" content="summary_large_image" />
   <link rel="icon" type="image/png" sizes="192x192" href="https://manubot.org/favicon-192x192.png" />
@@ -88,9 +88,9 @@ manubot-clear-requests-cache: false
 
 <small><em>
 This manuscript
-([permalink](https://jmonlong.github.io/manu-vggafannot/v/59ab9710a519d9d1005c6fd46dd0c7ac757fe743/))
+([permalink](https://jmonlong.github.io/manu-vggafannot/v/59bb546a2bf53769bb0939e5e55e76b6839680a5/))
 was automatically generated
-from [jmonlong/manu-vggafannot@59ab971](https://github.com/jmonlong/manu-vggafannot/tree/59ab9710a519d9d1005c6fd46dd0c7ac757fe743)
+from [jmonlong/manu-vggafannot@59bb546](https://github.com/jmonlong/manu-vggafannot/tree/59bb546a2bf53769bb0939e5e55e76b6839680a5)
 on October 2, 2024.
 </em></small>
 
@@ -629,16 +629,17 @@ Coverage tracks for the `??` ENCODE ATAC-seq samples are also available in this 
 ## Supplementary material {.page_break_before}
 
 
-| Dataset                    | reads (M) |      read mapping |     coverage track | sorting + compressing + indexing |
-|:---------------------------|----------:|------------------:|-------------------:|---------------------------------:|
-| Breast epithelium          |     193.6 | 8.9 cpu.h (54 Gb) | 3.1 cpu.h (108 Gb) |                 0.2 cpu.h (1 Gb) |
-| Gastrocnemius medialis     |      98.8 | 4.8 cpu.h (54 Gb) | 2.4 cpu.h (100 Gb) |                 0.1 cpu.h (1 Gb) |
-| Gastroesophageal sphincter |     168.5 | 7.3 cpu.h (54 Gb) | 2.7 cpu.h (107 Gb) |                 0.2 cpu.h (1 Gb) |
-| Peyer's patch              |     145.3 |   8 cpu.h (54 Gb) | 2.6 cpu.h (104 Gb) |                 0.2 cpu.h (1 Gb) |
-| Sigmoid colon              |     173.5 | 8.2 cpu.h (54 Gb) | 2.7 cpu.h (104 Gb) |                 0.2 cpu.h (1 Gb) |
-| Spleen                     |     157.2 | 7.6 cpu.h (54 Gb) | 2.8 cpu.h (105 Gb) |                 0.2 cpu.h (1 Gb) |
-| Thyroid gland              |      91.4 | 4.6 cpu.h (54 Gb) |  2.3 cpu.h (94 Gb) |                 0.1 cpu.h (1 Gb) |
+| Dataset                    | reads (M) |      read mapping |    coverage track | sorting + compressing + indexing |
+|:---------------------------|----------:|------------------:|------------------:|---------------------------------:|
+| Breast epithelium          |     193.6 | 8.9 cpu.h (54 Gb) |  3 cpu.h (109 Gb) |                 0.3 cpu.h (1 Gb) |
+| Gastrocnemius medialis     |      98.8 | 4.8 cpu.h (54 Gb) | 2.6 cpu.h (99 Gb) |                 0.3 cpu.h (1 Gb) |
+| Gastroesophageal sphincter |     168.5 | 7.3 cpu.h (54 Gb) |  3 cpu.h (108 Gb) |                 0.2 cpu.h (1 Gb) |
+| Peyer's patch              |     145.3 |   8 cpu.h (54 Gb) |  3 cpu.h (104 Gb) |                 0.2 cpu.h (1 Gb) |
+| Sigmoid colon              |     173.5 | 8.2 cpu.h (54 Gb) |  3 cpu.h (106 Gb) |                 0.3 cpu.h (1 Gb) |
+| Spleen                     |     157.2 | 7.6 cpu.h (54 Gb) |  3 cpu.h (104 Gb) |                 0.2 cpu.h (1 Gb) |
+| Thyroid gland              |      91.4 | 4.6 cpu.h (54 Gb) | 2.5 cpu.h (94 Gb) |                 0.1 cpu.h (1 Gb) |
 
-Table: `update`{.red} Compute resources used for the analysis of the functional datasets and production of the indexed coverage tracks.
+
+Table: Compute resources used for the analysis of the functional datasets and production of the indexed coverage tracks.
 {#tbl:coverage_benchmark}
 
