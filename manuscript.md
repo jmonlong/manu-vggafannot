@@ -5,7 +5,7 @@ keywords:
 - annotation
 - alignment
 lang: en-US
-date-meta: '2024-10-02'
+date-meta: '2024-10-09'
 author-meta:
 - Adam M. Novak
 - Dickson Chung
@@ -26,11 +26,11 @@ header-includes: |
   <meta name="citation_title" content="Efficient indexing and querying of annotations in a pangenome graph" />
   <meta property="og:title" content="Efficient indexing and querying of annotations in a pangenome graph" />
   <meta property="twitter:title" content="Efficient indexing and querying of annotations in a pangenome graph" />
-  <meta name="dc.date" content="2024-10-02" />
-  <meta name="citation_publication_date" content="2024-10-02" />
-  <meta property="article:published_time" content="2024-10-02" />
-  <meta name="dc.modified" content="2024-10-02T21:35:31+00:00" />
-  <meta property="article:modified_time" content="2024-10-02T21:35:31+00:00" />
+  <meta name="dc.date" content="2024-10-09" />
+  <meta name="citation_publication_date" content="2024-10-09" />
+  <meta property="article:published_time" content="2024-10-09" />
+  <meta name="dc.modified" content="2024-10-09T09:39:10+00:00" />
+  <meta property="article:modified_time" content="2024-10-09T09:39:10+00:00" />
   <meta name="dc.language" content="en-US" />
   <meta name="citation_language" content="en-US" />
   <meta name="dc.relation.ispartof" content="Manubot" />
@@ -64,9 +64,9 @@ header-includes: |
   <meta name="citation_fulltext_html_url" content="https://jmonlong.github.io/manu-vggafannot/" />
   <meta name="citation_pdf_url" content="https://jmonlong.github.io/manu-vggafannot/manuscript.pdf" />
   <link rel="alternate" type="application/pdf" href="https://jmonlong.github.io/manu-vggafannot/manuscript.pdf" />
-  <link rel="alternate" type="text/html" href="https://jmonlong.github.io/manu-vggafannot/v/3e4e4b42bea492dea0a098ee82f1784f43b521d1/" />
-  <meta name="manubot_html_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/3e4e4b42bea492dea0a098ee82f1784f43b521d1/" />
-  <meta name="manubot_pdf_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/3e4e4b42bea492dea0a098ee82f1784f43b521d1/manuscript.pdf" />
+  <link rel="alternate" type="text/html" href="https://jmonlong.github.io/manu-vggafannot/v/895f7465cc881f649b2229720ffd4d5d0e70c8b0/" />
+  <meta name="manubot_html_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/895f7465cc881f649b2229720ffd4d5d0e70c8b0/" />
+  <meta name="manubot_pdf_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/895f7465cc881f649b2229720ffd4d5d0e70c8b0/manuscript.pdf" />
   <meta property="og:type" content="article" />
   <meta property="twitter:card" content="summary_large_image" />
   <link rel="icon" type="image/png" sizes="192x192" href="https://manubot.org/favicon-192x192.png" />
@@ -88,10 +88,10 @@ manubot-clear-requests-cache: false
 
 <small><em>
 This manuscript
-([permalink](https://jmonlong.github.io/manu-vggafannot/v/3e4e4b42bea492dea0a098ee82f1784f43b521d1/))
+([permalink](https://jmonlong.github.io/manu-vggafannot/v/895f7465cc881f649b2229720ffd4d5d0e70c8b0/))
 was automatically generated
-from [jmonlong/manu-vggafannot@3e4e4b4](https://github.com/jmonlong/manu-vggafannot/tree/3e4e4b42bea492dea0a098ee82f1784f43b521d1)
-on October 2, 2024.
+from [jmonlong/manu-vggafannot@895f746](https://github.com/jmonlong/manu-vggafannot/tree/895f7465cc881f649b2229720ffd4d5d0e70c8b0)
+on October 9, 2024.
 </em></small>
 
 
@@ -368,6 +368,10 @@ Each bin is then extended, one at a time (*green flags*), until reaching a diffe
 This algorithm was implemented in Python and uses the *libbdsg* module[@libbdsg] to query the pangenome.
 It is made available in the public repository of this study in the `analysis/encode` folder of this paper's repository[@repo].
 
+We tested this approach on ATAC-seq datasets from ENCODE[@encode;@encode_portal] on seven tissues: breast epithelium (*ENCFF210QPG*), gastrocnemius medialis (*ENCFF968KAQ*), gastroesophageal sphincter (*ENCFF553SEZ*), Peyer's patch (*ENCFF272PIN*), sigmoid colon (*ENCFF775DFR*), spleen (*ENCFF391IHY*), thyroid gland (*ENCFF579WLS*).
+Paired-end short Illumina HiSeq 4000 reads were downloaded from ENCODE and mapped using giraffe[@giraffe] on the HPRC v1.1 Minigraph-Cactus pangenome.
+The output to `vg pack` (with `-Q 1` to keep reads with mapping quality of at least 1) was piped to the script implementing the coverage track computation described above.
+
 ### Annotating known variants
 
 Variants from public databases were annotated when matching a variant site in the pangenome. 
@@ -387,7 +391,9 @@ As before, the output annotation in GAF were bgzipped, sorted and indexed.
 
 We implemented another, more straightforward approach, to annotate variants that were genotyped using the pangenome.
 Here we simply convert a VCF that contain allele traversal information (*AT* field) to a GAF file representing the alternate allele.
-We test this approach by genotyping HG002 from short-reads Illumina Novaseq data. `more details`{.red}
+We test this approach by genotyping HG002 from the short-reads Illumina Novaseq reads aligned to the pangenome for the GAF sorting experiment (more details above).
+Variants were genotyped from the aligned reads using `vg call`.
+Of note, `vg call` can also output genotypes directly in GAF format with the `-G` parameter.
 
 The scripts and pipeline to annotate variants is available in the public repository of this study in the `analysis/variants` folder of this paper's repository[@repo].
 
@@ -497,7 +503,7 @@ Using sequenceTubeMap, haplotypes, read alignments and paths can be visualized i
 
 ### Coverage of seven functional datasets from ENCODE
 
-We aligned ATAC-seq datasets from 7 cell types to the draft human pangenome to produce coverage tracks as indexed GAF files. 
+We aligned ATAC-seq datasets from 7 cell types[@encode;@encode_portal] to the draft human pangenome to produce coverage tracks as indexed GAF files. 
 On average, there were about 475 thousand paths representing high read coverage which were 2.6 nodes (104.8 bases) long. 
 On average, 63 thousand paths with high ATAC-seq read coverage traversed more three or more nodes, i.e. regions of the pangenome with variation (see Table @tbl:coverage_summary).
 
@@ -602,6 +608,19 @@ The annotations of the HPRC v1.1 pangenome were deposited on Zenodo at `??ZENODO
 This includes gene annotations, repeats from RepeatMasker, simple repeats and segmental duplications.
 Coverage tracks for the seven ENCODE ATAC-seq samples are also available in this repository.
 
+## Acknowledgments
+
+We would like the thank the ENCODE consortium and the laboratory of Michael Snyder for making the ATAC-seq datasets available.
+
+## Author contribution statement
+
+AMN, GH, JM, TTY, and EG contributed code to the vg toolkit (*annotate*, *pack*, *call* subcommands) with support from BP.
+AMN integrated new code to HTSlib.
+AMN and DC implemented new features in the sequenceTubeMap.
+SD selected and analyzed the ATAC-seq datasets from ENCODE.
+JM conceived the study, analyzed data, and drafted the manuscript.
+All authors contributed in reviewing the text and content of the manuscript.
+
 
 ## References {.page_break_before}
 
@@ -622,6 +641,8 @@ Coverage tracks for the seven ENCODE ATAC-seq samples are also available in this
 [@tabix]: doi:10.1093/bioinformatics/btq671
 [@igv]: doi:10.1038/nbt.1754
 [@repo]: https://github.com/jmonlong/manu-vggafannot
+[@encode]: doi:10.1038/nature11247 
+[@encode_portal]: doi:10.1093/nar/gkz1062 
 
 <!-- Explicitly insert bibliography here -->
 <div id="refs"></div>
