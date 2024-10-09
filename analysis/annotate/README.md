@@ -1,4 +1,4 @@
-# Projecting annotations from genomes to pangenome
+# Projecting annotations from genomes into the pangenome
 
 ## Annotation data
 
