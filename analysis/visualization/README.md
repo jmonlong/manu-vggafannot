@@ -24,13 +24,13 @@ Using:
 
 ![](edited_tubemap/hprc.calls.reads.het_ins.svg)
 
-### Known variants from the GWAS catalog and GTEx's eQTLs
+### Known variants from the GWAS Catalog and GTEx's eQTLs
 
 Using: 
 
 1. `hprc-v1.1-mc-grch38.gbz` as *graph*
 1. `hprc-v1.1-mc-grch38.gbz` as *haplotype*
-2. `gwasCatalog.hprc-v1.1-mc-grch38.sorted.gaf.gz` as *reads*. These are variants from the GWAS catalog porjected into the pangenome, produced and described in [`../variants`](../variants).
+2. `gwasCatalog.hprc-v1.1-mc-grch38.sorted.gaf.gz` as *reads*. These are variants from the GWAS Catalog porjected into the pangenome, produced and described in [`../variants`](../variants).
 2. `eQTLs.gaf.gz` as *reads*. These are expression QTLs from GTEx projected into the pangenome, produced and described in [`../variants`](../variants).
 
 ![](edited_tubemap/rs806109.gwas.eqtls.svg)

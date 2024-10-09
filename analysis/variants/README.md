@@ -1,6 +1,6 @@
 # Annotating known variants (SNPs/indels)
 
-## GWAS catalog
+## GWAS Catalog
 
 Downloaded from the UCSC Genome Browser track:
 
@@ -55,12 +55,12 @@ We used the `prepare_variant_paths.py` script like so
 # for eQTLs
 python3 prepare_variant_paths.py -p hprc-v1.1-mc-grch38.vcf.gz -g hprc-v1.1-mc-grch38.pg -v Spleen.v8.signif_variant_gene_pairs.txt.gz -s gtex_eqtls -l Spleen -o Spleen.GTEx_Analysis_v8_eQTL.hprc-v1.1-mc-grch38.gaf
 
-# for the GWAS catalog
+# for the GWAS Catalog
 python3 prepare_variant_paths.py -p hprc-v1.1-mc-grch38.vcf.gz -g hprc-v1.1-mc-grch38.pg -v gwasCatalog.txt.gz -s gwas_catalog -o gwasCatalog.hprc-v1.1-mc-grch38.gaf
 ```
 
 The output GAF can then be sorted with `vg gamsort`, compressed with `bgzip`, and indexed with `tabix`.
-We prepared those GAFs for eQTLs in all tissues and the GWAS catalog using a Snakemake workflow:
+We prepared those GAFs for eQTLs in all tissues and the GWAS Catalog using a Snakemake workflow:
 
 ```sh
 snakemake --configfile config.yaml --cores 4 -p
