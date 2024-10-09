@@ -107,7 +107,7 @@ if len(args.a):
             path_names[line[0]] = 1
             # we might need to modify the path
             # e.g. if it contains nodes not in the extracted subgraph
-            # (BandageNG doesn't like that)
+            # (Bandage-NG doesn't like that)
             path = parsePath(line[5])
             # trim paths with missing nodes
             path_beg = 0
