@@ -37,7 +37,7 @@ Under the hood, the workflow:
 
 1. prepares the pangenomes
 2. pre-processes the annotation files
-3. projects the annotation onto the pangenome (`vg annotate`)
+3. projects the annotation into the pangenome (`vg annotate`)
 4. sorts and indexes the pangenomic annotations (`vg gamsort`)
 
 For example, assuming the full pangenome GBZ file and raw annotations are locally available, the commands might look like:
@@ -47,7 +47,7 @@ For example, assuming the full pangenome GBZ file and raw annotations are locall
 vg gbwt -Z --set-tag "reference_samples=HG00438" --gbz-format -g gbz/HG00438.hprc-v1.1-mc-grch38.gbz hprc-v1.1-mc-grch38.gbz
 ## pre-process annotation
 python3 pre-vg-annotate.py -i raw_annotation/HG00438.1.grch38.gff3.gz --add-prefix HG00438#1# --use-name-id | gzip > prep_annotation/gene_HG00438.1.gff3.gz
-## project annotation onto pangenome
+## project annotation into pangenome
 gunzip -c prep_annotation/gene_HG00438.1.gff3.gz | vg annotate -x gbz/HG00438.hprc-v1.1-mc-grch38.gbz -f - | vg convert -G - gbz/HG00438.hprc-v1.1-mc-grch38.gbz | gzip > unsorted_gaf/gene_HG00438.1.gaf.gz
 ## sort GAF
 vg gamsort -t 1 -pG unsorted_gaf/gene_HG00438.1.gaf.gz | bgzip > gaf/gene_HG00438.1.gaf.gz
@@ -66,7 +66,7 @@ snakemake -p --use-singularity
 Ideally, we would record relevant metadata in the GAF file. 
 For example, haplotype of origin, element name and additional information (e.g. gene type, annotation type, repeat class).
 In practice, the current implementation of `vg annotate` only saves one read/path/annotation "name" per annotation. 
-The most relevant information was then crammed into this "name" by modifying the raw annotation files before projection to the pangenome.
+The most relevant information was then crammed into this "name" by modifying the raw annotation files before projection into the pangenome.
 The annotation files were modified using the ([`pre-vg-annotate.py`](pre-vg-annotate.py)) python script to:
 
 - Rename the elements so that it includes the haplotype of origin. This will later help differentiating the same genes/repeats/etc from different haplotypes.
