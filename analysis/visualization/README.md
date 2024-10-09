@@ -1,9 +1,9 @@
-## sequenceTubeMap
+## Sequence Tube Map
 
-We use a branch of the sequenceTubeMap repository which contains a few tweaks useful in our case. 
+We use a branch of the Sequence Tube Map repository which contains a few tweaks useful in our case. 
 In particular, the option to use a track's opacity to represent mapping quality or any integer score (e.g. read coverage).
 
-The sequenceTubeMap server can be started with:
+The Sequence Tube Map server can be started with:
 
 ```sh
 docker run  -it -m 6g -p 3210:3000 -v `pwd`:/data INSERT_DOCKER_IMAGE_HERE
