@@ -12,7 +12,7 @@
   <meta name="author" content="Erik Garrison" />
   <meta name="author" content="Benedict Paten" />
   <meta name="author" content="Jean Monlong" />
-  <meta name="dcterms.date" content="2024-10-02" />
+  <meta name="dcterms.date" content="2024-10-09" />
   <meta name="keywords" content="pangenome, annotation, alignment" />
   <title>Efficient indexing and querying of annotations in a pangenome graph</title>
   <style>
@@ -57,11 +57,11 @@
   <meta name="citation_title" content="Efficient indexing and querying of annotations in a pangenome graph" />
   <meta property="og:title" content="Efficient indexing and querying of annotations in a pangenome graph" />
   <meta property="twitter:title" content="Efficient indexing and querying of annotations in a pangenome graph" />
-  <meta name="dc.date" content="2024-10-02" />
-  <meta name="citation_publication_date" content="2024-10-02" />
-  <meta property="article:published_time" content="2024-10-02" />
-  <meta name="dc.modified" content="2024-10-02T21:35:31+00:00" />
-  <meta property="article:modified_time" content="2024-10-02T21:35:31+00:00" />
+  <meta name="dc.date" content="2024-10-09" />
+  <meta name="citation_publication_date" content="2024-10-09" />
+  <meta property="article:published_time" content="2024-10-09" />
+  <meta name="dc.modified" content="2024-10-09T09:39:10+00:00" />
+  <meta property="article:modified_time" content="2024-10-09T09:39:10+00:00" />
   <meta name="dc.language" content="en-US" />
   <meta name="citation_language" content="en-US" />
   <meta name="dc.relation.ispartof" content="Manubot" />
@@ -95,9 +95,9 @@
   <meta name="citation_fulltext_html_url" content="https://jmonlong.github.io/manu-vggafannot/" />
   <meta name="citation_pdf_url" content="https://jmonlong.github.io/manu-vggafannot/manuscript.pdf" />
   <link rel="alternate" type="application/pdf" href="https://jmonlong.github.io/manu-vggafannot/manuscript.pdf" />
-  <link rel="alternate" type="text/html" href="https://jmonlong.github.io/manu-vggafannot/v/3e4e4b42bea492dea0a098ee82f1784f43b521d1/" />
-  <meta name="manubot_html_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/3e4e4b42bea492dea0a098ee82f1784f43b521d1/" />
-  <meta name="manubot_pdf_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/3e4e4b42bea492dea0a098ee82f1784f43b521d1/manuscript.pdf" />
+  <link rel="alternate" type="text/html" href="https://jmonlong.github.io/manu-vggafannot/v/895f7465cc881f649b2229720ffd4d5d0e70c8b0/" />
+  <meta name="manubot_html_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/895f7465cc881f649b2229720ffd4d5d0e70c8b0/" />
+  <meta name="manubot_pdf_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/895f7465cc881f649b2229720ffd4d5d0e70c8b0/manuscript.pdf" />
   <meta property="og:type" content="article" />
   <meta property="twitter:card" content="summary_large_image" />
   <link rel="icon" type="image/png" sizes="192x192" href="https://manubot.org/favicon-192x192.png" />
@@ -114,10 +114,10 @@
 </header>
 <p><small><em>
 This manuscript
-(<a href="https://jmonlong.github.io/manu-vggafannot/v/3e4e4b42bea492dea0a098ee82f1784f43b521d1/">permalink</a>)
+(<a href="https://jmonlong.github.io/manu-vggafannot/v/895f7465cc881f649b2229720ffd4d5d0e70c8b0/">permalink</a>)
 was automatically generated
-from <a href="https://github.com/jmonlong/manu-vggafannot/tree/3e4e4b42bea492dea0a098ee82f1784f43b521d1">jmonlong/manu-vggafannot@3e4e4b4</a>
-on October 2, 2024.
+from <a href="https://github.com/jmonlong/manu-vggafannot/tree/895f7465cc881f649b2229720ffd4d5d0e70c8b0">jmonlong/manu-vggafannot@895f746</a>
+on October 9, 2024.
 </em></small></p>
 <h2 id="authors">Authors</h2>
 <ul>
@@ -351,6 +351,9 @@ Each bin is then extended, one at a time (<em>green flags</em>), until reaching 
 </div>
 <p>This algorithm was implemented in Python and uses the <em>libbdsg</em> module<span class="citation" data-cites="bbLg7oSS">[<a href="#ref-bbLg7oSS" role="doc-biblioref">24</a>]</span> to query the pangenome.
 It is made available in the public repository of this study in the <code>analysis/encode</code> folder of this paper’s repository<span class="citation" data-cites="K5KcBvOm">[<a href="#ref-K5KcBvOm" role="doc-biblioref">22</a>]</span>.</p>
+<p>We tested this approach on ATAC-seq datasets from ENCODE<span class="citation" data-cites="15J98V2qM 139LqmNdL">[<a href="#ref-15J98V2qM" role="doc-biblioref">25</a>,<a href="#ref-139LqmNdL" role="doc-biblioref">26</a>]</span> on seven tissues: breast epithelium (<em>ENCFF210QPG</em>), gastrocnemius medialis (<em>ENCFF968KAQ</em>), gastroesophageal sphincter (<em>ENCFF553SEZ</em>), Peyer’s patch (<em>ENCFF272PIN</em>), sigmoid colon (<em>ENCFF775DFR</em>), spleen (<em>ENCFF391IHY</em>), thyroid gland (<em>ENCFF579WLS</em>).
+Paired-end short Illumina HiSeq 4000 reads were downloaded from ENCODE and mapped using giraffe<span class="citation" data-cites="WCEeLZ0k">[<a href="#ref-WCEeLZ0k" role="doc-biblioref">5</a>]</span> on the HPRC v1.1 Minigraph-Cactus pangenome.
+The output to <code>vg pack</code> (with <code>-Q 1</code> to keep reads with mapping quality of at least 1) was piped to the script implementing the coverage track computation described above.</p>
 <h3 id="annotating-known-variants">Annotating known variants</h3>
 <p>Variants from public databases were annotated when matching a variant site in the pangenome.
 We implemented an approach to look for input variants in the pangenome and write a GAF file with the path followed by those variants in the pangenome.
@@ -360,14 +363,16 @@ We look for the variants of interest in this VCF and extract the appropriate pat
 The annotation path follows either the alternate allele of the variant if known and present in the pangenome, or the reference allele path if the alternate allele is unknown but there is a variant at this position in the pangenome.
 Variant that are not matched in the pangenome are skipped.
 This algorithm was implemented in Python and uses the <em>libbdsg</em> module<span class="citation" data-cites="bbLg7oSS">[<a href="#ref-bbLg7oSS" role="doc-biblioref">24</a>]</span> internally to get node size information necessary to write proper GAF records.</p>
-<p>We test this approach on the GWAS catalog<span class="citation" data-cites="VRCjjZ9L">[<a href="#ref-VRCjjZ9L" role="doc-biblioref">25</a>]</span> and GTEX expression QTLs<span class="citation" data-cites="187XBwaz7">[<a href="#ref-187XBwaz7" role="doc-biblioref">26</a>]</span>.
+<p>We test this approach on the GWAS catalog<span class="citation" data-cites="VRCjjZ9L">[<a href="#ref-VRCjjZ9L" role="doc-biblioref">27</a>]</span> and GTEX expression QTLs<span class="citation" data-cites="187XBwaz7">[<a href="#ref-187XBwaz7" role="doc-biblioref">28</a>]</span>.
 The GWAS catalog was downloaded from the UCSC Genome Browser <code>gwasCatalog</code> table<span class="citation" data-cites="84lVwRrR">[<a href="#ref-84lVwRrR" role="doc-biblioref">3</a> ]</span>.
 The eQTLs from GTEX v8 were downloaded from <code>https://storage.googleapis.com/adult-gtex/bulk-qtl/v8/single-tissue-cis-qtl/GTEx_Analysis_v8_eQTL.tar</code>.
 The files defining associations between variant/gene pairs were parsed for each tissue.
 As before, the output annotation in GAF were bgzipped, sorted and indexed.</p>
 <p>We implemented another, more straightforward approach, to annotate variants that were genotyped using the pangenome.
 Here we simply convert a VCF that contain allele traversal information (<em>AT</em> field) to a GAF file representing the alternate allele.
-We test this approach by genotyping HG002 from short-reads Illumina Novaseq data. <code class="red">more details</code></p>
+We test this approach by genotyping HG002 from the short-reads Illumina Novaseq reads aligned to the pangenome for the GAF sorting experiment (more details above).
+Variants were genotyped from the aligned reads using <code>vg call</code>.
+Of note, <code>vg call</code> can also output genotypes directly in GAF format with the <code>-G</code> parameter.</p>
 <p>The scripts and pipeline to annotate variants is available in the public repository of this study in the <code>analysis/variants</code> folder of this paper’s repository<span class="citation" data-cites="K5KcBvOm">[<a href="#ref-K5KcBvOm" role="doc-biblioref">22</a>]</span>.</p>
 <h3 id="visualization-in-the-sequencetubemap">Visualization in the sequenceTubeMap</h3>
 <p>The sequenceTubeMap was developed to interactively explore a pangenome graph, haplotypes traversing it, and reads mapping to it<span class="citation" data-cites="15LPYoGeb">[<a href="#ref-15LPYoGeb" role="doc-biblioref">12</a>]</span>.
@@ -380,7 +385,7 @@ A different color or color palette can be assigned to each layer to facilitate t
 Moreover, a new option has been added to use an element’s opacity to represent an integer score, like a mapping quality or read coverage.
 For example, one could visualize the coding regions of genes and coverage tracks for different cell types from the ENCODE project, as described below and highlighted in Figure <a href="#fig:tubemap">4</a>.</p>
 <h3 id="visualization-in-bandage">Visualization in Bandage</h3>
-<p>A fork of Bandage<span class="citation" data-cites="hbEIE3nt">[<a href="#ref-hbEIE3nt" role="doc-biblioref">10</a>]</span>, called BandageNG<span class="citation" data-cites="1Fp6JRSHg">[<a href="#ref-1Fp6JRSHg" role="doc-biblioref">27</a>]</span>, can read GAF files and visualize its paths through the input graph by coloring the nodes.
+<p>A fork of Bandage<span class="citation" data-cites="hbEIE3nt">[<a href="#ref-hbEIE3nt" role="doc-biblioref">10</a>]</span>, called BandageNG<span class="citation" data-cites="1Fp6JRSHg">[<a href="#ref-1Fp6JRSHg" role="doc-biblioref">29</a>]</span>, can read GAF files and visualize its paths through the input graph by coloring the nodes.
 Of note, the offset positions are not taken into account, which means that nodes are colored entirely even if the path only overlaps part of it.
 We implemented a wrapper script to facilitate the preprocessing of a subgraph to visualize with BandageNG.
 It starts by extracting the subgraph of a full pangenome for a region of interest using <code>vg chunk</code>.
@@ -436,7 +441,7 @@ For comparison, the same extraction took on average 0.8 second per region using 
 </table>
 </div>
 <h3 id="annotation-of-a-human-pangenome">Annotation of a human pangenome</h3>
-<p>To showcase these commands, we projected annotations for all haplotypes in the latest draft human pangenome (HPRC v1.1 GRCh38-based Minigraph-Cactus pangenome)<span class="citation" data-cites="CqG8RQye">[<a href="#ref-CqG8RQye" role="doc-biblioref">28</a>]</span>.
+<p>To showcase these commands, we projected annotations for all haplotypes in the latest draft human pangenome (HPRC v1.1 GRCh38-based Minigraph-Cactus pangenome)<span class="citation" data-cites="CqG8RQye">[<a href="#ref-CqG8RQye" role="doc-biblioref">30</a>]</span>.
 This included genes, segmental duplications, tandem repeats and repeats annotations.
 <code>vg annotate</code> can annotate ~4M gene annotations in ~16 mins, and ~5.5M repeats from RepeatMasker in ~9 mins on a single-threaded machine.
 Finally, these rich annotations can then be quickly queried with <code>vg</code> and visualized using existing tools like the sequenceTubeMap or Bandage.
@@ -451,7 +456,7 @@ We projected them to the pangenome, indexed them, and queried a small region to 
 The nodes were colored based on those annotations, loaded as paths by BandageNG.</figcaption>
 </figure>
 </div>
-<p>We also matched and annotated more than 660 thousand variants from the GWAS catalog<span class="citation" data-cites="VRCjjZ9L">[<a href="#ref-VRCjjZ9L" role="doc-biblioref">25</a>]</span> and expression QTLs from the GTEx catalog<span class="citation" data-cites="187XBwaz7">[<a href="#ref-187XBwaz7" role="doc-biblioref">26</a>]</span> across 49 tissues (on average 1.45 million variants per tissue).
+<p>We also matched and annotated more than 660 thousand variants from the GWAS catalog<span class="citation" data-cites="VRCjjZ9L">[<a href="#ref-VRCjjZ9L" role="doc-biblioref">27</a>]</span> and expression QTLs from the GTEx catalog<span class="citation" data-cites="187XBwaz7">[<a href="#ref-187XBwaz7" role="doc-biblioref">28</a>]</span> across 49 tissues (on average 1.45 million variants per tissue).
 On average, 94% variants were found in the HPRC pangenome.
 The variants files in GAF take only 907Mb of space and can be queried fast for visualization in the sequenceTubeMap or Bandage.
 This annotation is showcased in Figure <a href="#fig:tubemap">4</a>B.
@@ -483,7 +488,7 @@ The <em>red</em> tracks at the bottom show the position of exons from the <em>TP
 </div>
 <p>Using sequenceTubeMap, haplotypes, read alignments and paths can be visualized interactively.</p>
 <h3 id="coverage-of-seven-functional-datasets-from-encode">Coverage of seven functional datasets from ENCODE</h3>
-<p>We aligned ATAC-seq datasets from 7 cell types to the draft human pangenome to produce coverage tracks as indexed GAF files.
+<p>We aligned ATAC-seq datasets from 7 cell types<span class="citation" data-cites="15J98V2qM 139LqmNdL">[<a href="#ref-15J98V2qM" role="doc-biblioref">25</a>,<a href="#ref-139LqmNdL" role="doc-biblioref">26</a>]</span> to the draft human pangenome to produce coverage tracks as indexed GAF files.
 On average, there were about 475 thousand paths representing high read coverage which were 2.6 nodes (104.8 bases) long.
 On average, 63 thousand paths with high ATAC-seq read coverage traversed more three or more nodes, i.e. regions of the pangenome with variation (see Table <a href="#tbl:coverage_summary">2</a>).</p>
 <div id="tbl:coverage_summary" class="tablenos">
@@ -629,6 +634,15 @@ It contains scripts used to prepare the annotation files, commands and automated
 <p>The annotations of the HPRC v1.1 pangenome were deposited on Zenodo at <code class="red">??ZENODO_LINK??</code>.
 This includes gene annotations, repeats from RepeatMasker, simple repeats and segmental duplications.
 Coverage tracks for the seven ENCODE ATAC-seq samples are also available in this repository.</p>
+<h2 id="acknowledgments">Acknowledgments</h2>
+<p>We would like the thank the ENCODE consortium and the laboratory of Michael Snyder for making the ATAC-seq datasets available.</p>
+<h2 id="author-contribution-statement">Author contribution statement</h2>
+<p>AMN, GH, JM, TTY, and EG contributed code to the vg toolkit (<em>annotate</em>, <em>pack</em>, <em>call</em> subcommands) with support from BP.
+AMN integrated new code to HTSlib.
+AMN and DC implemented new features in the sequenceTubeMap.
+SD selected and analyzed the ATAC-seq datasets from ENCODE.
+JM conceived the study, analyzed data, and drafted the manuscript.
+All authors contributed in reviewing the text and content of the manuscript.</p>
 <h2 class="page_break_before" id="references">References</h2>
 <!-- Explicitly insert bibliography here -->
 <div id="refs" class="references csl-bib-body" role="doc-bibliography">
@@ -696,7 +710,7 @@ Coverage tracks for the seven ENCODE ATAC-seq samples are also available in this
 <div class="csl-left-margin">21. </div><div class="csl-right-inline"><strong>Personalized Pangenome References</strong> <div class="csl-block">Jouni Sirén, Parsa Eskandar, Matteo Tommaso Ungaro, Glenn Hickey, Jordan M Eizenga, Adam M Novak, Xian Chang, Pi-Chuan Chang, Mikhail Kolmogorov, Andrew Carroll, … Benedict Paten</div> <em>Cold Spring Harbor Laboratory</em> (2023-12-14) <a href="https://doi.org/gt9fkb">https://doi.org/gt9fkb</a> <div class="csl-block">DOI: <a href="https://doi.org/10.1101/2023.12.13.571553">10.1101/2023.12.13.571553</a> · PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/38168361">38168361</a> · PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10760139">PMC10760139</a></div></div>
 </div>
 <div id="ref-K5KcBvOm" class="csl-entry" role="doc-biblioentry">
-<div class="csl-left-margin">22. </div><div class="csl-right-inline"><strong>jmonlong/manu-vggafannot</strong> <div class="csl-block">Jean Monlong</div> (2024-10-02) <a href="https://github.com/jmonlong/manu-vggafannot">https://github.com/jmonlong/manu-vggafannot</a></div>
+<div class="csl-left-margin">22. </div><div class="csl-right-inline"><strong>jmonlong/manu-vggafannot</strong> <div class="csl-block">Jean Monlong</div> (2024-10-09) <a href="https://github.com/jmonlong/manu-vggafannot">https://github.com/jmonlong/manu-vggafannot</a></div>
 </div>
 <div id="ref-1BnfHjbCA" class="csl-entry" role="doc-biblioentry">
 <div class="csl-left-margin">23. </div><div class="csl-right-inline"><strong>Comparative Annotation Toolkit (CAT)—simultaneous clade and personal genome annotation</strong> <div class="csl-block">Ian T Fiddes, Joel Armstrong, Mark Diekhans, Stefanie Nachtweide, Zev N Kronenberg, Jason G Underwood, David Gordon, Dent Earl, Thomas Keane, Evan E Eichler, … Benedict Paten</div> <em>Genome Research</em> (2018-06-08) <a href="https://doi.org/gdpg7n">https://doi.org/gdpg7n</a> <div class="csl-block">DOI: <a href="https://doi.org/10.1101/gr.233460.117">10.1101/gr.233460.117</a> · PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/29884752">29884752</a> · PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6028123">PMC6028123</a></div></div>
@@ -704,17 +718,23 @@ Coverage tracks for the seven ENCODE ATAC-seq samples are also available in this
 <div id="ref-bbLg7oSS" class="csl-entry" role="doc-biblioentry">
 <div class="csl-left-margin">24. </div><div class="csl-right-inline"><strong>Efficient dynamic variation graphs</strong> <div class="csl-block">Jordan M Eizenga, Adam M Novak, Emily Kobayashi, Flavia Villani, Cecilia Cisar, Simon Heumos, Glenn Hickey, Vincenza Colonna, Benedict Paten, Erik Garrison</div> <em>Bioinformatics</em> (2020-07-16) <a href="https://doi.org/ghqdzw">https://doi.org/ghqdzw</a> <div class="csl-block">DOI: <a href="https://doi.org/10.1093/bioinformatics/btaa640">10.1093/bioinformatics/btaa640</a> · PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/33040146">33040146</a> · PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7850124">PMC7850124</a></div></div>
 </div>
+<div id="ref-15J98V2qM" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">25. </div><div class="csl-right-inline"><strong>An integrated encyclopedia of DNA elements in the human genome</strong> <em>Nature</em> (2012-09) <a href="https://doi.org/bg9d">https://doi.org/bg9d</a> <div class="csl-block">DOI: <a href="https://doi.org/10.1038/nature11247">10.1038/nature11247</a> · PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/22955616">22955616</a> · PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3439153">PMC3439153</a></div></div>
+</div>
+<div id="ref-139LqmNdL" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">26. </div><div class="csl-right-inline"><strong>New developments on the Encyclopedia of DNA Elements (ENCODE) data portal</strong> <div class="csl-block">Yunhai Luo, Benjamin C Hitz, Idan Gabdank, Jason A Hilton, Meenakshi S Kagda, Bonita Lam, Zachary Myers, Paul Sud, Jennifer Jou, Khine Lin, … JMichael Cherry</div> <em>Nucleic Acids Research</em> (2019-11-12) <a href="https://doi.org/gqrkfz">https://doi.org/gqrkfz</a> <div class="csl-block">DOI: <a href="https://doi.org/10.1093/nar/gkz1062">10.1093/nar/gkz1062</a> · PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/31713622">31713622</a> · PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7061942">PMC7061942</a></div></div>
+</div>
 <div id="ref-VRCjjZ9L" class="csl-entry" role="doc-biblioentry">
-<div class="csl-left-margin">25. </div><div class="csl-right-inline"><strong>The NHGRI-EBI GWAS Catalog: knowledgebase and deposition resource</strong> <div class="csl-block">Elliot Sollis, Abayomi Mosaku, Ala Abid, Annalisa Buniello, Maria Cerezo, Laurent Gil, Tudor Groza, Osman Güneş, Peggy Hall, James Hayhurst, … Laura W Harris</div> <em>Nucleic Acids Research</em> (2022-11-09) <a href="https://doi.org/gq73r5">https://doi.org/gq73r5</a> <div class="csl-block">DOI: <a href="https://doi.org/10.1093/nar/gkac1010">10.1093/nar/gkac1010</a> · PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/36350656">36350656</a> · PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9825413">PMC9825413</a></div></div>
+<div class="csl-left-margin">27. </div><div class="csl-right-inline"><strong>The NHGRI-EBI GWAS Catalog: knowledgebase and deposition resource</strong> <div class="csl-block">Elliot Sollis, Abayomi Mosaku, Ala Abid, Annalisa Buniello, Maria Cerezo, Laurent Gil, Tudor Groza, Osman Güneş, Peggy Hall, James Hayhurst, … Laura W Harris</div> <em>Nucleic Acids Research</em> (2022-11-09) <a href="https://doi.org/gq73r5">https://doi.org/gq73r5</a> <div class="csl-block">DOI: <a href="https://doi.org/10.1093/nar/gkac1010">10.1093/nar/gkac1010</a> · PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/36350656">36350656</a> · PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9825413">PMC9825413</a></div></div>
 </div>
 <div id="ref-187XBwaz7" class="csl-entry" role="doc-biblioentry">
-<div class="csl-left-margin">26. </div><div class="csl-right-inline"><strong>The Genotype-Tissue Expression (GTEx) project</strong> <div class="csl-block">John Lonsdale, Jeffrey Thomas, Mike Salvatore, Rebecca Phillips, Edmund Lo, Saboor Shad, Richard Hasz, Gary Walters, Fernando Garcia, Nancy Young, … Helen F Moore</div> <em>Nature Genetics</em> (2013-05-29) <a href="https://doi.org/gd5z68">https://doi.org/gd5z68</a> <div class="csl-block">DOI: <a href="https://doi.org/10.1038/ng.2653">10.1038/ng.2653</a> · PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/23715323">23715323</a> · PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4010069">PMC4010069</a></div></div>
+<div class="csl-left-margin">28. </div><div class="csl-right-inline"><strong>The Genotype-Tissue Expression (GTEx) project</strong> <div class="csl-block">John Lonsdale, Jeffrey Thomas, Mike Salvatore, Rebecca Phillips, Edmund Lo, Saboor Shad, Richard Hasz, Gary Walters, Fernando Garcia, Nancy Young, … Helen F Moore</div> <em>Nature Genetics</em> (2013-05-29) <a href="https://doi.org/gd5z68">https://doi.org/gd5z68</a> <div class="csl-block">DOI: <a href="https://doi.org/10.1038/ng.2653">10.1038/ng.2653</a> · PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/23715323">23715323</a> · PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4010069">PMC4010069</a></div></div>
 </div>
 <div id="ref-1Fp6JRSHg" class="csl-entry" role="doc-biblioentry">
-<div class="csl-left-margin">27. </div><div class="csl-right-inline"><strong>asl/BandageNG</strong> <div class="csl-block">Anton Korobeynikov</div> (2024-09-06) <a href="https://github.com/asl/BandageNG">https://github.com/asl/BandageNG</a></div>
+<div class="csl-left-margin">29. </div><div class="csl-right-inline"><strong>asl/BandageNG</strong> <div class="csl-block">Anton Korobeynikov</div> (2024-10-07) <a href="https://github.com/asl/BandageNG">https://github.com/asl/BandageNG</a></div>
 </div>
 <div id="ref-CqG8RQye" class="csl-entry" role="doc-biblioentry">
-<div class="csl-left-margin">28. </div><div class="csl-right-inline"><strong>A draft human pangenome reference</strong> <div class="csl-block">Wen-Wei Liao, Mobin Asri, Jana Ebler, Daniel Doerr, Marina Haukness, Glenn Hickey, Shuangjia Lu, Julian K Lucas, Jean Monlong, Haley J Abel, … Benedict Paten</div> <em>Nature</em> (2023-05-10) <a href="https://doi.org/gr8b6s">https://doi.org/gr8b6s</a> <div class="csl-block">DOI: <a href="https://doi.org/10.1038/s41586-023-05896-x">10.1038/s41586-023-05896-x</a> · PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/37165242">37165242</a> · PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10172123">PMC10172123</a></div></div>
+<div class="csl-left-margin">30. </div><div class="csl-right-inline"><strong>A draft human pangenome reference</strong> <div class="csl-block">Wen-Wei Liao, Mobin Asri, Jana Ebler, Daniel Doerr, Marina Haukness, Glenn Hickey, Shuangjia Lu, Julian K Lucas, Jean Monlong, Haley J Abel, … Benedict Paten</div> <em>Nature</em> (2023-05-10) <a href="https://doi.org/gr8b6s">https://doi.org/gr8b6s</a> <div class="csl-block">DOI: <a href="https://doi.org/10.1038/s41586-023-05896-x">10.1038/s41586-023-05896-x</a> · PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/37165242">37165242</a> · PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10172123">PMC10172123</a></div></div>
 </div>
 </div>
 <h2 class="page_break_before" id="supplementary-material">Supplementary material</h2>
