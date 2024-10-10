@@ -36,7 +36,7 @@ foirmat
 GAF
 GAM
 Gastrocnemius
-Gastroesophageal
+gastroesophageal
 GBZ
 genomic
 genotype
@@ -50,7 +50,7 @@ GH
 GiB
 glennhickey
 GRCh
-GTEX
+GTEx
 GWAS
 gzip
 gzipped
@@ -75,7 +75,7 @@ libbdsg
 linearized
 medialis
 MiB
-Minigraph
+minigraph
 MoMI
 Monlong
 naïve
@@ -105,7 +105,7 @@ runtimes
 sdjebali
 segmental
 SEZ
-sigmoid
+Sigmoid
 Snakemake
 subcommand
 subcommands

@@ -29,8 +29,8 @@ header-includes: |
   <meta name="dc.date" content="2024-10-10" />
   <meta name="citation_publication_date" content="2024-10-10" />
   <meta property="article:published_time" content="2024-10-10" />
-  <meta name="dc.modified" content="2024-10-10T07:32:35+00:00" />
-  <meta property="article:modified_time" content="2024-10-10T07:32:35+00:00" />
+  <meta name="dc.modified" content="2024-10-10T07:43:37+00:00" />
+  <meta property="article:modified_time" content="2024-10-10T07:43:37+00:00" />
   <meta name="dc.language" content="en-US" />
   <meta name="citation_language" content="en-US" />
   <meta name="dc.relation.ispartof" content="Manubot" />
@@ -64,9 +64,9 @@ header-includes: |
   <meta name="citation_fulltext_html_url" content="https://jmonlong.github.io/manu-vggafannot/" />
   <meta name="citation_pdf_url" content="https://jmonlong.github.io/manu-vggafannot/manuscript.pdf" />
   <link rel="alternate" type="application/pdf" href="https://jmonlong.github.io/manu-vggafannot/manuscript.pdf" />
-  <link rel="alternate" type="text/html" href="https://jmonlong.github.io/manu-vggafannot/v/a2ec2652281cb90a6c54d206d13d02c48f08bf9d/" />
-  <meta name="manubot_html_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/a2ec2652281cb90a6c54d206d13d02c48f08bf9d/" />
-  <meta name="manubot_pdf_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/a2ec2652281cb90a6c54d206d13d02c48f08bf9d/manuscript.pdf" />
+  <link rel="alternate" type="text/html" href="https://jmonlong.github.io/manu-vggafannot/v/c05c0b1485bfb75ed93f4d801f76cfc2161f6753/" />
+  <meta name="manubot_html_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/c05c0b1485bfb75ed93f4d801f76cfc2161f6753/" />
+  <meta name="manubot_pdf_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/c05c0b1485bfb75ed93f4d801f76cfc2161f6753/manuscript.pdf" />
   <meta property="og:type" content="article" />
   <meta property="twitter:card" content="summary_large_image" />
   <link rel="icon" type="image/png" sizes="192x192" href="https://manubot.org/favicon-192x192.png" />
@@ -88,9 +88,9 @@ manubot-clear-requests-cache: false
 
 <small><em>
 This manuscript
-([permalink](https://jmonlong.github.io/manu-vggafannot/v/a2ec2652281cb90a6c54d206d13d02c48f08bf9d/))
+([permalink](https://jmonlong.github.io/manu-vggafannot/v/c05c0b1485bfb75ed93f4d801f76cfc2161f6753/))
 was automatically generated
-from [jmonlong/manu-vggafannot@a2ec265](https://github.com/jmonlong/manu-vggafannot/tree/a2ec2652281cb90a6c54d206d13d02c48f08bf9d)
+from [jmonlong/manu-vggafannot@c05c0b1](https://github.com/jmonlong/manu-vggafannot/tree/c05c0b1485bfb75ed93f4d801f76cfc2161f6753)
 on October 10, 2024.
 </em></small>
 
@@ -425,7 +425,7 @@ We implemented a wrapper script to facilitate the preprocessing of a subgraph to
 It starts by extracting the subgraph for a region of interest from a full pangenome using `vg chunk`.
 This graph is converted to GFA, making sure that the paths are written last for compatibility with Bandage-NG.
 The script also extracts annotations relevant to the region of interest from indexed GAF files. 
-The extracted GAF files are merged and modified if necessary: path names are de-duplicated and paths are trimmed<!-- Not split??? --> when traversing nodes absent from the extracted subgraph.
+The extracted GAF files are merged and modified if necessary: path names are de-duplicated and paths are trimmed when traversing nodes absent from the extracted subgraph.
 These modifications ensure that the final GAF file can be loaded in Bandage-NG.
 The outputs of this script can be opened with Bandage-NG for interactive exploration. 
 In particular, the *Find path* feature can find nodes corresponding to specific paths, which are either haplotypes or annotations in this pre-processed GFA file.
