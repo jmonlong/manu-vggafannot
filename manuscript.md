@@ -29,8 +29,8 @@ header-includes: |
   <meta name="dc.date" content="2024-10-10" />
   <meta name="citation_publication_date" content="2024-10-10" />
   <meta property="article:published_time" content="2024-10-10" />
-  <meta name="dc.modified" content="2024-10-10T11:40:50+00:00" />
-  <meta property="article:modified_time" content="2024-10-10T11:40:50+00:00" />
+  <meta name="dc.modified" content="2024-10-10T11:54:19+00:00" />
+  <meta property="article:modified_time" content="2024-10-10T11:54:19+00:00" />
   <meta name="dc.language" content="en-US" />
   <meta name="citation_language" content="en-US" />
   <meta name="dc.relation.ispartof" content="Manubot" />
@@ -64,9 +64,9 @@ header-includes: |
   <meta name="citation_fulltext_html_url" content="https://jmonlong.github.io/manu-vggafannot/" />
   <meta name="citation_pdf_url" content="https://jmonlong.github.io/manu-vggafannot/manuscript.pdf" />
   <link rel="alternate" type="application/pdf" href="https://jmonlong.github.io/manu-vggafannot/manuscript.pdf" />
-  <link rel="alternate" type="text/html" href="https://jmonlong.github.io/manu-vggafannot/v/cd39e69f9bfada1b82e417690b649d4af9676c78/" />
-  <meta name="manubot_html_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/cd39e69f9bfada1b82e417690b649d4af9676c78/" />
-  <meta name="manubot_pdf_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/cd39e69f9bfada1b82e417690b649d4af9676c78/manuscript.pdf" />
+  <link rel="alternate" type="text/html" href="https://jmonlong.github.io/manu-vggafannot/v/4866b41fe58962ff0e072b278712deac794e0d1e/" />
+  <meta name="manubot_html_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/4866b41fe58962ff0e072b278712deac794e0d1e/" />
+  <meta name="manubot_pdf_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/4866b41fe58962ff0e072b278712deac794e0d1e/manuscript.pdf" />
   <meta property="og:type" content="article" />
   <meta property="twitter:card" content="summary_large_image" />
   <link rel="icon" type="image/png" sizes="192x192" href="https://manubot.org/favicon-192x192.png" />
@@ -88,9 +88,9 @@ manubot-clear-requests-cache: false
 
 <small><em>
 This manuscript
-([permalink](https://jmonlong.github.io/manu-vggafannot/v/cd39e69f9bfada1b82e417690b649d4af9676c78/))
+([permalink](https://jmonlong.github.io/manu-vggafannot/v/4866b41fe58962ff0e072b278712deac794e0d1e/))
 was automatically generated
-from [jmonlong/manu-vggafannot@cd39e69](https://github.com/jmonlong/manu-vggafannot/tree/cd39e69f9bfada1b82e417690b649d4af9676c78)
+from [jmonlong/manu-vggafannot@4866b41](https://github.com/jmonlong/manu-vggafannot/tree/4866b41fe58962ff0e072b278712deac794e0d1e)
 on October 10, 2024.
 </em></small>
 
@@ -368,7 +368,7 @@ The paths are written in the GAF format, recording the coverage class and the av
 **Read coverage bin-and-extend approach to produce coarse-grained coverage tracks.**
 In each node (*grey rectangles*), the read coverage at each base is binned using user-defined coverage bins, creating node regions of similar coverage also called bins (*colored rectangles*).
 Starting bins (*large green flags*) are selected one at a time, and those bins are extended in both directions until reaching a different-coverage bin (*small red flag*).
-](figures/coverage.bin.pangenome.png){#fig:meth_cov}
+](images/coverage.bin.pangenome.png){#fig:meth_cov}
 
 This algorithm was implemented in Python and uses the *libbdsg* module[@libbdsg] to query the pangenome.
 It is made available in the public repository of this study in the `analysis/encode` folder of this paper's repository (see [Code and data availability]).
@@ -475,7 +475,7 @@ Example of a AluYa5 transposon insertion (*red*) within the coding sequence of t
 Both annotations were originally produced at the haplotype level by the Human Pangenome Reference Consoritium.
 We projected them into the pangenome, indexed them, and queried a small region to visualize with Bandage-NG.
 The nodes were colored based on those annotations, loaded as paths by Bandage-NG.
-](figures/PRAMEF4.AluInsertion.png "Bandage example"){#fig:bandage}
+](images/PRAMEF4.AluInsertion.png "Bandage example"){#fig:bandage}
 
 We also matched and annotated variants from the GWAS Catalog[@doi:10.1093/nar/gkac1010](about 660 thousand variants) and expression QTLs from the GTEx catalog[@doi:10.1038/ng.2653] across 49 tissues (on average 1.45 million variants per tissue), using the methods described in [Annotating known variants].
 On average, 94% of variants were found in the HPRC pangenome.
@@ -505,7 +505,7 @@ The reference path (*violet*) and other HPRC haplotypes (*greys*) are shown on t
 ATAC-seq coverage annotations for the different tissues are shown in different *colors* with different opacities representing coverage level.
 The thyroid annotation (*blue*) is more opaque than others, suggesting that this region is more open in that tissue.
 The *red* annotations at the bottom show the position of exons from the *TPO* gene, a thyroid-specific gene.
-](figures/tubemap.examples.png "Tubemap examples"){#fig:tubemap}
+](images/tubemap.examples.png "Tubemap examples"){#fig:tubemap}
 
 Using the Sequence Tube Map, haplotypes, read alignments and paths can be visualized interactively. 
 
