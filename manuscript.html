@@ -60,8 +60,8 @@
   <meta name="dc.date" content="2024-10-10" />
   <meta name="citation_publication_date" content="2024-10-10" />
   <meta property="article:published_time" content="2024-10-10" />
-  <meta name="dc.modified" content="2024-10-10T09:05:02+00:00" />
-  <meta property="article:modified_time" content="2024-10-10T09:05:02+00:00" />
+  <meta name="dc.modified" content="2024-10-10T09:42:51+00:00" />
+  <meta property="article:modified_time" content="2024-10-10T09:42:51+00:00" />
   <meta name="dc.language" content="en-US" />
   <meta name="citation_language" content="en-US" />
   <meta name="dc.relation.ispartof" content="Manubot" />
@@ -95,9 +95,9 @@
   <meta name="citation_fulltext_html_url" content="https://jmonlong.github.io/manu-vggafannot/" />
   <meta name="citation_pdf_url" content="https://jmonlong.github.io/manu-vggafannot/manuscript.pdf" />
   <link rel="alternate" type="application/pdf" href="https://jmonlong.github.io/manu-vggafannot/manuscript.pdf" />
-  <link rel="alternate" type="text/html" href="https://jmonlong.github.io/manu-vggafannot/v/707aa2c92d51a28dad007f3c5daba636dfca7ddc/" />
-  <meta name="manubot_html_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/707aa2c92d51a28dad007f3c5daba636dfca7ddc/" />
-  <meta name="manubot_pdf_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/707aa2c92d51a28dad007f3c5daba636dfca7ddc/manuscript.pdf" />
+  <link rel="alternate" type="text/html" href="https://jmonlong.github.io/manu-vggafannot/v/e4931161831d4c9ba35747f4f9fc64f1cb97ae02/" />
+  <meta name="manubot_html_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/e4931161831d4c9ba35747f4f9fc64f1cb97ae02/" />
+  <meta name="manubot_pdf_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/e4931161831d4c9ba35747f4f9fc64f1cb97ae02/manuscript.pdf" />
   <meta property="og:type" content="article" />
   <meta property="twitter:card" content="summary_large_image" />
   <link rel="icon" type="image/png" sizes="192x192" href="https://manubot.org/favicon-192x192.png" />
@@ -114,9 +114,9 @@
 </header>
 <p><small><em>
 This manuscript
-(<a href="https://jmonlong.github.io/manu-vggafannot/v/707aa2c92d51a28dad007f3c5daba636dfca7ddc/">permalink</a>)
+(<a href="https://jmonlong.github.io/manu-vggafannot/v/e4931161831d4c9ba35747f4f9fc64f1cb97ae02/">permalink</a>)
 was automatically generated
-from <a href="https://github.com/jmonlong/manu-vggafannot/tree/707aa2c92d51a28dad007f3c5daba636dfca7ddc">jmonlong/manu-vggafannot@707aa2c</a>
+from <a href="https://github.com/jmonlong/manu-vggafannot/tree/e4931161831d4c9ba35747f4f9fc64f1cb97ae02">jmonlong/manu-vggafannot@e493116</a>
 on October 10, 2024.
 </em></small></p>
 <h2 id="authors">Authors</h2>
@@ -275,7 +275,7 @@ The paths are then sorted first by their minimum ID, and then by their maximum I
 This is similar to the approach used to sort BED or VCF files on linear genomes: they are sorted by sequence name, then start position, then end position.</p>
 <div id="fig:index" class="fignos">
 <figure>
-<img src="figures/gafindexing.png" alt="Figure 1: Path sorting and indexing using vg and HTSlib/tabix. A. A region of pangenome is represented with nodes (containing sequences) in yellow and edges in black. The node IDs are topologically sorted integers, ranging here from 23 to 36. Three paths are highlighted in red, blue and green. B. The three paths are written with the GAF syntax, by specifying the orientations (&lt;/&gt;) and IDs of the traversed nodes. For each path, the node range n-N, between the minimum and maximum node IDs, is used for sorting the path. C. Overview of the workflow to sort a GAF file using vg gamsort, compress it with bgzip and index using tabix. D. The small .tbi index file helps query slices of the GAF file quickly, and is usable with tabix, or vg subcommands like find or chunk." />
+<img src="images/gafindexing.png" alt="Figure 1: Path sorting and indexing using vg and HTSlib/tabix. A. A region of pangenome is represented with nodes (containing sequences) in yellow and edges in black. The node IDs are topologically sorted integers, ranging here from 23 to 36. Three paths are highlighted in red, blue and green. B. The three paths are written with the GAF syntax, by specifying the orientations (&lt;/&gt;) and IDs of the traversed nodes. For each path, the node range n-N, between the minimum and maximum node IDs, is used for sorting the path. C. Overview of the workflow to sort a GAF file using vg gamsort, compress it with bgzip and index using tabix. D. The small .tbi index file helps query slices of the GAF file quickly, and is usable with tabix, or vg subcommands like find or chunk." />
 <figcaption aria-hidden="true"><span>Figure 1:</span> <strong>Path sorting and indexing using vg and HTSlib/tabix.</strong>
 <strong>A.</strong> A region of pangenome is represented with nodes (containing sequences) in yellow and edges in black.
 The node IDs are topologically sorted integers, ranging here from 23 to 36.
