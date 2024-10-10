@@ -2,9 +2,6 @@
 
 ## build.sh: compile manuscript outputs from content using Manubot and Pandoc
 
-eval "$(micromamba shell hook --shell bash)"
-micromamba activate manubot
-
 set -o errexit \
     -o nounset \
     -o pipefail
