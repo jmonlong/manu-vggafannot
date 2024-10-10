@@ -13,12 +13,13 @@ library(tidyr)
 ```{r}
 bm.df = lapply(list.files('benchmark'), function(fpath){
   df = read.table(paste0('benchmark/', fpath), as.is=TRUE, sep='\t', header=TRUE)
-  df$task = gsub('.tsv', '', fpath)
+  df$task = gsub('.benchmark.tsv', '', fpath)
   df
 }) %>% bind_rows
 
-bm.df = bm.df %>% mutate(sample=gsub("[^\\.]+\\.(.+).benchmark", "\\1", task),
-                         task=gsub("([^\\.])\\..+.benchmark", "\\1", task)) %>%
+bm.df = bm.df %>%
+  mutate(sample=gsub("[^\\.]+\\.(.+)", "\\1", task),
+         task=gsub("([^\\.])\\..+", "\\1", task)) %>%
   select(task, sample, everything())
 ```
 
@@ -31,3 +32,15 @@ bm.df %>% group_by(task) %>% summarize(cpu_h=mean(cpu_time/3600),
                                        max_rss=mean(max_rss)) %>%
   kable(format.args=list(big.mark=','))
 ```
+
+## Average per input type for the `vg annotate` task
+
+```{r}
+bm.df %>% filter(task=='vg_annotate') %>% mutate(input=gsub('(.+)_.+', '\\1', sample)) %>%
+  group_by(input) %>% summarize(cpu_h=mean(cpu_time/3600),
+                                min=mean(s/60),
+                                mean_load=mean(mean_load),
+                                max_rss=mean(max_rss)) %>%
+  kable(format.args=list(big.mark=','))
+```
+
