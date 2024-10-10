@@ -3,7 +3,7 @@
 [![HTML slides](https://img.shields.io/badge/slides-HTML-blue.svg)](https://jmonlong.github.io/manu-vggafannot/vggafannot-miggs24.html)
 [![GitHub Actions Status](https://github.com/jmonlong/manu-vggafannot/workflows/Manubot/badge.svg)](https://github.com/jmonlong/manu-vggafannot/actions)
 
-## Manuscript: Current options to index, represent, and visualize annotations in a pangenome with the vg toolkit
+## Manuscript: Efficient indexing and querying of annotations in a pangenome graph
 
 **Work in progress!**
 
