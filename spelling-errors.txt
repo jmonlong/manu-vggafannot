@@ -19,7 +19,7 @@ contigs
 cov
 CSD
 CSV
-dataset
+Dataset
 datasets
 delimitted
 DFR
@@ -35,8 +35,8 @@ facto
 foirmat
 GAF
 GAM
-gastrocnemius
-Gastroesophageal
+Gastrocnemius
+gastroesophageal
 GBZ
 genomic
 genotype
@@ -50,7 +50,7 @@ GH
 GiB
 glennhickey
 GRCh
-GTEx
+GTEX
 GWAS
 gzip
 gzipped
@@ -103,7 +103,7 @@ runtimes
 sdjebali
 segmental
 SEZ
-Sigmoid
+sigmoid
 Snakemake
 subcommand
 subcommands
