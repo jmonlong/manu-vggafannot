@@ -36,7 +36,7 @@ foirmat
 GAF
 GAM
 Gastrocnemius
-gastroesophageal
+Gastroesophageal
 GBZ
 genomic
 genotype
