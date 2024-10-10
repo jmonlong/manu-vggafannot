@@ -1,9 +1,9 @@
-## sequenceTubeMap
+## Sequence Tube Map
 
-We use a branch of the sequenceTubeMap repository which contains a few tweaks useful in our case. 
+We use a branch of the Sequence Tube Map repository which contains a few tweaks useful in our case. 
 In particular, the option to use a track's opacity to represent mapping quality or any integer score (e.g. read coverage).
 
-The sequenceTubeMap server can be started with:
+The Sequence Tube Map server can be started with:
 
 ```sh
 docker run  -it -m 6g -p 3210:3000 -v `pwd`:/data INSERT_DOCKER_IMAGE_HERE
@@ -24,14 +24,14 @@ Using:
 
 ![](edited_tubemap/hprc.calls.reads.het_ins.svg)
 
-### Known variants from the GWAS catalog and GTEx's eQTLs
+### Known variants from the GWAS Catalog and GTEx's eQTLs
 
 Using: 
 
 1. `hprc-v1.1-mc-grch38.gbz` as *graph*
 1. `hprc-v1.1-mc-grch38.gbz` as *haplotype*
-2. `gwasCatalog.hprc-v1.1-mc-grch38.sorted.gaf.gz` as *reads*. These are projected variants from the GWAS catalog produced and described in [`../variants`](../variants).
-2. `eQTLs.gaf.gz` as *reads*. These are projected expression QTLs from GTEx produced and described in [`../variants`](../variants).
+2. `gwasCatalog.hprc-v1.1-mc-grch38.sorted.gaf.gz` as *reads*. These are variants from the GWAS Catalog porjected into the pangenome, produced and described in [`../variants`](../variants).
+2. `eQTLs.gaf.gz` as *reads*. These are expression QTLs from GTEx projected into the pangenome, produced and described in [`../variants`](../variants).
 
 ![](edited_tubemap/rs806109.gwas.eqtls.svg)
 
@@ -69,9 +69,9 @@ Using:
 
 ![](edited_tubemap/)
 
-## BandageNG
+## Bandage-NG
 
-A helper script is available at [`prep_bandage_subgraph.py`](prep_bandage_subgraph.py) to extract and prepare a subgraph and annotatiosn for visualization in BandageNG.
+A helper script is available at [`prep_bandage_subgraph.py`](prep_bandage_subgraph.py) to extract and prepare a subgraph and annotatiosn for visualization in Bandage-NG.
 Briefly, it uses `vg chunk` to extract a subgraph and annotations (GAF files) for a specified region on the reference genome.
 The subgraph is converted in a GFA file that Bandage will take (putting the *P* paths last). 
 The GAF files are also merged, path names de-duplicated, and paths traversing missing nodes trimmed or filtered.
@@ -88,7 +88,7 @@ python3 prep_bandage_subgraph.py -p GRCh38#0#chr1:12881791-12882291 -g hprc-v1.1
 ```
 
 Here, *gene_CDS.gaf.gz* and *rm.gaf.gz* are annotation files produced and described in [`../annotate`](../annotate).
-This command took about 17 seconds to make two files that can be opened in BandageNG: 
+This command took about 17 seconds to make two files that can be opened in Bandage-NG: 
 
 - `chunk.gfa` with the subgraph. Load with *File->Load graph*
 - `chunk.gaf` with the annotations. Load with *File->Load path*

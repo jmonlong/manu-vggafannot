@@ -35,10 +35,22 @@ Build the docker container (do this once):
 docker build -t jmonlong-manubot .
 ```
 
+Or:
+
+```
+make docker
+```
+
 Then, make the manuscript's files:
 
 ```sh
 docker run -v `pwd`:/app -w /app -u `id -u $USER` -it jmonlong-manubot bash build/build.sh
+```
+
+Or:
+
+```
+make output/manuscript.pdf
 ```
 
 The HTML/PDF outputs are then in the `output` folder.
