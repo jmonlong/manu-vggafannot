@@ -29,8 +29,8 @@ header-includes: |
   <meta name="dc.date" content="2024-10-10" />
   <meta name="citation_publication_date" content="2024-10-10" />
   <meta property="article:published_time" content="2024-10-10" />
-  <meta name="dc.modified" content="2024-10-10T10:33:11+00:00" />
-  <meta property="article:modified_time" content="2024-10-10T10:33:11+00:00" />
+  <meta name="dc.modified" content="2024-10-10T11:40:50+00:00" />
+  <meta property="article:modified_time" content="2024-10-10T11:40:50+00:00" />
   <meta name="dc.language" content="en-US" />
   <meta name="citation_language" content="en-US" />
   <meta name="dc.relation.ispartof" content="Manubot" />
@@ -64,9 +64,9 @@ header-includes: |
   <meta name="citation_fulltext_html_url" content="https://jmonlong.github.io/manu-vggafannot/" />
   <meta name="citation_pdf_url" content="https://jmonlong.github.io/manu-vggafannot/manuscript.pdf" />
   <link rel="alternate" type="application/pdf" href="https://jmonlong.github.io/manu-vggafannot/manuscript.pdf" />
-  <link rel="alternate" type="text/html" href="https://jmonlong.github.io/manu-vggafannot/v/f8400b5054d4f930ef4c5cf4ba83e714e79fd86d/" />
-  <meta name="manubot_html_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/f8400b5054d4f930ef4c5cf4ba83e714e79fd86d/" />
-  <meta name="manubot_pdf_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/f8400b5054d4f930ef4c5cf4ba83e714e79fd86d/manuscript.pdf" />
+  <link rel="alternate" type="text/html" href="https://jmonlong.github.io/manu-vggafannot/v/cd39e69f9bfada1b82e417690b649d4af9676c78/" />
+  <meta name="manubot_html_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/cd39e69f9bfada1b82e417690b649d4af9676c78/" />
+  <meta name="manubot_pdf_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/cd39e69f9bfada1b82e417690b649d4af9676c78/manuscript.pdf" />
   <meta property="og:type" content="article" />
   <meta property="twitter:card" content="summary_large_image" />
   <link rel="icon" type="image/png" sizes="192x192" href="https://manubot.org/favicon-192x192.png" />
@@ -88,9 +88,9 @@ manubot-clear-requests-cache: false
 
 <small><em>
 This manuscript
-([permalink](https://jmonlong.github.io/manu-vggafannot/v/f8400b5054d4f930ef4c5cf4ba83e714e79fd86d/))
+([permalink](https://jmonlong.github.io/manu-vggafannot/v/cd39e69f9bfada1b82e417690b649d4af9676c78/))
 was automatically generated
-from [jmonlong/manu-vggafannot@f8400b5](https://github.com/jmonlong/manu-vggafannot/tree/f8400b5054d4f930ef4c5cf4ba83e714e79fd86d)
+from [jmonlong/manu-vggafannot@cd39e69](https://github.com/jmonlong/manu-vggafannot/tree/cd39e69f9bfada1b82e417690b649d4af9676c78)
 on October 10, 2024.
 </em></small>
 
@@ -290,7 +290,7 @@ Three paths are highlighted in red, blue and green.
 For each path, the node range *n-N*, between the minimum and maximum node IDs, is used for sorting the path.
 **C.** Overview of the workflow to sort a GAF file using `vg gamsort`, compress it with `bgzip` and index using `tabix`. 
 **D.** The small *.tbi* index file helps query slices of the GAF file quickly, and is usable with `tabix`, or `vg` subcommands like `find` or `chunk`.
-](https://github.com/jmonlong/manu-vggafannot/raw/fc8c37e2906c7f755fa229a08d4950267ebca9db/figures/gafindexing.png "GAF indexing"){#fig:index}
+](images/gafindexing.png "GAF indexing"){#fig:index}
 
 We added a GAF sorting feature to the `vg` toolkit's `gamsort` subcommand, available in `vg` version 1.56 and later (see Figure {@fig:index}C).
 It first sorts chunks of GAF records (e.g. reads), to avoid having to hold the entire set in memory.

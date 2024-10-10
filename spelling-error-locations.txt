@@ -121,7 +121,6 @@ content/03.methods.md:23:subcommands
 content/03.methods.md:23:tabix
 content/03.methods.md:23:tbi
 content/03.methods.md:24:GAF
-content/03.methods.md:24:jmonlong
 content/03.methods.md:26:GAF
 content/03.methods.md:26:subcommand
 content/03.methods.md:26:toolkit's
