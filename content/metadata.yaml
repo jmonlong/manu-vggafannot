@@ -44,6 +44,13 @@ authors:
     email: egarris5@uthsc.edu
     affiliations:
       - Department of Genetics, Genomics and Informatics, University of Tennessee Health Science Center, Memphis, TN, USA
+  - name: Giuseppe Narzisi
+    github: gnarzisi
+    orcid: 0000-0003-1118-8849
+    initials: GN
+    email: gnarzisi@nygenome.org
+    affiliations:
+      - New York Genome Center, New York, NY 10013, USA
   - name: Benedict Paten
     github: benedictpaten
     orcid: 0000-0001-8863-3539

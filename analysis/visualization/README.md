@@ -1,12 +1,13 @@
 ## Sequence Tube Map
 
-We use a branch of the Sequence Tube Map repository which contains a few tweaks useful in our case. 
+We use [the *color* branch](https://github.com/vgteam/sequenceTubeMap/tree/color) of the Sequence Tube Map repository which contains a few tweaks useful in our case. 
 In particular, the option to use a track's opacity to represent mapping quality or any integer score (e.g. read coverage).
+We have also prepared a Docker container at `quay.io/jmonlong/sequencetubemap:vggafannot`.
 
 The Sequence Tube Map server can be started with:
 
 ```sh
-docker run  -it -m 6g -p 3210:3000 -v `pwd`:/data INSERT_DOCKER_IMAGE_HERE
+docker run  -it -m 6g -p 3210:3000 -v `pwd`:/data quay.io/jmonlong/sequencetubemap:vggafannot
 ```
 
 Then visiting [http://localhost:3210/](http://localhost:3210/).
