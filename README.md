@@ -7,7 +7,7 @@
 
 **Work in progress!**
 
-This repository is a manuscript about how to represent and index annotations in a pangenome graph using GAF files.
+This repository is a manuscript about how to represent and index annotations in a pangenome graph using [GAF](https://github.com/lh3/gfatools/blob/master/doc/rGFA.md#the-graph-alignment-format-gaf) files.
 See links to the manuscript or slides in the badges above.
 
 Moreover, the [`analysis`](analysis) folder hosts scripts and workflows used for the analysis. 

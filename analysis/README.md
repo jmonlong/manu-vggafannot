@@ -10,4 +10,6 @@ Below are general commands used by those scripts and workflows to prepare, sort,
 
 ## Getting started with GAF indexing
 
+- GAF specs: https://github.com/lh3/gfatools/blob/master/doc/rGFA.md#the-graph-alignment-format-gaf
+
 *Soon...*
