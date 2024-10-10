@@ -13,6 +13,7 @@ author-meta:
 - Sarah Djebali
 - Toshiyuki T. Yokoyama
 - Erik Garrison
+- Giuseppe Narzisi
 - Benedict Paten
 - Jean Monlong
 header-includes: |
@@ -29,8 +30,8 @@ header-includes: |
   <meta name="dc.date" content="2024-10-10" />
   <meta name="citation_publication_date" content="2024-10-10" />
   <meta property="article:published_time" content="2024-10-10" />
-  <meta name="dc.modified" content="2024-10-10T12:47:33+00:00" />
-  <meta property="article:modified_time" content="2024-10-10T12:47:33+00:00" />
+  <meta name="dc.modified" content="2024-10-10T20:38:51+00:00" />
+  <meta property="article:modified_time" content="2024-10-10T20:38:51+00:00" />
   <meta name="dc.language" content="en-US" />
   <meta name="citation_language" content="en-US" />
   <meta name="dc.relation.ispartof" content="Manubot" />
@@ -52,6 +53,9 @@ header-includes: |
   <meta name="citation_author" content="Erik Garrison" />
   <meta name="citation_author_institution" content="Department of Genetics, Genomics and Informatics, University of Tennessee Health Science Center, Memphis, TN, USA" />
   <meta name="citation_author_orcid" content="0000-0003-3821-631X" />
+  <meta name="citation_author" content="Giuseppe Narzisi" />
+  <meta name="citation_author_institution" content="New York Genome Center, New York, NY 10013, USA" />
+  <meta name="citation_author_orcid" content="0000-0003-1118-8849" />
   <meta name="citation_author" content="Benedict Paten" />
   <meta name="citation_author_institution" content="UC Santa Cruz Genomics Institute, University of California, Santa Cruz, Santa Cruz, CA, USA" />
   <meta name="citation_author_orcid" content="0000-0001-8863-3539" />
@@ -64,9 +68,9 @@ header-includes: |
   <meta name="citation_fulltext_html_url" content="https://jmonlong.github.io/manu-vggafannot/" />
   <meta name="citation_pdf_url" content="https://jmonlong.github.io/manu-vggafannot/manuscript.pdf" />
   <link rel="alternate" type="application/pdf" href="https://jmonlong.github.io/manu-vggafannot/manuscript.pdf" />
-  <link rel="alternate" type="text/html" href="https://jmonlong.github.io/manu-vggafannot/v/16569fe3a3b1ffce949aea58c1849febe6679547/" />
-  <meta name="manubot_html_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/16569fe3a3b1ffce949aea58c1849febe6679547/" />
-  <meta name="manubot_pdf_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/16569fe3a3b1ffce949aea58c1849febe6679547/manuscript.pdf" />
+  <link rel="alternate" type="text/html" href="https://jmonlong.github.io/manu-vggafannot/v/3f72ad238dd15dfdd767ca2092cc4f0c94c8e539/" />
+  <meta name="manubot_html_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/3f72ad238dd15dfdd767ca2092cc4f0c94c8e539/" />
+  <meta name="manubot_pdf_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/3f72ad238dd15dfdd767ca2092cc4f0c94c8e539/manuscript.pdf" />
   <meta property="og:type" content="article" />
   <meta property="twitter:card" content="summary_large_image" />
   <link rel="icon" type="image/png" sizes="192x192" href="https://manubot.org/favicon-192x192.png" />
@@ -88,9 +92,9 @@ manubot-clear-requests-cache: false
 
 <small><em>
 This manuscript
-([permalink](https://jmonlong.github.io/manu-vggafannot/v/16569fe3a3b1ffce949aea58c1849febe6679547/))
+([permalink](https://jmonlong.github.io/manu-vggafannot/v/3f72ad238dd15dfdd767ca2092cc4f0c94c8e539/))
 was automatically generated
-from [jmonlong/manu-vggafannot@16569fe](https://github.com/jmonlong/manu-vggafannot/tree/16569fe3a3b1ffce949aea58c1849febe6679547)
+from [jmonlong/manu-vggafannot@3f72ad2](https://github.com/jmonlong/manu-vggafannot/tree/3f72ad238dd15dfdd767ca2092cc4f0c94c8e539)
 on October 10, 2024.
 </em></small>
 
@@ -152,6 +156,17 @@ on October 10, 2024.
     <br>
   <small>
      Department of Genetics, Genomics and Informatics, University of Tennessee Health Science Center, Memphis, TN, USA
+  </small>
+
++ **Giuseppe Narzisi**
+  <br>
+    ![ORCID icon](images/orcid.svg){.inline_icon width=16 height=16}
+    [0000-0003-1118-8849](https://orcid.org/0000-0003-1118-8849)
+    · ![GitHub icon](images/github.svg){.inline_icon width=16 height=16}
+    [gnarzisi](https://github.com/gnarzisi)
+    <br>
+  <small>
+     New York Genome Center, New York, NY 10013, USA
   </small>
 
 + **Benedict Paten**
@@ -409,13 +424,8 @@ The scripts and pipeline to annotate variants is available in the public reposit
 The Sequence Tube Map was developed to interactively explore a pangenome graph, haplotypes traversing it, and reads mapping to it[@tubemap]. 
 It internally calls *vg* to extract the relevant slice of the pangenome graph and reads, which previously could only be in the GAM format.
 We updated the Sequence Tube Map to accept GAF files that have been sorted, compressed and indexed as in [Indexing paths in GAF files].
-
-<!-- Multi-read-track support is meant to be for the Lancet paper with Rajeeva at NYGC -->
-The Sequence Tube Map has also recently added support for displaying multiple layers or "tracks" of haplotypes or reads[@lancet].
-Together with the GAF support presented here, this allows the user to add several tracks of annotations from indexed GAF files to the Sequence Tube Map as if they were read files, or alongside actual read files.
-The Sequence Tube Map supports assigning a different color or color palette to each track, to facilitate the visualization of different datasets in the same local pangenome region. 
-We have extended this functionality with a new option to use an element's opacity to represent an integer score, like a mapping quality or read coverage.
-For example, one can now visualize the coding regions of genes and coverage tracks for different cell types from the ENCODE project, as described in [Coverage of seven functional datasets from ENCODE] and highlighted in Figure @fig:tubemap.
+We have also extended it to use an element's opacity to represent an integer score, like a mapping quality or read coverage.
+The variable transparency helps highlighting regions of high coverage when visualizing coverage tracks from the ENCODE project (see [Coverage of seven functional datasets from ENCODE] and Figure {@fig:tubemap}D).
 
 ### Visualization in Bandage-NG
 
@@ -466,8 +476,8 @@ To showcase our annotation projection implementation, we projected annotations f
 This included genes, segmental duplications, tandem repeats, and repeat annotations. 
 `vg annotate` was able to project ~4M gene annotations into the pangenome in ~11 minutes, and ~5.5M repeats from RepeatMasker in ~3 minutes, using on average 2 threads and 21 GB of RAM. 
 We were able to quickly query these rich annotations with `vg`, and visualize them using tools like the Sequence Tube Map or Bandage-NG.
-Using Bandage-NG, we were able to prepare a visualization illustrating a mobile element insertion (Fig. {@fig:bandage}).
-We also examined a gene annotation using the Sequence Tube Map (Fig. {@fig:tubemap}A).
+Using Bandage-NG, we were able to prepare a visualization illustrating a mobile element insertion (Figure {@fig:bandage}).
+We also examined a gene annotation using the Sequence Tube Map (Figure {@fig:tubemap}A).
 
 ![
 **Visualization examples with Bandage-NG**
@@ -611,11 +621,12 @@ While it provides an important building block, it is clear that more needs to be
 `vg` is available at [https://github.com/vgteam/vg](https://github.com/vgteam/vg).
 Bandage-NG is available at [https://github.com/asl/BandageNG](https://github.com/asl/BandageNG).
 The Sequence Tube Map is hosted at [https://github.com/vgteam/sequenceTubemap](https://github.com/vgteam/sequenceTubemap)
+The modified version of the Sequence Tube Map used to make Figure {@fig:tubemap} is available in the `quay.io/jmonlong/sequencetubemap:vggafannot` Docker container. 
 
 The analysis presented in this manuscript is documented in the repository at [https://github.com/jmonlong/manu-vggafannot](https://github.com/jmonlong/manu-vggafannot)[@repo].
 It contains scripts used to prepare the annotation files, commands and automated pipelines used to annotate them in the pangenome, and helper scripts to summarize the output files.
 
-The annotations of the HPRC v1.1 pangenome were deposited on Zenodo at `??ZENODO_LINK??`{.red}.
+The annotations of the HPRC v1.1 pangenome were deposited on Zenodo at `https://doi.org/10.5281/zenodo.13904205`.
 This includes gene annotations, repeats from RepeatMasker, simple repeats and segmental duplications.
 A coverage track for the seven ENCODE ATAC-seq samples is also available in this repository.
 
@@ -628,7 +639,7 @@ We would like the thank the ENCODE consortium and the laboratory of Michael Snyd
 
 AMN, GH, JM, TTY, and EG contributed code to the vg toolkit (*annotate*, *pack*, *call* subcommands) with support from BP.
 AMN integrated new code to HTSlib.
-AMN and DC implemented new features in the Sequence Tube Map.
+AMN and DC implemented new features in the Sequence Tube Map with support from GN.
 SD selected and analyzed the ATAC-seq datasets from ENCODE.
 JM conceived the study, analyzed data, and drafted the manuscript.
 All authors contributed in reviewing the text and content of the manuscript.
