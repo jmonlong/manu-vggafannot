@@ -8,6 +8,7 @@ vgsv	doi:10.1186/s13059-020-1941-7	doi:10.1186/s13059-020-1941-7	Se424ooE
 doi:10.1371/journal.pcbi.1006731	doi:10.1371/journal.pcbi.1006731	doi:10.1371/journal.pcbi.1006731	vlRarFR8
 doi:10.1186/s13059-020-02038-8	doi:10.1186/s13059-020-02038-8	doi:10.1186/s13059-020-02038-8	1D2ZuNC2d
 doi:10.1038/s41592-022-01731-9	doi:10.1038/s41592-022-01731-9	doi:10.1038/s41592-022-01731-9	1Cbt4asSj
+https://github.com/asl/BandageNG	https://github.com/asl/BandageNG	url:https://github.com/asl/BandageNG	1Fp6JRSHg
 bandage	doi:10.1093/bioinformatics/btv383	doi:10.1093/bioinformatics/btv383	hbEIE3nt
 doi:10.1093/bioinformatics/bty1046	doi:10.1093/bioinformatics/bty1046	doi:10.1093/bioinformatics/bty1046	18wtkgoQ8
 tubemap	doi:10.1093/bioinformatics/btz597	doi:10.1093/bioinformatics/btz597	15LPYoGeb
@@ -20,12 +21,11 @@ minigraph_cactus	doi:10.1038/s41587-023-01793-w	doi:10.1038/s41587-023-01793-w	d
 pggb	doi:10.1101/2023.04.05.535718	doi:10.1101/2023.04.05.535718	62knLjdQ
 tabix	doi:10.1093/bioinformatics/btq671	doi:10.1093/bioinformatics/btq671	wKJ68II7
 hapsamp	doi:10.1101/2023.12.13.571553	doi:10.1101/2023.12.13.571553	F6tIe3Ob
-repo	https://github.com/jmonlong/manu-vggafannot	url:https://github.com/jmonlong/manu-vggafannot	K5KcBvOm
 doi:10.1101/gr.233460.117	doi:10.1101/gr.233460.117	doi:10.1101/gr.233460.117	1BnfHjbCA
 libbdsg	doi:10.1093/bioinformatics/btaa640	doi:10.1093/bioinformatics/btaa640	bbLg7oSS
 encode	doi:10.1038/nature11247	doi:10.1038/nature11247	15J98V2qM
 encode_portal	doi:10.1093/nar/gkz1062	doi:10.1093/nar/gkz1062	139LqmNdL
 doi:10.1093/nar/gkac1010	doi:10.1093/nar/gkac1010	doi:10.1093/nar/gkac1010	VRCjjZ9L
 doi:10.1038/ng.2653	doi:10.1038/ng.2653	doi:10.1038/ng.2653	187XBwaz7
-https://github.com/asl/BandageNG	https://github.com/asl/BandageNG	url:https://github.com/asl/BandageNG	1Fp6JRSHg
-hprc	doi:10.1038/s41586-023-05896-x	doi:10.1038/s41586-023-05896-x	CqG8RQye
+lancet	lancet	lancet	51bZ4wjn
+repo	https://github.com/jmonlong/manu-vggafannot	url:https://github.com/jmonlong/manu-vggafannot	K5KcBvOm
