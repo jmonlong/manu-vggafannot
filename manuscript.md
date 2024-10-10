@@ -29,8 +29,8 @@ header-includes: |
   <meta name="dc.date" content="2024-10-10" />
   <meta name="citation_publication_date" content="2024-10-10" />
   <meta property="article:published_time" content="2024-10-10" />
-  <meta name="dc.modified" content="2024-10-10T12:08:02+00:00" />
-  <meta property="article:modified_time" content="2024-10-10T12:08:02+00:00" />
+  <meta name="dc.modified" content="2024-10-10T12:47:33+00:00" />
+  <meta property="article:modified_time" content="2024-10-10T12:47:33+00:00" />
   <meta name="dc.language" content="en-US" />
   <meta name="citation_language" content="en-US" />
   <meta name="dc.relation.ispartof" content="Manubot" />
@@ -64,9 +64,9 @@ header-includes: |
   <meta name="citation_fulltext_html_url" content="https://jmonlong.github.io/manu-vggafannot/" />
   <meta name="citation_pdf_url" content="https://jmonlong.github.io/manu-vggafannot/manuscript.pdf" />
   <link rel="alternate" type="application/pdf" href="https://jmonlong.github.io/manu-vggafannot/manuscript.pdf" />
-  <link rel="alternate" type="text/html" href="https://jmonlong.github.io/manu-vggafannot/v/b47d942085d58f98605ce2fcf62c3aa2fed3af0c/" />
-  <meta name="manubot_html_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/b47d942085d58f98605ce2fcf62c3aa2fed3af0c/" />
-  <meta name="manubot_pdf_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/b47d942085d58f98605ce2fcf62c3aa2fed3af0c/manuscript.pdf" />
+  <link rel="alternate" type="text/html" href="https://jmonlong.github.io/manu-vggafannot/v/16569fe3a3b1ffce949aea58c1849febe6679547/" />
+  <meta name="manubot_html_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/16569fe3a3b1ffce949aea58c1849febe6679547/" />
+  <meta name="manubot_pdf_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/16569fe3a3b1ffce949aea58c1849febe6679547/manuscript.pdf" />
   <meta property="og:type" content="article" />
   <meta property="twitter:card" content="summary_large_image" />
   <link rel="icon" type="image/png" sizes="192x192" href="https://manubot.org/favicon-192x192.png" />
@@ -88,9 +88,9 @@ manubot-clear-requests-cache: false
 
 <small><em>
 This manuscript
-([permalink](https://jmonlong.github.io/manu-vggafannot/v/b47d942085d58f98605ce2fcf62c3aa2fed3af0c/))
+([permalink](https://jmonlong.github.io/manu-vggafannot/v/16569fe3a3b1ffce949aea58c1849febe6679547/))
 was automatically generated
-from [jmonlong/manu-vggafannot@b47d942](https://github.com/jmonlong/manu-vggafannot/tree/b47d942085d58f98605ce2fcf62c3aa2fed3af0c)
+from [jmonlong/manu-vggafannot@16569fe](https://github.com/jmonlong/manu-vggafannot/tree/16569fe3a3b1ffce949aea58c1849febe6679547)
 on October 10, 2024.
 </em></small>
 
@@ -190,7 +190,7 @@ Jean Monlong \<jean.monlong@inserm.fr\>.
 The current reference genome is the backbone of diverse and rich annotations. 
 Simple text formats, like VCF or BED, have been widely adopted and helped the critical exchange of genomic information. 
 There is a dire need for tools and formats enabling pangenomic annotation to facilitate such enrichment of pangenomic references.
-The Graph Alignment Format (GAF) is a text format, tab-delimitted like BED/VCF files, which was proposed to represent alignments.
+The Graph Alignment Format (GAF) is a text format, tab-delimited like BED/VCF files, which was proposed to represent alignments.
 GAF could also be used to store paths representing annotations in a pangenome graph, but there are no tools to index and query them efficiently.
 
 Here, we present extensions to vg and HTSlib that provide efficient sorting, indexing, and querying for GAF files.
@@ -261,7 +261,7 @@ There is no way to provide an *offset* or *length* value to specify the base at 
 
 There is a dire need for a format supporting annotations in the pangenome that is easy to create, index, and query.
 Noting the success of the BED, GFF, or VCF formats, we see a critical need to exchange (pan)genomic information and allow tools to access additional information in the pangenomic space.
-The Graph Alignment Format (GAF) text format, which was proposed to represent alignments,could also be used to describe annotations in a pangenome graph.
+The Graph Alignment Format (GAF) text format, which was proposed to represent alignments[@minigraph], could also be used to describe annotations in a pangenome graph.
 However, the lack of techniques to compress, index, and query it limits its adoption for larger-scale annotation sets.
 Here, we present new features of the `vg` and HTSlib ecosystem that provide efficient indexing and querying for pangenomic annotations represented as paths in the GAF format.
 We illustrate its values in several applications: projecting gene and repeat annotations into the pangenome and visualizing them, summarizing open chromatin from epigenomic sequencing datasets, and positioning known variants in the pangenome.
@@ -345,7 +345,7 @@ The name of the annotation record in the output file is taken from the BED file'
 
 We tested this approach by projecting the gene annotations, repeat annotations, and segmental duplication annotations from each of the 88 assembled haplotypes from the HPRC Year 1 data release into version 1.1 of the GRCh38-based HPRC Minigraph-Cactus pangenome.
 The annotations were downloaded from the HPRC public repository at `https://github.com/human-pangenomics/HPP_Year1_Assemblies/tree/main/annotation_index`.
-The gene annotations from CAT[@doi:10.1101/gr.233460.117] (GFF files) were downloaded using the URLs in the `Year1_assemblies_v2_genbank_CAT_genes.index` file, the repeat annotations from RepeatMasker (BED files)  from `Year1_assemblies_v2_genbank_Repeat_Masker.index`, segmental duplications (BED files) from `Year1_assemblies_v2_genbank_Seg_Dups.index`, and simple repeats from `Year1_assemblies_v2_genbank_TRF.index`.
+The gene annotations from CAT[@doi:10.1101/gr.233460.117] (GFF files) were downloaded using the URLs in the `Year1_assemblies_v2_genbank_CAT_genes.index` file, the repeat annotations from RepeatMasker (BED files) from `Year1_assemblies_v2_genbank_Repeat_Masker.index`, segmental duplications (BED files) from `Year1_assemblies_v2_genbank_Seg_Dups.index`, and simple repeats from `Year1_assemblies_v2_genbank_TRF.index`.
 A helper script was implemented to prepare the BED files with informative record names.
 For example, for repeats from the RepeatMasker annotation, we name each element by its repeat class and repeat family.
 The projection of those annotations for each haplotype into the pangenome was automated with a Snakemake workflow available in the `analysis/annotate` folder of this paper's repository (see [Code and data availability]).
@@ -380,7 +380,7 @@ The output to `vg pack` (with `-Q 1` to keep reads with mapping quality of at le
 ### Annotating known variants
 
 We implemented an approach to find variants from public databases in the pangenome, producing a GAF file with a pangenome path for each variant.
-To accomplish this, we match input variants againt the VCF representation of the pangenome, produced by running `vg deconstruct` on the pangenome file.
+To accomplish this, we match input variants against the VCF representation of the pangenome, produced by running `vg deconstruct` on the pangenome file.
 This VCF file contains all variants and their paths through the pangenome in the *AT* *INFO* field.
 We look for variants in the pangenome VCF that overlap each input variant.
 When an overlapping variant is found, we extract one of two paths from its *AT* field.
@@ -438,7 +438,7 @@ The helper script and a tutorial are available at the `analysis/visualization` f
 ### Sorting and indexing short sequencing reads
 
 Read sorting (see [Indexing paths in GAF files]) was tested on about 30X coverage of Illumina HiSeq paired-end 150bp reads for the HG002 sample.
-The plain gzipped GAF file with about 682 million reads was sorted and compressed in 6h32 using a single sort thread and about 2GiB of memory (Table @tbl:readsorting_summary).
+The plain gzipped GAF file with about 682 million reads was sorted and compressed in 6h32 using a single sort thread and about 2GB of memory (Table @tbl:readsorting_summary).
 Indexing the sorted GAF with `tabix` took 18 minutes.
 We compared that approach with the existing read sorting implementation in `vg`, which operates on files in the Protobuf-based GAM format[@vg].
 Sorting a GAM with the same reads took 11h47 using a single thread and about 6 GB of memory. 
@@ -464,7 +464,7 @@ Table: Resources used to sort short sequencing reads for a 30x coverage Illumina
 
 To showcase our annotation projection implementation, we projected annotations for all HPRC haplotypes into the HPRC pangenome (see [Projecting annotations into a pangenome]). 
 This included genes, segmental duplications, tandem repeats, and repeat annotations. 
-`vg annotate` was able to project ~4M gene annotations into the pangenome in in ~16 minutes, and ~5.5M repeats from RepeatMasker in ~9 minutes, on a single-threaded machine. 
+`vg annotate` was able to project ~4M gene annotations into the pangenome in ~11 minutes, and ~5.5M repeats from RepeatMasker in ~3 minutes, using on average 2 threads and 21 GB of RAM. 
 We were able to quickly query these rich annotations with `vg`, and visualize them using tools like the Sequence Tube Map or Bandage-NG.
 Using Bandage-NG, we were able to prepare a visualization illustrating a mobile element insertion (Fig. {@fig:bandage}).
 We also examined a gene annotation using the Sequence Tube Map (Fig. {@fig:tubemap}A).
@@ -566,7 +566,7 @@ Tools to visualize pangenomes will greatly benefit from a simple pipeline to cre
 Second, this work is critical to allow the community to make, share and reuse annotations in the pangenome space.
 The GAF format is already used by multiple independent tools, although mostly for read mapping.
 Thanks to our work, GAF files can now be indexed and queried efficiently, like BED, VCF, or GFF on a linear reference genome.
-This will prove useful for those working with GAF-format read mappings, and also enables the foirmat to be used for large annotation sets.
+This will prove useful for those working with GAF-format read mappings, and also enables the format to be used for large annotation sets.
 We showcase how annotations on a linear genome can be projected into the pangenome and stored in GAF format.
 We believe it could become the *de facto* format to represent annotations on the pangenome, thus accelerating adoption of the new pangenomic paradigm by the broader genomics field.
 <!-- Although informative annotations could be analyzed already, the current approach has some limitations. -->
@@ -595,10 +595,9 @@ There is still no clear solution to lift annotations from one reference/haplotyp
 The homology information embedded in the pangenome can sometimes be used to propagate annotations from one haplotype to others more easily. 
 This strategy is used by annotation tools like CAT[@doi:10.1101/gr.233460.117], and improves over reanalysis of each haplotype from scratch.
 In the future, these techniques might help propagate other types of annotations across the pangenome more efficiently than by reanalyzing the raw data from scratch on each haplotype.
-`something about odgi paths/untangle maybe`{.red}
 
 Our GAF-based approach also highlights the limitations of the existing tool support for GAF files.
-Some tools, like Bandage-NG or GfaViz, require manual pre-processing, such as extracting a subgraph and integrating the annotations as embedded paths.
+Some tools, like Bandage-NG or GfaViz, require manual pre-processing, such as extracting and post-processing a subgraph and annotations.
 The Sequence Tube Map can now handle indexed bgzipped GAF files, but the query time for large pangenomes remains long in practice.
 Integrating annotation metadata into its interface as a first-class data type will also require a significant amount of development.
 Overall, we stress the need for visualization tools that can efficiently lay out and organize many paths through a pangenome.
@@ -622,6 +621,7 @@ A coverage track for the seven ENCODE ATAC-seq samples is also available in this
 
 ## Acknowledgments
 
+Integration of GAF in SequenceTubeMap was supported by the National Cancer Institute of the National Institutes of Health under Award Number U01CA253405.
 We would like the thank the ENCODE consortium and the laboratory of Michael Snyder for making the ATAC-seq datasets available.
 
 ## Author contribution statement

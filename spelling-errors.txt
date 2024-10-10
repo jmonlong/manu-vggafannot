@@ -1,6 +1,5 @@
 adamnovak
 adjacencies
-againt
 AluYa
 AMN
 ATAC
@@ -19,9 +18,8 @@ contigs
 cov
 CSD
 CSV
-Dataset
+dataset
 datasets
-delimitted
 DFR
 Djebali
 duplications
@@ -32,11 +30,10 @@ epigenetic
 epigenomic
 eQTLs
 facto
-foirmat
 GAF
 GAM
 Gastrocnemius
-gastroesophageal
+Gastroesophageal
 GBZ
 genomic
 genotype
@@ -50,7 +47,7 @@ GH
 GiB
 glennhickey
 GRCh
-GTEX
+GTEx
 GWAS
 gzip
 gzipped
@@ -102,6 +99,7 @@ runtime
 runtimes
 sdjebali
 segmental
+SequenceTubeMap
 SEZ
 sigmoid
 Snakemake
