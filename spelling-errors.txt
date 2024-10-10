@@ -36,7 +36,7 @@ foirmat
 GAF
 GAM
 Gastrocnemius
-Gastroesophageal
+gastroesophageal
 GBZ
 genomic
 genotype
@@ -73,7 +73,7 @@ libbdsg
 linearized
 medialis
 MiB
-minigraph
+Minigraph
 MoMI
 Monlong
 naïve
