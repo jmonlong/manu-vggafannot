@@ -96,17 +96,18 @@ kable(rc.df)
 bm.df %>% group_by(task) %>% summarize(cpu_h=mean(cpu_time/3600),
                                        h=mean(s/3600),
                                        mean_load=mean(mean_load),
-                                       max_rss=mean(max_rss)) %>%
+                                       max_rss=mean(max_rss),
+                                       max_rss_gib=max_rss/1024) %>%
   kable(format.args=list(big.mark=','))
 ```
 
-| task              |     cpu_h |         h | mean_load |      max_rss |
-|:------------------|----------:|----------:|----------:|-------------:|
-| convert_gbz_to_pg | 0.0802611 | 0.0815075 |  98.39000 | 1.380730e+04 |
-| index_gaf         | 0.0034377 | 0.0060114 |  61.83286 | 5.341429e+00 |
-| make_cov          | 2.8556937 | 1.8409936 | 155.13571 | 1.057454e+05 |
-| map_reads         | 7.0435706 | 0.9516088 | 737.48429 | 5.566352e+04 |
-| sort_cov_gaf      | 0.2322988 | 0.2243155 | 106.23714 | 9.334629e+02 |
+| task              |     cpu_h |         h | mean_load |      max_rss | max_rss_gib |
+|:------------------|----------:|----------:|----------:|-------------:|------------:|
+| convert_gbz_to_pg | 0.0802611 | 0.0815075 |  98.39000 | 1.380730e+04 |  13.4836914 |
+| index_gaf         | 0.0034377 | 0.0060114 |  61.83286 | 5.341429e+00 |   0.0052162 |
+| make_cov          | 2.8556937 | 1.8409936 | 155.13571 | 1.057454e+05 | 103.2669950 |
+| map_reads         | 7.0435706 | 0.9516088 | 737.48429 | 5.566352e+04 |  54.3589076 |
+| sort_cov_gaf      | 0.2322988 | 0.2243155 | 106.23714 | 9.334629e+02 |   0.9115848 |
 
 ### Summary for each sample
 
@@ -117,7 +118,7 @@ samp.labs = c("Breast epithelium", "Gastrocnemius medialis", "Gastroesophageal s
               "Peyer's patch", "Sigmoid colon", "Spleen", "Thyroid gland")
 
 merge(bm.df, rc.df) %>%
-  mutate(res=paste0(round(cpu_time/3600, 1), ' cpu.h (', round(max_rss/1024), ' Gb)'),
+  mutate(res=paste0(round(cpu_time/3600, 1), ' CPU-H (', round(max_rss/1024), ' GiB)'),
          read=round(read/1e6, 1),
          task=factor(task,
                      c('make_cov', 'map_reads', 'sort_cov_gaf'),
@@ -131,13 +132,13 @@ merge(bm.df, rc.df) %>%
 
 | sample | read | sorting + compressing + indexing | read mapping | coverage track |
 |:---|---:|:---|:---|:---|
-| Breast epithelium | 193.6 | 0.3 cpu.h (1 Gb) | 8.9 cpu.h (54 Gb) | 3 cpu.h (109 Gb) |
-| Gastrocnemius medialis | 98.8 | 0.3 cpu.h (1 Gb) | 4.8 cpu.h (54 Gb) | 2.6 cpu.h (99 Gb) |
-| Gastroesophageal sphincter | 168.5 | 0.2 cpu.h (1 Gb) | 7.3 cpu.h (54 Gb) | 3 cpu.h (108 Gb) |
-| Peyer’s patch | 145.3 | 0.2 cpu.h (1 Gb) | 8 cpu.h (54 Gb) | 3 cpu.h (104 Gb) |
-| Sigmoid colon | 173.5 | 0.3 cpu.h (1 Gb) | 8.2 cpu.h (54 Gb) | 3 cpu.h (106 Gb) |
-| Spleen | 157.2 | 0.2 cpu.h (1 Gb) | 7.6 cpu.h (54 Gb) | 3 cpu.h (104 Gb) |
-| Thyroid gland | 91.4 | 0.1 cpu.h (1 Gb) | 4.6 cpu.h (54 Gb) | 2.5 cpu.h (94 Gb) |
+| Breast epithelium | 193.6 | 0.3 CPU-H (1 GiB) | 8.9 CPU-H (54 GiB) | 3 CPU-H (109 GiB) |
+| Gastrocnemius medialis | 98.8 | 0.3 CPU-H (1 GiB) | 4.8 CPU-H (54 GiB) | 2.6 CPU-H (99 GiB) |
+| Gastroesophageal sphincter | 168.5 | 0.2 CPU-H (1 GiB) | 7.3 CPU-H (54 GiB) | 3 CPU-H (108 GiB) |
+| Peyer’s patch | 145.3 | 0.2 CPU-H (1 GiB) | 8 CPU-H (54 GiB) | 3 CPU-H (104 GiB) |
+| Sigmoid colon | 173.5 | 0.3 CPU-H (1 GiB) | 8.2 CPU-H (54 GiB) | 3 CPU-H (106 GiB) |
+| Spleen | 157.2 | 0.2 CPU-H (1 GiB) | 7.6 CPU-H (54 GiB) | 3 CPU-H (104 GiB) |
+| Thyroid gland | 91.4 | 0.1 CPU-H (1 GiB) | 4.6 CPU-H (54 GiB) | 2.5 CPU-H (94 GiB) |
 
 ## Summary of the coverage tracks
 

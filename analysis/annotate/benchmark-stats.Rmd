@@ -27,9 +27,11 @@ bm.df = bm.df %>%
 
 ```{r}
 bm.df %>% group_by(task) %>% summarize(cpu_h=mean(cpu_time/3600),
+                                       cpu_m=mean(cpu_time/60),
                                        min=mean(s/60),
                                        mean_load=mean(mean_load),
-                                       max_rss=mean(max_rss)) %>%
+                                       max_rss=mean(max_rss),
+                                       max_rss_gib=max_rss/1024) %>%
   kable(format.args=list(big.mark=','))
 ```
 
@@ -38,9 +40,11 @@ bm.df %>% group_by(task) %>% summarize(cpu_h=mean(cpu_time/3600),
 ```{r}
 bm.df %>% filter(task=='vg_annotate') %>% mutate(input=gsub('(.+)_.+', '\\1', sample)) %>%
   group_by(input) %>% summarize(cpu_h=mean(cpu_time/3600),
+                                cpu_m=mean(cpu_time/60),
                                 min=mean(s/60),
                                 mean_load=mean(mean_load),
-                                max_rss=mean(max_rss)) %>%
+                                max_rss=mean(max_rss),
+                                max_rss_gib=max_rss/1024) %>%
   kable(format.args=list(big.mark=','))
 ```
 

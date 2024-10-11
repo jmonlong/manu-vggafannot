@@ -43,7 +43,8 @@ kable(rc.df)
 bm.df %>% group_by(task) %>% summarize(cpu_h=mean(cpu_time/3600),
                                        h=mean(s/3600),
                                        mean_load=mean(mean_load),
-                                       max_rss=mean(max_rss)) %>%
+                                       max_rss=mean(max_rss),
+                                       max_rss_gib=max_rss/1024) %>%
   kable(format.args=list(big.mark=','))
 ```
 
@@ -56,7 +57,7 @@ samp.labs = c("Breast epithelium", "Gastrocnemius medialis", "Gastroesophageal s
               "Peyer's patch", "Sigmoid colon", "Spleen", "Thyroid gland")
 
 merge(bm.df, rc.df) %>%
-  mutate(res=paste0(round(cpu_time/3600, 1), ' cpu.h (', round(max_rss/1024), ' Gb)'),
+  mutate(res=paste0(round(cpu_time/3600, 1), ' CPU-H (', round(max_rss/1024), ' GiB)'),
          read=round(read/1e6, 1),
          task=factor(task,
                      c('make_cov', 'map_reads', 'sort_cov_gaf'),

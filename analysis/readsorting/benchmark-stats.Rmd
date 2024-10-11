@@ -1,0 +1,31 @@
+---
+output: github_document
+---
+
+```{r}
+library(dplyr)
+library(knitr)
+library(tidyr)
+```
+
+## Benchmark files produced by snakemake
+
+```{r}
+bm.df = lapply(list.files('benchmark'), function(fpath){
+  df = read.table(paste0('benchmark/', fpath), as.is=TRUE, sep='\t', header=TRUE)
+  df$task = gsub('.benchmark.tsv', '', fpath)
+  df
+}) %>% bind_rows
+```
+
+### Average resources per task
+
+```{r}
+bm.df %>% group_by(task) %>% summarize(cpu_h=mean(cpu_time/3600),
+                                       cpu_m=mean(cpu_time/60),
+                                       min=mean(s/60),
+                                       mean_load=mean(mean_load),
+                                       max_rss=mean(max_rss),
+                                       max_rss_gib=max_rss/1024) %>%
+  kable(format.args=list(big.mark=','))
+```
