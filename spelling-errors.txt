@@ -72,7 +72,7 @@ libbdsg
 linearized
 medialis
 MiB
-minigraph
+Minigraph
 MoMI
 Monlong
 naïve
@@ -82,7 +82,7 @@ Novak
 Novaseq
 opacities
 Pangenie
-Pangenome
+pangenome
 pangenome’s
 pangenomes
 pangenomic

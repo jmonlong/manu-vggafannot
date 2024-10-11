@@ -13,7 +13,7 @@
   <meta name="author" content="Giuseppe Narzisi" />
   <meta name="author" content="Benedict Paten" />
   <meta name="author" content="Jean Monlong" />
-  <meta name="dcterms.date" content="2024-10-10" />
+  <meta name="dcterms.date" content="2024-10-11" />
   <meta name="keywords" content="pangenome, annotation, alignment" />
   <title>Efficient indexing and querying of annotations in a pangenome graph</title>
   <style>
@@ -58,11 +58,11 @@
   <meta name="citation_title" content="Efficient indexing and querying of annotations in a pangenome graph" />
   <meta property="og:title" content="Efficient indexing and querying of annotations in a pangenome graph" />
   <meta property="twitter:title" content="Efficient indexing and querying of annotations in a pangenome graph" />
-  <meta name="dc.date" content="2024-10-10" />
-  <meta name="citation_publication_date" content="2024-10-10" />
-  <meta property="article:published_time" content="2024-10-10" />
-  <meta name="dc.modified" content="2024-10-10T20:38:51+00:00" />
-  <meta property="article:modified_time" content="2024-10-10T20:38:51+00:00" />
+  <meta name="dc.date" content="2024-10-11" />
+  <meta name="citation_publication_date" content="2024-10-11" />
+  <meta property="article:published_time" content="2024-10-11" />
+  <meta name="dc.modified" content="2024-10-11T13:29:04+00:00" />
+  <meta property="article:modified_time" content="2024-10-11T13:29:04+00:00" />
   <meta name="dc.language" content="en-US" />
   <meta name="citation_language" content="en-US" />
   <meta name="dc.relation.ispartof" content="Manubot" />
@@ -99,9 +99,9 @@
   <meta name="citation_fulltext_html_url" content="https://jmonlong.github.io/manu-vggafannot/" />
   <meta name="citation_pdf_url" content="https://jmonlong.github.io/manu-vggafannot/manuscript.pdf" />
   <link rel="alternate" type="application/pdf" href="https://jmonlong.github.io/manu-vggafannot/manuscript.pdf" />
-  <link rel="alternate" type="text/html" href="https://jmonlong.github.io/manu-vggafannot/v/3f72ad238dd15dfdd767ca2092cc4f0c94c8e539/" />
-  <meta name="manubot_html_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/3f72ad238dd15dfdd767ca2092cc4f0c94c8e539/" />
-  <meta name="manubot_pdf_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/3f72ad238dd15dfdd767ca2092cc4f0c94c8e539/manuscript.pdf" />
+  <link rel="alternate" type="text/html" href="https://jmonlong.github.io/manu-vggafannot/v/d71adc2e68bf239bcbe4714058158fb65f10a71c/" />
+  <meta name="manubot_html_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/d71adc2e68bf239bcbe4714058158fb65f10a71c/" />
+  <meta name="manubot_pdf_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/d71adc2e68bf239bcbe4714058158fb65f10a71c/manuscript.pdf" />
   <meta property="og:type" content="article" />
   <meta property="twitter:card" content="summary_large_image" />
   <link rel="icon" type="image/png" sizes="192x192" href="https://manubot.org/favicon-192x192.png" />
@@ -118,10 +118,10 @@
 </header>
 <p><small><em>
 This manuscript
-(<a href="https://jmonlong.github.io/manu-vggafannot/v/3f72ad238dd15dfdd767ca2092cc4f0c94c8e539/">permalink</a>)
+(<a href="https://jmonlong.github.io/manu-vggafannot/v/d71adc2e68bf239bcbe4714058158fb65f10a71c/">permalink</a>)
 was automatically generated
-from <a href="https://github.com/jmonlong/manu-vggafannot/tree/3f72ad238dd15dfdd767ca2092cc4f0c94c8e539">jmonlong/manu-vggafannot@3f72ad2</a>
-on October 10, 2024.
+from <a href="https://github.com/jmonlong/manu-vggafannot/tree/d71adc2e68bf239bcbe4714058158fb65f10a71c">jmonlong/manu-vggafannot@d71adc2</a>
+on October 11, 2024.
 </em></small></p>
 <h2 id="authors">Authors</h2>
 <ul>
@@ -417,11 +417,11 @@ The helper script and a tutorial are available at the <code>analysis/visualizati
 <h2 id="results">Results</h2>
 <h3 id="sorting-and-indexing-short-sequencing-reads">Sorting and indexing short sequencing reads</h3>
 <p>Read sorting (see <a href="#indexing-paths-in-gaf-files">Indexing paths in GAF files</a>) was tested on about 30X coverage of Illumina HiSeq paired-end 150bp reads for the HG002 sample.
-The plain gzipped GAF file with about 682 million reads was sorted and compressed in 6h32 using a single sort thread and about 2GB of memory (Table <a href="#tbl:readsorting_summary">1</a>).
-Indexing the sorted GAF with <code>tabix</code> took 18 minutes.
+The plain gzipped GAF file with about 682 million reads was sorted with <code>vg gamsort</code> and compressed with <code>bgzip</code> in 6h32 using 6.47 hours of CPU time and about 1.9 GiB of memory (Table <a href="#tbl:readsorting_summary">1</a>).
+Indexing the sorted GAF with <code>tabix</code> took 18.6 minutes using 17.4 minutes of CPU time.
 We compared that approach with the existing read sorting implementation in <code>vg</code>, which operates on files in the Protobuf-based GAM format<span class="citation" data-cites="10jxt15v0">[<a href="#ref-10jxt15v0" role="doc-biblioref">4</a>]</span>.
-Sorting a GAM with the same reads took 11h47 using a single thread and about 6 GB of memory.</p>
-<p>In addition to being about twice as fast to sort, reads written in the GAF format (and bgzipped) also take about half the disk space (52GiB vs 108GiB).
+Sorting a GAM with the same reads took 11h47 using 11h38 of CPU time and about 6.1 GiB of memory.</p>
+<p>In addition to being about twice as fast to sort, reads written in the GAF format (and bgzipped) also take about half the disk space (52 GiB vs 108 GiB).
 The main reason for this reduced space is that GAF doesn’t save the full read sequence, only the path through the pangenome and edits to reconstruct it.
 GAM files produced by <code>vg giraffe</code> can also save additional information as annotations, like the mapping time of each read, that are currently not kept when converting to the GAF format.
 Overall, the bgzipped GAF files are half as small and twice as fast to sort for short sequencing reads.</p>
@@ -436,7 +436,7 @@ For comparison, the same extraction took on average 0.816 second per region usin
 <tr class="header">
 <th style="text-align: center;">Format</th>
 <th style="text-align: right;">Time (H:M:S)</th>
-<th style="text-align: right;">Max. memory used (MB)</th>
+<th style="text-align: right;">Max. memory used (MiB)</th>
 <th style="text-align: right;">File size (GiB)</th>
 </tr>
 </thead>
@@ -459,7 +459,9 @@ For comparison, the same extraction took on average 0.816 second per region usin
 <h3 id="annotation-of-a-human-pangenome">Annotation of a human pangenome</h3>
 <p>To showcase our annotation projection implementation, we projected annotations for all HPRC haplotypes into the HPRC pangenome (see <a href="#projecting-annotations-into-a-pangenome">Projecting annotations into a pangenome</a>).
 This included genes, segmental duplications, tandem repeats, and repeat annotations.
-<code>vg annotate</code> was able to project ~4M gene annotations into the pangenome in ~11 minutes, and ~5.5M repeats from RepeatMasker in ~3 minutes, using on average 2 threads and 21 GB of RAM.
+<code>vg annotate</code> was able to project ~4M gene annotations into the pangenome in ~11 minutes on 2 cores using 19.9 minutes of CPU time and 21 GiB of RAM.
+It projected ~5.5M repeats from RepeatMasker in ~2.9 minutes on 2 cores using 4.9 minutes of CPU time.
+These measures include projection with <code>vg annotate</code>, decompression of the input gzipped GAF, and compression of the output GAF with <code>bgzip</code>.
 We were able to quickly query these rich annotations with <code>vg</code>, and visualize them using tools like the Sequence Tube Map or Bandage-NG.
 Using Bandage-NG, we were able to prepare a visualization illustrating a mobile element insertion (Figure <a href="#fig:bandage">3</a>).
 We also examined a gene annotation using the Sequence Tube Map (Figure <a href="#fig:tubemap">4</a>A).</p>
@@ -475,7 +477,7 @@ The nodes were colored based on those annotations, loaded as paths by Bandage-NG
 </div>
 <p>We also matched and annotated variants from the GWAS Catalog<a href="about%20660%20thousand%20variants"><span class="citation" data-cites="VRCjjZ9L">[<a href="#ref-VRCjjZ9L" role="doc-biblioref">27</a>]</span></a> and expression QTLs from the GTEx catalog<span class="citation" data-cites="187XBwaz7">[<a href="#ref-187XBwaz7" role="doc-biblioref">28</a>]</span> across 49 tissues (on average 1.45 million variants per tissue), using the methods described in <a href="#annotating-known-variants">Annotating known variants</a>.
 On average, 94% of variants were found in the HPRC pangenome.
-The variants files in GAF take only 907MiB of space and can be queried rapidly for visualization in the Sequence Tube Map or Bandage-NG.
+The variants files in GAF take only 907 MiB of space and can be queried rapidly for visualization in the Sequence Tube Map or Bandage-NG.
 This annotation is showcased in Figure <a href="#fig:tubemap">4</a>B.</p>
 <p>It is also straightforward to convert genotypes called on variants from the pangenome back to annotation paths.
 This is applicable when the pangenome is used as a source of variants for genotyping in new samples, as when using Pangenie or <code>vg call</code>.
@@ -646,7 +648,7 @@ While it provides an important building block, it is clear that more needs to be
 <h2 id="code-and-data-availability">Code and data availability</h2>
 <p><code>vg</code> is available at <a href="https://github.com/vgteam/vg">https://github.com/vgteam/vg</a>.
 Bandage-NG is available at <a href="https://github.com/asl/BandageNG">https://github.com/asl/BandageNG</a>.
-The Sequence Tube Map is hosted at <a href="https://github.com/vgteam/sequenceTubemap">https://github.com/vgteam/sequenceTubemap</a>
+The Sequence Tube Map is hosted at <a href="https://github.com/vgteam/sequenceTubemap">https://github.com/vgteam/sequenceTubemap</a>.
 The modified version of the Sequence Tube Map used to make Figure <a href="#fig:tubemap">4</a> is available in the <code>quay.io/jmonlong/sequencetubemap:vggafannot</code> Docker container.</p>
 <p>The analysis presented in this manuscript is documented in the repository at <a href="https://github.com/jmonlong/manu-vggafannot">https://github.com/jmonlong/manu-vggafannot</a><span class="citation" data-cites="K5KcBvOm">[<a href="#ref-K5KcBvOm" role="doc-biblioref">29</a>]</span>.
 It contains scripts used to prepare the annotation files, commands and automated pipelines used to annotate them in the pangenome, and helper scripts to summarize the output files.</p>
@@ -751,7 +753,7 @@ All authors contributed in reviewing the text and content of the manuscript.</p>
 <div class="csl-left-margin">28. </div><div class="csl-right-inline"><strong>The Genotype-Tissue Expression (GTEx) project</strong> <div class="csl-block">John Lonsdale, Jeffrey Thomas, Mike Salvatore, Rebecca Phillips, Edmund Lo, Saboor Shad, Richard Hasz, Gary Walters, Fernando Garcia, Nancy Young, … Helen F Moore</div> <em>Nature Genetics</em> (2013-05-29) <a href="https://doi.org/gd5z68">https://doi.org/gd5z68</a> <div class="csl-block">DOI: <a href="https://doi.org/10.1038/ng.2653">10.1038/ng.2653</a> · PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/23715323">23715323</a> · PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4010069">PMC4010069</a></div></div>
 </div>
 <div id="ref-K5KcBvOm" class="csl-entry" role="doc-biblioentry">
-<div class="csl-left-margin">29. </div><div class="csl-right-inline"><strong>jmonlong/manu-vggafannot</strong> <div class="csl-block">Jean Monlong</div> (2024-10-10) <a href="https://github.com/jmonlong/manu-vggafannot">https://github.com/jmonlong/manu-vggafannot</a></div>
+<div class="csl-left-margin">29. </div><div class="csl-right-inline"><strong>jmonlong/manu-vggafannot</strong> <div class="csl-block">Jean Monlong</div> (2024-10-11) <a href="https://github.com/jmonlong/manu-vggafannot">https://github.com/jmonlong/manu-vggafannot</a></div>
 </div>
 </div>
 <h2 class="page_break_before" id="supplementary-material">Supplementary material</h2>
@@ -761,9 +763,10 @@ doesn't actually work here. -->
 <div id="tbl:coverage_benchmark" class="tablenos">
 <table id="tbl:coverage_benchmark">
 <caption><span>Table 3:</span> Compute resources used for the analysis of the functional datasets and production of the indexed coverage tracks.
+The <em>coverage track</em> step includes computing coverage profile on the pangenome using <code>vg pack</code>, making coverage tracks using a python script, and compressing the output GAF with <code>gzip</code>.
 </caption>
 <colgroup>
-<col style="width: 25%" />
+<col style="width: 24%" />
 <col style="width: 9%" />
 <col style="width: 17%" />
 <col style="width: 17%" />
@@ -782,51 +785,51 @@ doesn't actually work here. -->
 <tr class="odd">
 <td style="text-align: left;">Breast epithelium</td>
 <td style="text-align: right;">193.6</td>
-<td style="text-align: right;">8.9 CPU-H (54 GB)</td>
-<td style="text-align: right;">3 CPU-H (109 GB)</td>
-<td style="text-align: right;">0.3 CPU-H (1 GB)</td>
+<td style="text-align: right;">8.9 CPU-H (54 GiB)</td>
+<td style="text-align: right;">3 CPU-H (109 GiB)</td>
+<td style="text-align: right;">0.3 CPU-H (1 GiB)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Gastrocnemius medialis</td>
 <td style="text-align: right;">98.8</td>
-<td style="text-align: right;">4.8 CPU-H (54 GB)</td>
-<td style="text-align: right;">2.6 CPU-H (99 GB)</td>
-<td style="text-align: right;">0.3 CPU-H (1 GB)</td>
+<td style="text-align: right;">4.8 CPU-H (54 GiB)</td>
+<td style="text-align: right;">2.6 CPU-H (99 GiB)</td>
+<td style="text-align: right;">0.3 CPU-H (1 GiB)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Gastroesophageal sphincter</td>
 <td style="text-align: right;">168.5</td>
-<td style="text-align: right;">7.3 CPU-H (54 GB)</td>
-<td style="text-align: right;">3 CPU-H (108 GB)</td>
-<td style="text-align: right;">0.2 CPU-H (1 GB)</td>
+<td style="text-align: right;">7.3 CPU-H (54 GiB)</td>
+<td style="text-align: right;">3 CPU-H (108 GiB)</td>
+<td style="text-align: right;">0.2 CPU-H (1 GiB)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Peyer’s patch</td>
 <td style="text-align: right;">145.3</td>
-<td style="text-align: right;">8 CPU-H (54 GB)</td>
-<td style="text-align: right;">3 CPU-H (104 GB)</td>
-<td style="text-align: right;">0.2 CPU-H (1 GB)</td>
+<td style="text-align: right;">8 CPU-H (54 GiB)</td>
+<td style="text-align: right;">3 CPU-H (104 GiB)</td>
+<td style="text-align: right;">0.2 CPU-H (1 GiB)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Sigmoid colon</td>
 <td style="text-align: right;">173.5</td>
-<td style="text-align: right;">8.2 CPU-H (54 GB)</td>
-<td style="text-align: right;">3 CPU-H (106 GB)</td>
-<td style="text-align: right;">0.3 CPU-H (1 GB)</td>
+<td style="text-align: right;">8.2 CPU-H (54 GiB)</td>
+<td style="text-align: right;">3 CPU-H (106 GiB)</td>
+<td style="text-align: right;">0.3 CPU-H (1 GiB)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Spleen</td>
 <td style="text-align: right;">157.2</td>
-<td style="text-align: right;">7.6 CPU-H (54 GB)</td>
-<td style="text-align: right;">3 CPU-H (104 GB)</td>
-<td style="text-align: right;">0.2 CPU-H (1 GB)</td>
+<td style="text-align: right;">7.6 CPU-H (54 GiB)</td>
+<td style="text-align: right;">3 CPU-H (104 GiB)</td>
+<td style="text-align: right;">0.2 CPU-H (1 GiB)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Thyroid gland</td>
 <td style="text-align: right;">91.4</td>
-<td style="text-align: right;">4.6 CPU-H (54 GB)</td>
-<td style="text-align: right;">2.5 CPU-H (94 GB)</td>
-<td style="text-align: right;">0.1 CPU-H (1 GB)</td>
+<td style="text-align: right;">4.6 CPU-H (54 GiB)</td>
+<td style="text-align: right;">2.5 CPU-H (94 GiB)</td>
+<td style="text-align: right;">0.1 CPU-H (1 GiB)</td>
 </tr>
 </tbody>
 </table>

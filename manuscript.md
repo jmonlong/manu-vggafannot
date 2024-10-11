@@ -5,7 +5,7 @@ keywords:
 - annotation
 - alignment
 lang: en-US
-date-meta: '2024-10-10'
+date-meta: '2024-10-11'
 author-meta:
 - Adam M. Novak
 - Dickson Chung
@@ -27,11 +27,11 @@ header-includes: |
   <meta name="citation_title" content="Efficient indexing and querying of annotations in a pangenome graph" />
   <meta property="og:title" content="Efficient indexing and querying of annotations in a pangenome graph" />
   <meta property="twitter:title" content="Efficient indexing and querying of annotations in a pangenome graph" />
-  <meta name="dc.date" content="2024-10-10" />
-  <meta name="citation_publication_date" content="2024-10-10" />
-  <meta property="article:published_time" content="2024-10-10" />
-  <meta name="dc.modified" content="2024-10-10T20:38:51+00:00" />
-  <meta property="article:modified_time" content="2024-10-10T20:38:51+00:00" />
+  <meta name="dc.date" content="2024-10-11" />
+  <meta name="citation_publication_date" content="2024-10-11" />
+  <meta property="article:published_time" content="2024-10-11" />
+  <meta name="dc.modified" content="2024-10-11T13:29:04+00:00" />
+  <meta property="article:modified_time" content="2024-10-11T13:29:04+00:00" />
   <meta name="dc.language" content="en-US" />
   <meta name="citation_language" content="en-US" />
   <meta name="dc.relation.ispartof" content="Manubot" />
@@ -68,9 +68,9 @@ header-includes: |
   <meta name="citation_fulltext_html_url" content="https://jmonlong.github.io/manu-vggafannot/" />
   <meta name="citation_pdf_url" content="https://jmonlong.github.io/manu-vggafannot/manuscript.pdf" />
   <link rel="alternate" type="application/pdf" href="https://jmonlong.github.io/manu-vggafannot/manuscript.pdf" />
-  <link rel="alternate" type="text/html" href="https://jmonlong.github.io/manu-vggafannot/v/3f72ad238dd15dfdd767ca2092cc4f0c94c8e539/" />
-  <meta name="manubot_html_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/3f72ad238dd15dfdd767ca2092cc4f0c94c8e539/" />
-  <meta name="manubot_pdf_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/3f72ad238dd15dfdd767ca2092cc4f0c94c8e539/manuscript.pdf" />
+  <link rel="alternate" type="text/html" href="https://jmonlong.github.io/manu-vggafannot/v/d71adc2e68bf239bcbe4714058158fb65f10a71c/" />
+  <meta name="manubot_html_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/d71adc2e68bf239bcbe4714058158fb65f10a71c/" />
+  <meta name="manubot_pdf_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/d71adc2e68bf239bcbe4714058158fb65f10a71c/manuscript.pdf" />
   <meta property="og:type" content="article" />
   <meta property="twitter:card" content="summary_large_image" />
   <link rel="icon" type="image/png" sizes="192x192" href="https://manubot.org/favicon-192x192.png" />
@@ -92,10 +92,10 @@ manubot-clear-requests-cache: false
 
 <small><em>
 This manuscript
-([permalink](https://jmonlong.github.io/manu-vggafannot/v/3f72ad238dd15dfdd767ca2092cc4f0c94c8e539/))
+([permalink](https://jmonlong.github.io/manu-vggafannot/v/d71adc2e68bf239bcbe4714058158fb65f10a71c/))
 was automatically generated
-from [jmonlong/manu-vggafannot@3f72ad2](https://github.com/jmonlong/manu-vggafannot/tree/3f72ad238dd15dfdd767ca2092cc4f0c94c8e539)
-on October 10, 2024.
+from [jmonlong/manu-vggafannot@d71adc2](https://github.com/jmonlong/manu-vggafannot/tree/d71adc2e68bf239bcbe4714058158fb65f10a71c)
+on October 11, 2024.
 </em></small>
 
 
@@ -448,12 +448,12 @@ The helper script and a tutorial are available at the `analysis/visualization` f
 ### Sorting and indexing short sequencing reads
 
 Read sorting (see [Indexing paths in GAF files]) was tested on about 30X coverage of Illumina HiSeq paired-end 150bp reads for the HG002 sample.
-The plain gzipped GAF file with about 682 million reads was sorted and compressed in 6h32 using a single sort thread and about 2GB of memory (Table @tbl:readsorting_summary).
-Indexing the sorted GAF with `tabix` took 18 minutes.
+The plain gzipped GAF file with about 682 million reads was sorted with `vg gamsort` and compressed with `bgzip` in 6h32 using 6.47 hours of CPU time and about 1.9 GiB of memory (Table @tbl:readsorting_summary).
+Indexing the sorted GAF with `tabix` took 18.6 minutes using 17.4 minutes of CPU time.
 We compared that approach with the existing read sorting implementation in `vg`, which operates on files in the Protobuf-based GAM format[@vg].
-Sorting a GAM with the same reads took 11h47 using a single thread and about 6 GB of memory. 
+Sorting a GAM with the same reads took 11h47 using 11h38 of CPU time and about 6.1 GiB of memory. 
 
-In addition to being about twice as fast to sort, reads written in the GAF format (and bgzipped) also take about half the disk space (52GiB vs 108GiB).
+In addition to being about twice as fast to sort, reads written in the GAF format (and bgzipped) also take about half the disk space (52 GiB vs 108 GiB).
 The main reason for this reduced space is that GAF doesn't save the full read sequence, only the path through the pangenome and edits to reconstruct it.
 GAM files produced by `vg giraffe` can also save additional information as annotations, like the mapping time of each read, that are currently not kept when converting to the GAF format.
 Overall, the bgzipped GAF files are half as small and twice as fast to sort for short sequencing reads.
@@ -462,10 +462,10 @@ Once a GAF is indexed, extracting a slice of reads works like extracting a slice
 For example, extracting reads for ten thousand random regions in the pangenome took about 0.066 second per region to retrieve an average of 1707 reads.
 For comparison, the same extraction took on average 0.816 second per region using the GAM format. 
 
-| Format | Time (H:M:S) | Max. memory used (MB) | File size (GiB) |
-|:------:|-------------:|----------------------:|----------------:|
-| GAM    |     11:46:58 |              6,236.60 |             108 |
-| GAF    |      6:50:28 |              1,904.83 |              52 |
+| Format | Time (H:M:S) | Max. memory used (MiB) | File size (GiB) |
+|:------:|-------------:|-----------------------:|----------------:|
+| GAM    |     11:46:58 |               6,236.60 |             108 |
+| GAF    |      6:50:28 |               1,904.83 |              52 |
 
 Table: Resources used to sort short sequencing reads for a 30x coverage Illumina human dataset.
 {#tbl:readsorting_summary}
@@ -474,7 +474,9 @@ Table: Resources used to sort short sequencing reads for a 30x coverage Illumina
 
 To showcase our annotation projection implementation, we projected annotations for all HPRC haplotypes into the HPRC pangenome (see [Projecting annotations into a pangenome]). 
 This included genes, segmental duplications, tandem repeats, and repeat annotations. 
-`vg annotate` was able to project ~4M gene annotations into the pangenome in ~11 minutes, and ~5.5M repeats from RepeatMasker in ~3 minutes, using on average 2 threads and 21 GB of RAM. 
+`vg annotate` was able to project ~4M gene annotations into the pangenome in ~11 minutes on 2 cores using 19.9 minutes of CPU time and 21 GiB of RAM.
+It projected ~5.5M repeats from RepeatMasker in ~2.9 minutes on 2 cores using 4.9 minutes of CPU time.
+These measures include projection with `vg annotate`, decompression of the input gzipped GAF, and compression of the output GAF with `bgzip`.
 We were able to quickly query these rich annotations with `vg`, and visualize them using tools like the Sequence Tube Map or Bandage-NG.
 Using Bandage-NG, we were able to prepare a visualization illustrating a mobile element insertion (Figure {@fig:bandage}).
 We also examined a gene annotation using the Sequence Tube Map (Figure {@fig:tubemap}A).
@@ -489,7 +491,7 @@ The nodes were colored based on those annotations, loaded as paths by Bandage-NG
 
 We also matched and annotated variants from the GWAS Catalog[@doi:10.1093/nar/gkac1010](about 660 thousand variants) and expression QTLs from the GTEx catalog[@doi:10.1038/ng.2653] across 49 tissues (on average 1.45 million variants per tissue), using the methods described in [Annotating known variants].
 On average, 94% of variants were found in the HPRC pangenome.
-The variants files in GAF take only 907MiB of space and can be queried rapidly for visualization in the Sequence Tube Map or Bandage-NG.
+The variants files in GAF take only 907 MiB of space and can be queried rapidly for visualization in the Sequence Tube Map or Bandage-NG.
 This annotation is showcased in Figure {@fig:tubemap}B.
 
 It is also straightforward to convert genotypes called on variants from the pangenome back to annotation paths. 
@@ -620,7 +622,7 @@ While it provides an important building block, it is clear that more needs to be
 
 `vg` is available at [https://github.com/vgteam/vg](https://github.com/vgteam/vg).
 Bandage-NG is available at [https://github.com/asl/BandageNG](https://github.com/asl/BandageNG).
-The Sequence Tube Map is hosted at [https://github.com/vgteam/sequenceTubemap](https://github.com/vgteam/sequenceTubemap)
+The Sequence Tube Map is hosted at [https://github.com/vgteam/sequenceTubemap](https://github.com/vgteam/sequenceTubemap).
 The modified version of the Sequence Tube Map used to make Figure {@fig:tubemap} is available in the `quay.io/jmonlong/sequencetubemap:vggafannot` Docker container. 
 
 The analysis presented in this manuscript is documented in the repository at [https://github.com/jmonlong/manu-vggafannot](https://github.com/jmonlong/manu-vggafannot)[@repo].
@@ -676,16 +678,17 @@ All authors contributed in reviewing the text and content of the manuscript.
 <!-- This should really use cell merging to have two unit columns under the
 different operation columns, which MultiMarkdown supposedly supports, but it
 doesn't actually work here. -->
-| Dataset                    | reads (M) |      read mapping |    coverage track | sorting + compressing + indexing |
-|:---------------------------|----------:|------------------:|------------------:|---------------------------------:|
-| Breast epithelium          |     193.6 | 8.9 CPU-H (54 GB) |  3 CPU-H (109 GB) |                 0.3 CPU-H (1 GB) |
-| Gastrocnemius medialis     |      98.8 | 4.8 CPU-H (54 GB) | 2.6 CPU-H (99 GB) |                 0.3 CPU-H (1 GB) |
-| Gastroesophageal sphincter |     168.5 | 7.3 CPU-H (54 GB) |  3 CPU-H (108 GB) |                 0.2 CPU-H (1 GB) |
-| Peyer's patch              |     145.3 |   8 CPU-H (54 GB) |  3 CPU-H (104 GB) |                 0.2 CPU-H (1 GB) |
-| Sigmoid colon              |     173.5 | 8.2 CPU-H (54 GB) |  3 CPU-H (106 GB) |                 0.3 CPU-H (1 GB) |
-| Spleen                     |     157.2 | 7.6 CPU-H (54 GB) |  3 CPU-H (104 GB) |                 0.2 CPU-H (1 GB) |
-| Thyroid gland              |      91.4 | 4.6 CPU-H (54 GB) | 2.5 CPU-H (94 GB) |                 0.1 CPU-H (1 GB) |
+| Dataset                    | reads (M) |       read mapping |     coverage track | sorting + compressing + indexing |
+|:---------------------------|----------:|-------------------:|-------------------:|---------------------------------:|
+| Breast epithelium          |     193.6 | 8.9 CPU-H (54 GiB) |  3 CPU-H (109 GiB) |                0.3 CPU-H (1 GiB) |
+| Gastrocnemius medialis     |      98.8 | 4.8 CPU-H (54 GiB) | 2.6 CPU-H (99 GiB) |                0.3 CPU-H (1 GiB) |
+| Gastroesophageal sphincter |     168.5 | 7.3 CPU-H (54 GiB) |  3 CPU-H (108 GiB) |                0.2 CPU-H (1 GiB) |
+| Peyer's patch              |     145.3 |   8 CPU-H (54 GiB) |  3 CPU-H (104 GiB) |                0.2 CPU-H (1 GiB) |
+| Sigmoid colon              |     173.5 | 8.2 CPU-H (54 GiB) |  3 CPU-H (106 GiB) |                0.3 CPU-H (1 GiB) |
+| Spleen                     |     157.2 | 7.6 CPU-H (54 GiB) |  3 CPU-H (104 GiB) |                0.2 CPU-H (1 GiB) |
+| Thyroid gland              |      91.4 | 4.6 CPU-H (54 GiB) | 2.5 CPU-H (94 GiB) |                0.1 CPU-H (1 GiB) |
 
 Table: Compute resources used for the analysis of the functional datasets and production of the indexed coverage tracks.
+The *coverage track* step includes computing coverage profile on the pangenome using `vg pack`, making coverage tracks using a python script, and compressing the output GAF with `gzip`.
 {#tbl:coverage_benchmark}
 
