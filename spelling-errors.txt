@@ -32,8 +32,8 @@ eQTLs
 facto
 GAF
 GAM
-gastrocnemius
-gastroesophageal
+Gastrocnemius
+Gastroesophageal
 GBZ
 genomic
 genotype
@@ -49,7 +49,7 @@ glennhickey
 GN
 gnarzisi
 GRCh
-GTEx
+GTEX
 GWAS
 gzip
 gzipped
@@ -72,7 +72,7 @@ libbdsg
 linearized
 medialis
 MiB
-Minigraph
+minigraph
 MoMI
 Monlong
 naïve

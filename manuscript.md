@@ -30,8 +30,8 @@ header-includes: |
   <meta name="dc.date" content="2024-10-11" />
   <meta name="citation_publication_date" content="2024-10-11" />
   <meta property="article:published_time" content="2024-10-11" />
-  <meta name="dc.modified" content="2024-10-11T13:29:04+00:00" />
-  <meta property="article:modified_time" content="2024-10-11T13:29:04+00:00" />
+  <meta name="dc.modified" content="2024-10-11T13:52:40+00:00" />
+  <meta property="article:modified_time" content="2024-10-11T13:52:40+00:00" />
   <meta name="dc.language" content="en-US" />
   <meta name="citation_language" content="en-US" />
   <meta name="dc.relation.ispartof" content="Manubot" />
@@ -68,9 +68,9 @@ header-includes: |
   <meta name="citation_fulltext_html_url" content="https://jmonlong.github.io/manu-vggafannot/" />
   <meta name="citation_pdf_url" content="https://jmonlong.github.io/manu-vggafannot/manuscript.pdf" />
   <link rel="alternate" type="application/pdf" href="https://jmonlong.github.io/manu-vggafannot/manuscript.pdf" />
-  <link rel="alternate" type="text/html" href="https://jmonlong.github.io/manu-vggafannot/v/d71adc2e68bf239bcbe4714058158fb65f10a71c/" />
-  <meta name="manubot_html_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/d71adc2e68bf239bcbe4714058158fb65f10a71c/" />
-  <meta name="manubot_pdf_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/d71adc2e68bf239bcbe4714058158fb65f10a71c/manuscript.pdf" />
+  <link rel="alternate" type="text/html" href="https://jmonlong.github.io/manu-vggafannot/v/cea8d9fe70d6447e2fcd92e78d768e3f6503b38f/" />
+  <meta name="manubot_html_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/cea8d9fe70d6447e2fcd92e78d768e3f6503b38f/" />
+  <meta name="manubot_pdf_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/cea8d9fe70d6447e2fcd92e78d768e3f6503b38f/manuscript.pdf" />
   <meta property="og:type" content="article" />
   <meta property="twitter:card" content="summary_large_image" />
   <link rel="icon" type="image/png" sizes="192x192" href="https://manubot.org/favicon-192x192.png" />
@@ -92,9 +92,9 @@ manubot-clear-requests-cache: false
 
 <small><em>
 This manuscript
-([permalink](https://jmonlong.github.io/manu-vggafannot/v/d71adc2e68bf239bcbe4714058158fb65f10a71c/))
+([permalink](https://jmonlong.github.io/manu-vggafannot/v/cea8d9fe70d6447e2fcd92e78d768e3f6503b38f/))
 was automatically generated
-from [jmonlong/manu-vggafannot@d71adc2](https://github.com/jmonlong/manu-vggafannot/tree/d71adc2e68bf239bcbe4714058158fb65f10a71c)
+from [jmonlong/manu-vggafannot@cea8d9f](https://github.com/jmonlong/manu-vggafannot/tree/cea8d9fe70d6447e2fcd92e78d768e3f6503b38f)
 on October 11, 2024.
 </em></small>
 
@@ -628,7 +628,7 @@ The modified version of the Sequence Tube Map used to make Figure {@fig:tubemap}
 The analysis presented in this manuscript is documented in the repository at [https://github.com/jmonlong/manu-vggafannot](https://github.com/jmonlong/manu-vggafannot)[@repo].
 It contains scripts used to prepare the annotation files, commands and automated pipelines used to annotate them in the pangenome, and helper scripts to summarize the output files.
 
-The annotations of the HPRC v1.1 pangenome were deposited on Zenodo at `https://doi.org/10.5281/zenodo.13904205`.
+The annotations of the HPRC v1.1 pangenome were deposited on Zenodo at `https://doi.org/10.5281/zenodo.13904205`[@doi:10.5281/zenodo.13904205].
 This includes gene annotations, repeats from RepeatMasker, simple repeats and segmental duplications.
 A coverage track for the seven ENCODE ATAC-seq samples is also available in this repository.
 
