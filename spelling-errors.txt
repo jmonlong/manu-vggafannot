@@ -17,7 +17,7 @@ contigs
 cov
 CSD
 CSV
-dataset
+Dataset
 datasets
 DFR
 Djebali
@@ -31,7 +31,7 @@ eQTLs
 facto
 GAF
 GAM
-Gastrocnemius
+gastrocnemius
 Gastroesophageal
 GBZ
 genomic
@@ -71,7 +71,7 @@ libbdsg
 linearized
 medialis
 MiB
-Minigraph
+minigraph
 MoMI
 Monlong
 naïve
