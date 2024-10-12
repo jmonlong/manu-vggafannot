@@ -13,7 +13,6 @@ bioinformatics
 centric
 centromeres
 CFD
-Consoritium
 contigs
 cov
 CSD
@@ -49,7 +48,7 @@ glennhickey
 GN
 gnarzisi
 GRCh
-GTEX
+GTEx
 GWAS
 gzip
 gzipped
@@ -72,7 +71,7 @@ libbdsg
 linearized
 medialis
 MiB
-minigraph
+Minigraph
 MoMI
 Monlong
 naïve
@@ -104,7 +103,7 @@ sdjebali
 segmental
 SequenceTubeMap
 SEZ
-sigmoid
+Sigmoid
 Snakemake
 subcommand
 subcommands
