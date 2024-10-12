@@ -5,12 +5,11 @@
 
 ## Manuscript: Efficient indexing and querying of annotations in a pangenome graph
 
-**Work in progress!**
-
 This repository is a manuscript about how to represent and index annotations in a pangenome graph using [GAF](https://github.com/lh3/gfatools/blob/master/doc/rGFA.md#the-graph-alignment-format-gaf) files.
 See links to the manuscript or slides in the badges above.
 
 Moreover, the [`analysis`](analysis) folder hosts scripts and workflows used for the analysis. 
+The manuscript's data was deposited on Zenodo and is described in [`analysis/data.md`](analysis/data.md).
 The [`talks`](talks) folder has slides (e.g. see the [MIGGS workshop slides](https://jmonlong.github.io/manu-vggafannot/vggafannot-miggs24.html)).
 
 ## How to give feedback or contribute?
