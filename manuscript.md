@@ -5,7 +5,7 @@ keywords:
 - annotation
 - alignment
 lang: en-US
-date-meta: '2024-10-12'
+date-meta: '2024-10-17'
 author-meta:
 - Adam M. Novak
 - Dickson Chung
@@ -27,11 +27,11 @@ header-includes: |
   <meta name="citation_title" content="Efficient indexing and querying of annotations in a pangenome graph" />
   <meta property="og:title" content="Efficient indexing and querying of annotations in a pangenome graph" />
   <meta property="twitter:title" content="Efficient indexing and querying of annotations in a pangenome graph" />
-  <meta name="dc.date" content="2024-10-12" />
-  <meta name="citation_publication_date" content="2024-10-12" />
-  <meta property="article:published_time" content="2024-10-12" />
-  <meta name="dc.modified" content="2024-10-12T14:59:16+00:00" />
-  <meta property="article:modified_time" content="2024-10-12T14:59:16+00:00" />
+  <meta name="dc.date" content="2024-10-17" />
+  <meta name="citation_publication_date" content="2024-10-17" />
+  <meta property="article:published_time" content="2024-10-17" />
+  <meta name="dc.modified" content="2024-10-17T17:33:49+00:00" />
+  <meta property="article:modified_time" content="2024-10-17T17:33:49+00:00" />
   <meta name="dc.language" content="en-US" />
   <meta name="citation_language" content="en-US" />
   <meta name="dc.relation.ispartof" content="Manubot" />
@@ -68,9 +68,9 @@ header-includes: |
   <meta name="citation_fulltext_html_url" content="https://jmonlong.github.io/manu-vggafannot/" />
   <meta name="citation_pdf_url" content="https://jmonlong.github.io/manu-vggafannot/manuscript.pdf" />
   <link rel="alternate" type="application/pdf" href="https://jmonlong.github.io/manu-vggafannot/manuscript.pdf" />
-  <link rel="alternate" type="text/html" href="https://jmonlong.github.io/manu-vggafannot/v/765af6adc37329c28a0fc12a8305360fd6cac61d/" />
-  <meta name="manubot_html_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/765af6adc37329c28a0fc12a8305360fd6cac61d/" />
-  <meta name="manubot_pdf_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/765af6adc37329c28a0fc12a8305360fd6cac61d/manuscript.pdf" />
+  <link rel="alternate" type="text/html" href="https://jmonlong.github.io/manu-vggafannot/v/6b652d164850cb2311dedc7e6b856c458590c010/" />
+  <meta name="manubot_html_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/6b652d164850cb2311dedc7e6b856c458590c010/" />
+  <meta name="manubot_pdf_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/6b652d164850cb2311dedc7e6b856c458590c010/manuscript.pdf" />
   <meta property="og:type" content="article" />
   <meta property="twitter:card" content="summary_large_image" />
   <link rel="icon" type="image/png" sizes="192x192" href="https://manubot.org/favicon-192x192.png" />
@@ -92,10 +92,10 @@ manubot-clear-requests-cache: false
 
 <small><em>
 This manuscript
-([permalink](https://jmonlong.github.io/manu-vggafannot/v/765af6adc37329c28a0fc12a8305360fd6cac61d/))
+([permalink](https://jmonlong.github.io/manu-vggafannot/v/6b652d164850cb2311dedc7e6b856c458590c010/))
 was automatically generated
-from [jmonlong/manu-vggafannot@765af6a](https://github.com/jmonlong/manu-vggafannot/tree/765af6adc37329c28a0fc12a8305360fd6cac61d)
-on October 12, 2024.
+from [jmonlong/manu-vggafannot@6b652d1](https://github.com/jmonlong/manu-vggafannot/tree/6b652d164850cb2311dedc7e6b856c458590c010)
+on October 17, 2024.
 </em></small>
 
 
