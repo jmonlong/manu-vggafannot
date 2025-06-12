@@ -1,0 +1,47 @@
+---
+output: github_document
+---
+
+```{r}
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+library(knitr)
+```
+
+## Read benchmarking files
+
+```{r}
+nregs = 50
+reg_size = c(100, 1000, 10000)
+
+df = lapply(reg_size, function(rs){
+  read.table(paste0('benchmark.query.', nregs, '.', rs, '.tsv'), header=TRUE, sep='\t', comment='') %>%
+    mutate(size=rs)
+}) %>% bind_rows
+
+sample_n(df, 3) %>% select(size, method, region, s)
+```
+
+## Query time distribution
+
+```{r, fig.height=3}
+ggplot(df, aes(x=factor(size), y=s, fill=method)) +
+  geom_boxplot(position='dodge') + theme_bw() +
+  xlab('region size (bp)') + coord_flip() +
+  scale_fill_brewer(palette='Set2') +
+  theme(legend.position='bottom') + 
+  ylab('query time (s)')
+```
+
+## Summary table
+
+Average query time per method and region size.
+
+```{r}
+df %>% group_by(method, size) %>%
+  summarize(s=mean(s, na.rm=TRUE), .groups='drop') %>%
+  pivot_wider(names_from=method, values_from=s) %>%
+  kable
+```
+

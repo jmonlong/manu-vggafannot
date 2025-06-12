@@ -1,0 +1,18 @@
+rule convert_to_gfa:
+    input: 'hprc-v1.1-mc-grch38.gbz'
+    output: 'hprc-v1.1-mc-grch38.gfa.gz'
+    benchmark: 'benchmark.convert_to_gfa.tsv'
+    threads: 4
+    shell: "vg convert --no-translation -f -t {threads} {input} | gzip >  {output}"
+
+rule index_pg:
+    input: 'hprc-v1.1-mc-grch38.gfa.gz'
+    output:
+        pos='hprc.pos.bed.gz',
+        nodes='hprc.nodes.tsv.gz',
+        haps='hprc.haps.gaf.gz'
+    benchmark: 'benchmark.index_pg.tsv'
+    shell:
+        """
+        python3 pgtabix.py -g {input} -o hprc.
+        """
