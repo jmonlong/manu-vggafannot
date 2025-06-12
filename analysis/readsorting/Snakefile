@@ -1,6 +1,7 @@
 rule main:
     input:
         gaf='results/sorted/HG002.gaf.gz.tbi',
+        gaf_mt='results/sorted_mt/HG002.gaf.gz',
         gam='results/sorted/HG002.gam.gai'
 
 #
@@ -39,7 +40,7 @@ rule sample_haplotypes:
         read_kmer="results/{sample}.kff"
     output: "results/sample_pg.{sample}.gbz"
     benchmark: 'benchmark/{sample}.sample_haplotypes.tsv'
-    container: "docker://quay.io/jmonlong/vg-work:1.59.0_v1"
+    container: "docker://quay.io/jmonlong/vg-work:1.64.1_v1"
     threads: 8
     resources:
         mem='40GB',
@@ -62,7 +63,7 @@ rule index_distance:
     input: "results/sample_pg.{sample}.gbz"
     output: temp("results/sample_pg.{sample}.dist")
     benchmark: 'benchmark/{sample}.index_distance.tsv'
-    container: "docker://quay.io/jmonlong/vg-work:1.59.0_v1"
+    container: "docker://quay.io/jmonlong/vg-work:1.64.1_v1"
     resources:
         mem='64GB',
         runtime='1h'
@@ -74,7 +75,7 @@ rule index_minimizer:
         dist="results/sample_pg.{sample}.dist"
     output: temp("results/sample_pg.{sample}.min")
     benchmark: 'benchmark/{sample}.index_minimizer.tsv'
-    container: "docker://quay.io/jmonlong/vg-work:1.59.0_v1"
+    container: "docker://quay.io/jmonlong/vg-work:1.64.1_v1"
     threads: 8
     resources:
         mem='64GB',
@@ -90,7 +91,7 @@ rule map_short_reads_giraffe:
         min='results/sample_pg.{sample}.min'
     output: "results/unsorted/{sample}.gam"
     benchmark: 'benchmark/{sample}.map_short_reads_giraffe.tsv'
-    container: "docker://quay.io/jmonlong/vg-work:1.59.0_v1"
+    container: "docker://quay.io/jmonlong/vg-work:1.64.1_v1"
     threads: 16
     resources:
         mem='64GB',
@@ -113,7 +114,7 @@ rule sort_gam:
         gam="results/sorted/{sample}.gam",
         gai="results/sorted/{sample}.gam.gai"
     benchmark: 'benchmark/{sample}.sort_gam.tsv'
-    container: "docker://quay.io/jmonlong/vg-work:1.59.0_v1"
+    container: "docker://quay.io/jmonlong/vg-work:1.64.1_v1"
     threads: 1
     resources:
         mem='16GB',
@@ -126,7 +127,7 @@ rule gam_to_gaf:
         gbz="results/sample_pg.{sample}.gbz"
     output: "results/unsorted/{sample}.gaf.gz"
     benchmark: 'benchmark/{sample}.gam_to_gaf.tsv'
-    container: "docker://quay.io/jmonlong/vg-work:1.59.0_v1"
+    container: "docker://quay.io/jmonlong/vg-work:1.64.1_v1"
     threads: 4
     resources:
         mem='64GB',
@@ -137,18 +138,29 @@ rule sort_gaf:
     input: "results/unsorted/{sample}.gaf.gz"
     output: "results/sorted/{sample}.gaf.gz"
     benchmark: 'benchmark/{sample}.sort_gaf.tsv'
-    container: "docker://quay.io/jmonlong/vg-work:1.59.0_v1"
+    container: "docker://quay.io/jmonlong/vg-work:1.64.1_v1"
     threads: 1
     resources:
         mem='16GB',
-        runtime='24h'
+        runtime='6h'
     shell: "vg gamsort -G {input} | bgzip > {output}"
+
+rule sort_gaf_mt:
+    input: "results/unsorted/{sample}.gaf.gz"
+    output: "results/sorted_mt/{sample}.gaf.gz"
+    benchmark: 'benchmark/{sample}.sort_gaf_mt.tsv'
+    container: "docker://quay.io/jmonlong/vg-work:1.64.1_v1"
+    threads: 4
+    resources:
+        mem='16GB',
+        runtime='6h'
+    shell: "./vg gamsort -t 4 -G {input} | bgzip --threads 3 > {output}"
 
 rule index_gaf:
     input: "results/sorted/{sample}.gaf.gz"
     output: "results/sorted/{sample}.gaf.gz.tbi"
     benchmark: 'benchmark/{sample}.index_gaf.tsv'
-    container: "docker://quay.io/jmonlong/vg-work:1.59.0_v1"
+    container: "docker://quay.io/jmonlong/vg-work:1.64.1_v1"
     threads: 1
     resources:
         mem='8GB',
