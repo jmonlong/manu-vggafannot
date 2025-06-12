@@ -71,6 +71,21 @@ for reg_n in reg_chunkix:
                                        dur.total_seconds(),
                                        ' '.join(cmd)))
 
+# query with chunkix.py on remote index files
+nodes_fn = 'https://public.gi.ucsc.edu/~jmonlong/sequencetubemap_tabix/hprc.nodes.tsv.gz'
+pos_fn = 'https://public.gi.ucsc.edu/~jmonlong/sequencetubemap_tabix/hprc.pos.bed.gz'
+haps_fn = 'https://public.gi.ucsc.edu/~jmonlong/sequencetubemap_tabix/hprc.haps.gaf.gz'
+for reg_n in reg_chunkix:
+    cmd = ['python3', 'chunkix.py', '-p', pos_fn, '-n', nodes_fn,
+           '-g', haps_fn, '-r', reg_n, '-o', 'temp', '-s']
+    t_s = datetime.datetime.now()
+    subprocess.run(cmd, check=True, capture_output=True)
+    t_e = datetime.datetime.now()
+    dur = t_e - t_s
+    print('{}\t{}\tchunkix_remote\t{}'.format(reg_n,
+                                              dur.total_seconds(),
+                                              ' '.join(cmd)))
+
 # query with vg chunk
 gbz_fn = 'hprc-v1.1-mc-grch38.gbz'
 for reg_n in reg_vgchunk:
