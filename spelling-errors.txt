@@ -32,7 +32,7 @@ facto
 GAF
 GAM
 Gastrocnemius
-gastroesophageal
+Gastroesophageal
 GBZ
 genomic
 genotype
@@ -106,7 +106,7 @@ sdjebali
 segmental
 sequenceTubeMap
 SEZ
-Sigmoid
+sigmoid
 Snakemake
 subcommand
 subcommands
