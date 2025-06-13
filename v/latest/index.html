@@ -13,7 +13,7 @@
   <meta name="author" content="Giuseppe Narzisi" />
   <meta name="author" content="Benedict Paten" />
   <meta name="author" content="Jean Monlong" />
-  <meta name="dcterms.date" content="2024-10-17" />
+  <meta name="dcterms.date" content="2025-06-13" />
   <meta name="keywords" content="pangenome, annotation, alignment" />
   <title>Efficient indexing and querying of annotations in a pangenome graph</title>
   <style>
@@ -58,11 +58,11 @@
   <meta name="citation_title" content="Efficient indexing and querying of annotations in a pangenome graph" />
   <meta property="og:title" content="Efficient indexing and querying of annotations in a pangenome graph" />
   <meta property="twitter:title" content="Efficient indexing and querying of annotations in a pangenome graph" />
-  <meta name="dc.date" content="2024-10-17" />
-  <meta name="citation_publication_date" content="2024-10-17" />
-  <meta property="article:published_time" content="2024-10-17" />
-  <meta name="dc.modified" content="2024-10-17T17:33:49+00:00" />
-  <meta property="article:modified_time" content="2024-10-17T17:33:49+00:00" />
+  <meta name="dc.date" content="2025-06-13" />
+  <meta name="citation_publication_date" content="2025-06-13" />
+  <meta property="article:published_time" content="2025-06-13" />
+  <meta name="dc.modified" content="2025-06-13T15:39:02+00:00" />
+  <meta property="article:modified_time" content="2025-06-13T15:39:02+00:00" />
   <meta name="dc.language" content="en-US" />
   <meta name="citation_language" content="en-US" />
   <meta name="dc.relation.ispartof" content="Manubot" />
@@ -99,9 +99,9 @@
   <meta name="citation_fulltext_html_url" content="https://jmonlong.github.io/manu-vggafannot/" />
   <meta name="citation_pdf_url" content="https://jmonlong.github.io/manu-vggafannot/manuscript.pdf" />
   <link rel="alternate" type="application/pdf" href="https://jmonlong.github.io/manu-vggafannot/manuscript.pdf" />
-  <link rel="alternate" type="text/html" href="https://jmonlong.github.io/manu-vggafannot/v/6b652d164850cb2311dedc7e6b856c458590c010/" />
-  <meta name="manubot_html_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/6b652d164850cb2311dedc7e6b856c458590c010/" />
-  <meta name="manubot_pdf_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/6b652d164850cb2311dedc7e6b856c458590c010/manuscript.pdf" />
+  <link rel="alternate" type="text/html" href="https://jmonlong.github.io/manu-vggafannot/v/0d97258c73f9234a49674a770a9b60d2657105f6/" />
+  <meta name="manubot_html_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/0d97258c73f9234a49674a770a9b60d2657105f6/" />
+  <meta name="manubot_pdf_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/0d97258c73f9234a49674a770a9b60d2657105f6/manuscript.pdf" />
   <meta property="og:type" content="article" />
   <meta property="twitter:card" content="summary_large_image" />
   <link rel="icon" type="image/png" sizes="192x192" href="https://manubot.org/favicon-192x192.png" />
@@ -118,10 +118,10 @@
 </header>
 <p><small><em>
 This manuscript
-(<a href="https://jmonlong.github.io/manu-vggafannot/v/6b652d164850cb2311dedc7e6b856c458590c010/">permalink</a>)
+(<a href="https://jmonlong.github.io/manu-vggafannot/v/0d97258c73f9234a49674a770a9b60d2657105f6/">permalink</a>)
 was automatically generated
-from <a href="https://github.com/jmonlong/manu-vggafannot/tree/6b652d164850cb2311dedc7e6b856c458590c010">jmonlong/manu-vggafannot@6b652d1</a>
-on October 17, 2024.
+from <a href="https://github.com/jmonlong/manu-vggafannot/tree/0d97258c73f9234a49674a770a9b60d2657105f6">jmonlong/manu-vggafannot@0d97258</a>
+on June 13, 2025.
 </em></small></p>
 <h2 id="authors">Authors</h2>
 <ul>
@@ -397,12 +397,34 @@ We test this approach by genotyping HG002 from the short-reads Illumina Novaseq 
 Variants were genotyped from the aligned reads using <code>vg call</code>.
 Notably, <code>vg call</code> can also output genotypes directly in GAF format with the <code>-G</code> parameter.</p>
 <p>The scripts and pipeline to annotate variants is available in the public repository of this study in the <code>analysis/variants</code> folder of this paper’s repository (see <a href="#code-and-data-availability">Code and data availability</a>).</p>
+<h3 id="faster-subgraph-extraction-using-tabix-index-files">Faster subgraph extraction using tabix index files</h3>
+<p>We devised an approach to efficiently query a subgraph of a pangenome, based on a queried range on one of its haplotypes, using three tabix indexes: 1) a GAF file with the paths taken by the haplotypes, split in small regions, 2) a BED file indexing each of those regions, 3) a TSV file with nodes and their sequences.
+The GAF file is produced by cutting the haplotypes in chunks of maximum N nodes (100 by default).
+Each GAF record corresponds to one haplotype chunk and an optional tag is added to record the haplotype name and the starting position in the haplotype.
+For each of those chunks, a BED record is written in the second index file.
+It contains the coordinate of this region on the haplotype and the minimum and maximum node IDs in that region (columns 4 and 5).
+Finally, the third index file records the node sequences with three columns: a placeholder <em>contig</em> name (<em>n</em> in practice), a node ID, and the node sequence.
+The three files are sorted, bgzipped and indexed with tabix.
+The GAF and TSV file can then be queried by node ranges, and the BED file by coordinate on the haplotypes.</p>
+<p>To extract a subgraph around a region of interest, the BED file is first queried with a coordinates (e.g. <code>CONTIG:START-END</code>) and the output node ranges are merged.
+The GAF file with haplotype information is then queried with those node ranges.
+The haplotype chunks are then stitched back together.
+The queried haplotype is used as a backbone and the ends of other haplotypes are trimmed until they touch a node on the queried haplotype.
+Optionally, other GAF files, e.g. reads or annotations, can also be queried using that node range.
+Finally, the TSV file is queried by nodes to retrieve their sequences.
+The edges in the subgraph are derived from the haplotype paths.
+A JSON representation of the subgraph and annotations can also be outputted directly, for example when used internally by the sequenceTubeMap.</p>
+<p>Subgraph extraction was benchmarked on 20 randomly selected regions.
+Three sets of regions of different length were tested (100 bp, 1000 bp, and 10,000 bp).
+We compared the new tabix-powered extraction with <code>vg chunk</code> starting from a GBZ file and using the <code>--trace</code> option to trace haplotype threads and a context of 1 node (<code>-c 1</code>).</p>
 <h3 id="visualization-in-the-sequence-tube-map">Visualization in the Sequence Tube Map</h3>
 <p>The Sequence Tube Map was developed to explore a pangenome graph interactively, with haplotypes traversing it, and reads mapping to it<span class="citation" data-cites="15LPYoGeb">[<a href="#ref-15LPYoGeb" role="doc-biblioref">13</a>]</span>.
 It internally calls <em>vg</em> to extract the relevant slice of the pangenome graph and reads, which previously could only be in the GAM format.
 We updated the Sequence Tube Map to accept GAF files sorted, compressed, and indexed as in <a href="#indexing-paths-in-gaf-files">Indexing paths in GAF files</a>.
 We have also extended it to use an element’s opacity to represent an integer score, like a mapping quality or read coverage.
 The variable transparency helps highlight regions of high coverage when visualizing coverage tracks from the ENCODE project (see <a href="#coverage-of-seven-functional-datasets-from-encode">Coverage of seven functional datasets from ENCODE</a> and Figure <a href="#fig:tubemap">4</a>D).</p>
+<p>The Sequence Tube Map was also modified to accept the three new tabix-based index files described above.
+In this case, the subgraph extraction Python script is called instead of the <code>vg chunk</code> command.</p>
 <h3 id="visualization-in-bandage-ng">Visualization in Bandage-NG</h3>
 <p>Bandage-NG<span class="citation" data-cites="1Fp6JRSHg">[<a href="#ref-1Fp6JRSHg" role="doc-biblioref">10</a>]</span>, a tool derived from Bandage<span class="citation" data-cites="hbEIE3nt">[<a href="#ref-hbEIE3nt" role="doc-biblioref">11</a>]</span>, can read GAF files and visualize its paths through the input graph by coloring the nodes.
 Of note is that the offset positions are not considered, which means that nodes are colored entirely, even if the GAF record only overlaps part of it.
@@ -419,10 +441,10 @@ The helper script and a tutorial are available at the <code>analysis/visualizati
 <h2 id="results">Results</h2>
 <h3 id="sorting-and-indexing-short-sequencing-reads">Sorting and indexing short sequencing reads</h3>
 <p>Read sorting (see <a href="#indexing-paths-in-gaf-files">Indexing paths in GAF files</a>) was tested on about 30X coverage of Illumina HiSeq paired-end 150bp reads for the HG002 sample.
-The plain gzipped GAF file with about 682 million reads was sorted with <code>vg gamsort</code> and compressed with <code>bgzip</code> in 6h32 using 6.47 hours of CPU time and about 1.9 GiB of memory (Table <a href="#tbl:readsorting_summary">1</a>).
-Indexing the sorted GAF with <code>tabix</code> took 18.6 minutes using 17.4 minutes of CPU time.
+The plain gzipped GAF file with about 682 million reads was sorted with <code>vg gamsort</code> and compressed with <code>bgzip</code> in 3h55 using 3.87 hours of CPU time and less than 1 GiB of memory (Table <a href="#tbl:readsorting_summary">1</a>).
+Indexing the sorted GAF with <code>tabix</code> took 20 minutes using 18.4 minutes of CPU time.
 We compared that approach with the existing read sorting implementation in <code>vg</code>, which operates on files in the Protobuf-based GAM format<span class="citation" data-cites="10jxt15v0">[<a href="#ref-10jxt15v0" role="doc-biblioref">4</a>]</span>.
-Sorting a GAM with the same reads took 11h47 using 11h38 of CPU time and about 6.1 GiB of memory.</p>
+Sorting a GAM with the same reads took 12h using 11.87 hours of CPU time and about 7 GiB of memory.</p>
 <p>In addition to being about twice as fast to sort, reads written in the GAF format (and bgzipped) also take about half the disk space (52 GiB vs 108 GiB).
 The main reason for this reduced space is that GAF does not save the complete read sequence, only the path through the pangenome and edits to reconstruct it.
 GAM files produced by <code>vg giraffe</code> can also save additional information as annotations, like the mapping time of each read, which are currently not kept when converting to the GAF format.
@@ -438,21 +460,21 @@ For comparison, the same extraction took an average of 0.816 seconds per region 
 <tr class="header">
 <th style="text-align: center;">Format</th>
 <th style="text-align: right;">Time (H:M:S)</th>
-<th style="text-align: right;">Max. memory used (MiB)</th>
-<th style="text-align: right;">File size (GiB)</th>
+<th style="text-align: right;">Max. memory used (GiB)</th>
+<th style="text-align: right;">File size (Gb)</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: center;">GAM</td>
-<td style="text-align: right;">11:46:58</td>
-<td style="text-align: right;">6,236.60</td>
+<td style="text-align: right;">12:00:19</td>
+<td style="text-align: right;">6.98</td>
 <td style="text-align: right;">108</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">GAF</td>
-<td style="text-align: right;">6:50:28</td>
-<td style="text-align: right;">1,904.83</td>
+<td style="text-align: right;">3:55:13</td>
+<td style="text-align: right;">0.84</td>
 <td style="text-align: right;">52</td>
 </tr>
 </tbody>
@@ -604,6 +626,27 @@ By integrating these two external sources of annotations (gene annotation and AT
 <!-- **Coverage tracks visualized interactively using the Sequence Tube Map.** -->
 <!-- a) Promoter... b) Structural variant.... -->
 <!-- ](figures/wide.png "Wide image"){#fig:cov_examples} -->
+<h3 id="efficient-subgraph-extraction-and-speed-up-for-the-sequence-tube-map">Efficient subgraph extraction and speed-up for the Sequence Tube Map</h3>
+<p>A new subgraph extraction was implemented using three tabix-indexed files: a GAF file with haplotype information, a BED file associating coordinates on the haplotypes to nodes, and a TSV file associating each node to its sequence.
+The three index files were produced in about 1h40m starting from the gzipped GFA file of the HPRC Minigraph-Cactus v1.1 pangenome.</p>
+<p>Extracting a subgraph on 20 random regions of 100 bp, 1 Kbp, or 10 Kbp took about 0.5s per query, compared to 33s using <code>vg chunk</code> (Figure <a href="#fig:pgchunking">5</a>).
+Of note, as other tabix-indexed files, the new pangenome files can be queried remotely through HTTPS/FTP.
+For example, we extracted the same regions using files hosted in a server in the United States, from a computer in France, in 15s on average.
+In this case, the small TBI files are automatically downloaded locally, if needed, which added about additional 20 second to the first query.</p>
+<div id="fig:pgchunking" class="fignos">
+<figure>
+<img src="images/pgchunking.fig.png" alt="Figure 5: Subgraph extraction using tabix-indexed files. Benchmark performed on the HPRC Minigraph-Cactus v1.1 human pangenome. Left Size of the index files. Right Time to query 20 random regions of varying sizes (y-axis), using the tabix-indexed files (chunkix method) or vg chunk from the GBZ file. The chunkix method also works on remote files, here through HTTPS, and is labelled here as chunkix_remote. In that case the small TBI files must be downloaded locally which increase the time for the first query (highlighted with a diamond)." />
+<figcaption aria-hidden="true"><span>Figure 5:</span> <strong>Subgraph extraction using tabix-indexed files</strong>.
+Benchmark performed on the HPRC Minigraph-Cactus v1.1 human pangenome.
+<strong>Left</strong> Size of the index files.
+<strong>Right</strong> Time to query 20 random regions of varying sizes (y-axis), using the tabix-indexed files (<code>chunkix</code> method) or <code>vg chunk</code> from the GBZ file.
+The <code>chunkix</code> method also works on remote files, here through HTTPS, and is labelled here as <code>chunkix_remote</code>.
+In that case the small TBI files must be downloaded locally which increase the time for the first query (highlighted with a diamond).</figcaption>
+</figure>
+</div>
+<p>On disk, the three index files totaled 4 GiB: 2.4 GiB for the “haplotype” bgzipped GAF file, 1.1 GiB for the “node sequence” bgzipped TSV file, and 527 MiB for the “haplotype position” bgzipped BED file (Figure <a href="#fig:pgchunking">5</a>).
+These index files are 2.75 smaller than input gzipped GFA file (11 GiB) and 30% larger than the GBZ file (3.1 GiB).</p>
+<p>Thanks to their integration in the sequenceTubeMap, it only takes about a second to visualize a region in the sequenceTubeMap when using these new index files, compared to more than 30s before.</p>
 <h2 id="discussion">Discussion</h2>
 <p>The tools and applications described here streamline the production of annotations in the GAF format, their indexing, and efficient querying.</p>
 <p>First, these techniques will help integrate additional information into existing or future pangenomic tools.
@@ -678,7 +721,7 @@ All authors contributed to reviewing the text and content of the manuscript.</p>
 <div class="csl-left-margin">3. </div><div class="csl-right-inline"><strong>The UCSC Genome Browser database: 2023 update</strong> <div class="csl-block">Luis R Nassar, Galt P Barber, Anna Benet-Pagès, Jonathan Casper, Hiram Clawson, Mark Diekhans, Clay Fischer, Jairo Navarro Gonzalez, Angie S Hinrichs, Brian T Lee, … W James Kent</div> <em>Nucleic Acids Research</em> (2022-11-24) <a href="https://doi.org/gxpftd">https://doi.org/gxpftd</a> <div class="csl-block">DOI: <a href="https://doi.org/10.1093/nar/gkac1072">10.1093/nar/gkac1072</a> · PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/36420891">36420891</a> · PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9825520">PMC9825520</a></div></div>
 </div>
 <div id="ref-10jxt15v0" class="csl-entry" role="doc-biblioentry">
-<div class="csl-left-margin">4. </div><div class="csl-right-inline"><strong>Variation graph toolkit improves read mapping by representing genetic variation in the reference</strong> <div class="csl-block">Erik Garrison, Jouni Sirén, Adam M Novak, Glenn Hickey, Jordan M Eizenga, Eric T Dawson, William Jones, Shilpa Garg, Charles Markello, Michael F Lin, … Richard Durbin</div> <em>Nature Biotechnology</em> (2018-10) <a href="https://doi.org/gd2zqs">https://doi.org/gd2zqs</a> <div class="csl-block">DOI: <a href="https://doi.org/10.1038/nbt.4227">10.1038/nbt.4227</a> · PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/30125266">30125266</a> · PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6126949">PMC6126949</a></div></div>
+<div class="csl-left-margin">4. </div><div class="csl-right-inline"><strong>Variation graph toolkit improves read mapping by representing genetic variation in the reference</strong> <div class="csl-block">Erik Garrison, Jouni Sirén, Adam M Novak, Glenn Hickey, Jordan M Eizenga, Eric T Dawson, William Jones, Shilpa Garg, Charles Markello, Michael F Lin, … Richard Durbin</div> <em>Nature Biotechnology</em> (2018-08-20) <a href="https://doi.org/gd2zqs">https://doi.org/gd2zqs</a> <div class="csl-block">DOI: <a href="https://doi.org/10.1038/nbt.4227">10.1038/nbt.4227</a> · PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/30125266">30125266</a> · PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6126949">PMC6126949</a></div></div>
 </div>
 <div id="ref-WCEeLZ0k" class="csl-entry" role="doc-biblioentry">
 <div class="csl-left-margin">5. </div><div class="csl-right-inline"><strong>Pangenomics enables genotyping of known structural variants in 5202 diverse genomes</strong> <div class="csl-block">Jouni Sirén, Jean Monlong, Xian Chang, Adam M Novak, Jordan M Eizenga, Charles Markello, Jonas A Sibbesen, Glenn Hickey, Pi-Chuan Chang, Andrew Carroll, … Benedict Paten</div> <em>Science</em> (2021-12-17) <a href="https://doi.org/gns2wr">https://doi.org/gns2wr</a> <div class="csl-block">DOI: <a href="https://doi.org/10.1126/science.abg8871">10.1126/science.abg8871</a> · PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/34914532">34914532</a> · PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9365333">PMC9365333</a></div></div>
@@ -696,7 +739,7 @@ All authors contributed to reviewing the text and content of the manuscript.</p>
 <div class="csl-left-margin">9. </div><div class="csl-right-inline"><strong>Haplotype-aware pantranscriptome analyses using spliced pangenome graphs</strong> <div class="csl-block">Jonas A Sibbesen, Jordan M Eizenga, Adam M Novak, Jouni Sirén, Xian Chang, Erik Garrison, Benedict Paten</div> <em>Nature Methods</em> (2023-01-16) <a href="https://doi.org/gt9fj7">https://doi.org/gt9fj7</a> <div class="csl-block">DOI: <a href="https://doi.org/10.1038/s41592-022-01731-9">10.1038/s41592-022-01731-9</a> · PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/36646895">36646895</a></div></div>
 </div>
 <div id="ref-1Fp6JRSHg" class="csl-entry" role="doc-biblioentry">
-<div class="csl-left-margin">10. </div><div class="csl-right-inline"><strong>asl/BandageNG</strong> <div class="csl-block">Anton Korobeynikov</div> (2024-10-10) <a href="https://github.com/asl/BandageNG">https://github.com/asl/BandageNG</a></div>
+<div class="csl-left-margin">10. </div><div class="csl-right-inline"><strong>asl/BandageNG</strong> <div class="csl-block">Anton Korobeynikov</div> (2025-06-11) <a href="https://github.com/asl/BandageNG">https://github.com/asl/BandageNG</a></div>
 </div>
 <div id="ref-hbEIE3nt" class="csl-entry" role="doc-biblioentry">
 <div class="csl-left-margin">11. </div><div class="csl-right-inline"><strong>Bandage: interactive visualization of &lt;i&gt;de novo&lt;/i&gt; genome assemblies</strong> <div class="csl-block">Ryan R Wick, Mark B Schultz, Justin Zobel, Kathryn E Holt</div> <em>Bioinformatics</em> (2015-06-22) <a href="https://doi.org/gb5g64">https://doi.org/gb5g64</a> <div class="csl-block">DOI: <a href="https://doi.org/10.1093/bioinformatics/btv383">10.1093/bioinformatics/btv383</a> · PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/26099265">26099265</a> · PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4595904">PMC4595904</a></div></div>
@@ -753,7 +796,7 @@ All authors contributed to reviewing the text and content of the manuscript.</p>
 <div class="csl-left-margin">28. </div><div class="csl-right-inline"><strong>The Genotype-Tissue Expression (GTEx) project</strong> <div class="csl-block">John Lonsdale, Jeffrey Thomas, Mike Salvatore, Rebecca Phillips, Edmund Lo, Saboor Shad, Richard Hasz, Gary Walters, Fernando Garcia, Nancy Young, … Helen F Moore</div> <em>Nature Genetics</em> (2013-05-29) <a href="https://doi.org/gd5z68">https://doi.org/gd5z68</a> <div class="csl-block">DOI: <a href="https://doi.org/10.1038/ng.2653">10.1038/ng.2653</a> · PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/23715323">23715323</a> · PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4010069">PMC4010069</a></div></div>
 </div>
 <div id="ref-K5KcBvOm" class="csl-entry" role="doc-biblioentry">
-<div class="csl-left-margin">29. </div><div class="csl-right-inline"><strong>jmonlong/manu-vggafannot</strong> <div class="csl-block">Jean Monlong</div> (2024-10-17) <a href="https://github.com/jmonlong/manu-vggafannot">https://github.com/jmonlong/manu-vggafannot</a></div>
+<div class="csl-left-margin">29. </div><div class="csl-right-inline"><strong>jmonlong/manu-vggafannot</strong> <div class="csl-block">Jean Monlong</div> (2025-06-13) <a href="https://github.com/jmonlong/manu-vggafannot">https://github.com/jmonlong/manu-vggafannot</a></div>
 </div>
 <div id="ref-GFyNIG1t" class="csl-entry" role="doc-biblioentry">
 <div class="csl-left-margin">30. </div><div class="csl-right-inline"><strong>Efficient indexing and querying of annotations in a pangenome graph</strong> <div class="csl-block">Jean Monlong</div> <em>Zenodo</em> (2024-10-08) <a href="https://doi.org/g74vrh">https://doi.org/g74vrh</a> <div class="csl-block">DOI: <a href="https://doi.org/10.5281/zenodo.13904205">10.5281/zenodo.13904205</a></div></div>
