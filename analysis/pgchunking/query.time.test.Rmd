@@ -27,20 +27,23 @@ Annotate the query number to check if the first query takes longer for remote fi
 
 ```{r}
 df = df %>% group_by(size) %>%
-  mutate(query.nb=as.numeric(factor(region, levels=unique(region))))
+  mutate(query.nb=as.numeric(factor(region, levels=unique(region))),
+         size.label=paste(size, 'bp'))
 ```
 
 ## Query time distribution
 
 ```{r query_time, fig.height=3}
-ggplot(df, aes(x=factor(size), y=s, fill=method)) +
+ggplot(df, aes(x=method, y=s, fill=method)) +
   geom_point(data=subset(df, query.nb==1), size=3, alpha=1,
              position=position_dodge(.75), shape=5) + 
   geom_boxplot(position='dodge') + theme_bw() +
-  xlab('region size (bp)') + coord_flip() +
+  coord_flip() +
   scale_fill_brewer(palette='Set2') +
-  theme(legend.position='bottom') + 
-  ylab('query time (s)')
+  guides(fill='none') + 
+  facet_grid(size.label~.) + 
+  ylab('query time (s)') +
+  theme(strip.text.y=element_text(angle=0))
 ```
 
 The diamond highlights the first query. 
@@ -65,4 +68,55 @@ df %>% group_by(method, size) %>%
   summarize(s=mean(s, na.rm=TRUE), .groups='drop') %>%
   pivot_wider(names_from=method, values_from=s) %>%
   kable
+```
+
+## File size comparison
+
+```{r, file_size}
+size.df = read.table('file.sizes.tsv', as.is=TRUE, sep='\t', header=TRUE)
+
+size.plot.df = size.df %>% mutate(size.gib=size/(1024*1024*1024),
+                                  type=ifelse(grepl('tabix', file), 'tabix', file),
+                                  type=factor(type, rev(unique(type))),
+                                  subfile=ifelse(grepl('tabix', file), gsub('tabix-', '', file), 'NA'))
+
+ggplot(size.plot.df, aes(x=type, y=size.gib)) +
+  geom_col() + 
+  geom_col(aes(fill=subfile), data=subset(size.plot.df, type=='tabix')) + 
+  coord_flip() + theme_bw() +
+  ylab('file size (GiB)') +
+  scale_fill_brewer(palette='Set2', name='tabix files') +
+  theme(axis.title.y=element_blank(),
+        legend.position='inside',
+        legend.position.inside=c(.99, .01),
+        legend.justification.inside=c(1,0))
+  
+```
+
+## Figure
+
+```{r}
+p1 = ggplot(size.plot.df, aes(x=type, y=size.gib)) +
+  geom_col() + 
+  geom_col(aes(fill=subfile), data=subset(size.plot.df, type=='tabix')) + 
+  coord_flip() + theme_bw() +
+  ylab('file size (GiB)') +
+  scale_fill_brewer(palette='Set2', name='tabix files') +
+  theme(axis.title.y=element_blank(),
+        legend.position='inside',
+        legend.position.inside=c(.99, .01),
+        legend.justification.inside=c(1,0))
+p2 = ggplot(df, aes(x=method, y=s)) +
+  geom_point(data=subset(df, query.nb==1), size=3, alpha=1,
+             position=position_dodge(.75), shape=5) + 
+  geom_boxplot(position='dodge', fill='grey90') + theme_bw() +
+  coord_flip() +
+  guides(fill='none') + 
+  facet_grid(size.label~.) + 
+  ylab('query time (s)') +
+  theme(strip.text.y=element_text(angle=0))
+
+pdf('pgchunking.fig.pdf', 10, 3)
+gridExtra::grid.arrange(p1, p2, nrow=1)
+dev.off()
 ```

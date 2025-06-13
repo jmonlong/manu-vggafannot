@@ -34,30 +34,33 @@ df = lapply(reg_size, function(rs){
 sample_n(df, 3) %>% select(size, method, region, s)
 ```
 
-    ##    size         method                            region        s
-    ## 1   100             vg  GRCh38#0#chr18:30339677-30339777 33.59794
-    ## 2 10000 chunkix_remote  GRCh38#0#chr17:13249195-13259195 12.04265
-    ## 3 10000 chunkix_remote GRCh38#0#chr7:150869665-150879665 20.14897
+    ##    size         method                           region         s
+    ## 1 10000 chunkix_remote  GRCh38#0#chrY:29396765-29406765  7.003057
+    ## 2   100             vg GRCh38#0#chr18:79276077-79276177 33.524945
+    ## 3  1000 chunkix_remote    GRCh38#0#chrX:9217121-9218121  9.896849
 
 Annotate the query number to check if the first query takes longer for
 remote files (because of the time it takes to download the tbi files).
 
 ``` r
 df = df %>% group_by(size) %>%
-  mutate(query.nb=as.numeric(factor(region, levels=unique(region))))
+  mutate(query.nb=as.numeric(factor(region, levels=unique(region))),
+         size.label=paste(size, 'bp'))
 ```
 
 ## Query time distribution
 
 ``` r
-ggplot(df, aes(x=factor(size), y=s, fill=method)) +
+ggplot(df, aes(x=method, y=s, fill=method)) +
   geom_point(data=subset(df, query.nb==1), size=3, alpha=1,
              position=position_dodge(.75), shape=5) + 
   geom_boxplot(position='dodge') + theme_bw() +
-  xlab('region size (bp)') + coord_flip() +
+  coord_flip() +
   scale_fill_brewer(palette='Set2') +
-  theme(legend.position='bottom') + 
-  ylab('query time (s)')
+  guides(fill='none') + 
+  facet_grid(size.label~.) + 
+  ylab('query time (s)') +
+  theme(strip.text.y=element_text(angle=0))
 ```
 
 ![](query.time.test_files/figure-gfm/query_time-1.png)<!-- -->
@@ -98,3 +101,58 @@ df %>% group_by(method, size) %>%
 |   100 | 0.4868282 |       16.24498 | 33.26382 |
 |  1000 | 0.4965837 |       17.37299 | 33.37983 |
 | 10000 | 0.4763262 |       15.90399 | 33.39566 |
+
+## File size comparison
+
+``` r
+size.df = read.table('file.sizes.tsv', as.is=TRUE, sep='\t', header=TRUE)
+
+size.plot.df = size.df %>% mutate(size.gib=size/(1024*1024*1024),
+                                  type=ifelse(grepl('tabix', file), 'tabix', file),
+                                  type=factor(type, rev(unique(type))),
+                                  subfile=ifelse(grepl('tabix', file), gsub('tabix-', '', file), 'NA'))
+
+ggplot(size.plot.df, aes(x=type, y=size.gib)) +
+  geom_col() + 
+  geom_col(aes(fill=subfile), data=subset(size.plot.df, type=='tabix')) + 
+  coord_flip() + theme_bw() +
+  ylab('file size (GiB)') +
+  scale_fill_brewer(palette='Set2', name='tabix files') +
+  theme(axis.title.y=element_blank(),
+        legend.position='inside',
+        legend.position.inside=c(.99, .01),
+        legend.justification.inside=c(1,0))
+```
+
+![](query.time.test_files/figure-gfm/file_size-1.png)<!-- -->
+
+## Figure
+
+``` r
+p1 = ggplot(size.plot.df, aes(x=type, y=size.gib)) +
+  geom_col() + 
+  geom_col(aes(fill=subfile), data=subset(size.plot.df, type=='tabix')) + 
+  coord_flip() + theme_bw() +
+  ylab('file size (GiB)') +
+  scale_fill_brewer(palette='Set2', name='tabix files') +
+  theme(axis.title.y=element_blank(),
+        legend.position='inside',
+        legend.position.inside=c(.99, .01),
+        legend.justification.inside=c(1,0))
+p2 = ggplot(df, aes(x=method, y=s)) +
+  geom_point(data=subset(df, query.nb==1), size=3, alpha=1,
+             position=position_dodge(.75), shape=5) + 
+  geom_boxplot(position='dodge', fill='grey90') + theme_bw() +
+  coord_flip() +
+  guides(fill='none') + 
+  facet_grid(size.label~.) + 
+  ylab('query time (s)') +
+  theme(strip.text.y=element_text(angle=0))
+
+pdf('pgchunking.fig.pdf', 10, 3)
+gridExtra::grid.arrange(p1, p2, nrow=1)
+dev.off()
+```
+
+    ## png 
+    ##   2

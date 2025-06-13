@@ -49,9 +49,9 @@ vg paths -E -x hprc-v1.1-mc-grch38.gbz > contig.lengths.txt
 We tested three different region size (`-s` below):
 
 ```sh
-python3 query.time.test.py -r -n 50 -s 100 > benchmark.query.50.100.tsv
-python3 query.time.test.py -r -n 50 -s 1000 > benchmark.query.50.1000.tsv
-python3 query.time.test.py -r -n 50 -s 10000 > benchmark.query.50.10000.tsv
+python3 query.time.test.py -r -n 20 -s 100 > benchmark.query.20.100.tsv
+python3 query.time.test.py -r -n 20 -s 1000 > benchmark.query.20.1000.tsv
+python3 query.time.test.py -r -n 20 -s 10000 > benchmark.query.20.10000.tsv
 ```
 
 A summary of the query time is compiled in [this R-markdown report](query.time.test.md).
