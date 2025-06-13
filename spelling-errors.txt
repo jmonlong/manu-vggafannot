@@ -4,6 +4,7 @@ AluYa
 AMN
 ATAC
 BAM
+benchmarked
 benchmarking
 benedictpaten
 BGZF
@@ -13,12 +14,11 @@ bioinformatics
 centric
 centromeres
 CFD
+contig
 contigs
 cov
 CSD
 CSV
-dataset
-datasets
 DFR
 Djebali
 duplications
@@ -58,6 +58,7 @@ heatmap
 HiSeq
 HPRC
 HTSlib
+HTTPS
 IGV
 IHY
 Illumina
@@ -66,7 +67,9 @@ INSERM
 IRSD
 JM
 jmonlong
+JSON
 KAQ
+Kbp
 libbdsg
 linearized
 medialis
@@ -87,6 +90,7 @@ pangenomes
 pangenomic
 Paten
 Peyer’s
+pgchunking
 PGGB
 PRAMEF
 pre
@@ -97,11 +101,10 @@ QTLs
 readsorting
 reannotation
 RepeatMasker
-runtime
 runtimes
 sdjebali
 segmental
-SequenceTubeMap
+sequenceTubeMap
 SEZ
 Sigmoid
 Snakemake
@@ -110,11 +113,12 @@ subcommands
 subgraph
 surjected
 tabix
-tbi
+TBI
 toolkit’s
 Toshiyuki
 TPO
 transposon
+TSV
 TTY
 tubemap
 UC

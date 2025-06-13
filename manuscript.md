@@ -5,7 +5,7 @@ keywords:
 - annotation
 - alignment
 lang: en-US
-date-meta: '2024-10-17'
+date-meta: '2025-06-13'
 author-meta:
 - Adam M. Novak
 - Dickson Chung
@@ -27,11 +27,11 @@ header-includes: |
   <meta name="citation_title" content="Efficient indexing and querying of annotations in a pangenome graph" />
   <meta property="og:title" content="Efficient indexing and querying of annotations in a pangenome graph" />
   <meta property="twitter:title" content="Efficient indexing and querying of annotations in a pangenome graph" />
-  <meta name="dc.date" content="2024-10-17" />
-  <meta name="citation_publication_date" content="2024-10-17" />
-  <meta property="article:published_time" content="2024-10-17" />
-  <meta name="dc.modified" content="2024-10-17T17:33:49+00:00" />
-  <meta property="article:modified_time" content="2024-10-17T17:33:49+00:00" />
+  <meta name="dc.date" content="2025-06-13" />
+  <meta name="citation_publication_date" content="2025-06-13" />
+  <meta property="article:published_time" content="2025-06-13" />
+  <meta name="dc.modified" content="2025-06-13T15:39:02+00:00" />
+  <meta property="article:modified_time" content="2025-06-13T15:39:02+00:00" />
   <meta name="dc.language" content="en-US" />
   <meta name="citation_language" content="en-US" />
   <meta name="dc.relation.ispartof" content="Manubot" />
@@ -68,9 +68,9 @@ header-includes: |
   <meta name="citation_fulltext_html_url" content="https://jmonlong.github.io/manu-vggafannot/" />
   <meta name="citation_pdf_url" content="https://jmonlong.github.io/manu-vggafannot/manuscript.pdf" />
   <link rel="alternate" type="application/pdf" href="https://jmonlong.github.io/manu-vggafannot/manuscript.pdf" />
-  <link rel="alternate" type="text/html" href="https://jmonlong.github.io/manu-vggafannot/v/6b652d164850cb2311dedc7e6b856c458590c010/" />
-  <meta name="manubot_html_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/6b652d164850cb2311dedc7e6b856c458590c010/" />
-  <meta name="manubot_pdf_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/6b652d164850cb2311dedc7e6b856c458590c010/manuscript.pdf" />
+  <link rel="alternate" type="text/html" href="https://jmonlong.github.io/manu-vggafannot/v/0d97258c73f9234a49674a770a9b60d2657105f6/" />
+  <meta name="manubot_html_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/0d97258c73f9234a49674a770a9b60d2657105f6/" />
+  <meta name="manubot_pdf_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/0d97258c73f9234a49674a770a9b60d2657105f6/manuscript.pdf" />
   <meta property="og:type" content="article" />
   <meta property="twitter:card" content="summary_large_image" />
   <link rel="icon" type="image/png" sizes="192x192" href="https://manubot.org/favicon-192x192.png" />
@@ -92,10 +92,10 @@ manubot-clear-requests-cache: false
 
 <small><em>
 This manuscript
-([permalink](https://jmonlong.github.io/manu-vggafannot/v/6b652d164850cb2311dedc7e6b856c458590c010/))
+([permalink](https://jmonlong.github.io/manu-vggafannot/v/0d97258c73f9234a49674a770a9b60d2657105f6/))
 was automatically generated
-from [jmonlong/manu-vggafannot@6b652d1](https://github.com/jmonlong/manu-vggafannot/tree/6b652d164850cb2311dedc7e6b856c458590c010)
-on October 17, 2024.
+from [jmonlong/manu-vggafannot@0d97258](https://github.com/jmonlong/manu-vggafannot/tree/0d97258c73f9234a49674a770a9b60d2657105f6)
+on June 13, 2025.
 </em></small>
 
 
@@ -421,6 +421,30 @@ Notably, `vg call` can also output genotypes directly in GAF format with the `-G
 
 The scripts and pipeline to annotate variants is available in the public repository of this study in the `analysis/variants` folder of this paper's repository (see [Code and data availability]).
 
+### Faster subgraph extraction using tabix index files
+
+We devised an approach to efficiently query a subgraph of a pangenome, based on a queried range on one of its haplotypes, using three tabix indexes: 1) a GAF file with the paths taken by the haplotypes, split in small regions, 2) a BED file indexing each of those regions, 3) a TSV file with nodes and their sequences.
+The GAF file is produced by cutting the haplotypes in chunks of maximum N nodes (100 by default). 
+Each GAF record corresponds to one haplotype chunk and an optional tag is added to record the haplotype name and the starting position in the haplotype.
+For each of those chunks, a BED record is written in the second index file.
+It contains the coordinate of this region on the haplotype and the minimum and maximum node IDs in that region (columns 4 and 5).
+Finally, the third index file records the node sequences with three columns: a placeholder *contig* name (*n* in practice), a node ID, and the node sequence.
+The three files are sorted, bgzipped and indexed with tabix.
+The GAF and TSV file can then be queried by node ranges, and the BED file by coordinate on the haplotypes.
+
+To extract a subgraph around a region of interest, the BED file is first queried with a coordinates (e.g. `CONTIG:START-END`) and the output node ranges are merged.
+The GAF file with haplotype information is then queried with those node ranges.
+The haplotype chunks are then stitched back together.
+The queried haplotype is used as a backbone and the ends of other haplotypes are trimmed until they touch a node on the queried haplotype.
+Optionally, other GAF files, e.g. reads or annotations, can also be queried using that node range.
+Finally, the TSV file is queried by nodes to retrieve their sequences.
+The edges in the subgraph are derived from the haplotype paths.
+A JSON representation of the subgraph and annotations can also be outputted directly, for example when used internally by the sequenceTubeMap.
+
+Subgraph extraction was benchmarked on 20 randomly selected regions.
+Three sets of regions of different length were tested (100 bp, 1000 bp, and 10,000 bp).
+We compared the new tabix-powered extraction with `vg chunk` starting from a GBZ file and using the `--trace` option to trace haplotype threads and a context of 1 node (`-c 1`).
+
 ### Visualization in the Sequence Tube Map
 
 The Sequence Tube Map was developed to explore a pangenome graph interactively, with haplotypes traversing it, and reads mapping to it[@tubemap]. 
@@ -428,6 +452,9 @@ It internally calls *vg* to extract the relevant slice of the pangenome graph an
 We updated the Sequence Tube Map to accept GAF files sorted, compressed, and indexed as in [Indexing paths in GAF files].
 We have also extended it to use an element's opacity to represent an integer score, like a mapping quality or read coverage.
 The variable transparency helps highlight regions of high coverage when visualizing coverage tracks from the ENCODE project (see [Coverage of seven functional datasets from ENCODE] and Figure {@fig:tubemap}D).
+
+The Sequence Tube Map was also modified to accept the three new tabix-based index files described above.
+In this case, the subgraph extraction Python script is called instead of the `vg chunk` command.
 
 ### Visualization in Bandage-NG
 
@@ -445,15 +472,16 @@ The user can select a *path* and color its nodes.
 The helper script and a tutorial are available at the `analysis/visualization` folder of this paper's repository (see [Code and data availability]).
 
 
+
 ## Results
 
 ### Sorting and indexing short sequencing reads
 
 Read sorting (see [Indexing paths in GAF files]) was tested on about 30X coverage of Illumina HiSeq paired-end 150bp reads for the HG002 sample.
-The plain gzipped GAF file with about 682 million reads was sorted with `vg gamsort` and compressed with `bgzip` in 6h32 using 6.47 hours of CPU time and about 1.9 GiB of memory (Table @tbl:readsorting_summary).
-Indexing the sorted GAF with `tabix` took 18.6 minutes using 17.4 minutes of CPU time.
+The plain gzipped GAF file with about 682 million reads was sorted with `vg gamsort` and compressed with `bgzip` in 3h55 using 3.87 hours of CPU time and less than 1 GiB of memory (Table @tbl:readsorting_summary).
+Indexing the sorted GAF with `tabix` took 20 minutes using 18.4 minutes of CPU time.
 We compared that approach with the existing read sorting implementation in `vg`, which operates on files in the Protobuf-based GAM format[@vg].
-Sorting a GAM with the same reads took 11h47 using 11h38 of CPU time and about 6.1 GiB of memory. 
+Sorting a GAM with the same reads took 12h using 11.87 hours of CPU time and about 7 GiB of memory. 
 
 In addition to being about twice as fast to sort, reads written in the GAF format (and bgzipped) also take about half the disk space (52 GiB vs 108 GiB).
 The main reason for this reduced space is that GAF does not save the complete read sequence, only the path through the pangenome and edits to reconstruct it.
@@ -464,10 +492,10 @@ Once a GAF is indexed, extracting a slice of reads works like extracting a slice
 For example, extracting reads for ten thousand random regions in the pangenome took about 0.066 seconds per region to retrieve an average of 1707 reads.
 For comparison, the same extraction took an average of 0.816 seconds per region using the GAM format. 
 
-| Format | Time (H:M:S) | Max. memory used (MiB) | File size (GiB) |
-|:------:|-------------:|-----------------------:|----------------:|
-| GAM    |     11:46:58 |               6,236.60 |             108 |
-| GAF    |      6:50:28 |               1,904.83 |              52 |
+| Format | Time (H:M:S) | Max. memory used (GiB) | File size (Gb) |
+|:------:|-------------:|-----------------------:|---------------:|
+| GAM    |     12:00:19 |                   6.98 |            108 |
+| GAF    |      3:55:13 |                   0.84 |             52 |
 
 Table: Resources used to sort short sequencing reads for a 30x coverage Illumina human dataset.
 {#tbl:readsorting_summary}
@@ -563,6 +591,31 @@ By integrating these two external sources of annotations (gene annotation and AT
 <!-- **Coverage tracks visualized interactively using the Sequence Tube Map.** -->
 <!-- a) Promoter... b) Structural variant.... -->
 <!-- ](figures/wide.png "Wide image"){#fig:cov_examples} -->
+
+### Efficient subgraph extraction and speed-up for the Sequence Tube Map
+
+A new subgraph extraction was implemented using three tabix-indexed files: a GAF file with haplotype information, a BED file associating coordinates on the haplotypes to nodes, and a TSV file associating each node to its sequence. 
+The three index files were produced in about 1h40m starting from the gzipped GFA file of the HPRC Minigraph-Cactus v1.1 pangenome.
+
+Extracting a subgraph on 20 random regions of 100 bp, 1 Kbp, or 10 Kbp took about 0.5s per query, compared to 33s using `vg chunk` (Figure {@fig:pgchunking}).
+Of note, as other tabix-indexed files, the new pangenome files can be queried remotely through HTTPS/FTP.
+For example, we extracted the same regions using files hosted in a server in the United States, from a computer in France, in 15s on average. 
+In this case, the small TBI files are automatically downloaded locally, if needed, which added about additional 20 second to the first query.
+
+![
+**Subgraph extraction using tabix-indexed files**.
+Benchmark performed on the HPRC Minigraph-Cactus v1.1 human pangenome.
+**Left** Size of the index files. 
+**Right** Time to query 20 random regions of varying sizes (y-axis), using the tabix-indexed files (`chunkix` method) or `vg chunk` from the GBZ file.
+The `chunkix` method also works on remote files, here through HTTPS, and is labelled here as `chunkix_remote`. 
+In that case the small TBI files must be downloaded locally which increase the time for the first query (highlighted with a diamond).
+](images/pgchunking.fig.png "Subgraph extraction"){#fig:pgchunking}
+
+On disk, the three index files totaled 4 GiB: 2.4 GiB for the "haplotype" bgzipped GAF file, 1.1 GiB for the "node sequence" bgzipped TSV file, and 527 MiB for the "haplotype position" bgzipped BED file (Figure {@fig:pgchunking}).
+These index files are 2.75 smaller than input gzipped GFA file (11 GiB) and 30% larger than the GBZ file (3.1 GiB).
+
+Thanks to their integration in the sequenceTubeMap, it only takes about a second to visualize a region in the sequenceTubeMap when using these new index files, compared to more than 30s before.
+
 
 
 ## Discussion

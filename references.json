@@ -120,7 +120,8 @@
       "date-parts": [
         [
           2018,
-          10
+          8,
+          20
         ]
       ]
     },
@@ -4409,7 +4410,7 @@
   },
   {
     "publisher": "Cold Spring Harbor Laboratory",
-    "abstract": "<jats:title>Abstract</jats:title><jats:p>Pangenome graphs can represent all variation between multiple genomes, but existing methods for constructing them are biased due to reference-guided approaches. In response, we have developed PanGenome Graph Builder (PGGB), a reference-free pipeline for constructing unbi-ased pangenome graphs. PGGB uses all-to-all whole-genome alignments and learned graph embeddings to build and iteratively refine a model in which we can identify variation, measure conservation, detect recombination events, and infer phylogenetic relationships.</jats:p>",
+    "abstract": "<jats:title>Abstract</jats:title><jats:p>Pangenome graphs can represent all variation between multiple reference genomes, but current approaches to build them exclude complex sequences or are based upon a single reference. In response, we developed the PanGenome Graph Builder (PGGB), a pipeline for constructing pangenome graphs without bias or exclusion. PGGB uses all-to-all alignments to build a variation graph in which we can identify variation, measure conservation, detect recombination events, and infer phylogenetic relationships.</jats:p>",
     "DOI": "10.1101/2023.04.05.535718",
     "type": "manuscript",
     "source": "Crossref",
@@ -4476,6 +4477,10 @@
         "family": "Rudbeck"
       },
       {
+        "given": "Agnieszka A.",
+        "family": "Golicz"
+      },
+      {
         "given": "Sven",
         "family": "Nahnsen"
       },
@@ -4484,8 +4489,8 @@
         "family": "Yang"
       },
       {
-        "given": "Mwaniki N.",
-        "family": "Moses"
+        "given": "Moses Njagi",
+        "family": "Mwaniki"
       },
       {
         "given": "Franklin L.",
@@ -4506,6 +4511,14 @@
       {
         "given": "Peter H.",
         "family": "Sudmant"
+      },
+      {
+        "given": "Sanwen",
+        "family": "Huang"
+      },
+      {
+        "given": "Detlef",
+        "family": "Weigel"
       },
       {
         "given": "Nicole",
@@ -5120,18 +5133,18 @@
     "accessed": {
       "date-parts": [
         [
-          "2024",
-          10,
-          17
+          "2025",
+          6,
+          13
         ]
       ]
     },
     "issued": {
       "date-parts": [
         [
-          "2024",
-          10,
-          10
+          "2025",
+          6,
+          11
         ]
       ]
     }
@@ -5154,18 +5167,18 @@
     "accessed": {
       "date-parts": [
         [
-          "2024",
-          10,
-          17
+          "2025",
+          6,
+          13
         ]
       ]
     },
     "issued": {
       "date-parts": [
         [
-          "2024",
-          10,
-          17
+          "2025",
+          6,
+          13
         ]
       ]
     }
