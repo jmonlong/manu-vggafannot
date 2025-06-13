@@ -12,7 +12,7 @@ library(knitr)
 ## Read benchmarking files
 
 ```{r}
-nregs = 50
+nregs = 20
 reg_size = c(100, 1000, 10000)
 
 df = lapply(reg_size, function(rs){
@@ -23,16 +23,38 @@ df = lapply(reg_size, function(rs){
 sample_n(df, 3) %>% select(size, method, region, s)
 ```
 
+Annotate the query number to check if the first query takes longer for remote files (because of the time it takes to download the tbi files).
+
+```{r}
+df = df %>% group_by(size) %>%
+  mutate(query.nb=as.numeric(factor(region, levels=unique(region))))
+```
+
 ## Query time distribution
 
-```{r, fig.height=3}
+```{r query_time, fig.height=3}
 ggplot(df, aes(x=factor(size), y=s, fill=method)) +
+  geom_point(data=subset(df, query.nb==1), size=3, alpha=1,
+             position=position_dodge(.75), shape=5) + 
   geom_boxplot(position='dodge') + theme_bw() +
   xlab('region size (bp)') + coord_flip() +
   scale_fill_brewer(palette='Set2') +
   theme(legend.position='bottom') + 
   ylab('query time (s)')
 ```
+
+The diamond highlights the first query. 
+When querying remote files, the first query takes more time because the tbi files need to be downloaded.
+
+```{r}
+df %>% filter(method=='chunkix_remote') %>%
+  group_by(size) %>% summarize(med.s=median(s), first.s=s[query.nb==1]) %>%
+  mutate(first.penalty.s=first.s-med.s) %>% kable
+```
+
+Downloading the tbi files adds about 20 seconds in our case
+
+Note: this remote query was performed from France and accessing index files hosted in a server in Santa Cruz, California.
 
 ## Summary table
 
@@ -44,4 +66,3 @@ df %>% group_by(method, size) %>%
   pivot_wider(names_from=method, values_from=s) %>%
   kable
 ```
-

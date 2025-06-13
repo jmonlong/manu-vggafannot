@@ -154,6 +154,7 @@ parser.add_argument('-a', default=[], action='append',
 parser.add_argument('-o', help='output prefix', default='chunk')
 parser.add_argument('-j', help='also make JSON output (e.g. for tubemap)',
                     action='store_true')
+parser.add_argument('-v', help='more verbose', action='store_true')
 parser.add_argument('-s', help='simplify haplotypes by merging identical ones'
                     ' (for the JSON output)', action='store_true')
 args = parser.parse_args()
@@ -193,6 +194,8 @@ for nbed in nodes_bed:
     min_node = min(min_node, node_s, node_e)
     max_node = max(max_node, node_s, node_e)
 max_node += 1
+if args.v:
+    print('min-max nodes: {}-{}'.format(min_node, max_node))
 
 # extract haplotypes in region
 cmd = ['tabix', args.g, '{{node}}:{}-{}'.format(min_node, max_node)]
@@ -202,6 +205,8 @@ except subprocess.CalledProcessError as e:
     sys.exit(e.stderr.decode())
 haps_gaf = cmd_o.stdout.decode().rstrip().split('\n')
 haps_gaf = [line.split('\t') for line in haps_gaf]
+if args.v:
+    print('{} haplotype chunks extracted'.format(len(haps_gaf)))
 
 # organize haplotype subpaths
 subhaps_path = {}
@@ -271,6 +276,9 @@ if all_perfectly_stitched:
 else:
     print('Some haplotypes could not be stitched back in one piece')
 
+if args.v:
+    print('Haplotype chunks stitched into {} blocks'.format(len(haps_full_paths)))
+
 # to save the "default" reference path
 nodes_ref = {}
 for no in haps_full_paths[ref_path_name]:
@@ -278,6 +286,8 @@ for no in haps_full_paths[ref_path_name]:
 # this is used for a first round of "trimming" of the haplotypes
 # another round is done later to match the queried range better
 
+if args.v:
+    print('Trimming haplotype blocks.')
 # prepare paths before the actual round of trimming
 haps_paths_pretrim = {}
 # this is to know which nodes to include (and get information later)
@@ -308,6 +318,8 @@ annot_forjsons_l = []
 nodes_inc_others = {}
 if args.a != '':
     for annot_idx, annot_fn in enumerate(args.a):
+        if args.v:
+            print('Extracting records from {}...'.format(annot_fn))
         # extract with tabix
         cmd = ['tabix', annot_fn, '{{node}}:{}-{}'.format(min_node, max_node)]
         try:
@@ -362,6 +374,8 @@ if args.a != '':
 for node in nodes_inc_others:
     nodes_inc[node] = True
 
+if args.v:
+    print('Finding node sequence...')
 # find sequence for nodes to include
 nodes_seq = {}
 # first, cluster them to avoid too many queries
@@ -395,6 +409,8 @@ for ncl in node_cls:
         if posr[1] in nodes_inc:
             nodes_seq[posr[1]] = posr[2]
 
+if args.v:
+    print('Trimming everything again...')
 # second round of trimming to match the queried range exactly
 # trim the "reference" path first
 cur_pos = min_ref_pos
