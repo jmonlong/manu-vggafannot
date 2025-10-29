@@ -48,7 +48,7 @@ glennhickey
 GN
 gnarzisi
 GRCh
-GTEx
+GTEX
 GWAS
 gzip
 gzipped
@@ -113,7 +113,7 @@ subcommands
 subgraph
 surjected
 tabix
-TBI
+tbi
 toolkit’s
 Toshiyuki
 TPO
