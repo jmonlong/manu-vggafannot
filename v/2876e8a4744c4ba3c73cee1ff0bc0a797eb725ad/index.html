@@ -1,0 +1,4094 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Adam M. Novak" />
+  <meta name="author" content="Dickson Chung" />
+  <meta name="author" content="Glenn Hickey" />
+  <meta name="author" content="Sarah Djebali" />
+  <meta name="author" content="Toshiyuki T. Yokoyama" />
+  <meta name="author" content="Erik Garrison" />
+  <meta name="author" content="Giuseppe Narzisi" />
+  <meta name="author" content="Benedict Paten" />
+  <meta name="author" content="Jean Monlong" />
+  <meta name="dcterms.date" content="2025-10-29" />
+  <meta name="keywords" content="pangenome, annotation, alignment" />
+  <title>Efficient indexing and querying of annotations in a pangenome graph</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+    }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+  <!--
+  Manubot generated metadata rendered from header-includes-template.html.
+  Suggest improvements at https://github.com/manubot/manubot/blob/main/manubot/process/header-includes-template.html
+  -->
+  <meta name="dc.format" content="text/html" />
+  <meta property="og:type" content="article" />
+  <meta name="dc.title" content="Efficient indexing and querying of annotations in a pangenome graph" />
+  <meta name="citation_title" content="Efficient indexing and querying of annotations in a pangenome graph" />
+  <meta property="og:title" content="Efficient indexing and querying of annotations in a pangenome graph" />
+  <meta property="twitter:title" content="Efficient indexing and querying of annotations in a pangenome graph" />
+  <meta name="dc.date" content="2025-10-29" />
+  <meta name="citation_publication_date" content="2025-10-29" />
+  <meta property="article:published_time" content="2025-10-29" />
+  <meta name="dc.modified" content="2025-10-29T10:36:44+00:00" />
+  <meta property="article:modified_time" content="2025-10-29T10:36:44+00:00" />
+  <meta name="dc.language" content="en-US" />
+  <meta name="citation_language" content="en-US" />
+  <meta name="dc.relation.ispartof" content="Manubot" />
+  <meta name="dc.publisher" content="Manubot" />
+  <meta name="citation_journal_title" content="Manubot" />
+  <meta name="citation_technical_report_institution" content="Manubot" />
+  <meta name="citation_author" content="Adam M. Novak" />
+  <meta name="citation_author_institution" content="UC Santa Cruz Genomics Institute, University of California, Santa Cruz, Santa Cruz, CA, USA" />
+  <meta name="citation_author_orcid" content="0000-0001-5828-047X" />
+  <meta name="citation_author" content="Dickson Chung" />
+  <meta name="citation_author_institution" content="UC Santa Cruz Genomics Institute, University of California, Santa Cruz, Santa Cruz, CA, USA" />
+  <meta name="citation_author" content="Glenn Hickey" />
+  <meta name="citation_author_institution" content="UC Santa Cruz Genomics Institute, University of California, Santa Cruz, Santa Cruz, CA, USA" />
+  <meta name="citation_author" content="Sarah Djebali" />
+  <meta name="citation_author_institution" content="IRSD - Digestive Health Research Institute, University of Toulouse, INSERM, INRAE, ENVT, UPS, Toulouse, France" />
+  <meta name="citation_author_orcid" content="0000-0002-0599-1267" />
+  <meta name="citation_author" content="Toshiyuki T. Yokoyama" />
+  <meta name="citation_author_institution" content="Department of Computational Biology and Medical Sciences, Graduate School of Frontier Sciences, The University of Tokyo, Chiba, Japan" />
+  <meta name="citation_author" content="Erik Garrison" />
+  <meta name="citation_author_institution" content="Department of Genetics, Genomics and Informatics, University of Tennessee Health Science Center, Memphis, TN, USA" />
+  <meta name="citation_author_orcid" content="0000-0003-3821-631X" />
+  <meta name="citation_author" content="Giuseppe Narzisi" />
+  <meta name="citation_author_institution" content="New York Genome Center, New York, NY 10013, USA" />
+  <meta name="citation_author_orcid" content="0000-0003-1118-8849" />
+  <meta name="citation_author" content="Benedict Paten" />
+  <meta name="citation_author_institution" content="UC Santa Cruz Genomics Institute, University of California, Santa Cruz, Santa Cruz, CA, USA" />
+  <meta name="citation_author_orcid" content="0000-0001-8863-3539" />
+  <meta name="citation_author" content="Jean Monlong" />
+  <meta name="citation_author_institution" content="IRSD - Digestive Health Research Institute, University of Toulouse, INSERM, INRAE, ENVT, UPS, Toulouse, France" />
+  <meta name="citation_author_orcid" content="0000-0002-9737-5516" />
+  <link rel="canonical" href="https://jmonlong.github.io/manu-vggafannot/" />
+  <meta property="og:url" content="https://jmonlong.github.io/manu-vggafannot/" />
+  <meta property="twitter:url" content="https://jmonlong.github.io/manu-vggafannot/" />
+  <meta name="citation_fulltext_html_url" content="https://jmonlong.github.io/manu-vggafannot/" />
+  <meta name="citation_pdf_url" content="https://jmonlong.github.io/manu-vggafannot/manuscript.pdf" />
+  <link rel="alternate" type="application/pdf" href="https://jmonlong.github.io/manu-vggafannot/manuscript.pdf" />
+  <link rel="alternate" type="text/html" href="https://jmonlong.github.io/manu-vggafannot/v/2876e8a4744c4ba3c73cee1ff0bc0a797eb725ad/" />
+  <meta name="manubot_html_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/2876e8a4744c4ba3c73cee1ff0bc0a797eb725ad/" />
+  <meta name="manubot_pdf_url_versioned" content="https://jmonlong.github.io/manu-vggafannot/v/2876e8a4744c4ba3c73cee1ff0bc0a797eb725ad/manuscript.pdf" />
+  <meta property="og:type" content="article" />
+  <meta property="twitter:card" content="summary_large_image" />
+  <link rel="icon" type="image/png" sizes="192x192" href="https://manubot.org/favicon-192x192.png" />
+  <link rel="mask-icon" href="https://manubot.org/safari-pinned-tab.svg" color="#ad1457" />
+  <meta name="theme-color" content="#ad1457" />
+  <!-- end Manubot generated metadata -->
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Efficient indexing and querying of annotations in a pangenome graph</h1>
+</header>
+<p><small><em>
+This manuscript
+(<a href="https://jmonlong.github.io/manu-vggafannot/v/2876e8a4744c4ba3c73cee1ff0bc0a797eb725ad/">permalink</a>)
+was automatically generated
+from <a href="https://github.com/jmonlong/manu-vggafannot/tree/2876e8a4744c4ba3c73cee1ff0bc0a797eb725ad">jmonlong/manu-vggafannot@2876e8a</a>
+on October 29, 2025.
+</em></small></p>
+<h2 id="authors">Authors</h2>
+<ul>
+<li><p><strong>Adam M. Novak</strong>
+<br>
+<img src="images/orcid.svg" class="inline_icon" width="16" height="16" alt="ORCID icon" />
+<a href="https://orcid.org/0000-0001-5828-047X">0000-0001-5828-047X</a>
+· <img src="images/github.svg" class="inline_icon" width="16" height="16" alt="GitHub icon" />
+<a href="https://github.com/adamnovak">adamnovak</a>
+<br>
+<small>
+UC Santa Cruz Genomics Institute, University of California, Santa Cruz, Santa Cruz, CA, USA
+</small></p></li>
+<li><p><strong>Dickson Chung</strong>
+<br>
+<small>
+UC Santa Cruz Genomics Institute, University of California, Santa Cruz, Santa Cruz, CA, USA
+</small></p></li>
+<li><p><strong>Glenn Hickey</strong>
+<br>
+· <img src="images/github.svg" class="inline_icon" width="16" height="16" alt="GitHub icon" />
+<a href="https://github.com/glennhickey">glennhickey</a>
+<br>
+<small>
+UC Santa Cruz Genomics Institute, University of California, Santa Cruz, Santa Cruz, CA, USA
+</small></p></li>
+<li><p><strong>Sarah Djebali</strong>
+<br>
+<img src="images/orcid.svg" class="inline_icon" width="16" height="16" alt="ORCID icon" />
+<a href="https://orcid.org/0000-0002-0599-1267">0000-0002-0599-1267</a>
+· <img src="images/github.svg" class="inline_icon" width="16" height="16" alt="GitHub icon" />
+<a href="https://github.com/sdjebali">sdjebali</a>
+<br>
+<small>
+IRSD - Digestive Health Research Institute, University of Toulouse, INSERM, INRAE, ENVT, UPS, Toulouse, France
+</small></p></li>
+<li><p><strong>Toshiyuki T. Yokoyama</strong>
+<br>
+<small>
+Department of Computational Biology and Medical Sciences, Graduate School of Frontier Sciences, The University of Tokyo, Chiba, Japan
+</small></p></li>
+<li><p><strong>Erik Garrison</strong>
+<br>
+<img src="images/orcid.svg" class="inline_icon" width="16" height="16" alt="ORCID icon" />
+<a href="https://orcid.org/0000-0003-3821-631X">0000-0003-3821-631X</a>
+· <img src="images/github.svg" class="inline_icon" width="16" height="16" alt="GitHub icon" />
+<a href="https://github.com/ekg">ekg</a>
+<br>
+<small>
+Department of Genetics, Genomics and Informatics, University of Tennessee Health Science Center, Memphis, TN, USA
+</small></p></li>
+<li><p><strong>Giuseppe Narzisi</strong>
+<br>
+<img src="images/orcid.svg" class="inline_icon" width="16" height="16" alt="ORCID icon" />
+<a href="https://orcid.org/0000-0003-1118-8849">0000-0003-1118-8849</a>
+· <img src="images/github.svg" class="inline_icon" width="16" height="16" alt="GitHub icon" />
+<a href="https://github.com/gnarzisi">gnarzisi</a>
+<br>
+<small>
+New York Genome Center, New York, NY 10013, USA
+</small></p></li>
+<li><p><strong>Benedict Paten</strong>
+<br>
+<img src="images/orcid.svg" class="inline_icon" width="16" height="16" alt="ORCID icon" />
+<a href="https://orcid.org/0000-0001-8863-3539">0000-0001-8863-3539</a>
+· <img src="images/github.svg" class="inline_icon" width="16" height="16" alt="GitHub icon" />
+<a href="https://github.com/benedictpaten">benedictpaten</a>
+<br>
+<small>
+UC Santa Cruz Genomics Institute, University of California, Santa Cruz, Santa Cruz, CA, USA
+</small></p></li>
+<li><p><strong>Jean Monlong</strong>
+<sup><a href="#correspondence">✉</a></sup><br>
+<img src="images/orcid.svg" class="inline_icon" width="16" height="16" alt="ORCID icon" />
+<a href="https://orcid.org/0000-0002-9737-5516">0000-0002-9737-5516</a>
+· <img src="images/github.svg" class="inline_icon" width="16" height="16" alt="GitHub icon" />
+<a href="https://github.com/jmonlong">jmonlong</a>
+<br>
+<small>
+IRSD - Digestive Health Research Institute, University of Toulouse, INSERM, INRAE, ENVT, UPS, Toulouse, France
+</small></p></li>
+</ul>
+<div id="correspondence">
+<p>✉ — Correspondence possible via email to
+Jean Monlong &lt;jean.monlong@inserm.fr&gt;.</p>
+</div>
+<h2 class="page_break_before" id="abstract">Abstract</h2>
+<p>The current reference genome is the backbone of diverse and rich annotations.
+Simple text formats, like VCF or BED, have been widely adopted and helped the critical exchange of genomic information.
+There is a dire need for tools and formats enabling pangenomic annotation to facilitate such enrichment of pangenomic references.
+The Graph Alignment Format (GAF) is a text format, tab-delimited like BED/VCF files, which was proposed to represent alignments.
+GAF could also be used to store paths representing annotations in a pangenome graph, but there are no tools to index and query them efficiently.</p>
+<p>Here, we present extensions to vg and HTSlib that provide efficient sorting, indexing, and querying for GAF files.
+With this approach, annotations overlapping a subgraph can be extracted quickly.
+Paths are sorted based on the IDs of traversed nodes, compressed with BGZIP, and indexed with HTSlib/tabix via our extensions for the GAF format.
+Compared to the binary GAM format, GAF files are easier to edit or inspect because they are plain text, and we show that they are twice as fast to sort and half as large on disk.
+In addition, we updated <code>vg annotate</code>, which takes BED or GFF3 annotation files relative to linear sequences and projects them into the pangenome.
+It can now produce GAF files representing these annotations’ paths through the pangenome.</p>
+<p>We showcase these new tools on several applications.
+We projected annotations for all Human Pangenome Reference Consortium Year 1 haplotypes, including genes, segmental duplications, tandem repeats and repeats annotations, into the Minigraph-Cactus pangenome (GRCh38-based v1.1).
+We also projected known variants from the GWAS Catalog and expression QTLs from the GTEx project into the pangenome.
+Finally, we reanalyzed ATAC-seq data from ENCODE to demonstrate what a coverage track could look like in a pangenome graph.
+These rich annotations can be quickly queried with vg and visualized using existing tools like the Sequence Tube Map or Bandage.</p>
+<p><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"></p>
+<h2 id="introduction">Introduction</h2>
+<!-- Non-exhaustive tool list at https://pangenome.github.io/ -->
+<p>The current reference genome is the foundation enabling rich and diverse annotations.
+It is also used as a reference to map sequencing reads.
+Large annotation databases of functional elements, known variant information, and genomic elements use the coordinate system it provides.
+The organization and visualization of these annotations has been central to understanding and sharing results from genomic studies.
+In practice, annotations about a genome are typically saved separately from the genome itself, in formatted text files that can be compressed and indexed for fast query (e.g. VCF, BED, GFF).
+Under the hood, the HTSlib library supports the indexing of the most used file formats<span class="citation" data-cites="RYg86QqB">[<a href="#ref-RYg86QqB" role="doc-biblioref">1</a>]</span>.
+These annotation files are easy to write and to load in software like IGV<span class="citation" data-cites="83I525eg">[<a href="#ref-83I525eg" role="doc-biblioref">2</a>]</span> or websites like the UCSC Genome Browser<span class="citation" data-cites="84lVwRrR">[<a href="#ref-84lVwRrR" role="doc-biblioref">3</a>]</span>.</p>
+<p>With improved genome sequencing technologies, more high-quality genomes can be produced and combined into pangenomes.
+A pangenome represents multiple genomes, often as a graph describing adjacencies (edges) between the sequences (nodes) in the genomes.
+Tools to work with such pangenomes are still in their infancy, although there are now several applications where they show improved performance over traditional approaches.
+In particular, sequencing data analysis benefits from using pangenomes as a reference for read mapping<span class="citation" data-cites="10jxt15v0 WCEeLZ0k">[<a href="#ref-10jxt15v0" role="doc-biblioref">4</a>,<a href="#ref-WCEeLZ0k" role="doc-biblioref">5</a>]</span>, variant calling<span class="citation" data-cites="Se424ooE">[<a href="#ref-Se424ooE" role="doc-biblioref">6</a>]</span>, peak calling<span class="citation" data-cites="vlRarFR8 1D2ZuNC2d">[<a href="#ref-vlRarFR8" role="doc-biblioref">7</a>,<a href="#ref-1D2ZuNC2d" role="doc-biblioref">8</a>]</span>, or transcript expression quantification<span class="citation" data-cites="1Cbt4asSj">[<a href="#ref-1Cbt4asSj" role="doc-biblioref">9</a>]</span>.
+Hence, we are now manipulating genomic objects, like sequencing reads, epigenetic regions, or genomic variants, in the pangenome graph space.
+Currently, those results are typically flattened or “surjected” onto the linear reference genome.
+As with the linear genome reference, organizing and visualizing genomic annotation in the pangenome will be essential.
+User-friendly querying and visualization options are required to adopt the pangenomic paradigm.</p>
+<p>Several interactive visualization tools for pangenomes exist, but mainly focus on representing the graph topology, with tool-specific approaches to integrate additional information layers. We provide a short review of several of them here:</p>
+<ul>
+<li><strong>Bandage-NG</strong><span class="citation" data-cites="1Fp6JRSHg">[<a href="#ref-1Fp6JRSHg" role="doc-biblioref">10</a>]</span>, a derivative of Bandage<span class="citation" data-cites="hbEIE3nt">[<a href="#ref-hbEIE3nt" role="doc-biblioref">11</a>]</span>, can interactively visualize assembly graphs, and scales to pangenomes up to hundreds of thousands of nodes on modern computers.</li>
+<li><strong>GfaViz</strong> is another interactive sequence graph visualization tool that supports version 2 of the Graphical Fragment Assembly (GFA) format and its new features<span class="citation" data-cites="18wtkgoQ8">[<a href="#ref-18wtkgoQ8" role="doc-biblioref">12</a>]</span>.
+In particular, it can represent the different paths annotated in the GFA file.
+GfaViz cannot load additional annotation files: the annotations, written for example as GFA <em>paths</em>, must be included in the main pangenome file to be accessible during exploration.</li>
+<li><strong>The Sequence Tube Map</strong> visualizes the pangenome and sequencing reads aligned to it, allowing the user to query specific regions<span class="citation" data-cites="15LPYoGeb">[<a href="#ref-15LPYoGeb" role="doc-biblioref">13</a>]</span>.
+Prior to the present work, the application supported only the binary GAM format<span class="citation" data-cites="10jxt15v0">[<a href="#ref-10jxt15v0" role="doc-biblioref">4</a>]</span> for displaying additional information on the graph.
+It has some support for BED files, but only for inputting regions to display: BED-format annotations cannot be displayed.</li>
+<li><strong>MoMI-G</strong>, for Modular Multi-scale Integrated Genome Graph Browser, focuses on visualizing structural variants<span class="citation" data-cites="gcr3kHZo">[<a href="#ref-gcr3kHZo" role="doc-biblioref">14</a>]</span>.
+Variants are interactively selected and represented with a pangenome view as a custom Sequence Tube Map representation.
+Supporting reads, and genome annotations from files in BED/GFF/WIG format, can also be included in that representation.
+Only the reference genome path can be annotated.</li>
+<li><strong>Panache</strong> is another pangenomic tool specializing in gene-centric visualization of a linearized view of the pangenome, where blocks of homologous sequences are represented side by side<span class="citation" data-cites="5WqeyHma">[<a href="#ref-5WqeyHma" role="doc-biblioref">15</a>]</span>.
+The blocks are interactively explored in a web-based application to analyze their gene content and their absence/presence in the different genomes.
+Panache is notably used in the Banana Genome Hub<span class="citation" data-cites="rlcThVtQ">[<a href="#ref-rlcThVtQ" role="doc-biblioref">16</a>]</span>.
+<!-- [`gfaestus`](https://github.com/chfi/gfaestus)???. --></li>
+</ul>
+<p>In summary, while some visualization tools exist, there is no consensus on the best way to provide additional annotation layers to their graph representations.</p>
+<p>Several other options exist to display static representations of a pangenome graph (or subgraph).
+The <code>vg</code> toolkit can output a pangenome and alignments in the DOT format.
+Paths can be displayed too, but the image can become hard to read when many paths are included or in large graphs.
+The <code>odgi</code> toolkit offers visualizations that scale better to larger graphs and more annotations<span class="citation" data-cites="17heHmmBb">[<a href="#ref-17heHmmBb" role="doc-biblioref">17</a>]</span>.
+The pangenome is linearized using a 1D layout<span class="citation" data-cites="AohKwXF4">[<a href="#ref-AohKwXF4" role="doc-biblioref">18</a>]</span>, and annotations are displayed on top of the graph as an array/heatmap.
+Notably, <code>odgi</code> implements two options to add annotations from external BED files: one to convert annotations to a CSV file to help color nodes in Bandage, and another that injects BED records into the graph as new embedded paths that can appear in <code>odgi</code>’s visualizations.
+One limitation to this approach is that embedded paths are forced to cover entire nodes in the pangenome data model used by <code>odgi</code>, <code>vg</code>, and the GFA format.
+There is no way to provide an <em>offset</em> or <em>length</em> value to specify the base at which a path must start or end.</p>
+<p>There is a dire need for a format supporting annotations in the pangenome that is easy to create, index, and query.
+Noting the success of the BED, GFF, or VCF formats, we see a critical need to exchange (pan)genomic information and allow tools to access additional information in the pangenomic space.
+The Graph Alignment Format (GAF) text format, proposed to represent alignments<span class="citation" data-cites="CFz3DObX">[<a href="#ref-CFz3DObX" role="doc-biblioref">19</a>]</span>, could also describe annotations in a pangenome graph.
+However, the lack of techniques to compress, index, and query it limits its adoption for larger-scale annotation sets.
+Here, we present new features of the <code>vg</code> and HTSlib ecosystem that provide efficient indexing and querying for pangenomic annotations represented as paths in the GAF format.
+We illustrate its values in several applications: projecting gene and repeat annotations into the pangenome and visualizing them, summarizing open chromatin from epigenomic sequencing datasets, and positioning known variants in the pangenome.</p>
+<h2 id="methods">Methods</h2>
+<h3 id="indexing-paths-in-gaf-files">Indexing paths in GAF files</h3>
+<p>GAF records are sorted by node ID intervals, so the sorting and indexing algorithm is most efficient.
+It makes sense when node IDs are integers, sorted based on the topology of the pangenome graph.
+This is the case for pangenomes constructed by minigraph-cactus<span class="citation" data-cites="dv6WIAcd">[<a href="#ref-dv6WIAcd" role="doc-biblioref">20</a>]</span>, PGGB<span class="citation" data-cites="62knLjdQ">[<a href="#ref-62knLjdQ" role="doc-biblioref">21</a>]</span>, or <code>vg construct</code><span class="citation" data-cites="10jxt15v0">[<a href="#ref-10jxt15v0" role="doc-biblioref">4</a>]</span>.
+Otherwise, the pangenome graph can be <em>sorted</em>, by changing the node IDs, using <code>vg</code> or <code>odgi</code><span class="citation" data-cites="17heHmmBb">[<a href="#ref-17heHmmBb" role="doc-biblioref">17</a>]</span>.
+If the node IDs are sorted integers, a short path through the graph should only traverse nodes with IDs in a small interval (see Figure <a href="#fig:index">1</a>A).
+The rationale behind our GAF sorting and indexing approach is to work with those intervals.
+Hence, to sort a GAF file, each path is first parsed to extract the minimum and maximum node IDs (see Figure <a href="#fig:index">1</a>B).
+The paths are sorted first by their minimum ID, and then by their maximum ID.
+Nodes are assumed to be short enough that within-node indexing is not required.
+This is similar to the approach used to sort BED or VCF files on linear genomes: they are sorted by sequence name, start position, and end position.</p>
+<div id="fig:index" class="fignos">
+<figure>
+<img src="images/gafindexing.png" alt="Figure 1: Path sorting and indexing using vg and HTSlib/tabix. A. A region of pangenome is represented with nodes (containing sequences) in yellow and edges in black. The node IDs are topologically sorted integers ranging from 23 to 36. Three paths are highlighted in red, blue and green. B. The three paths are written with the GAF syntax, specifying the traversed nodes’ orientations (&lt;/&gt;) and IDs. For each path, the node range n-N, between the minimum and maximum node IDs, is used for sorting the path. C. Overview of the workflow: Sort a GAF file using vg gamsort, compress it with bgzip and index using tabix. D. The small .tbi index file helps query slices of the GAF file quickly, and is usable with tabix, or vg subcommands like find or chunk." />
+<figcaption aria-hidden="true"><span>Figure 1:</span> <strong>Path sorting and indexing using vg and HTSlib/tabix.</strong>
+<strong>A.</strong> A region of pangenome is represented with nodes (containing sequences) in yellow and edges in black.
+The node IDs are topologically sorted integers ranging from 23 to 36.
+Three paths are highlighted in red, blue and green.
+<strong>B.</strong> The three paths are written with the GAF syntax, specifying the traversed nodes’ orientations (<code>&lt;</code>/<code>&gt;</code>) and IDs.
+For each path, the node range <em>n-N</em>, between the minimum and maximum node IDs, is used for sorting the path.
+<strong>C.</strong> Overview of the workflow: Sort a GAF file using <code>vg gamsort</code>, compress it with <code>bgzip</code> and index using <code>tabix</code>.
+<strong>D.</strong> The small <em>.tbi</em> index file helps query slices of the GAF file quickly, and is usable with <code>tabix</code>, or <code>vg</code> subcommands like <code>find</code> or <code>chunk</code>.</figcaption>
+</figure>
+</div>
+<p>We added a GAF sorting feature to the <code>vg</code> toolkit’s <code>gamsort</code> subcommand, available in <code>vg</code> version 1.56 and later (see Figure <a href="#fig:index">1</a>C).
+It first sorts chunks of GAF records (e.g. reads), to avoid holding the entire set in memory.
+The sorted chunks are then merged into the final sorted GAF file.
+A sorted GAF file can be compressed in the BGZF format (or <em>bgzipped</em>) using <code>bgzip</code>.
+The BGZF format is a backwards-compatible extension of the standard gzip format that compresses a file by block to facilitate random access.
+It is widely used to compress several bioinformatics file types, including VCF, BED, and BAM files, and is implemented in HTSlib<span class="citation" data-cites="RYg86QqB">[<a href="#ref-RYg86QqB" role="doc-biblioref">1</a>]</span>.</p>
+<p>We extended HTSlib<span class="citation" data-cites="RYg86QqB">[<a href="#ref-RYg86QqB" role="doc-biblioref">1</a>]</span> to allow indexing bgzipped GAF files.
+Similar to other tab-separated file like VCF or BED, a <code>gaf</code> preset was added to <code>tabix</code>.
+For BED or VCF, <code>tabix</code> extracts the interval information from the columns with the sequence name and genomic position<span class="citation" data-cites="wKJ68II7">[<a href="#ref-wKJ68II7" role="doc-biblioref">22</a>]</span>.
+In the new <code>gaf</code> preset, it instead parses the path information in the GAF file to extract the minimum and maximum node IDs.
+The indexing is then based on this interval, as for the sorting described above.</p>
+<p>We tested the GAF sorting and indexing performance on 30X coverage Illumina short reads from HG002.
+The reads were downloaded from <code>https://s3-us-west-2.amazonaws.com/human-pangenomics/NHGRI_UCSC_panel/HG002/hpp_HG002_NA24385_son_v1/ILMN/downsampled/</code>.
+We mapped them using <code>vg giraffe</code><span class="citation" data-cites="WCEeLZ0k">[<a href="#ref-WCEeLZ0k" role="doc-biblioref">5</a>]</span> on a personalized pangenome<span class="citation" data-cites="F6tIe3Ob">[<a href="#ref-F6tIe3Ob" role="doc-biblioref">23</a>]</span> derived from the HPRC v1.1 Minigraph-Cactus pangenome.
+The aligned reads were first stored in GAM, to allow comparing file size and sorting runtimes against GAF.
+This unsorted GAM file was sorted using <code>vg gamsort</code>.
+In parallel, the unsorted GAM was also converted to a GAF file using <code>vg convert</code>, compressed with plain gzip, and sorted using <code>vg gamsort</code> with the new GAF sorting mode described above, with BGZF compression from <code>bgzip</code>.
+We compared the file sizes and sorting runtimes between both approaches.
+The query time was also measured on ten thousand regions of the pangenome, specified as node ID ranges.
+These ranges were created by picking a random starting node position on the reference path and walking 50 steps along that path.
+The commands and details for this benchmarking are available in the <code>analysis/readsorting</code> folder of this paper’s repository (see <a href="#code-and-data-availability">Code and data availability</a>).</p>
+<h3 id="querying-gaf-files">Querying GAF files</h3>
+<p>Instead of querying a sequence name and genomic position, we can query a node interval (see Figure <a href="#fig:index">1</a>D).
+In HTSlib, <code>tabix</code> was modified to disregard any provided sequence name when querying intervals for a GAF file, and to interpret the values typically used for the <em>start</em> and <em>end</em> position of genomic coordinates as a node ID interval.</p>
+<p>Commands to query slices of the pangenome in <code>vg</code> were also updated.
+The <code>find</code> and <code>chunk</code> sub-commands now use the updated HTSlib library to extract the appropriate GAF records.
+Internally, these commands identify an initial subgraph, which might correspond to, for example, a genomic interval on the reference path provided by the user.
+This subgraph is then extended with additional <em>context</em>, allowing a linear-reference-based query to include non-reference regions of the graph.
+The user controls the amount of context added.
+Finally, the paths (historically reads) overlapping the subgraph nodes are extracted.
+This last step was updated to extract paths from an indexed GAF file using HTSlib.
+It is now possible to extract a slice of an indexed GAF file based on node intervals, coordinates on a reference path, a list of coordinates from a BED file, or a user-provided subgraph, as described in the User Guide in the <code>analysis</code> folder of this paper’s repository (see <a href="#code-and-data-availability">Code and data availability</a>).</p>
+<h3 id="projecting-annotations-into-a-pangenome">Projecting annotations into a pangenome</h3>
+<p>A pangenome represents multiple genomes for which annotations might be available.
+We describe an approach to project annotations relative to a genome into a pangenome.
+We updated the <code>annotate</code> subcommand from the <code>vg</code> toolkit to project regions represented in BED or GFF files into pangenomes and tested it on GBZ-format pangenomes from the HPRC.
+The annotation source genome must be marked as a <em>reference</em> in the pangenome.
+However, any genome can be quickly (about a minute in our environment) set to be a reference using the <code>vg gbwt</code> subcommand.
+Then, <code>vg annotate</code> traces out the path in the pangenome graph taken by each input annotation.
+The path, represented as an <em>alignment</em> record, is then written in GAM or GAF format.
+Sometimes, an annotation’s source path might be broken into multiple disjoint parts, because some regions of the individual assemblies are clipped out of the pangenome.
+Newly assembled centromeres that challenge current alignment tools, and regions whose alignments would introduce suspiciously large structural variants, are often excluded when pangenomes are constructed from assembled sequences.
+Projected annotations are thus also broken up by <code>vg annotate</code> as needed when they overlap with breakpoints in the pangenome’s representation of their source path.
+The name of the annotation record in the output file is taken from the BED file’s <em>name</em> column, or the <em>Name</em> and <em>ID</em> GFF fields.</p>
+<p>We tested this approach by projecting the gene annotations, repeat annotations, and segmental duplication annotations from each of the 88 assembled haplotypes from the HPRC Year 1 data release into version 1.1 of the GRCh38-based HPRC Minigraph-Cactus pangenome.
+The annotations were downloaded from the HPRC public repository at <code>https://github.com/human-pangenomics/HPP_Year1_Assemblies/tree/main/annotation_index</code>.
+The gene annotations from CAT<span class="citation" data-cites="1BnfHjbCA">[<a href="#ref-1BnfHjbCA" role="doc-biblioref">24</a>]</span> (GFF files) were downloaded using the URLs in the <code>Year1_assemblies_v2_genbank_CAT_genes.index</code> file, the repeat annotations from RepeatMasker (BED files) from <code>Year1_assemblies_v2_genbank_Repeat_Masker.index</code>, segmental duplications (BED files) from <code>Year1_assemblies_v2_genbank_Seg_Dups.index</code>, and simple repeats from <code>Year1_assemblies_v2_genbank_TRF.index</code>.
+A helper script was implemented to prepare the BED files with informative record names.
+For example, for repeats from the RepeatMasker annotation, we name each element by its repeat class and repeat family.
+The projection of those annotations for each haplotype into the pangenome was automated with a Snakemake workflow available in the <code>analysis/annotate</code> folder of this paper’s repository (see <a href="#code-and-data-availability">Code and data availability</a>).
+<!-- How did we deal with having 88 copies of things when they coincide? --></p>
+<h3 id="coverage-track-from-mapped-reads">Coverage track from mapped reads</h3>
+<p>Functional genomics datasets are often visualized as a coverage track.
+High coverage in a region might suggest a strong transcription factor binding site or regulatory region.</p>
+<p>We implemented an approach to summarize the coverage of reads across the pangenome into paths along which coverage is consistent (see Figure <a href="#fig:meth_cov">2</a>).
+The coverage in every node is first binned into a few coverage classes, for example representing low, medium and high coverage.
+By default, we use 1, 5, and 30 reads as coverage breakpoints to save three bins: 1-5, 5-30, 30+.
+Regions with no coverage are not saved.
+Once the coverage is binned, we extend greedily to connected nodes and bins if in the same coverage class.
+This extension step produces a path through the pangenome with consistent coverage.
+The paths are written in the GAF format and the coverage class and the average coverage across the path are recorded.</p>
+<div id="fig:meth_cov" class="fignos">
+<figure>
+<img src="images/coverage.bin.pangenome.png" alt="Figure 2: Read coverage bin-and-extend approach to produce coarse-grained coverage tracks. In each node (grey rectangles), the read coverage at each base is binned using user-defined coverage bins, creating node regions of similar coverage, also called bins (colored rectangles). Starting bins (large green flags) are selected one at a time, and those bins are extended in both directions until reaching a different-coverage bin (small red flag)." />
+<figcaption aria-hidden="true"><span>Figure 2:</span> <strong>Read coverage bin-and-extend approach to produce coarse-grained coverage tracks.</strong>
+In each node (<em>grey rectangles</em>), the read coverage at each base is binned using user-defined coverage bins, creating node regions of similar coverage, also called bins (<em>colored rectangles</em>).
+Starting bins (<em>large green flags</em>) are selected one at a time, and those bins are extended in both directions until reaching a different-coverage bin (<em>small red flag</em>).</figcaption>
+</figure>
+</div>
+<p>This algorithm was implemented in Python and uses the <em>libbdsg</em> module<span class="citation" data-cites="bbLg7oSS">[<a href="#ref-bbLg7oSS" role="doc-biblioref">25</a>]</span> to query the pangenome.
+It is made available in the public repository of this study in the <code>analysis/encode</code> folder of this paper’s repository (see <a href="#code-and-data-availability">Code and data availability</a>).</p>
+<p>We tested this approach on ATAC-seq datasets from ENCODE<span class="citation" data-cites="9EVtBau1">[<a href="#ref-9EVtBau1" role="doc-biblioref">26</a>]</span> on seven tissues: breast epithelium (<em>ENCFF210QPG</em>), gastrocnemius medialis (<em>ENCFF968KAQ</em>), gastroesophageal sphincter (<em>ENCFF553SEZ</em>), Peyer’s patch (<em>ENCFF272PIN</em>), sigmoid colon (<em>ENCFF775DFR</em>), spleen (<em>ENCFF391IHY</em>), thyroid gland (<em>ENCFF579WLS</em>).
+Paired-end short Illumina HiSeq 4000 reads were downloaded from ENCODE and mapped using giraffe<span class="citation" data-cites="WCEeLZ0k">[<a href="#ref-WCEeLZ0k" role="doc-biblioref">5</a>]</span> on the HPRC v1.1 Minigraph-Cactus pangenome.
+The output to <code>vg pack</code> (with <code>-Q 1</code> to keep reads with mapping quality of at least 1) was piped to the script implementing the coverage track computation described above.</p>
+<h3 id="annotating-known-variants">Annotating known variants</h3>
+<p>We implemented an approach to find variants from public databases in the pangenome, producing a GAF file with a pangenome path for each variant.
+To accomplish this, we match input variants against the VCF representation of the pangenome, produced by running <code>vg deconstruct</code> on the pangenome file.
+This VCF file contains all variants and their paths through the pangenome in the <em>AT</em> <em>INFO</em> field.
+We look for variants in the pangenome VCF that overlap each input variant.
+When an overlapping variant is found, we extract one of two paths from its <em>AT</em> field.
+If the input variant is found to be present in the pangenome VCF, we extract the path for the alternate allele.
+If the alternate allele of the input variant is not present, but there is still a variant at this position in the pangenome, we extract the path for its reference allele instead.
+Variants that are not matched in the pangenome are skipped.
+This algorithm was implemented in Python and uses the <em>libbdsg</em> module<span class="citation" data-cites="bbLg7oSS">[<a href="#ref-bbLg7oSS" role="doc-biblioref">25</a>]</span> internally to get the node size information necessary to write GAF records.</p>
+<p>We tested this approach on the GWAS Catalog<span class="citation" data-cites="VRCjjZ9L">[<a href="#ref-VRCjjZ9L" role="doc-biblioref">27</a>]</span> and GTEX expression QTLs<span class="citation" data-cites="187XBwaz7">[<a href="#ref-187XBwaz7" role="doc-biblioref">28</a>]</span>, and matched them against the HPRC Minigraph-Cactus v1.1 pangenome.
+The GWAS Catalog was downloaded from the UCSC Genome Browser’s <code>gwasCatalog</code> table<span class="citation" data-cites="84lVwRrR">[<a href="#ref-84lVwRrR" role="doc-biblioref">3</a> ]</span>.
+The eQTLs from GTEX v8 were downloaded from <code>https://storage.googleapis.com/adult-gtex/bulk-qtl/v8/single-tissue-cis-qtl/GTEx_Analysis_v8_eQTL.tar</code>.
+The files defining associations between variant/gene pairs were parsed for each tissue.
+As before, the output annotations in GAF were bgzipped, sorted, and indexed.
+We collected statistics about the resulting annotations, and visualized database representation of variants using the Sequence Tube Map.</p>
+<p>We implemented another, more straightforward approach, to annotate variants that were genotyped using the pangenome.
+Here, we simply convert a VCF that contains allele traversal information (<em>AT</em> field) to a GAF file representing the alternate allele.
+We test this approach by genotyping HG002 from the short-reads Illumina Novaseq reads aligned to the pangenome for the GAF sorting experiment (see <a href="#indexing-paths-in-gaf-files">Indexing paths in GAF files</a>).
+Variants were genotyped from the aligned reads using <code>vg call</code>.
+Notably, <code>vg call</code> can also output genotypes directly in GAF format with the <code>-G</code> parameter.</p>
+<p>The scripts and pipeline to annotate variants is available in the public repository of this study in the <code>analysis/variants</code> folder of this paper’s repository (see <a href="#code-and-data-availability">Code and data availability</a>).</p>
+<h3 id="faster-subgraph-extraction-using-tabix-index-files">Faster subgraph extraction using tabix index files</h3>
+<p>We devised an approach to efficiently query a subgraph of a pangenome, based on a queried range on one of its haplotypes, using three tabix indexes: 1) a GAF file with the paths taken by the haplotypes, split in small regions, 2) a BED file indexing each of those regions, 3) a TSV file with nodes and their sequences.
+The GAF file is produced by cutting the haplotypes in chunks of maximum N nodes (100 by default).
+Each GAF record corresponds to one haplotype chunk and an optional tag is added to record the haplotype name and the starting position in the haplotype.
+For each of those chunks, a BED record is written in the second index file.
+It contains the coordinate of this region on the haplotype and the minimum and maximum node IDs in that region (columns 4 and 5).
+Finally, the third index file records the node sequences with three columns: a placeholder <em>contig</em> name (<em>n</em> in practice), a node ID, and the node sequence.
+The three files are sorted, bgzipped and indexed with tabix.
+The GAF and TSV file can then be queried by node ranges, and the BED file by coordinate on the haplotypes.</p>
+<p>To extract a subgraph around a region of interest, the BED file is first queried with a coordinates (e.g. <code>CONTIG:START-END</code>) and the output node ranges are merged.
+The GAF file with haplotype information is then queried with those node ranges.
+The haplotype chunks are then stitched back together.
+The queried haplotype is used as a backbone and the ends of other haplotypes are trimmed until they touch a node on the queried haplotype.
+Optionally, other GAF files, e.g. reads or annotations, can also be queried using that node range.
+Finally, the TSV file is queried by nodes to retrieve their sequences.
+The edges in the subgraph are derived from the haplotype paths.
+A JSON representation of the subgraph and annotations can also be outputted directly, for example when used internally by the sequenceTubeMap.</p>
+<p>Subgraph extraction was benchmarked on 20 randomly selected regions.
+Three sets of regions of different length were tested (100 bp, 1000 bp, and 10,000 bp).
+We compared the new tabix-powered extraction with <code>vg chunk</code> starting from a GBZ file and using the <code>--trace</code> option to trace haplotype threads and a context of 1 node (<code>-c 1</code>).</p>
+<h3 id="visualization-in-the-sequence-tube-map">Visualization in the Sequence Tube Map</h3>
+<p>The Sequence Tube Map was developed to explore a pangenome graph interactively, with haplotypes traversing it, and reads mapping to it<span class="citation" data-cites="15LPYoGeb">[<a href="#ref-15LPYoGeb" role="doc-biblioref">13</a>]</span>.
+It internally calls <em>vg</em> to extract the relevant slice of the pangenome graph and reads, which previously could only be in the GAM format.
+We updated the Sequence Tube Map to accept GAF files sorted, compressed, and indexed as in <a href="#indexing-paths-in-gaf-files">Indexing paths in GAF files</a>.
+We have also extended it to use an element’s opacity to represent an integer score, like a mapping quality or read coverage.
+The variable transparency helps highlight regions of high coverage when visualizing coverage tracks from the ENCODE project (see <a href="#coverage-of-seven-functional-datasets-from-encode">Coverage of seven functional datasets from ENCODE</a> and Figure <a href="#fig:tubemap">4</a>D).</p>
+<p>The Sequence Tube Map was also modified to accept the three new tabix-based index files described above.
+In this case, the subgraph extraction Python script is called instead of the <code>vg chunk</code> command.</p>
+<h3 id="visualization-in-bandage-ng">Visualization in Bandage-NG</h3>
+<p>Bandage-NG<span class="citation" data-cites="1Fp6JRSHg">[<a href="#ref-1Fp6JRSHg" role="doc-biblioref">10</a>]</span>, a tool derived from Bandage<span class="citation" data-cites="hbEIE3nt">[<a href="#ref-hbEIE3nt" role="doc-biblioref">11</a>]</span>, can read GAF files and visualize its paths through the input graph by coloring the nodes.
+Of note is that the offset positions are not considered, which means that nodes are colored entirely, even if the GAF record only overlaps part of it.
+We implemented a wrapper script to facilitate the preprocessing of a subgraph to visualize with Bandage-NG.
+It starts by extracting the subgraph for a region of interest from a full pangenome using <code>vg chunk</code>.
+This graph is converted to GFA, ensuring the paths are written last for compatibility with Bandage-NG.
+The script also extracts annotations relevant to the region of interest from indexed GAF files.
+The extracted GAF files are merged and modified if necessary: path names are de-duplicated, and paths are trimmed when traversing nodes absent from the extracted subgraph.
+These modifications ensure that the final GAF file can be loaded in Bandage-NG.
+The outputs of this script can be opened with Bandage-NG for interactive exploration.
+In particular, the <em>Find path</em> feature can find nodes corresponding to specific paths, either haplotypes or annotations in this pre-processed GFA file.
+The user can select a <em>path</em> and color its nodes.
+The helper script and a tutorial are available at the <code>analysis/visualization</code> folder of this paper’s repository (see <a href="#code-and-data-availability">Code and data availability</a>).</p>
+<h2 id="results">Results</h2>
+<h3 id="sorting-and-indexing-short-sequencing-reads">Sorting and indexing short sequencing reads</h3>
+<p>Read sorting (see <a href="#indexing-paths-in-gaf-files">Indexing paths in GAF files</a>) was tested on about 30X coverage of Illumina HiSeq paired-end 150bp reads for the HG002 sample.
+The plain gzipped GAF file with about 682 million reads was sorted with <code>vg gamsort</code> and compressed with <code>bgzip</code> in 3h55 using 3.87 hours of CPU time and less than 1 GiB of memory (Table <a href="#tbl:readsorting_summary">1</a>).
+Indexing the sorted GAF with <code>tabix</code> took 20 minutes using 18.4 minutes of CPU time.
+We compared that approach with the existing read sorting implementation in <code>vg</code>, which operates on files in the Protobuf-based GAM format<span class="citation" data-cites="10jxt15v0">[<a href="#ref-10jxt15v0" role="doc-biblioref">4</a>]</span>.
+Sorting a GAM with the same reads took 12h using 11.87 hours of CPU time and about 7 GiB of memory.</p>
+<p>In addition to being about twice as fast to sort, reads written in the GAF format (and bgzipped) also take about half the disk space (52 GiB vs 108 GiB).
+The main reason for this reduced space is that GAF does not save the complete read sequence, only the path through the pangenome and edits to reconstruct it.
+GAM files produced by <code>vg giraffe</code> can also save additional information as annotations, like the mapping time of each read, which are currently not kept when converting to the GAF format.
+Overall, the bgzipped GAF files are half as small and twice as fast to sort for short sequencing reads.</p>
+<p>Once a GAF is indexed, extracting a slice of reads works like extracting a slice of an indexed BAM/VCF/BED file for a genomic region, and is more efficient than extracting a slice from an indexed GAM file.
+For example, extracting reads for ten thousand random regions in the pangenome took about 0.066 seconds per region to retrieve an average of 1707 reads.
+For comparison, the same extraction took an average of 0.816 seconds per region using the GAM format.</p>
+<div id="tbl:readsorting_summary" class="tablenos">
+<table id="tbl:readsorting_summary">
+<caption><span>Table 1:</span> Resources used to sort short sequencing reads for a 30x coverage Illumina human dataset.
+</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Format</th>
+<th style="text-align: right;">Time (H:M:S)</th>
+<th style="text-align: right;">Max. memory used (GiB)</th>
+<th style="text-align: right;">File size (Gb)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">GAM</td>
+<td style="text-align: right;">12:00:19</td>
+<td style="text-align: right;">6.98</td>
+<td style="text-align: right;">108</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">GAF</td>
+<td style="text-align: right;">3:55:13</td>
+<td style="text-align: right;">0.84</td>
+<td style="text-align: right;">52</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="annotation-of-a-human-pangenome">Annotation of a human pangenome</h3>
+<p>To showcase our annotation projection implementation, we projected annotations for all HPRC haplotypes into the HPRC pangenome (see <a href="#projecting-annotations-into-a-pangenome">Projecting annotations into a pangenome</a>).
+This included genes, segmental duplications, tandem repeats, and repeat annotations.
+<code>vg annotate</code> was able to project ~4M gene annotations into the pangenome in ~11 minutes on two cores using 19.9 minutes of CPU time and 21 GiB of RAM.
+It projected ~5.5M repeats from RepeatMasker in ~2.9 minutes on two cores using 4.9 minutes of CPU time.
+These measures include projection with <code>vg annotate</code>, decompression of the input gzipped GAF, and compression of the output GAF with <code>bgzip</code>.
+We could quickly query these rich annotations with <code>vg</code>, and visualize them using tools like the Sequence Tube Map or Bandage-NG.
+Using Bandage-NG, we prepared a visualization illustrating a mobile element insertion (Figure <a href="#fig:bandage">3</a>).
+We also examined a gene annotation using the Sequence Tube Map (Figure <a href="#fig:tubemap">4</a>A).</p>
+<div id="fig:bandage" class="fignos">
+<figure>
+<img src="images/PRAMEF4.AluInsertion.png" alt="Figure 3: Visualization examples with Bandage-NG Example of an AluYa5 transposon insertion (red) within the coding sequence of the PRAMEF4 gene (blue). Both annotations were initially produced at the haplotype level by the Human Pangenome Reference Consortium. We projected them into the pangenome, indexed them, and queried a small region to visualize with Bandage-NG. The nodes were colored based on those annotations and loaded as paths by Bandage-NG." />
+<figcaption aria-hidden="true"><span>Figure 3:</span> <strong>Visualization examples with Bandage-NG</strong>
+Example of an AluYa5 transposon insertion (<em>red</em>) within the coding sequence of the <em>PRAMEF4</em> gene (<em>blue</em>).
+Both annotations were initially produced at the haplotype level by the Human Pangenome Reference Consortium.
+We projected them into the pangenome, indexed them, and queried a small region to visualize with Bandage-NG.
+The nodes were colored based on those annotations and loaded as paths by Bandage-NG.</figcaption>
+</figure>
+</div>
+<p>We also matched and annotated variants from the GWAS Catalog<a href="about%20660%20thousand%20variants"><span class="citation" data-cites="VRCjjZ9L">[<a href="#ref-VRCjjZ9L" role="doc-biblioref">27</a>]</span></a> and expression QTLs from the GTEx catalog<span class="citation" data-cites="187XBwaz7">[<a href="#ref-187XBwaz7" role="doc-biblioref">28</a>]</span> across 49 tissues (on average 1.45 million variants per tissue), using the methods described in <a href="#annotating-known-variants">Annotating known variants</a>.
+On average, 94% of variants were found in the HPRC pangenome.
+The variants files in GAF take only 907 MiB of space and can be queried rapidly for visualization in the Sequence Tube Map or Bandage-NG.
+This annotation is showcased in Figure <a href="#fig:tubemap">4</a>B.</p>
+<p>It is also straightforward to convert genotypes called on variants from the pangenome back to annotation paths.
+This is applicable when the pangenome is used as a source of variants for genotyping in new samples, as when using Pangenie or <code>vg call</code>.
+To illustrate this use case, we genotyped HG002 using short Illumina reads aligned to the HPRC pangenome with <code>vg giraffe</code> and <code>vg call</code> (see <a href="#annotating-known-variants">Annotating known variants</a>).
+The predicted genotypes were converted to GAF and indexed.
+They could be visualized using the Sequence Tube Map, along with the aligned reads.
+This type of annotation can help a developer explore variant calls and aligned reads.
+An example is shown in Figure <a href="#fig:tubemap">4</a>C.
+On the traditional reference genome, the equivalent would be to load both reads and variants in IGV<span class="citation" data-cites="83I525eg">[<a href="#ref-83I525eg" role="doc-biblioref">2</a>]</span>.</p>
+<div id="fig:tubemap" class="fignos">
+<figure>
+<img src="images/tubemap.examples.png" alt="Figure 4: Visualization examples with the Sequence Tube Map A Projection of the HPRC gene annotation into the pangenome, here visualizing a coding sequence (CDS) of the CFD gene. There is an insertion (see insertion node in the middle), that the reference path (violet on top) skips. Most CDS annotations are similar (blue paths), but the CSD from the haplotype with the insertion is split into two parts, highlighted in green. B. Projecting known variants into the pangenome. black: Reference path (GRCh38), pale colors: other human haplotypes, reds: GWAS Catalog, blues: eQTLs across tissues (GTEx). C. Aligned reads and genotype calls. yellow/green: annotation paths from vg call genotypes. reds/blues: short sequencing reads. D. ATAC-seq coverage track for seven tissues from the ENCODE project. The reference path (violet) and other HPRC haplotypes (greys) are shown on top and traverse two variation sites. ATAC-seq coverage annotations for the different tissues are shown in different colors with different opacities representing coverage level. The thyroid annotation (blue) is more opaque than others, suggesting that this region is more open in that tissue. The red annotations at the bottom show the position of exons from the TPO gene, a thyroid-specific gene." />
+<figcaption aria-hidden="true"><span>Figure 4:</span> <strong>Visualization examples with the Sequence Tube Map</strong>
+<strong>A</strong> Projection of the HPRC gene annotation into the pangenome, here visualizing a coding sequence (CDS) of the <em>CFD</em> gene.
+There is an insertion (see <em>insertion node</em> in the middle), that the reference path (<em>violet</em> on top) skips.
+Most CDS annotations are similar (<em>blue</em> paths), but the CSD from the haplotype with the insertion is split into two parts, highlighted in <em>green</em>.
+<strong>B.</strong> Projecting known variants into the pangenome.
+<em>black</em>: Reference path (GRCh38), <em>pale colors</em>: other human haplotypes, <em>reds</em>: GWAS Catalog, <em>blues</em>: eQTLs across tissues (GTEx).
+<strong>C.</strong> Aligned reads and genotype calls.
+<em>yellow</em>/<em>green</em>: annotation paths from <code>vg call</code> genotypes. <em>reds</em>/<em>blues</em>: short sequencing reads.
+<strong>D.</strong> ATAC-seq coverage track for seven tissues from the ENCODE project.
+The reference path (<em>violet</em>) and other HPRC haplotypes (<em>greys</em>) are shown on top and traverse two variation sites.
+ATAC-seq coverage annotations for the different tissues are shown in different <em>colors</em> with different opacities representing coverage level.
+The thyroid annotation (<em>blue</em>) is more opaque than others, suggesting that this region is more open in that tissue.
+The <em>red</em> annotations at the bottom show the position of exons from the <em>TPO</em> gene, a thyroid-specific gene.</figcaption>
+</figure>
+</div>
+<h3 id="coverage-of-seven-functional-datasets-from-encode">Coverage of seven functional datasets from ENCODE</h3>
+<p>We aligned ENCODE ATAC-seq datasets from 7 cell types<span class="citation" data-cites="9EVtBau1">[<a href="#ref-9EVtBau1" role="doc-biblioref">26</a>]</span> to the draft human pangenome to produce coverage tracks as indexed GAF files (see <a href="#coverage-track-from-mapped-reads">Coverage track from mapped reads</a>).
+On average across cell types, there were about 475 thousand paths representing high read coverage, which were, on average, 2.6 nodes and 104.8 bases long.
+An average of 63 thousand paths with high ATAC-seq read coverage traversed three or more nodes (see Table <a href="#tbl:coverage_summary">2</a>).
+Because the graph node length used in non-variable regions is longer than the path length, these paths visiting three or more nodes are likely in regions of the pangenome with variation.</p>
+<div id="tbl:coverage_summary" class="tablenos">
+<table id="tbl:coverage_summary">
+<caption><span>Table 2:</span> High coverage tracks from seven functional datasets on the HPRC pangenome. For each sample, the table shows how many paths had a mean coverage of at least ten reads and how long they were.
+</caption>
+<colgroup>
+<col style="width: 31%" />
+<col style="width: 10%" />
+<col style="width: 17%" />
+<col style="width: 17%" />
+<col style="width: 23%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Dataset</th>
+<th style="text-align: right;">Paths</th>
+<th style="text-align: right;">Average bases</th>
+<th style="text-align: right;">Average nodes</th>
+<th style="text-align: right;">Traversing &gt;2 nodes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Breast epithelium</td>
+<td style="text-align: right;">570,155</td>
+<td style="text-align: right;">109.80</td>
+<td style="text-align: right;">2.68</td>
+<td style="text-align: right;">65,095 (11.4%)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Gastrocnemius medialis</td>
+<td style="text-align: right;">342,830</td>
+<td style="text-align: right;">94.47</td>
+<td style="text-align: right;">2.43</td>
+<td style="text-align: right;">53,595 (15.6%)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Gastroesophageal sphincter</td>
+<td style="text-align: right;">555,618</td>
+<td style="text-align: right;">115.69</td>
+<td style="text-align: right;">2.73</td>
+<td style="text-align: right;">72,407 (13%)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Peyer’s patch</td>
+<td style="text-align: right;">270,094</td>
+<td style="text-align: right;">97.88</td>
+<td style="text-align: right;">2.62</td>
+<td style="text-align: right;">43,591 (16.1%)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Sigmoid colon</td>
+<td style="text-align: right;">678,380</td>
+<td style="text-align: right;">115.10</td>
+<td style="text-align: right;">2.69</td>
+<td style="text-align: right;">82,906 (12.2%)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Spleen</td>
+<td style="text-align: right;">531,910</td>
+<td style="text-align: right;">104.97</td>
+<td style="text-align: right;">2.66</td>
+<td style="text-align: right;">67,153 (12.6%)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Thyroid gland</td>
+<td style="text-align: right;">377,157</td>
+<td style="text-align: right;">95.63</td>
+<td style="text-align: right;">2.41</td>
+<td style="text-align: right;">56,441 (15%)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>It took on average 7 CPU-hours to map the reads to the pangenome using VG Giraffe, and 2.8 CPU-hours to produce the coverage tracks.
+Sorting, compressing and indexing them took only 0.23 CPU-hours, on average.
+Table <a href="#tbl:coverage_benchmark">3</a> compiles the runtime and memory usage for each step across all samples.</p>
+<p>Figure <a href="#fig:tubemap">4</a>D shows an example of a region, visualized with our extended version of the Sequence Tube Map (see <a href="#visualization-in-the-sequence-tube-map">Visualization in the Sequence Tube Map</a>), near an exon of the <em>TPO</em> gene.
+The exon annotations came from projecting the HPRC gene annotations described above into the pangenome.
+The coverage track for the ATAC-seq dataset shows that this region is only opened in the thyroid, which is consistent with the thyroid-specific role of <em>TPO</em>.
+By integrating these two external sources of annotations (gene annotation and ATAC-seq coverage), we can visualize them in the context of the genomic variation in the pangenome.</p>
+<!-- `example of what we could look for and describe`{.red} -->
+<!-- Fig @fig:cov_examples shows examples of those tracks visualized using the Sequence Tube Map. -->
+<!-- In Fig ??a, the promoter of the *??* gene is seen to be open in the ?? cell type.  -->
+<!-- Thanks to the pangenomic view, we see differential coverage of the functional tracks across the variants in the region. -->
+<!-- For instance, we notice a small insertion-deletion (indel) where the alternate allele is only covered by 2 reads, while the reference allele is covered by more than 30 reads. -->
+<!-- Fig ??b highlights a structural variant, a ??bp insertion, that is highly covered by ATAC-seq in several cell types. -->
+<!-- The RepeatMasker annotation in this region, also extracted from an indexed GAF file, flags this insertion as a ?? transposable element. -->
+<!-- ?? can indeed attract TF?? that lead to open chromatin ?REF?. -->
+<!-- ![ -->
+<!-- **Coverage tracks visualized interactively using the Sequence Tube Map.** -->
+<!-- a) Promoter... b) Structural variant.... -->
+<!-- ](figures/wide.png "Wide image"){#fig:cov_examples} -->
+<h3 id="efficient-subgraph-extraction-and-speed-up-for-the-sequence-tube-map">Efficient subgraph extraction and speed-up for the Sequence Tube Map</h3>
+<p>A new subgraph extraction was implemented using three tabix-indexed files: a GAF file with haplotype information, a BED file associating coordinates on the haplotypes to nodes, and a TSV file associating each node to its sequence.
+The three index files were produced in about 1h40m starting from the gzipped GFA file of the HPRC Minigraph-Cactus v1.1 pangenome.</p>
+<p>Extracting a subgraph on 20 random regions of 100 bp, 1 Kbp, or 10 Kbp took about 0.5s per query, compared to 33s using <code>vg chunk</code> (Figure <a href="#fig:pgchunking">5</a>).
+Of note, as other tabix-indexed files, the new pangenome files can be queried remotely through HTTPS/FTP.
+For example, we extracted the same regions using files hosted in a server in the United States, from a computer in France, in 15s on average.
+In this case, the small TBI files are automatically downloaded locally, if needed, which added about additional 20 second to the first query.</p>
+<div id="fig:pgchunking" class="fignos">
+<figure>
+<img src="images/pgchunking.fig.png" alt="Figure 5: Subgraph extraction using tabix-indexed files. Benchmark performed on the HPRC Minigraph-Cactus v1.1 human pangenome. Left Size of the index files. Right Time to query 20 random regions of varying sizes (y-axis), using the tabix-indexed files (chunkix method) or vg chunk from the GBZ file. The chunkix method also works on remote files, here through HTTPS, and is labelled here as chunkix_remote. In that case the small TBI files must be downloaded locally which increase the time for the first query (highlighted with a diamond)." />
+<figcaption aria-hidden="true"><span>Figure 5:</span> <strong>Subgraph extraction using tabix-indexed files</strong>.
+Benchmark performed on the HPRC Minigraph-Cactus v1.1 human pangenome.
+<strong>Left</strong> Size of the index files.
+<strong>Right</strong> Time to query 20 random regions of varying sizes (y-axis), using the tabix-indexed files (<code>chunkix</code> method) or <code>vg chunk</code> from the GBZ file.
+The <code>chunkix</code> method also works on remote files, here through HTTPS, and is labelled here as <code>chunkix_remote</code>.
+In that case the small TBI files must be downloaded locally which increase the time for the first query (highlighted with a diamond).</figcaption>
+</figure>
+</div>
+<p>On disk, the three index files totaled 4 GiB: 2.4 GiB for the “haplotype” bgzipped GAF file, 1.1 GiB for the “node sequence” bgzipped TSV file, and 527 MiB for the “haplotype position” bgzipped BED file (Figure <a href="#fig:pgchunking">5</a>).
+These index files are 2.75 smaller than input gzipped GFA file (11 GiB) and 30% larger than the GBZ file (3.1 GiB).</p>
+<p>Thanks to their integration in the sequenceTubeMap, it only takes about a second to visualize a region in the sequenceTubeMap when using these new index files, compared to more than 30s before.</p>
+<h2 id="discussion">Discussion</h2>
+<p>The tools and applications described here streamline the production of annotations in the GAF format, their indexing, and efficient querying.</p>
+<p>First, these techniques will help integrate additional information into existing or future pangenomic tools.
+They will simplify integrating information like gene or repeat annotations, known variants, or, more generally, other functional annotations in pangenomic analyses.
+These analyses will be able to work with those annotations in light of underlying genomic variation described in the pangenome.
+Visualization is a specific example where the users typically want to include several layers of annotations, including some of their own design.
+Tools to visualize pangenomes will greatly benefit from a simple pipeline to create or load pangenomic annotations.</p>
+<p>Second, this work is critical to allow the community to make, share, and reuse annotations in the pangenome space.
+The GAF format is already used by multiple independent tools, although mostly for read mapping.
+Thanks to our work, GAF files can now be indexed and queried efficiently, like BED, VCF, or GFF on a linear reference genome.
+This will be helpful for those working with GAF-format read mappings and enable the format to be used for large annotation sets.
+We showcase how annotations on a linear genome can be projected into the pangenome and stored in GAF format.
+We believe it could become the <em>de facto</em> format to represent annotations on the pangenome, thus accelerating the broader genomics field’s adoption of the new pangenomic paradigm.
+<!-- Although informative annotations could be analyzed already, the current approach has some limitations. -->
+<!-- - Simplistic handling of clipped paths. --></p>
+<p>The indexing scheme relies on integer node IDs, compacted relative to their position in the pangenome.
+If node IDs are not integers, it adds a layer of complexity for the user as they will need to convert them to integers and keep track of the translation between original and new pangenome.
+Both <code>vg</code> and <code>odgi</code> offer ways to support this, but tool support for the resulting translation information is uneven and no standard format exists to store it.</p>
+<p>Our implementation of GAF-based annotation is designed with short paths in mind, where the user wants to extract the full annotation paths for all annotations in a region.
+This is convenient when working with short reads, gene annotations, and most genomic repeats, for example.
+Larger genomic regions, like chromosome bands, large assembled contigs, or large segmental duplications, can still be represented and manipulated, but might be less practical to work with.
+The current implementation extracts all annotations overlapping a queried region.
+The extracted annotations are not clipped to the specified range, and no tooling support is provided for finding the part or parts of each annotation record that are relevant to the query.
+To address this use case, we plan to implement an extraction mode where output annotations are trimmed to keep only parts overlapping the queried subgraph.</p>
+<p>The naïve metadata integration is another limitation.
+Indeed, the input annotation information from BED and GFF3 files is currently reduced to a single string label.
+In our applications, those labels contain, for example, a gene name and haplotype names, or a read coverage bin and average coverage value, all in one label.
+This was easy to implement and sufficient for now because no tools handle more advanced metadata organization.
+For many annotations, keeping the metadata better organized would be useful so that the user can access/use it within visualization tools.
+The different metadata fields could be saved using GAF tags that can be added at the end of each GAF record.</p>
+<p>Our approach to converting annotations from a linear genome to the pangenome assumes we have annotations of the different haplotypes in the pangenome.
+There is still no clear solution to lift annotations from one reference/haplotype to other haplotypes in the pangenome; reanalysis/reannotation of each haplotype is generally required.
+The homology information embedded in the pangenome can propagate annotations from one haplotype to others more easily.
+This strategy is used by annotation tools like CAT<span class="citation" data-cites="1BnfHjbCA">[<a href="#ref-1BnfHjbCA" role="doc-biblioref">24</a>]</span>, and improves the reanalysis of each haplotype from scratch.
+In the future, these techniques might help propagate other annotations across the pangenome more efficiently than by reanalyzing the raw data from scratch on each haplotype.</p>
+<p>Our GAF-based approach also highlights the limitations of the existing tool support for GAF files.
+Some tools, like Bandage-NG or GfaViz, require manual pre-processing, such as extracting and post-processing a subgraph and annotations.
+The Sequence Tube Map can now handle indexed bgzipped GAF files, but the query time for large pangenomes remains long in practice.
+Integrating annotation metadata into its interface as a first-class data type will also require a significant amount of development.
+Overall, we stress the need for visualization tools to lay out and organize many paths through a pangenome efficiently.</p>
+<p>We have shown that the GAF format, thanks to new tools for its efficient manipulation, could offer a path for the future of annotations in pangenome graphs.
+While it provides an important building block, it is clear that more needs to be done to make it a useful solution for the community.</p>
+<h2 id="code-and-data-availability">Code and data availability</h2>
+<p><code>vg</code> is available at <a href="https://github.com/vgteam/vg">https://github.com/vgteam/vg</a>.
+Bandage-NG is available at <a href="https://github.com/asl/BandageNG">https://github.com/asl/BandageNG</a>.
+The Sequence Tube Map is hosted at <a href="https://github.com/vgteam/sequenceTubemap">https://github.com/vgteam/sequenceTubemap</a>.
+The modified version of the Sequence Tube Map used to make Figure <a href="#fig:tubemap">4</a> is available in the <code>quay.io/jmonlong/sequencetubemap:vggafannot</code> Docker container.</p>
+<p>The analysis presented in this manuscript is documented in the repository at <a href="https://github.com/jmonlong/manu-vggafannot">https://github.com/jmonlong/manu-vggafannot</a><span class="citation" data-cites="K5KcBvOm">[<a href="#ref-K5KcBvOm" role="doc-biblioref">29</a>]</span>.
+It contains scripts to prepare the annotation files, commands and automated pipelines to annotate them in the pangenome, and helper scripts to summarize the output files.</p>
+<p>Annotation files produced for this work were deposited on Zenodo at <code>https://doi.org/10.5281/zenodo.13904205</code><span class="citation" data-cites="GFyNIG1t">[<a href="#ref-GFyNIG1t" role="doc-biblioref">30</a>]</span>.
+This includes haplotype annotations of the HPRC v1.1 pangenome (gene annotations, repeats from RepeatMasker, simple repeats), coverage tracks for the seven ENCODE ATAC-seq samples, eQTLs from GTEx and the GWAS Catalog.</p>
+<h2 id="acknowledgments">Acknowledgments</h2>
+<p>Integration of GAF in SequenceTubeMap was supported by the National Cancer Institute of the National Institutes of Health under Award Number U01CA253405.
+We would like to thank the ENCODE consortium and the laboratory of Michael Snyder for making the ATAC-seq datasets available.</p>
+<h2 id="author-contribution-statement">Author contribution statement</h2>
+<p>AMN, GH, JM, TTY, and EG contributed code to the vg toolkit (<em>annotate</em>, <em>pack</em>, <em>call</em> subcommands) with support from BP.
+AMN integrated new code into HTSlib.
+AMN and DC implemented new features in the Sequence Tube Map with support from GN.
+SD selected and analyzed the ATAC-seq datasets from ENCODE.
+JM conceived the study, analyzed data, and drafted the manuscript.
+All authors contributed to reviewing the text and content of the manuscript.</p>
+<h2 class="page_break_before" id="references">References</h2>
+<!-- Explicitly insert bibliography here -->
+<div id="refs" class="references csl-bib-body" role="doc-bibliography">
+<div id="ref-RYg86QqB" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">1. </div><div class="csl-right-inline"><strong>HTSlib: C library for reading/writing high-throughput sequencing data</strong> <div class="csl-block">James K Bonfield, John Marshall, Petr Danecek, Heng Li, Valeriu Ohan, Andrew Whitwham, Thomas Keane, Robert M Davies</div> <em>GigaScience</em> (2021-01-29) <a href="https://doi.org/gt98">https://doi.org/gt98</a> <div class="csl-block">DOI: <a href="https://doi.org/10.1093/gigascience/giab007">10.1093/gigascience/giab007</a> · PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/33594436">33594436</a> · PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7931820">PMC7931820</a></div></div>
+</div>
+<div id="ref-83I525eg" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">2. </div><div class="csl-right-inline"><strong>Integrative genomics viewer</strong> <div class="csl-block">James T Robinson, Helga Thorvaldsdóttir, Wendy Winckler, Mitchell Guttman, Eric S Lander, Gad Getz, Jill P Mesirov</div> <em>Nature Biotechnology</em> (2011-01) <a href="https://doi.org/cpmj8s">https://doi.org/cpmj8s</a> <div class="csl-block">DOI: <a href="https://doi.org/10.1038/nbt.1754">10.1038/nbt.1754</a> · PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/21221095">21221095</a> · PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3346182">PMC3346182</a></div></div>
+</div>
+<div id="ref-84lVwRrR" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">3. </div><div class="csl-right-inline"><strong>The UCSC Genome Browser database: 2023 update</strong> <div class="csl-block">Luis R Nassar, Galt P Barber, Anna Benet-Pagès, Jonathan Casper, Hiram Clawson, Mark Diekhans, Clay Fischer, Jairo Navarro Gonzalez, Angie S Hinrichs, Brian T Lee, … W James Kent</div> <em>Nucleic Acids Research</em> (2022-11-24) <a href="https://doi.org/gxpftd">https://doi.org/gxpftd</a> <div class="csl-block">DOI: <a href="https://doi.org/10.1093/nar/gkac1072">10.1093/nar/gkac1072</a> · PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/36420891">36420891</a> · PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9825520">PMC9825520</a></div></div>
+</div>
+<div id="ref-10jxt15v0" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">4. </div><div class="csl-right-inline"><strong>Variation graph toolkit improves read mapping by representing genetic variation in the reference</strong> <div class="csl-block">Erik Garrison, Jouni Sirén, Adam M Novak, Glenn Hickey, Jordan M Eizenga, Eric T Dawson, William Jones, Shilpa Garg, Charles Markello, Michael F Lin, … Richard Durbin</div> <em>Nature Biotechnology</em> (2018-08-20) <a href="https://doi.org/gd2zqs">https://doi.org/gd2zqs</a> <div class="csl-block">DOI: <a href="https://doi.org/10.1038/nbt.4227">10.1038/nbt.4227</a> · PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/30125266">30125266</a> · PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6126949">PMC6126949</a></div></div>
+</div>
+<div id="ref-WCEeLZ0k" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">5. </div><div class="csl-right-inline"><strong>Pangenomics enables genotyping of known structural variants in 5202 diverse genomes</strong> <div class="csl-block">Jouni Sirén, Jean Monlong, Xian Chang, Adam M Novak, Jordan M Eizenga, Charles Markello, Jonas A Sibbesen, Glenn Hickey, Pi-Chuan Chang, Andrew Carroll, … Benedict Paten</div> <em>Science</em> (2021-12-17) <a href="https://doi.org/gns2wr">https://doi.org/gns2wr</a> <div class="csl-block">DOI: <a href="https://doi.org/10.1126/science.abg8871">10.1126/science.abg8871</a> · PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/34914532">34914532</a> · PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9365333">PMC9365333</a></div></div>
+</div>
+<div id="ref-Se424ooE" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">6. </div><div class="csl-right-inline"><strong>Genotyping structural variants in pangenome graphs using the vg toolkit</strong> <div class="csl-block">Glenn Hickey, David Heller, Jean Monlong, Jonas A Sibbesen, Jouni Sirén, Jordan Eizenga, Eric T Dawson, Erik Garrison, Adam M Novak, Benedict Paten</div> <em>Genome Biology</em> (2020-02-12) <a href="https://doi.org/ghh78w">https://doi.org/ghh78w</a> <div class="csl-block">DOI: <a href="https://doi.org/10.1186/s13059-020-1941-7">10.1186/s13059-020-1941-7</a> · PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/32051000">32051000</a> · PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7017486">PMC7017486</a></div></div>
+</div>
+<div id="ref-vlRarFR8" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">7. </div><div class="csl-right-inline"><strong>Graph Peak Caller: Calling ChIP-seq peaks on graph-based reference genomes</strong> <div class="csl-block">Ivar Grytten, Knut D Rand, Alexander J Nederbragt, Geir O Storvik, Ingrid K Glad, Geir K Sandve</div> <em>PLOS Computational Biology</em> (2019-02-19) <a href="https://doi.org/ghwpwv">https://doi.org/ghwpwv</a> <div class="csl-block">DOI: <a href="https://doi.org/10.1371/journal.pcbi.1006731">10.1371/journal.pcbi.1006731</a> · PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/30779737">30779737</a> · PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6396939">PMC6396939</a></div></div>
+</div>
+<div id="ref-1D2ZuNC2d" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">8. </div><div class="csl-right-inline"><strong>Personalized and graph genomes reveal missing signal in epigenomic data</strong> <div class="csl-block">Cristian Groza, Tony Kwan, Nicole Soranzo, Tomi Pastinen, Guillaume Bourque</div> <em>Genome Biology</em> (2020-05-25) <a href="https://doi.org/ggzxbs">https://doi.org/ggzxbs</a> <div class="csl-block">DOI: <a href="https://doi.org/10.1186/s13059-020-02038-8">10.1186/s13059-020-02038-8</a> · PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/32450900">32450900</a> · PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7249353">PMC7249353</a></div></div>
+</div>
+<div id="ref-1Cbt4asSj" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">9. </div><div class="csl-right-inline"><strong>Haplotype-aware pantranscriptome analyses using spliced pangenome graphs</strong> <div class="csl-block">Jonas A Sibbesen, Jordan M Eizenga, Adam M Novak, Jouni Sirén, Xian Chang, Erik Garrison, Benedict Paten</div> <em>Nature Methods</em> (2023-01-16) <a href="https://doi.org/gt9fj7">https://doi.org/gt9fj7</a> <div class="csl-block">DOI: <a href="https://doi.org/10.1038/s41592-022-01731-9">10.1038/s41592-022-01731-9</a> · PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/36646895">36646895</a></div></div>
+</div>
+<div id="ref-1Fp6JRSHg" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">10. </div><div class="csl-right-inline"><strong>asl/BandageNG</strong> <div class="csl-block">Anton Korobeynikov</div> (2025-10-09) <a href="https://github.com/asl/BandageNG">https://github.com/asl/BandageNG</a></div>
+</div>
+<div id="ref-hbEIE3nt" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">11. </div><div class="csl-right-inline"><strong>Bandage: interactive visualization of &lt;i&gt;de novo&lt;/i&gt; genome assemblies</strong> <div class="csl-block">Ryan R Wick, Mark B Schultz, Justin Zobel, Kathryn E Holt</div> <em>Bioinformatics</em> (2015-06-22) <a href="https://doi.org/gb5g64">https://doi.org/gb5g64</a> <div class="csl-block">DOI: <a href="https://doi.org/10.1093/bioinformatics/btv383">10.1093/bioinformatics/btv383</a> · PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/26099265">26099265</a> · PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4595904">PMC4595904</a></div></div>
+</div>
+<div id="ref-18wtkgoQ8" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">12. </div><div class="csl-right-inline"><strong>&lt;i&gt;GfaViz&lt;/i&gt;: flexible and interactive visualization of GFA sequence graphs</strong> <div class="csl-block">Giorgio Gonnella, Niklas Niehus, Stefan Kurtz</div> <em>Bioinformatics</em> (2018-12-31) <a href="https://doi.org/gf9pj6">https://doi.org/gf9pj6</a> <div class="csl-block">DOI: <a href="https://doi.org/10.1093/bioinformatics/bty1046">10.1093/bioinformatics/bty1046</a> · PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/30596893">30596893</a></div></div>
+</div>
+<div id="ref-15LPYoGeb" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">13. </div><div class="csl-right-inline"><strong>Sequence tube maps: making graph genomes intuitive to commuters</strong> <div class="csl-block">Wolfgang Beyer, Adam M Novak, Glenn Hickey, Jeffrey Chan, Vanessa Tan, Benedict Paten, Daniel R Zerbino</div> <em>Bioinformatics</em> (2019-08-01) <a href="https://doi.org/gghmj8">https://doi.org/gghmj8</a> <div class="csl-block">DOI: <a href="https://doi.org/10.1093/bioinformatics/btz597">10.1093/bioinformatics/btz597</a> · PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/31368484">31368484</a> · PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6954646">PMC6954646</a></div></div>
+</div>
+<div id="ref-gcr3kHZo" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">14. </div><div class="csl-right-inline"><strong>MoMI-G: modular multi-scale integrated genome graph browser</strong> <div class="csl-block">Toshiyuki T Yokoyama, Yoshitaka Sakamoto, Masahide Seki, Yutaka Suzuki, Masahiro Kasahara</div> <em>BMC Bioinformatics</em> (2019-11-05) <a href="https://doi.org/gghcjh">https://doi.org/gghcjh</a> <div class="csl-block">DOI: <a href="https://doi.org/10.1186/s12859-019-3145-2">10.1186/s12859-019-3145-2</a> · PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/31690272">31690272</a> · PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6833150">PMC6833150</a></div></div>
+</div>
+<div id="ref-5WqeyHma" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">15. </div><div class="csl-right-inline"><strong>Panache: a web browser-based viewer for linearized pangenomes</strong> <div class="csl-block">Éloi Durant, François Sabot, Matthieu Conte, Mathieu Rouard</div> <em>Bioinformatics</em> (2021-10-02) <a href="https://doi.org/gxn9ks">https://doi.org/gxn9ks</a> <div class="csl-block">DOI: <a href="https://doi.org/10.1093/bioinformatics/btab688">10.1093/bioinformatics/btab688</a> · PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/34601567">34601567</a> · PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8652104">PMC8652104</a></div></div>
+</div>
+<div id="ref-rlcThVtQ" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">16. </div><div class="csl-right-inline"><strong>The Banana Genome Hub</strong> <div class="csl-block">Gaëtan Droc, Delphine Larivière, Valentin Guignon, Nabila Yahiaoui, Dominique This, Olivier Garsmeur, Alexis Dereeper, Chantal Hamelin, Xavier Argout, Jean-François Dufayard, … Stéphanie Bocs</div> <em>Database</em> (2013-01-01) <a href="https://doi.org/gxn9mc">https://doi.org/gxn9mc</a> <div class="csl-block">DOI: <a href="https://doi.org/10.1093/database/bat035">10.1093/database/bat035</a> · PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/23707967">23707967</a> · PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3662865">PMC3662865</a></div></div>
+</div>
+<div id="ref-17heHmmBb" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">17. </div><div class="csl-right-inline"><strong>ODGI: understanding pangenome graphs</strong> <div class="csl-block">Andrea Guarracino, Simon Heumos, Sven Nahnsen, Pjotr Prins, Erik Garrison</div> <em>Bioinformatics</em> (2022-05-13) <a href="https://doi.org/gt9fj8">https://doi.org/gt9fj8</a> <div class="csl-block">DOI: <a href="https://doi.org/10.1093/bioinformatics/btac308">10.1093/bioinformatics/btac308</a> · PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/35552372">35552372</a> · PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9237687">PMC9237687</a></div></div>
+</div>
+<div id="ref-AohKwXF4" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">18. </div><div class="csl-right-inline"><strong>Pangenome graph layout by Path-Guided Stochastic Gradient Descent</strong> <div class="csl-block">Simon Heumos, Andrea Guarracino, Jan-Niklas M Schmelzle, Jiajie Li, Zhiru Zhang, Jörg Hagmann, Sven Nahnsen, Pjotr Prins, Erik Garrison</div> <em>Bioinformatics</em> (2024-07-01) <a href="https://doi.org/g5gwzs">https://doi.org/g5gwzs</a> <div class="csl-block">DOI: <a href="https://doi.org/10.1093/bioinformatics/btae363">10.1093/bioinformatics/btae363</a> · PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/38960860">38960860</a> · PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11227364">PMC11227364</a></div></div>
+</div>
+<div id="ref-CFz3DObX" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">19. </div><div class="csl-right-inline"><strong>The design and construction of reference pangenome graphs with minigraph</strong> <div class="csl-block">Heng Li, Xiaowen Feng, Chong Chu</div> <em>Genome Biology</em> (2020-10-16) <a href="https://doi.org/ghfvs8">https://doi.org/ghfvs8</a> <div class="csl-block">DOI: <a href="https://doi.org/10.1186/s13059-020-02168-z">10.1186/s13059-020-02168-z</a> · PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/33066802">33066802</a> · PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7568353">PMC7568353</a></div></div>
+</div>
+<div id="ref-dv6WIAcd" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">20. </div><div class="csl-right-inline"><strong>Pangenome graph construction from genome alignments with Minigraph-Cactus</strong> <div class="csl-block">Glenn Hickey, Jean Monlong, Jana Ebler, Adam M Novak, Jordan M Eizenga, Yan Gao, Haley J Abel, Lucinda L Antonacci-Fulton, Mobin Asri, … Benedict Paten</div> <em>Nature Biotechnology</em> (2023-05-10) <a href="https://doi.org/gsfwq7">https://doi.org/gsfwq7</a> <div class="csl-block">DOI: <a href="https://doi.org/10.1038/s41587-023-01793-w">10.1038/s41587-023-01793-w</a> · PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/37165083">37165083</a> · PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10638906">PMC10638906</a></div></div>
+</div>
+<div id="ref-62knLjdQ" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">21. </div><div class="csl-right-inline"><strong>Building pangenome graphs</strong> <div class="csl-block">Erik Garrison, Andrea Guarracino, Simon Heumos, Flavia Villani, Zhigui Bao, Lorenzo Tattini, Jörg Hagmann, Sebastian Vorbrugg, Santiago Marco-Sola, Christian Kubica, … Pjotr Prins</div> <em>Cold Spring Harbor Laboratory</em> (2023-04-06) <a href="https://doi.org/gt9fj9">https://doi.org/gt9fj9</a> <div class="csl-block">DOI: <a href="https://doi.org/10.1101/2023.04.05.535718">10.1101/2023.04.05.535718</a> · PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/37066137">37066137</a> · PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10104075">PMC10104075</a></div></div>
+</div>
+<div id="ref-wKJ68II7" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">22. </div><div class="csl-right-inline"><strong>Tabix: fast retrieval of sequence features from generic TAB-delimited files</strong> <div class="csl-block">Heng Li</div> <em>Bioinformatics</em> (2011-01-05) <a href="https://doi.org/bb9">https://doi.org/bb9</a> <div class="csl-block">DOI: <a href="https://doi.org/10.1093/bioinformatics/btq671">10.1093/bioinformatics/btq671</a> · PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/21208982">21208982</a> · PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3042176">PMC3042176</a></div></div>
+</div>
+<div id="ref-F6tIe3Ob" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">23. </div><div class="csl-right-inline"><strong>Personalized Pangenome References</strong> <div class="csl-block">Jouni Sirén, Parsa Eskandar, Matteo Tommaso Ungaro, Glenn Hickey, Jordan M Eizenga, Adam M Novak, Xian Chang, Pi-Chuan Chang, Mikhail Kolmogorov, Andrew Carroll, … Benedict Paten</div> <em>Cold Spring Harbor Laboratory</em> (2023-12-14) <a href="https://doi.org/gt9fkb">https://doi.org/gt9fkb</a> <div class="csl-block">DOI: <a href="https://doi.org/10.1101/2023.12.13.571553">10.1101/2023.12.13.571553</a> · PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/38168361">38168361</a> · PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10760139">PMC10760139</a></div></div>
+</div>
+<div id="ref-1BnfHjbCA" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">24. </div><div class="csl-right-inline"><strong>Comparative Annotation Toolkit (CAT)—simultaneous clade and personal genome annotation</strong> <div class="csl-block">Ian T Fiddes, Joel Armstrong, Mark Diekhans, Stefanie Nachtweide, Zev N Kronenberg, Jason G Underwood, David Gordon, Dent Earl, Thomas Keane, Evan E Eichler, … Benedict Paten</div> <em>Genome Research</em> (2018-06-08) <a href="https://doi.org/gdpg7n">https://doi.org/gdpg7n</a> <div class="csl-block">DOI: <a href="https://doi.org/10.1101/gr.233460.117">10.1101/gr.233460.117</a> · PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/29884752">29884752</a> · PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6028123">PMC6028123</a></div></div>
+</div>
+<div id="ref-bbLg7oSS" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">25. </div><div class="csl-right-inline"><strong>Efficient dynamic variation graphs</strong> <div class="csl-block">Jordan M Eizenga, Adam M Novak, Emily Kobayashi, Flavia Villani, Cecilia Cisar, Simon Heumos, Glenn Hickey, Vincenza Colonna, Benedict Paten, Erik Garrison</div> <em>Bioinformatics</em> (2020-07-16) <a href="https://doi.org/ghqdzw">https://doi.org/ghqdzw</a> <div class="csl-block">DOI: <a href="https://doi.org/10.1093/bioinformatics/btaa640">10.1093/bioinformatics/btaa640</a> · PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/33040146">33040146</a> · PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7850124">PMC7850124</a></div></div>
+</div>
+<div id="ref-9EVtBau1" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">26. </div><div class="csl-right-inline"><strong>Expanded encyclopaedias of DNA elements in the human and mouse genomes</strong><div class="csl-block">, Federico Abascal, Reyes Acosta, Nicholas J Addleman, Jessika Adrian, Veena Afzal, Rizi Ai, Bronwen Aken, Jennifer A Akiyama, Omar Al Jammal, … Zhiping Weng</div> <em>Nature</em> (2020-07-29) <a href="https://doi.org/gg6dhk">https://doi.org/gg6dhk</a> <div class="csl-block">DOI: <a href="https://doi.org/10.1038/s41586-020-2493-4">10.1038/s41586-020-2493-4</a> · PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/32728249">32728249</a> · PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7410828">PMC7410828</a></div></div>
+</div>
+<div id="ref-VRCjjZ9L" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">27. </div><div class="csl-right-inline"><strong>The NHGRI-EBI GWAS Catalog: knowledgebase and deposition resource</strong> <div class="csl-block">Elliot Sollis, Abayomi Mosaku, Ala Abid, Annalisa Buniello, Maria Cerezo, Laurent Gil, Tudor Groza, Osman Güneş, Peggy Hall, James Hayhurst, … Laura W Harris</div> <em>Nucleic Acids Research</em> (2022-11-09) <a href="https://doi.org/gq73r5">https://doi.org/gq73r5</a> <div class="csl-block">DOI: <a href="https://doi.org/10.1093/nar/gkac1010">10.1093/nar/gkac1010</a> · PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/36350656">36350656</a> · PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9825413">PMC9825413</a></div></div>
+</div>
+<div id="ref-187XBwaz7" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">28. </div><div class="csl-right-inline"><strong>The Genotype-Tissue Expression (GTEx) project</strong> <div class="csl-block">John Lonsdale, Jeffrey Thomas, Mike Salvatore, Rebecca Phillips, Edmund Lo, Saboor Shad, Richard Hasz, Gary Walters, Fernando Garcia, Nancy Young, … Helen F Moore</div> <em>Nature Genetics</em> (2013-05-29) <a href="https://doi.org/gd5z68">https://doi.org/gd5z68</a> <div class="csl-block">DOI: <a href="https://doi.org/10.1038/ng.2653">10.1038/ng.2653</a> · PMID: <a href="https://www.ncbi.nlm.nih.gov/pubmed/23715323">23715323</a> · PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4010069">PMC4010069</a></div></div>
+</div>
+<div id="ref-K5KcBvOm" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">29. </div><div class="csl-right-inline"><strong>jmonlong/manu-vggafannot</strong> <div class="csl-block">Jean Monlong</div> (2025-10-29) <a href="https://github.com/jmonlong/manu-vggafannot">https://github.com/jmonlong/manu-vggafannot</a></div>
+</div>
+<div id="ref-GFyNIG1t" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">30. </div><div class="csl-right-inline"><strong>Efficient indexing and querying of annotations in a pangenome graph</strong> <div class="csl-block">Jean Monlong</div> <em>Zenodo</em> (2024-10-08) <a href="https://doi.org/g74vrh">https://doi.org/g74vrh</a> <div class="csl-block">DOI: <a href="https://doi.org/10.5281/zenodo.13904205">10.5281/zenodo.13904205</a></div></div>
+</div>
+</div>
+<h2 class="page_break_before" id="supplementary-material">Supplementary material</h2>
+<!-- This should really use cell merging to have two unit columns under the
+different operation columns, which MultiMarkdown supposedly supports, but it
+doesn't actually work here. -->
+<div id="tbl:coverage_benchmark" class="tablenos">
+<table id="tbl:coverage_benchmark">
+<caption><span>Table 3:</span> Compute resources used for the analysis of the functional datasets and production of the indexed coverage tracks.
+The <em>coverage track</em> step includes computing coverage profile on the pangenome using <code>vg pack</code>, making coverage tracks using a python script, and compressing the output GAF with <code>gzip</code>.
+</caption>
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 9%" />
+<col style="width: 17%" />
+<col style="width: 17%" />
+<col style="width: 30%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Dataset</th>
+<th style="text-align: right;">reads (M)</th>
+<th style="text-align: right;">read mapping</th>
+<th style="text-align: right;">coverage track</th>
+<th style="text-align: right;">sorting + compressing + indexing</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Breast epithelium</td>
+<td style="text-align: right;">193.6</td>
+<td style="text-align: right;">8.9 CPU-H (54 GiB)</td>
+<td style="text-align: right;">3 CPU-H (109 GiB)</td>
+<td style="text-align: right;">0.3 CPU-H (1 GiB)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Gastrocnemius medialis</td>
+<td style="text-align: right;">98.8</td>
+<td style="text-align: right;">4.8 CPU-H (54 GiB)</td>
+<td style="text-align: right;">2.6 CPU-H (99 GiB)</td>
+<td style="text-align: right;">0.3 CPU-H (1 GiB)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Gastroesophageal sphincter</td>
+<td style="text-align: right;">168.5</td>
+<td style="text-align: right;">7.3 CPU-H (54 GiB)</td>
+<td style="text-align: right;">3 CPU-H (108 GiB)</td>
+<td style="text-align: right;">0.2 CPU-H (1 GiB)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Peyer’s patch</td>
+<td style="text-align: right;">145.3</td>
+<td style="text-align: right;">8 CPU-H (54 GiB)</td>
+<td style="text-align: right;">3 CPU-H (104 GiB)</td>
+<td style="text-align: right;">0.2 CPU-H (1 GiB)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Sigmoid colon</td>
+<td style="text-align: right;">173.5</td>
+<td style="text-align: right;">8.2 CPU-H (54 GiB)</td>
+<td style="text-align: right;">3 CPU-H (106 GiB)</td>
+<td style="text-align: right;">0.3 CPU-H (1 GiB)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Spleen</td>
+<td style="text-align: right;">157.2</td>
+<td style="text-align: right;">7.6 CPU-H (54 GiB)</td>
+<td style="text-align: right;">3 CPU-H (104 GiB)</td>
+<td style="text-align: right;">0.2 CPU-H (1 GiB)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Thyroid gland</td>
+<td style="text-align: right;">91.4</td>
+<td style="text-align: right;">4.6 CPU-H (54 GiB)</td>
+<td style="text-align: right;">2.5 CPU-H (94 GiB)</td>
+<td style="text-align: right;">0.1 CPU-H (1 GiB)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- default theme -->
+
+<style>
+  /* import google fonts */
+  @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,600,700");
+  @import url("https://fonts.googleapis.com/css?family=Source+Code+Pro");
+
+  /* -------------------------------------------------- */
+  /* global */
+  /* -------------------------------------------------- */
+
+  /* all elements */
+  * {
+    /* force sans-serif font unless specified otherwise */
+    font-family: "Open Sans", "Helvetica", sans-serif;
+
+    /* prevent text inflation on some mobile browsers */
+    -webkit-text-size-adjust: none !important;
+    -moz-text-size-adjust: none !important;
+    -o-text-size-adjust: none !important;
+    text-size-adjust: none !important;
+  }
+
+  @media only screen {
+    /* "page" element */
+    body {
+      position: relative;
+      box-sizing: border-box;
+      font-size: 12pt;
+      line-height: 1.5;
+      max-width: 8.5in;
+      margin: 20px auto;
+      padding: 40px;
+      border-radius: 5px;
+      border: solid 1px #bdbdbd;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+      background: #ffffff;
+    }
+  }
+
+  /* when on screen < 8.5in wide */
+  @media only screen and (max-width: 8.5in) {
+    /* "page" element */
+    body {
+      padding: 20px;
+      margin: 0;
+      border-radius: 0;
+      border: none;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.05) inset;
+      background: none;
+    }
+  }
+
+  /* -------------------------------------------------- */
+  /* headings */
+  /* -------------------------------------------------- */
+
+  /* all headings */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: 20px 0;
+    padding: 0;
+    font-weight: bold;
+  }
+
+  /* biggest heading */
+  h1 {
+    margin: 40px 0;
+    text-align: center;
+  }
+
+  /* second biggest heading */
+  h2 {
+    margin-top: 30px;
+    padding-bottom: 5px;
+    border-bottom: solid 1px #bdbdbd;
+  }
+
+  /* heading font sizes */
+  h1 {
+    font-size: 2em;
+  }
+  h2 {
+    font-size: 1.5em;
+  }
+  h3 {
+    font-size: 1.35em;
+  }
+  h4 {
+    font-size: 1.25em;
+  }
+  h5 {
+    font-size: 1.15em;
+  }
+  h6 {
+    font-size: 1em;
+  }
+
+  /* -------------------------------------------------- */
+  /* manuscript header */
+  /* -------------------------------------------------- */
+
+  /* manuscript title */
+  header > h1 {
+    margin: 0;
+  }
+
+  /* manuscript title caption text (ie "automatically generated on") */
+  header + p {
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  /* -------------------------------------------------- */
+  /* text elements */
+  /* -------------------------------------------------- */
+
+  /* links */
+  a {
+    color: #2196f3;
+    overflow-wrap: break-word;
+  }
+
+  /* superscripts and subscripts */
+  sub,
+  sup {
+    /* prevent from affecting line height */
+    line-height: 0;
+  }
+
+  /* unordered and ordered lists*/
+  ul,
+  ol {
+    padding-left: 20px;
+  }
+
+  /* class for styling text semibold */
+  .semibold {
+    font-weight: 600;
+  }
+
+  /* class for styling elements horizontally left aligned */
+  .left {
+    display: block;
+    text-align: left;
+    margin-left: auto;
+    margin-right: 0;
+    justify-content: left;
+  }
+
+  /* class for styling elements horizontally centered */
+  .center {
+    display: block;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+  }
+
+  /* class for styling elements horizontally right aligned */
+  .right {
+    display: block;
+    text-align: right;
+    margin-left: 0;
+    margin-right: auto;
+    justify-content: right;
+  }
+
+  /* -------------------------------------------------- */
+  /* section elements */
+  /* -------------------------------------------------- */
+
+  /* horizontal divider line */
+  hr {
+    border: none;
+    height: 1px;
+    background: #bdbdbd;
+  }
+
+  /* paragraphs, horizontal dividers, figures, tables, code */
+  p,
+  hr,
+  figure,
+  table,
+  pre {
+    /* treat all as "paragraphs", with consistent vertical margins */
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  /* -------------------------------------------------- */
+  /* figures */
+  /* -------------------------------------------------- */
+
+  /* figure */
+  figure {
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* figure caption */
+  figcaption {
+    padding: 0;
+    padding-top: 10px;
+  }
+
+  /* figure image element */
+  figure > img,
+  figure > svg {
+    max-width: 100%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* figure auto-number */
+  img + figcaption > span:first-of-type,
+  svg + figcaption > span:first-of-type {
+    font-weight: bold;
+    margin-right: 5px;
+  }
+
+  /* -------------------------------------------------- */
+  /* tables */
+  /* -------------------------------------------------- */
+
+  /* table */
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* table cells */
+  th,
+  td {
+    border: solid 1px #bdbdbd;
+    padding: 10px;
+    /* squash table if too wide for page by forcing line breaks */
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+
+  /* header row and even rows */
+  th,
+  tr:nth-child(2n) {
+    background-color: #fafafa;
+  }
+
+  /* odd rows */
+  tr:nth-child(2n + 1) {
+    background-color: #ffffff;
+  }
+
+  /* table caption */
+  caption {
+    text-align: left;
+    padding: 0;
+    padding-bottom: 10px;
+  }
+
+  /* table auto-number */
+  table > caption > span:first-of-type {
+    font-weight: bold;
+    margin-right: 5px;
+  }
+
+  /* -------------------------------------------------- */
+  /* code */
+  /* -------------------------------------------------- */
+
+  /* multi-line code block */
+  pre {
+    padding: 10px;
+    background-color: #eeeeee;
+    color: #000000;
+    border-radius: 5px;
+    break-inside: avoid;
+    text-align: left;
+  }
+
+  /* inline code, ie code within normal text */
+  :not(pre) > code {
+    padding: 0 4px;
+    background-color: #eeeeee;
+    color: #000000;
+    border-radius: 5px;
+  }
+
+  /* code text */
+  /* apply all children, to reach syntax highlighting sub-elements */
+  code,
+  code * {
+    /* force monospace font */
+    font-family: "Source Code Pro", "Courier New", monospace;
+  }
+
+  /* -------------------------------------------------- */
+  /* quotes */
+  /* -------------------------------------------------- */
+
+  /* quoted text */
+  blockquote {
+    margin: 0;
+    padding: 0;
+    border-left: 4px solid #bdbdbd;
+    padding-left: 16px;
+    break-inside: avoid;
+  }
+
+  /* -------------------------------------------------- */
+  /* banners */
+  /* -------------------------------------------------- */
+
+  /* info banners */
+  .banner {
+    box-sizing: border-box;
+    display: block;
+    position: relative;
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 20px;
+    text-align: center;
+  }
+
+  /* paragraph in banner */
+  .banner > p {
+    margin: 0;
+  }
+
+  /* -------------------------------------------------- */
+  /* highlight colors */
+  /* -------------------------------------------------- */
+
+  .white {
+    background: #ffffff;
+  }
+  .lightgrey {
+    background: #eeeeee;
+  }
+  .grey {
+    background: #757575;
+  }
+  .darkgrey {
+    background: #424242;
+  }
+  .black {
+    background: #000000;
+  }
+  .lightred {
+    background: #ffcdd2;
+  }
+  .lightyellow {
+    background: #ffecb3;
+  }
+  .lightgreen {
+    background: #dcedc8;
+  }
+  .lightblue {
+    background: #e3f2fd;
+  }
+  .lightpurple {
+    background: #f3e5f5;
+  }
+  .red {
+    background: #f44336;
+  }
+  .orange {
+    background: #ff9800;
+  }
+  .yellow {
+    background: #ffeb3b;
+  }
+  .green {
+    background: #4caf50;
+  }
+  .blue {
+    background: #2196f3;
+  }
+  .purple {
+    background: #9c27b0;
+  }
+  .white,
+  .lightgrey,
+  .lightred,
+  .lightyellow,
+  .lightgreen,
+  .lightblue,
+  .lightpurple,
+  .orange,
+  .yellow,
+  .white a,
+  .lightgrey a,
+  .lightred a,
+  .lightyellow a,
+  .lightgreen a,
+  .lightblue a,
+  .lightpurple a,
+  .orange a,
+  .yellow a {
+    color: #000000;
+  }
+  .grey,
+  .darkgrey,
+  .black,
+  .red,
+  .green,
+  .blue,
+  .purple,
+  .grey a,
+  .darkgrey a,
+  .black a,
+  .red a,
+  .green a,
+  .blue a,
+  .purple a {
+    color: #ffffff;
+  }
+
+  /* -------------------------------------------------- */
+  /* buttons */
+  /* -------------------------------------------------- */
+
+  /* class for styling links like buttons */
+  .button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px;
+    padding: 10px 20px;
+    font-size: 0.75em;
+    font-weight: 600;
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: 1px;
+    background: none;
+    color: #2196f3;
+    border: solid 1px #bdbdbd;
+    border-radius: 5px;
+  }
+
+  /* buttons when hovered */
+  .button:hover:not([disabled]),
+  .icon_button:hover:not([disabled]) {
+    cursor: pointer;
+    background: #f5f5f5;
+  }
+
+  /* buttons when disabled */
+  .button[disabled],
+  .icon_button[disabled] {
+    opacity: 0.35;
+    pointer-events: none;
+  }
+
+  /* class for styling buttons containg only single icon */
+  .icon_button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
+    background: none;
+    border-radius: 5px;
+    border: none;
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    min-height: 20px;
+  }
+
+  /* icon button inner svg image */
+  .icon_button > svg {
+    height: 16px;
+  }
+
+  /* -------------------------------------------------- */
+  /* icons */
+  /* -------------------------------------------------- */
+
+  /* class for styling icons inline with text */
+  .inline_icon {
+    height: 1em;
+    position: relative;
+    top: 0.125em;
+  }
+
+  /* -------------------------------------------------- */
+  /* references */
+  /* -------------------------------------------------- */
+
+  .csl-entry {
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+
+  /* -------------------------------------------------- */
+  /* print control */
+  /* -------------------------------------------------- */
+
+  @media print {
+    @page {
+      /* suggested printing margin */
+      margin: 0.5in;
+    }
+
+    /* document and "page" elements */
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* "page" element */
+    body {
+      font-size: 11pt !important;
+      line-height: 1.35;
+    }
+
+    /* all headings */
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      margin: 15px 0;
+    }
+
+    /* figures and tables */
+    figure,
+    table {
+      font-size: 0.85em;
+    }
+
+    /* table cells */
+    th,
+    td {
+      padding: 5px;
+    }
+
+    /* shrink font awesome icons */
+    i.fas,
+    i.fab,
+    i.far,
+    i.fal {
+      transform: scale(0.85);
+    }
+
+    /* decrease banner margins */
+    .banner {
+      margin-top: 15px;
+      margin-bottom: 15px;
+      padding: 15px;
+    }
+
+    /* class for centering an element vertically on its own page */
+    .page_center {
+      margin: auto;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      vertical-align: middle;
+      break-before: page;
+      break-after: page;
+    }
+
+    /* always insert a page break before the element */
+    .page_break_before {
+      break-before: page;
+    }
+
+    /* always insert a page break after the element */
+    .page_break_after {
+      break-after: page;
+    }
+
+    /* avoid page break before the element */
+    .page_break_before_avoid {
+      break-before: avoid;
+    }
+
+    /* avoid page break after the element */
+    .page_break_after_avoid {
+      break-after: avoid;
+    }
+
+    /* avoid page break inside the element */
+    .page_break_inside_avoid {
+      break-inside: avoid;
+    }
+  }
+
+  /* -------------------------------------------------- */
+  /* override pandoc css quirks */
+  /* -------------------------------------------------- */
+
+  .sourceCode {
+    /* prevent unsightly overflow in wide code blocks */
+    overflow: auto !important;
+  }
+
+  div.sourceCode {
+    /* prevent background fill on top-most code block  container */
+    background: none !important;
+  }
+
+  .sourceCode * {
+    /* force consistent line spacing */
+    line-height: 1.5 !important;
+  }
+
+  div.sourceCode {
+    /* style code block margins same as <pre> element */
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  /* -------------------------------------------------- */
+  /* tablenos */
+  /* -------------------------------------------------- */
+
+  /* tablenos wrapper */
+  .tablenos {
+    width: 100%;
+    margin: 20px 0;
+  }
+
+  .tablenos > table {
+    /* move margins from table to table_wrapper to allow margin collapsing */
+    margin: 0;
+  }
+
+  @media only screen {
+    /* tablenos wrapper */
+    .tablenos {
+      /* show scrollbar on tables if necessary to prevent overflow */
+      overflow-x: auto !important;
+    }
+
+    .tablenos th,
+    .tablenos td {
+      overflow-wrap: unset !important;
+      word-break: unset !important;
+    }
+
+    /* table in wrapper */
+    .tablenos table,
+    .tablenos table * {
+      /* don't break table words */
+      overflow-wrap: normal !important;
+    }
+  }
+</style>
+<!-- 
+    Plugin Core
+
+    Functions needed for and shared across all first-party plugins.
+-->
+
+<script>
+  // get element that is target of hash (from link element or url)
+  function getHashTarget(link) {
+    const hash = link ? link.hash : window.location.hash;
+    const id = hash.slice(1);
+    let target = document.querySelector(`[id="${id}"]`);
+    if (!target) return;
+
+    // if figure or table, modify target to get expected element
+    if (id.indexOf("fig:") === 0) target = target.querySelector("figure");
+    if (id.indexOf("tbl:") === 0) target = target.querySelector("table");
+
+    return target;
+  }
+
+  // get position/dimensions of element or viewport
+  function getRectInView(element) {
+    let rect = {};
+    rect.left = 0;
+    rect.top = 0;
+    rect.right = document.documentElement.clientWidth;
+    rect.bottom = document.documentElement.clientHeight;
+    let style = {};
+
+    if (element instanceof HTMLElement) {
+      rect = element.getBoundingClientRect();
+      style = window.getComputedStyle(element);
+    }
+
+    const margin = {};
+    margin.left = parseFloat(style.marginLeftWidth) || 0;
+    margin.top = parseFloat(style.marginTopWidth) || 0;
+    margin.right = parseFloat(style.marginRightWidth) || 0;
+    margin.bottom = parseFloat(style.marginBottomWidth) || 0;
+
+    const border = {};
+    border.left = parseFloat(style.borderLeftWidth) || 0;
+    border.top = parseFloat(style.borderTopWidth) || 0;
+    border.right = parseFloat(style.borderRightWidth) || 0;
+    border.bottom = parseFloat(style.borderBottomWidth) || 0;
+
+    const newRect = {};
+    newRect.left = rect.left + margin.left + border.left;
+    newRect.top = rect.top + margin.top + border.top;
+    newRect.right = rect.right + margin.right + border.right;
+    newRect.bottom = rect.bottom + margin.bottom + border.bottom;
+    newRect.width = newRect.right - newRect.left;
+    newRect.height = newRect.bottom - newRect.top;
+
+    return newRect;
+  }
+
+  // get position of element relative to page
+  function getRectInPage(element) {
+    const rect = getRectInView(element);
+    const body = getRectInView(document.body);
+
+    const newRect = {};
+    newRect.left = rect.left - body.left;
+    newRect.top = rect.top - body.top;
+    newRect.right = rect.right - body.left;
+    newRect.bottom = rect.bottom - body.top;
+    newRect.width = rect.width;
+    newRect.height = rect.height;
+
+    return newRect;
+  }
+
+  // get closest element before specified element that matches query
+  function firstBefore(element, query) {
+    while (element && element !== document.body && !element.matches(query))
+      element = element.previousElementSibling || element.parentNode;
+
+    return element;
+  }
+
+  // check if element is part of collapsed heading
+  function isCollapsed(element) {
+    while (element && element !== document.body) {
+      if (element.dataset.collapsed === "true") return true;
+      element = element.parentNode;
+    }
+    return false;
+  }
+
+  // expand any collapsed parent containers of element if necessary
+  function expandElement(element) {
+    if (isCollapsed(element)) {
+      // accordion plugin
+      const heading = firstBefore(element, "h2");
+      if (heading) heading.click();
+      // details/summary HTML element
+      const summary = firstBefore(element, "summary");
+      if (summary) summary.click();
+    }
+  }
+
+  // scroll to and focus element
+  function goToElement(element, offset) {
+    // expand accordion section if collapsed
+    expandElement(element);
+    const y =
+      getRectInView(element).top -
+      getRectInView(document.documentElement).top -
+      (offset || 0);
+
+    // trigger any function listening for "onscroll" event
+    window.dispatchEvent(new Event("scroll"));
+    window.scrollTo(0, y);
+    document.activeElement.blur();
+    element.focus();
+  }
+
+  // get list of elements after a start element up to element matching query
+  function nextUntil(element, query, exclude) {
+    const elements = [];
+    while (((element = element.nextElementSibling), element)) {
+      if (element.matches(query)) break;
+      if (!element.matches(exclude)) elements.push(element);
+    }
+    return elements;
+  }
+</script>
+<!--
+  Accordion Plugin
+
+  Allows sections of content under h2 headings to be collapsible.
+-->
+
+<script type="module">
+  // whether to always start expanded ('false'), always start collapsed
+  // ('true'), or start collapsed when screen small ('auto')
+  const startCollapsed = "auto";
+
+  // start script
+  function start() {
+    // run through each <h2> heading
+    const headings = document.querySelectorAll("h2");
+    for (const heading of headings) {
+      addArrow(heading);
+
+      // start expanded/collapsed based on option
+      if (
+        startCollapsed === "true" ||
+        (startCollapsed === "auto" && isSmallScreen()) ||
+        heading.dataset.collapsed === "true"
+      )
+        collapseHeading(heading);
+      else expandElement(heading);
+    }
+
+    // attach hash change listener to window
+    window.addEventListener("hashchange", onHashChange);
+  }
+
+  // when hash (eg manuscript.html#introduction) changes
+  function onHashChange() {
+    const target = getHashTarget();
+    if (target) goToElement(target);
+  }
+
+  // add arrow to heading
+  function addArrow(heading) {
+    // add arrow button
+    const arrow = document.createElement("button");
+    arrow.innerHTML = document.querySelector(".icon_angle_down").innerHTML;
+    arrow.classList.add("icon_button", "accordion_arrow");
+    heading.insertBefore(arrow, heading.firstChild);
+
+    // attach click listener to heading and button
+    heading.addEventListener("click", onHeadingClick);
+    arrow.addEventListener("click", onArrowClick);
+  }
+
+  // determine if on mobile-like device with small screen
+  function isSmallScreen() {
+    return Math.min(window.innerWidth, window.innerHeight) < 480;
+  }
+
+  // when <h2> heading is clicked
+  function onHeadingClick(event) {
+    // only collapse if <h2> itself is target of click (eg, user did
+    // not click on anchor within <h2>)
+    if (event.target === this) toggleCollapse(this);
+  }
+
+  // when arrow button is clicked
+  function onArrowClick() {
+    toggleCollapse(this.parentNode);
+  }
+
+  // collapse section if expanded, expand if collapsed
+  function toggleCollapse(heading) {
+    if (heading.dataset.collapsed === "false") collapseHeading(heading);
+    else expandElement(heading);
+  }
+
+  // elements to exclude from collapse, such as table of contents panel,
+  // hypothesis panel, etc
+  const exclude = "#toc_panel, div.annotator-frame, #lightbox_overlay";
+
+  // collapse section
+  function collapseHeading(heading) {
+    heading.setAttribute("data-collapsed", "true");
+    const children = getChildren(heading);
+    for (const child of children) child.setAttribute("data-collapsed", "true");
+  }
+
+  // expand section
+  function expandElement(heading) {
+    heading.setAttribute("data-collapsed", "false");
+    const children = getChildren(heading);
+    for (const child of children) child.setAttribute("data-collapsed", "false");
+  }
+
+  // get list of elements between this <h2> and next <h2> or <h1>
+  // ("children" of the <h2> section)
+  function getChildren(heading) {
+    return nextUntil(heading, "h2, h1", exclude);
+  }
+
+  // start script when document is finished loading
+  window.addEventListener("load", start);
+</script>
+
+<!-- angle down icon -->
+
+<template class="icon_angle_down">
+  <!-- modified from: https://fontawesome.com/icons/angle-down -->
+  <svg width="16" height="16" viewBox="0 0 448 512">
+    <path
+      fill="currentColor"
+      d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z"
+    ></path>
+  </svg>
+</template>
+
+<style>
+  @media only screen {
+    /* accordion arrow button */
+    .accordion_arrow {
+      margin-right: 10px;
+    }
+
+    /* arrow icon when <h2> data-collapsed attribute true */
+    h2[data-collapsed="true"] > .accordion_arrow > svg {
+      transform: rotate(-90deg);
+    }
+
+    /* all elements (except <h2>'s) when data-collapsed attribute true */
+    *:not(h2)[data-collapsed="true"] {
+      display: none;
+    }
+
+    /* accordion arrow button when hovered and <h2>'s when hovered */
+    .accordion_arrow:hover,
+    h2[data-collapsed="true"]:hover,
+    h2[data-collapsed="false"]:hover {
+      cursor: pointer;
+    }
+  }
+
+  /* always hide accordion arrow button on print */
+  @media only print {
+    .accordion_arrow {
+      display: none;
+    }
+  }
+</style>
+<!--
+  Anchors Plugin
+
+  Adds an anchor next to each of a certain type of element that provides a
+  human-readable url to that specific item/position in the document (e.g.
+  "manuscript.html#abstract"). It also makes it such that scrolling out of view
+  of a target removes its identifier from the url.
+-->
+
+<script type="module">
+  // which types of elements to add anchors next to, in "document.querySelector"
+  // format
+  const typesQuery =
+    'h1, h2, h3, div[id^="fig:"], div[id^="tbl:"], span[id^="eq:"]';
+
+  // start script
+  function start() {
+    // add anchor to each element of specified types
+    const elements = document.querySelectorAll(typesQuery);
+    for (const element of elements) addAnchor(element);
+
+    // attach scroll listener to window
+    window.addEventListener("scroll", onScroll);
+  }
+
+  // when window is scrolled
+  function onScroll() {
+    // if url has hash and user has scrolled out of view of hash
+    // target, remove hash from url
+    const tolerance = 100;
+    const target = getHashTarget();
+    if (target) {
+      if (
+        target.getBoundingClientRect().top > window.innerHeight + tolerance ||
+        target.getBoundingClientRect().bottom < 0 - tolerance
+      )
+        history.pushState(null, null, " ");
+    }
+  }
+
+  // add anchor to element
+  function addAnchor(element) {
+    let addTo; // element to add anchor button to
+
+    // if figure or table, modify withId and addTo to get expected
+    // elements
+    if (element.id.indexOf("fig:") === 0) {
+      addTo = element.querySelector("figcaption");
+    } else if (element.id.indexOf("tbl:") === 0) {
+      addTo = element.querySelector("caption");
+    } else if (element.id.indexOf("eq:") === 0) {
+      addTo = element.querySelector(".eqnos-number");
+    }
+
+    addTo = addTo || element;
+    const id = element.id || null;
+
+    // do not add anchor if element doesn't have assigned id.
+    // id is generated by pandoc and is assumed to be unique and
+    // human-readable
+    if (!id) return;
+
+    // create anchor button
+    const anchor = document.createElement("a");
+    anchor.innerHTML = document.querySelector(".icon_link").innerHTML;
+    anchor.title = "Link to this part of the document";
+    anchor.classList.add("icon_button", "anchor");
+    anchor.dataset.ignore = "true";
+    anchor.href = "#" + id;
+    addTo.appendChild(anchor);
+  }
+
+  // start script when document is finished loading
+  window.addEventListener("load", start);
+</script>
+
+<!-- link icon -->
+
+<template class="icon_link">
+  <!-- modified from: https://fontawesome.com/icons/link -->
+  <svg width="16" height="16" viewBox="0 0 512 512">
+    <path
+      fill="currentColor"
+      d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"
+    ></path>
+  </svg>
+</template>
+
+<style>
+  @media only screen {
+    /* anchor button */
+    .anchor {
+      opacity: 0;
+      margin-left: 5px;
+    }
+
+    /* anchor buttons within <h2>'s */
+    h2 .anchor {
+      margin-left: 10px;
+    }
+
+    /* anchor buttons when hovered/focused and anything containing an anchor button when hovered */
+    *:hover > .anchor,
+    .anchor:hover,
+    .anchor:focus {
+      opacity: 1;
+    }
+
+    /* anchor button when hovered */
+    .anchor:hover {
+      cursor: pointer;
+    }
+  }
+
+  /* always show anchor button on devices with no mouse/hover ability */
+  @media (hover: none) {
+    .anchor {
+      opacity: 1;
+    }
+  }
+
+  /* always hide anchor button on print */
+  @media only print {
+    .anchor {
+      display: none;
+    }
+  }
+</style>
+<!-- 
+    Attributes Plugin
+
+    Allows arbitrary HTML attributes to be attached to (almost) any element.
+    Place an HTML comment inside or next to the desired element with the content:
+    $attribute="value"
+-->
+
+<script type="module">
+  // start script
+  function start() {
+    // get list of comments in document
+    const comments = findComments();
+
+    for (const comment of comments)
+      if (comment.parentElement)
+        addAttributes(comment.parentElement, comment.nodeValue.trim());
+  }
+
+  // add html attributes to specified element based on string of
+  // html attributes and values
+  function addAttributes(element, text) {
+    // regex's for finding attribute/value pairs in the format of
+    // attribute="value" or attribute='value
+    const regex2 = /\$([a-zA-Z\-]+)?=\"(.+?)\"/;
+    const regex1 = /\$([a-zA-Z\-]+)?=\'(.+?)\'/;
+
+    // loop through attribute/value pairs
+    let match;
+    while ((match = text.match(regex2) || text.match(regex1))) {
+      // get attribute and value from regex capture groups
+      let attribute = match[1];
+      let value = match[2];
+
+      // remove from string
+      text = text.substring(match.index + match[0].length);
+
+      if (!attribute || !value) break;
+
+      // set attribute of parent element
+      try {
+        element.setAttribute(attribute, value);
+      } catch (error) {
+        console.log(error);
+      }
+
+      // special case for colspan
+      if (attribute === "colspan") removeTableCells(element, value);
+    }
+  }
+
+  // get list of comment elements in document
+  function findComments() {
+    const comments = [];
+
+    // iterate over comment nodes in document
+    function acceptNode(node) {
+      return NodeFilter.FILTER_ACCEPT;
+    }
+    const iterator = document.createNodeIterator(
+      document.body,
+      NodeFilter.SHOW_COMMENT,
+      acceptNode
+    );
+    let node;
+    while ((node = iterator.nextNode())) comments.push(node);
+
+    return comments;
+  }
+
+  // remove certain number of cells after specified cell
+  function removeTableCells(cell, number) {
+    number = parseInt(number);
+    if (!number) return;
+
+    // remove elements
+    for (; number > 1; number--) {
+      if (cell.nextElementSibling) cell.nextElementSibling.remove();
+    }
+  }
+
+  // start script on DOMContentLoaded instead of load to ensure this plugins
+  // runs before other plugins
+  window.addEventListener("DOMContentLoaded", start);
+</script>
+<!--
+  Jump to First Plugin
+
+  Adds a button next to each reference entry, figure, and table that jumps the
+  page to the first occurrence of a link to that item in the manuscript.
+-->
+
+<script type="module">
+  // whether to add buttons next to reference entries
+  const references = "true";
+  // whether to add buttons next to figures
+  const figures = "true";
+  // whether to add buttons next to tables
+  const tables = "true";
+
+  // start script
+  function start() {
+    if (references !== "false")
+      makeButtons(`div[id^="ref-"]`, ".csl-left-margin", "reference");
+    if (figures !== "false")
+      makeButtons(`div[id^="fig:"]`, "figcaption", "figure");
+    if (tables !== "false") makeButtons(`div[id^="tbl:"]`, "caption", "table");
+  }
+
+  // when jump button clicked
+  function onButtonClick() {
+    const first = getFirstOccurrence(this.dataset.id);
+    if (!first) return;
+
+    // update url hash so navigating "back" in history will return user to button
+    window.location.hash = this.dataset.id;
+    // scroll to link
+    const timeout = function () {
+      goToElement(first, window.innerHeight * 0.5);
+    };
+    window.setTimeout(timeout, 0);
+  }
+
+  // get first occurrence of link to item in document
+  function getFirstOccurrence(id) {
+    let query = "a";
+    query += '[href="#' + id + '"]';
+    // exclude buttons, anchor links, toc links, etc
+    query += ":not(.button):not(.icon_button):not(.anchor):not(.toc_link)";
+    return document.querySelector(query);
+  }
+
+  // add button next to each reference entry, figure, or table
+  function makeButtons(query, containerQuery, subject) {
+    const elements = document.querySelectorAll(query);
+    for (const element of elements) {
+      const id = element.id;
+      const buttonContainer = element.querySelector(containerQuery);
+      const first = getFirstOccurrence(id);
+
+      // if can't find link to reference or place to put button, ignore
+      if (!first || !buttonContainer) continue;
+
+      // make jump button
+      let button = document.createElement("button");
+      button.classList.add("icon_button", "jump_arrow");
+      button.title = `Jump to the first occurrence of this ${subject} in the document`;
+      const icon = document.querySelector(".icon_angle_double_up");
+      button.innerHTML = icon.innerHTML;
+      button.dataset.id = id;
+      button.dataset.ignore = "true";
+      button.addEventListener("click", onButtonClick);
+      buttonContainer.prepend(button);
+    }
+  }
+
+  // start script when document is finished loading
+  window.addEventListener("load", start);
+</script>
+
+<!-- angle double up icon -->
+
+<template class="icon_angle_double_up">
+  <!-- modified from: https://fontawesome.com/icons/angle-double-up -->
+  <svg width="16" height="16" viewBox="0 0 320 512">
+    <path
+      fill="currentColor"
+      d="M177 255.7l136 136c9.4 9.4 9.4 24.6 0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9 0L160 351.9l-96.4 96.4c-9.4 9.4-24.6 9.4-33.9 0L7 425.7c-9.4-9.4-9.4-24.6 0-33.9l136-136c9.4-9.5 24.6-9.5 34-.1zm-34-192L7 199.7c-9.4 9.4-9.4 24.6 0 33.9l22.6 22.6c9.4 9.4 24.6 9.4 33.9 0l96.4-96.4 96.4 96.4c9.4 9.4 24.6 9.4 33.9 0l22.6-22.6c9.4-9.4 9.4-24.6 0-33.9l-136-136c-9.2-9.4-24.4-9.4-33.8 0z"
+    ></path>
+  </svg>
+</template>
+
+<style>
+  @media only screen {
+    /* jump button */
+    .jump_arrow {
+      position: relative;
+      top: 0.125em;
+      margin-right: 5px;
+    }
+  }
+
+  /* always hide jump button on print */
+  @media only print {
+    .jump_arrow {
+      display: none;
+    }
+  }
+</style>
+<!-- 
+    Lightbox Plugin
+
+    Makes it such that when a user clicks on an image, the image fills the
+    screen and the user can pan/drag/zoom the image and navigate between other
+    images in the document.
+-->
+
+<script type="module">
+  // list of possible zoom/scale factors
+  const zooms =
+    "0.1, 0.25, 0.333333, 0.5, 0.666666, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.5, 3, 3.5, 4, 5, 6, 7, 8";
+  // whether to fit image to view ('fit'), display at 100% and shrink if
+  // necessary ('shrink'), or always display at 100% ('100')
+  const defaultZoom = "fit";
+  // whether to zoom in/out toward center of view ('true') or mouse ('false')
+  const centerZoom = "false";
+
+  // start script
+  function start() {
+    // run through each <img> element
+    const imgs = document.querySelectorAll("figure > img");
+    let count = 1;
+    for (const img of imgs) {
+      img.classList.add("lightbox_document_img");
+      img.dataset.number = count;
+      img.dataset.total = imgs.length;
+      img.addEventListener("click", openLightbox);
+      count++;
+    }
+
+    // attach mouse and key listeners to window
+    window.addEventListener("mousemove", onWindowMouseMove);
+    window.addEventListener("keyup", onKeyUp);
+  }
+
+  // when mouse is moved anywhere in window
+  function onWindowMouseMove(event) {
+    window.mouseX = event.clientX;
+    window.mouseY = event.clientY;
+  }
+
+  // when key pressed
+  function onKeyUp(event) {
+    if (!event || !event.key) return;
+
+    switch (event.key) {
+      // trigger click of prev button
+      case "ArrowLeft":
+        const prevButton = document.getElementById("lightbox_prev_button");
+        if (prevButton) prevButton.click();
+        break;
+      // trigger click of next button
+      case "ArrowRight":
+        const nextButton = document.getElementById("lightbox_next_button");
+        if (nextButton) nextButton.click();
+        break;
+      // close on esc
+      case "Escape":
+        closeLightbox();
+        break;
+    }
+  }
+
+  // open lightbox
+  function openLightbox() {
+    const lightbox = makeLightbox(this);
+    if (!lightbox) return;
+
+    blurBody(lightbox);
+    document.body.appendChild(lightbox);
+  }
+
+  // make lightbox
+  function makeLightbox(img) {
+    // delete lightbox if it exists, start fresh
+    closeLightbox();
+
+    // create screen overlay containing lightbox
+    const overlay = document.createElement("div");
+    overlay.id = "lightbox_overlay";
+
+    // create image info boxes
+    const numberInfo = document.createElement("div");
+    const zoomInfo = document.createElement("div");
+    numberInfo.id = "lightbox_number_info";
+    zoomInfo.id = "lightbox_zoom_info";
+
+    // create container for image
+    const imageContainer = document.createElement("div");
+    imageContainer.id = "lightbox_image_container";
+    const lightboxImg = makeLightboxImg(
+      img,
+      imageContainer,
+      numberInfo,
+      zoomInfo
+    );
+    imageContainer.appendChild(lightboxImg);
+
+    // create bottom container for caption and navigation buttons
+    const bottomContainer = document.createElement("div");
+    bottomContainer.id = "lightbox_bottom_container";
+    const caption = makeCaption(img);
+    const prevButton = makePrevButton(img);
+    const nextButton = makeNextButton(img);
+    bottomContainer.appendChild(prevButton);
+    bottomContainer.appendChild(caption);
+    bottomContainer.appendChild(nextButton);
+
+    // attach top middle and bottom to overlay
+    overlay.appendChild(numberInfo);
+    overlay.appendChild(zoomInfo);
+    overlay.appendChild(imageContainer);
+    overlay.appendChild(bottomContainer);
+
+    return overlay;
+  }
+
+  // make <img> object that is intuitively draggable and zoomable
+  function makeLightboxImg(sourceImg, container, numberInfoBox, zoomInfoBox) {
+    // create copy of source <img>
+    const img = sourceImg.cloneNode(true);
+    img.classList.remove("lightbox_document_img");
+    img.removeAttribute("id");
+    img.removeAttribute("width");
+    img.removeAttribute("height");
+    img.style.position = "unset";
+    img.style.margin = "0";
+    img.style.padding = "0";
+    img.style.width = "";
+    img.style.height = "";
+    img.style.minWidth = "";
+    img.style.minHeight = "";
+    img.style.maxWidth = "";
+    img.style.maxHeight = "";
+    img.id = "lightbox_img";
+
+    // build sorted list of zoomSteps
+    const zoomSteps = zooms.split(/[^0-9.]/).map((step) => parseFloat(step));
+    zoomSteps.sort((a, b) => a - b);
+
+    // <img> object property variables
+    let zoom = 1;
+    let translateX = 0;
+    let translateY = 0;
+    let clickMouseX = undefined;
+    let clickMouseY = undefined;
+    let clickTranslateX = undefined;
+    let clickTranslateY = undefined;
+
+    updateNumberInfo();
+
+    // update image numbers displayed in info box
+    function updateNumberInfo() {
+      numberInfoBox.innerHTML =
+        sourceImg.dataset.number + " of " + sourceImg.dataset.total;
+    }
+
+    // update zoom displayed in info box
+    function updateZoomInfo() {
+      let zoomInfo = zoom * 100;
+      if (!Number.isInteger(zoomInfo)) zoomInfo = zoomInfo.toFixed(2);
+      zoomInfoBox.innerHTML = zoomInfo + "%";
+    }
+
+    // move to closest zoom step above current zoom
+    const zoomIn = function () {
+      for (const zoomStep of zoomSteps) {
+        if (zoomStep > zoom) {
+          zoom = zoomStep;
+          break;
+        }
+      }
+      updateTransform();
+    };
+
+    // move to closest zoom step above current zoom
+    const zoomOut = function () {
+      zoomSteps.reverse();
+      for (const zoomStep of zoomSteps) {
+        if (zoomStep < zoom) {
+          zoom = zoomStep;
+          break;
+        }
+      }
+      zoomSteps.reverse();
+
+      updateTransform();
+    };
+
+    // update display of <img> based on scale/translate properties
+    const updateTransform = function () {
+      // set transform
+      img.style.transform =
+        "translate(" +
+        (translateX || 0) +
+        "px," +
+        (translateY || 0) +
+        "px) scale(" +
+        (zoom || 1) +
+        ")";
+
+      // get new width/height after scale
+      const rect = img.getBoundingClientRect();
+      // limit translate
+      translateX = Math.max(translateX, -rect.width / 2);
+      translateX = Math.min(translateX, rect.width / 2);
+      translateY = Math.max(translateY, -rect.height / 2);
+      translateY = Math.min(translateY, rect.height / 2);
+
+      // set transform
+      img.style.transform =
+        "translate(" +
+        (translateX || 0) +
+        "px," +
+        (translateY || 0) +
+        "px) scale(" +
+        (zoom || 1) +
+        ")";
+
+      updateZoomInfo();
+    };
+
+    // fit <img> to container
+    const fit = function () {
+      // no x/y offset, 100% zoom by default
+      translateX = 0;
+      translateY = 0;
+      zoom = 1;
+
+      // widths of <img> and container
+      const imgWidth = img.naturalWidth;
+      const imgHeight = img.naturalHeight;
+      const containerWidth = parseFloat(
+        window.getComputedStyle(container).width
+      );
+      const containerHeight = parseFloat(
+        window.getComputedStyle(container).height
+      );
+
+      // how much zooming is needed to fit <img> to container
+      const xRatio = imgWidth / containerWidth;
+      const yRatio = imgHeight / containerHeight;
+      const maxRatio = Math.max(xRatio, yRatio);
+      const newZoom = 1 / maxRatio;
+
+      // fit <img> to container according to option
+      if (defaultZoom === "shrink") {
+        if (maxRatio > 1) zoom = newZoom;
+      } else if (defaultZoom === "fit") zoom = newZoom;
+
+      updateTransform();
+    };
+
+    // when mouse wheel is rolled anywhere in container
+    const onContainerWheel = function (event) {
+      if (!event) return;
+
+      // let ctrl + mouse wheel to zoom behave as normal
+      if (event.ctrlKey) return;
+
+      // prevent normal scroll behavior
+      event.preventDefault();
+      event.stopPropagation();
+
+      // point around which to scale img
+      const viewRect = container.getBoundingClientRect();
+      const viewX = (viewRect.left + viewRect.right) / 2;
+      const viewY = (viewRect.top + viewRect.bottom) / 2;
+      const originX = centerZoom === "true" ? viewX : mouseX;
+      const originY = centerZoom === "true" ? viewY : mouseY;
+
+      // get point on image under origin
+      const oldRect = img.getBoundingClientRect();
+      const oldPercentX = (originX - oldRect.left) / oldRect.width;
+      const oldPercentY = (originY - oldRect.top) / oldRect.height;
+
+      // increment/decrement zoom
+      if (event.deltaY < 0) zoomIn();
+      if (event.deltaY > 0) zoomOut();
+
+      // get offset between previous image point and origin
+      const newRect = img.getBoundingClientRect();
+      const offsetX = originX - (newRect.left + newRect.width * oldPercentX);
+      const offsetY = originY - (newRect.top + newRect.height * oldPercentY);
+
+      // translate image to keep image point under origin
+      translateX += offsetX;
+      translateY += offsetY;
+
+      // perform translate
+      updateTransform();
+    };
+
+    // when container is clicked
+    function onContainerClick(event) {
+      // if container itself is target of click, and not other
+      // element above it
+      if (event.target === this) closeLightbox();
+    }
+
+    // when mouse button is pressed on image
+    const onImageMouseDown = function (event) {
+      // store original mouse position relative to image
+      clickMouseX = window.mouseX;
+      clickMouseY = window.mouseY;
+      clickTranslateX = translateX;
+      clickTranslateY = translateY;
+      event.stopPropagation();
+      event.preventDefault();
+    };
+
+    // when mouse button is released anywhere in window
+    const onWindowMouseUp = function (event) {
+      // reset original mouse position
+      clickMouseX = undefined;
+      clickMouseY = undefined;
+      clickTranslateX = undefined;
+      clickTranslateY = undefined;
+
+      // remove global listener if lightbox removed from document
+      if (!document.body.contains(container))
+        window.removeEventListener("mouseup", onWindowMouseUp);
+    };
+
+    // when mouse is moved anywhere in window
+    const onWindowMouseMove = function (event) {
+      if (
+        clickMouseX === undefined ||
+        clickMouseY === undefined ||
+        clickTranslateX === undefined ||
+        clickTranslateY === undefined
+      )
+        return;
+
+      // offset image based on original and current mouse position
+      translateX = clickTranslateX + window.mouseX - clickMouseX;
+      translateY = clickTranslateY + window.mouseY - clickMouseY;
+      updateTransform();
+      event.preventDefault();
+
+      // remove global listener if lightbox removed from document
+      if (!document.body.contains(container))
+        window.removeEventListener("mousemove", onWindowMouseMove);
+    };
+
+    // when window is resized
+    const onWindowResize = function (event) {
+      fit();
+
+      // remove global listener if lightbox removed from document
+      if (!document.body.contains(container))
+        window.removeEventListener("resize", onWindowResize);
+    };
+
+    // attach the necessary event listeners
+    img.addEventListener("dblclick", fit);
+    img.addEventListener("mousedown", onImageMouseDown);
+    container.addEventListener("wheel", onContainerWheel);
+    container.addEventListener("mousedown", onContainerClick);
+    container.addEventListener("touchstart", onContainerClick);
+    window.addEventListener("mouseup", onWindowMouseUp);
+    window.addEventListener("mousemove", onWindowMouseMove);
+    window.addEventListener("resize", onWindowResize);
+
+    // run fit() after lightbox atttached to document and <img> Loaded
+    // so needed container and img dimensions available
+    img.addEventListener("load", fit);
+
+    return img;
+  }
+
+  // make caption
+  function makeCaption(img) {
+    const caption = document.createElement("div");
+    caption.id = "lightbox_caption";
+    const captionSource = img.nextElementSibling;
+    if (captionSource.tagName.toLowerCase() === "figcaption") {
+      const captionCopy = makeCopy(captionSource);
+      caption.innerHTML = captionCopy.innerHTML;
+    }
+
+    caption.addEventListener("touchstart", function (event) {
+      event.stopPropagation();
+    });
+
+    return caption;
+  }
+
+  // make carbon copy of html dom element
+  function makeCopy(source) {
+    const sourceCopy = source.cloneNode(true);
+
+    // delete elements marked with ignore (eg anchor and jump buttons)
+    const deleteFromCopy = sourceCopy.querySelectorAll('[data-ignore="true"]');
+    for (const element of deleteFromCopy) element.remove();
+
+    // delete certain element attributes
+    const attributes = [
+      "id",
+      "data-collapsed",
+      "data-selected",
+      "data-highlighted",
+      "data-glow",
+    ];
+    for (const attribute of attributes) {
+      sourceCopy.removeAttribute(attribute);
+      const elements = sourceCopy.querySelectorAll("[" + attribute + "]");
+      for (const element of elements) element.removeAttribute(attribute);
+    }
+
+    return sourceCopy;
+  }
+
+  // make button to jump to previous image in document
+  function makePrevButton(img) {
+    const prevButton = document.createElement("button");
+    prevButton.id = "lightbox_prev_button";
+    prevButton.title = "Jump to the previous image in the document [←]";
+    prevButton.classList.add("icon_button", "lightbox_button");
+    prevButton.innerHTML = document.querySelector(".icon_caret_left").innerHTML;
+
+    // attach click listeners to button
+    prevButton.addEventListener("click", function () {
+      getPrevImg(img).click();
+    });
+
+    return prevButton;
+  }
+
+  // make button to jump to next image in document
+  function makeNextButton(img) {
+    const nextButton = document.createElement("button");
+    nextButton.id = "lightbox_next_button";
+    nextButton.title = "Jump to the next image in the document [→]";
+    nextButton.classList.add("icon_button", "lightbox_button");
+    nextButton.innerHTML = document.querySelector(
+      ".icon_caret_right"
+    ).innerHTML;
+
+    // attach click listeners to button
+    nextButton.addEventListener("click", function () {
+      getNextImg(img).click();
+    });
+
+    return nextButton;
+  }
+
+  // get previous image in document
+  function getPrevImg(img) {
+    const imgs = document.querySelectorAll(".lightbox_document_img");
+
+    // find index of provided img
+    let index;
+    for (index = 0; index < imgs.length; index++) {
+      if (imgs[index] === img) break;
+    }
+
+    // wrap index to other side if < 1
+    if (index - 1 >= 0) index--;
+    else index = imgs.length - 1;
+    return imgs[index];
+  }
+
+  // get next image in document
+  function getNextImg(img) {
+    const imgs = document.querySelectorAll(".lightbox_document_img");
+
+    // find index of provided img
+    let index;
+    for (index = 0; index < imgs.length; index++) {
+      if (imgs[index] === img) break;
+    }
+
+    // wrap index to other side if > total
+    if (index + 1 <= imgs.length - 1) index++;
+    else index = 0;
+    return imgs[index];
+  }
+
+  // close lightbox
+  function closeLightbox() {
+    focusBody();
+
+    const lightbox = document.getElementById("lightbox_overlay");
+    if (lightbox) lightbox.remove();
+  }
+
+  // make all elements behind lightbox non-focusable
+  function blurBody(overlay) {
+    const all = document.querySelectorAll("*");
+    for (const element of all) element.tabIndex = -1;
+    document.body.classList.add("body_no_scroll");
+  }
+
+  // make all elements focusable again
+  function focusBody() {
+    const all = document.querySelectorAll("*");
+    for (const element of all) element.removeAttribute("tabIndex");
+    document.body.classList.remove("body_no_scroll");
+  }
+
+  // start script when document is finished loading
+  window.addEventListener("load", start);
+</script>
+
+<!-- caret left icon -->
+
+<template class="icon_caret_left">
+  <!-- modified from: https://fontawesome.com/icons/caret-left -->
+  <svg width="16" height="16" viewBox="0 0 192 512">
+    <path
+      fill="currentColor"
+      d="M192 127.338v257.324c0 17.818-21.543 26.741-34.142 14.142L29.196 270.142c-7.81-7.81-7.81-20.474 0-28.284l128.662-128.662c12.599-12.6 34.142-3.676 34.142 14.142z"
+    ></path>
+  </svg>
+</template>
+
+<!-- caret right icon -->
+
+<template class="icon_caret_right">
+  <!-- modified from: https://fontawesome.com/icons/caret-right -->
+  <svg width="16" height="16" viewBox="0 0 192 512">
+    <path
+      fill="currentColor"
+      d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+    ></path>
+  </svg>
+</template>
+
+<style>
+  @media only screen {
+    /* regular <img> in document when hovered */
+    img.lightbox_document_img:hover {
+      cursor: pointer;
+    }
+
+    .body_no_scroll {
+      overflow: hidden !important;
+    }
+
+    /* screen overlay */
+    #lightbox_overlay {
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.75);
+      z-index: 3;
+    }
+
+    /* middle area containing lightbox image */
+    #lightbox_image_container {
+      flex-grow: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      position: relative;
+      padding: 20px;
+    }
+
+    /* bottom area containing caption */
+    #lightbox_bottom_container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100px;
+      min-height: 100px;
+      max-height: 100px;
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    /* image number info text box */
+    #lightbox_number_info {
+      position: absolute;
+      color: #ffffff;
+      font-weight: 600;
+      left: 2px;
+      top: 0;
+      z-index: 4;
+    }
+
+    /* zoom info text box */
+    #lightbox_zoom_info {
+      position: absolute;
+      color: #ffffff;
+      font-weight: 600;
+      right: 2px;
+      top: 0;
+      z-index: 4;
+    }
+
+    /* copy of image caption */
+    #lightbox_caption {
+      box-sizing: border-box;
+      display: inline-block;
+      width: 100%;
+      max-height: 100%;
+      padding: 10px 0;
+      text-align: center;
+      overflow-y: auto;
+      color: #ffffff;
+    }
+
+    /* navigation previous/next button */
+    .lightbox_button {
+      width: 100px;
+      height: 100%;
+      min-width: 100px;
+      min-height: 100%;
+      color: #ffffff;
+    }
+
+    /* navigation previous/next button when hovered */
+    .lightbox_button:hover {
+      background: none !important;
+    }
+
+    /* navigation button icon */
+    .lightbox_button > svg {
+      height: 25px;
+    }
+
+    /* figure auto-number */
+    #lightbox_caption > span:first-of-type {
+      font-weight: bold;
+      margin-right: 5px;
+    }
+
+    /* lightbox image when hovered */
+    #lightbox_img:hover {
+      cursor: grab;
+    }
+
+    /* lightbox image when grabbed */
+    #lightbox_img:active {
+      cursor: grabbing;
+    }
+  }
+
+  /* when on screen < 480px wide */
+  @media only screen and (max-width: 480px) {
+    /* make navigation buttons skinnier on small screens to make more room for caption text */
+    .lightbox_button {
+      width: 50px;
+      min-width: 50px;
+    }
+  }
+
+  /* always hide lightbox on print */
+  @media only print {
+    #lightbox_overlay {
+      display: none;
+    }
+  }
+</style>
+<!-- 
+  Link Highlight Plugin
+
+  Makes it such that when a user hovers or focuses a link, other links that have
+  the same target will be highlighted. It also makes it such that when clicking
+  a link, the target of the link (eg reference, figure, table) is briefly
+  highlighted.
+-->
+
+<script type="module">
+  // whether to also highlight links that go to external urls
+  const externalLinks = "false";
+  // whether user must click off to unhighlight instead of just
+  // un-hovering
+  const clickUnhighlight = "false";
+  // whether to also highlight links that are unique
+  const highlightUnique = "true";
+
+  // start script
+  function start() {
+    const links = getLinks();
+    for (const link of links) {
+      // attach mouse and focus listeners to link
+      link.addEventListener("mouseenter", onLinkFocus);
+      link.addEventListener("focus", onLinkFocus);
+      link.addEventListener("mouseleave", onLinkUnhover);
+    }
+
+    // attach click and hash change listeners to window
+    window.addEventListener("click", onClick);
+    window.addEventListener("touchstart", onClick);
+    window.addEventListener("hashchange", onHashChange);
+
+    // run hash change on window load in case user has navigated
+    // directly to hash
+    onHashChange();
+  }
+
+  // when link is focused (tabbed to) or hovered
+  function onLinkFocus() {
+    highlight(this);
+  }
+
+  // when link is unhovered
+  function onLinkUnhover() {
+    if (clickUnhighlight !== "true") unhighlightAll();
+  }
+
+  // when the mouse is clicked anywhere in window
+  function onClick(event) {
+    unhighlightAll();
+  }
+
+  // when hash (eg manuscript.html#introduction) changes
+  function onHashChange() {
+    const target = getHashTarget();
+    if (target) glowElement(target);
+  }
+
+  // start glow sequence on an element
+  function glowElement(element) {
+    const startGlow = function () {
+      onGlowEnd();
+      element.dataset.glow = "true";
+      element.addEventListener("animationend", onGlowEnd);
+    };
+    const onGlowEnd = function () {
+      element.removeAttribute("data-glow");
+      element.removeEventListener("animationend", onGlowEnd);
+    };
+    startGlow();
+  }
+
+  // highlight link and all others with same target
+  function highlight(link) {
+    // force unhighlight all to start fresh
+    unhighlightAll();
+
+    // get links with same target
+    if (!link) return;
+    const sameLinks = getSameLinks(link);
+
+    // if link unique and option is off, exit and don't highlight
+    if (sameLinks.length <= 1 && highlightUnique !== "true") return;
+
+    // highlight all same links, and "select" (special highlight) this
+    // one
+    for (const sameLink of sameLinks) {
+      if (sameLink === link) sameLink.setAttribute("data-selected", "true");
+      else sameLink.setAttribute("data-highlighted", "true");
+    }
+  }
+
+  // unhighlight all links
+  function unhighlightAll() {
+    const links = getLinks();
+    for (const link of links) {
+      link.setAttribute("data-selected", "false");
+      link.setAttribute("data-highlighted", "false");
+    }
+  }
+
+  // get links with same target
+  function getSameLinks(link) {
+    const results = [];
+    const links = getLinks();
+    for (const otherLink of links) {
+      if (otherLink.getAttribute("href") === link.getAttribute("href"))
+        results.push(otherLink);
+    }
+    return results;
+  }
+
+  // get all links of types we wish to handle
+  function getLinks() {
+    let query = "a";
+    if (externalLinks !== "true") query += '[href^="#"]';
+    // exclude buttons, anchor links, toc links, etc
+    query += ":not(.button):not(.icon_button):not(.anchor):not(.toc_link)";
+    return document.querySelectorAll(query);
+  }
+
+  // start script when document is finished loading
+  window.addEventListener("load", start);
+</script>
+
+<style>
+  @media only screen {
+    /* anything with data-highlighted attribute true */
+    [data-highlighted="true"] {
+      background: #ffeb3b;
+    }
+
+    /* anything with data-selected attribute true */
+    [data-selected="true"] {
+      background: #ff8a65 !important;
+    }
+
+    /* animation definition for glow */
+    @keyframes highlight_glow {
+      0% {
+        background: none;
+      }
+      10% {
+        background: #bbdefb;
+      }
+      100% {
+        background: none;
+      }
+    }
+
+    /* anything with data-glow attribute true */
+    [data-glow="true"] {
+      animation: highlight_glow 2s;
+    }
+  }
+</style>
+<!--
+  Table of Contents Plugin
+
+  Provides a "table of contents" (toc) panel on the side of the document that
+  allows the user to conveniently navigate between sections of the document.
+-->
+
+<script type="module">
+  // which types of elements to add links for, in "document.querySelector" format
+  const typesQuery = "h1, h2, h3";
+  // whether toc starts open. use 'true' or 'false', or 'auto' to
+  // use 'true' behavior when screen wide enough and 'false' when not
+  const startOpen = "false";
+  // whether toc closes when clicking on toc link. use 'true' or
+  // 'false', or 'auto' to use 'false' behavior when screen wide
+  // enough and 'true' when not
+  const clickClose = "auto";
+  // if list item is more than this many characters, text will be
+  // truncated
+  const charLimit = "50";
+  // whether or not to show bullets next to each toc item
+  const bullets = "false";
+
+  // start script
+  function start() {
+    // make toc panel and populate with entries (links to document
+    // sections)
+    const panel = makePanel();
+    if (!panel) return;
+    makeEntries(panel);
+    // attach panel to document after making entries, so 'toc' heading
+    // in panel isn't included in toc
+    document.body.insertBefore(panel, document.body.firstChild);
+
+    // initial panel state
+    if (startOpen === "true" || (startOpen === "auto" && !isSmallScreen()))
+      openPanel();
+    else closePanel();
+
+    // attach click, scroll, and hash change listeners to window
+    window.addEventListener("click", onClick);
+    window.addEventListener("scroll", onScroll);
+    window.addEventListener("hashchange", onScroll);
+    window.addEventListener("keyup", onKeyUp);
+    onScroll();
+
+    // add class to push document body down out of way of toc button
+    document.body.classList.add("toc_body_nudge");
+  }
+
+  // determine if screen wide enough to fit toc panel
+  function isSmallScreen() {
+    // in default theme:
+    // 816px = 8.5in = width of "page" (<body>) element
+    // 260px = min width of toc panel (*2 for both sides of <body>)
+    return window.innerWidth < 816 + 260 * 2;
+  }
+
+  // when mouse is clicked anywhere in window
+  function onClick() {
+    if (isSmallScreen()) closePanel();
+  }
+
+  // when window is scrolled or hash changed
+  function onScroll() {
+    highlightViewed();
+  }
+
+  // when key pressed
+  function onKeyUp(event) {
+    if (!event || !event.key) return;
+
+    // close on esc
+    if (event.key === "Escape") closePanel();
+  }
+
+  // find entry of currently viewed document section in toc and highlight
+  function highlightViewed() {
+    const firstId = getFirstInView(typesQuery);
+
+    // get toc entries (links), unhighlight all, then highlight viewed
+    const list = document.getElementById("toc_list");
+    if (!firstId || !list) return;
+    const links = list.querySelectorAll("a");
+    for (const link of links) link.dataset.viewing = "false";
+    const link = list.querySelector('a[href="#' + firstId + '"]');
+    if (!link) return;
+    link.dataset.viewing = "true";
+  }
+
+  // get first or previous toc listed element in top half of view
+  function getFirstInView(query) {
+    // get all elements matching query and with id
+    const elements = document.querySelectorAll(query);
+    const elementsWithIds = [];
+    for (const element of elements) {
+      if (element.id) elementsWithIds.push(element);
+    }
+
+    // get first or previous element in top half of view
+    for (let i = 0; i < elementsWithIds.length; i++) {
+      const element = elementsWithIds[i];
+      const prevElement = elementsWithIds[Math.max(0, i - 1)];
+      if (element.getBoundingClientRect().top >= 0) {
+        if (element.getBoundingClientRect().top < window.innerHeight / 2)
+          return element.id;
+        else return prevElement.id;
+      }
+    }
+  }
+
+  // make panel
+  function makePanel() {
+    // create panel
+    const panel = document.createElement("div");
+    panel.id = "toc_panel";
+    if (bullets === "true") panel.dataset.bullets = "true";
+
+    // create header
+    const header = document.createElement("div");
+    header.id = "toc_header";
+
+    // create toc button
+    const button = document.createElement("button");
+    button.id = "toc_button";
+    button.innerHTML = document.querySelector(".icon_th_list").innerHTML;
+    button.title = "Table of Contents";
+    button.classList.add("icon_button");
+
+    // create header text
+    const text = document.createElement("h4");
+    text.innerHTML = "Table of Contents";
+
+    // create container for toc list
+    const list = document.createElement("div");
+    list.id = "toc_list";
+
+    // attach click listeners
+    panel.addEventListener("click", onPanelClick);
+    header.addEventListener("click", onHeaderClick);
+    button.addEventListener("click", onButtonClick);
+
+    // attach elements
+    header.appendChild(button);
+    header.appendChild(text);
+    panel.appendChild(header);
+    panel.appendChild(list);
+
+    return panel;
+  }
+
+  // create toc entries (links) to each element of the specified types
+  function makeEntries(panel) {
+    const elements = document.querySelectorAll(typesQuery);
+    for (const element of elements) {
+      // do not add link if element doesn't have assigned id
+      if (!element.id) continue;
+
+      // create link/list item
+      const link = document.createElement("a");
+      link.classList.add("toc_link");
+      switch (element.tagName.toLowerCase()) {
+        case "h1":
+          link.dataset.level = "1";
+          break;
+        case "h2":
+          link.dataset.level = "2";
+          break;
+        case "h3":
+          link.dataset.level = "3";
+          break;
+        case "h4":
+          link.dataset.level = "4";
+          break;
+      }
+      link.title = element.innerText;
+      let text = element.innerText;
+      if (text.length > charLimit) text = text.slice(0, charLimit) + "...";
+      link.innerHTML = text;
+      link.href = "#" + element.id;
+      link.addEventListener("click", onLinkClick);
+
+      // attach link
+      panel.querySelector("#toc_list").appendChild(link);
+    }
+  }
+
+  // when panel is clicked
+  function onPanelClick(event) {
+    // stop click from propagating to window/document and closing panel
+    event.stopPropagation();
+  }
+
+  // when header itself is clicked
+  function onHeaderClick(event) {
+    togglePanel();
+  }
+
+  // when button is clicked
+  function onButtonClick(event) {
+    togglePanel();
+    // stop header underneath button from also being clicked
+    event.stopPropagation();
+  }
+
+  // when link is clicked
+  function onLinkClick(event) {
+    if (clickClose === "true" || (clickClose === "auto" && isSmallScreen()))
+      closePanel();
+    else openPanel();
+  }
+
+  // open panel if closed, close if opened
+  function togglePanel() {
+    const panel = document.getElementById("toc_panel");
+    if (!panel) return;
+
+    if (panel.dataset.open === "true") closePanel();
+    else openPanel();
+  }
+
+  // open panel
+  function openPanel() {
+    const panel = document.getElementById("toc_panel");
+    if (panel) panel.dataset.open = "true";
+  }
+
+  // close panel
+  function closePanel() {
+    const panel = document.getElementById("toc_panel");
+    if (panel) panel.dataset.open = "false";
+  }
+
+  // start script when document is finished loading
+  window.addEventListener("load", start);
+</script>
+
+<!-- th list icon -->
+
+<template class="icon_th_list">
+  <!-- modified from: https://fontawesome.com/icons/th-list -->
+  <svg width="16" height="16" viewBox="0 0 512 512" tabindex="-1">
+    <path
+      fill="currentColor"
+      d="M96 96c0 26.51-21.49 48-48 48S0 122.51 0 96s21.49-48 48-48 48 21.49 48 48zM48 208c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm0 160c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm96-236h352c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H144c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h352c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H144c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h352c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H144c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"
+      tabindex="-1"
+    ></path>
+  </svg>
+</template>
+
+<style>
+  @media only screen {
+    /* toc panel */
+    #toc_panel {
+      box-sizing: border-box;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background: #ffffff;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+      z-index: 2;
+    }
+
+    /* toc panel when closed */
+    #toc_panel[data-open="false"] {
+      min-width: 60px;
+      width: 60px;
+      height: 60px;
+      border-right: solid 1px #bdbdbd;
+      border-bottom: solid 1px #bdbdbd;
+    }
+
+    /* toc panel when open */
+    #toc_panel[data-open="true"] {
+      min-width: 260px;
+      max-width: 480px;
+      /* keep panel edge consistent distance away from "page" edge */
+      width: calc(((100vw - 8.5in) / 2) - 30px - 40px);
+      bottom: 0;
+      border-right: solid 1px #bdbdbd;
+    }
+
+    /* toc panel header */
+    #toc_header {
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      height: 60px;
+      margin: 0;
+      padding: 20px;
+    }
+
+    /* toc panel header when hovered */
+    #toc_header:hover {
+      cursor: pointer;
+    }
+
+    /* toc panel header when panel open */
+    #toc_panel[data-open="true"] > #toc_header {
+      border-bottom: solid 1px #bdbdbd;
+    }
+
+    /* toc open/close header button */
+    #toc_button {
+      margin-right: 20px;
+    }
+
+    /* hide toc list and header text when closed */
+    #toc_panel[data-open="false"] > #toc_header > *:not(#toc_button),
+    #toc_panel[data-open="false"] > #toc_list {
+      display: none;
+    }
+
+    /* toc list of entries */
+    #toc_list {
+      box-sizing: border-box;
+      width: 100%;
+      padding: 20px;
+      position: absolute;
+      top: calc(60px + 1px);
+      bottom: 0;
+      overflow: auto;
+    }
+
+    /* toc entry, link to section in document */
+    .toc_link {
+      display: block;
+      padding: 5px;
+      position: relative;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    /* toc entry when hovered or when "viewed" */
+    .toc_link:hover,
+    .toc_link[data-viewing="true"] {
+      background: #f5f5f5;
+    }
+
+    /* toc entry, level 1 indentation */
+    .toc_link[data-level="1"] {
+      margin-left: 0;
+    }
+
+    /* toc entry, level 2 indentation */
+    .toc_link[data-level="2"] {
+      margin-left: 20px;
+    }
+
+    /* toc entry, level 3 indentation */
+    .toc_link[data-level="3"] {
+      margin-left: 40px;
+    }
+
+    /* toc entry, level 4 indentation */
+    .toc_link[data-level="4"] {
+      margin-left: 60px;
+    }
+
+    /* toc entry bullets */
+    #toc_panel[data-bullets="true"] .toc_link[data-level]:before {
+      position: absolute;
+      left: -15px;
+      top: -1px;
+      font-size: 1.5em;
+    }
+
+    /* toc entry, level 2 bullet */
+    #toc_panel[data-bullets="true"] .toc_link[data-level="2"]:before {
+      content: "\2022";
+    }
+
+    /* toc entry, level 3 bullet */
+    #toc_panel[data-bullets="true"] .toc_link[data-level="3"]:before {
+      content: "\25AB";
+    }
+
+    /* toc entry, level 4 bullet */
+    #toc_panel[data-bullets="true"] .toc_link[data-level="4"]:before {
+      content: "-";
+    }
+  }
+
+  /* when on screen < 8.5in wide */
+  @media only screen and (max-width: 8.5in) {
+    /* push <body> ("page") element down to make room for toc icon */
+    .toc_body_nudge {
+      padding-top: 60px;
+    }
+
+    /* toc icon when panel closed and not hovered */
+    #toc_panel[data-open="false"]:not(:hover) {
+      background: rgba(255, 255, 255, 0.75);
+    }
+  }
+
+  /* always hide toc panel on print */
+  @media only print {
+    #toc_panel {
+      display: none;
+    }
+  }
+</style>
+<!-- 
+  Tooltips Plugin
+
+  Makes it such that when the user hovers or focuses a link to a citation or
+  figure, a tooltip appears with a preview of the reference content, along with
+  arrows to navigate between instances of the same reference in the document.
+-->
+
+<script type="module">
+  // whether user must click off to close tooltip instead of just un-hovering
+  const clickClose = "false";
+  // delay (in ms) between opening and closing tooltip
+  const delay = "100";
+
+  // start script
+  function start() {
+    const links = getLinks();
+    for (const link of links) {
+      // attach hover and focus listeners to link
+      link.addEventListener("mouseover", onLinkHover);
+      link.addEventListener("mouseleave", onLinkUnhover);
+      link.addEventListener("focus", onLinkFocus);
+      link.addEventListener("touchend", onLinkTouch);
+    }
+
+    // attach mouse, key, and resize listeners to window
+    window.addEventListener("mousedown", onClick);
+    window.addEventListener("touchstart", onClick);
+    window.addEventListener("keyup", onKeyUp);
+    window.addEventListener("resize", onResize);
+  }
+
+  // when link is hovered
+  function onLinkHover() {
+    // function to open tooltip
+    const delayOpenTooltip = function () {
+      openTooltip(this);
+    }.bind(this);
+
+    // run open function after delay
+    this.openTooltipTimer = window.setTimeout(delayOpenTooltip, delay);
+  }
+
+  // when mouse leaves link
+  function onLinkUnhover() {
+    // cancel opening tooltip
+    window.clearTimeout(this.openTooltipTimer);
+
+    // don't close on unhover if option specifies
+    if (clickClose === "true") return;
+
+    // function to close tooltip
+    const delayCloseTooltip = function () {
+      // if tooltip open and if mouse isn't over tooltip, close
+      const tooltip = document.getElementById("tooltip");
+      if (tooltip && !tooltip.matches(":hover")) closeTooltip();
+    };
+
+    // run close function after delay
+    this.closeTooltipTimer = window.setTimeout(delayCloseTooltip, delay);
+  }
+
+  // when link is focused (tabbed to)
+  function onLinkFocus(event) {
+    openTooltip(this);
+  }
+
+  // when link is touched on touch screen
+  function onLinkTouch(event) {
+    // attempt to force hover state on first tap always, and trigger
+    // regular link click (and navigation) on second tap
+    if (event.target === document.activeElement) event.target.click();
+    else {
+      document.activeElement.blur();
+      event.target.focus();
+    }
+    if (event.cancelable) event.preventDefault();
+    event.stopPropagation();
+    return false;
+  }
+
+  // when mouse is clicked anywhere in window
+  function onClick(event) {
+    closeTooltip();
+  }
+
+  // when key pressed
+  function onKeyUp(event) {
+    if (!event || !event.key) return;
+
+    switch (event.key) {
+      // trigger click of prev button
+      case "ArrowLeft":
+        const prevButton = document.getElementById("tooltip_prev_button");
+        if (prevButton) prevButton.click();
+        break;
+      // trigger click of next button
+      case "ArrowRight":
+        const nextButton = document.getElementById("tooltip_next_button");
+        if (nextButton) nextButton.click();
+        break;
+      // close on esc
+      case "Escape":
+        closeTooltip();
+        break;
+    }
+  }
+
+  // when window is resized or zoomed
+  function onResize() {
+    closeTooltip();
+  }
+
+  // get all links of types we wish to handle
+  function getLinks() {
+    const queries = [];
+    // exclude buttons, anchor links, toc links, etc
+    const exclude =
+      ":not(.button):not(.icon_button):not(.anchor):not(.toc_link)";
+    queries.push('a[href^="#ref-"]' + exclude); // citation links
+    queries.push('a[href^="#fig:"]' + exclude); // figure links
+    const query = queries.join(", ");
+    return document.querySelectorAll(query);
+  }
+
+  // get links with same target, get index of link in set, get total
+  // same links
+  function getSameLinks(link) {
+    const sameLinks = [];
+    const links = getLinks();
+    for (const otherLink of links) {
+      if (otherLink.getAttribute("href") === link.getAttribute("href"))
+        sameLinks.push(otherLink);
+    }
+
+    return {
+      elements: sameLinks,
+      index: sameLinks.indexOf(link),
+      total: sameLinks.length,
+    };
+  }
+
+  // open tooltip
+  function openTooltip(link) {
+    // delete tooltip if it exists, start fresh
+    closeTooltip();
+
+    // make tooltip element
+    const tooltip = makeTooltip(link);
+
+    // if source couldn't be found and tooltip not made, exit
+    if (!tooltip) return;
+
+    // make navbar elements
+    const navBar = makeNavBar(link);
+    if (navBar) tooltip.firstElementChild.appendChild(navBar);
+
+    // attach tooltip to page
+    document.body.appendChild(tooltip);
+
+    // position tooltip
+    const position = function () {
+      positionTooltip(link);
+    };
+    position();
+
+    // if tooltip contains images, position again after they've loaded
+    const imgs = tooltip.querySelectorAll("img");
+    for (const img of imgs) img.addEventListener("load", position);
+  }
+
+  // close (delete) tooltip
+  function closeTooltip() {
+    const tooltip = document.getElementById("tooltip");
+    if (tooltip) tooltip.remove();
+  }
+
+  // make tooltip
+  function makeTooltip(link) {
+    // get target element that link points to
+    const source = getSource(link);
+
+    // if source can't be found, exit
+    if (!source) return;
+
+    // create new tooltip
+    const tooltip = document.createElement("div");
+    tooltip.id = "tooltip";
+    const tooltipContent = document.createElement("div");
+    tooltipContent.id = "tooltip_content";
+    tooltip.appendChild(tooltipContent);
+
+    // make copy of source node and put in tooltip
+    const sourceCopy = makeCopy(source);
+    tooltipContent.appendChild(sourceCopy);
+
+    // attach mouse event listeners
+    tooltip.addEventListener("click", onTooltipClick);
+    tooltip.addEventListener("mousedown", onTooltipClick);
+    tooltip.addEventListener("touchstart", onTooltipClick);
+    tooltip.addEventListener("mouseleave", onTooltipUnhover);
+
+    // (for interaction with lightbox plugin)
+    // transfer click on tooltip copied img to original img
+    const sourceImg = source.querySelector("img");
+    const sourceCopyImg = sourceCopy.querySelector("img");
+    if (sourceImg && sourceCopyImg) {
+      const clickImg = function () {
+        sourceImg.click();
+        closeTooltip();
+      };
+      sourceCopyImg.addEventListener("click", clickImg);
+    }
+
+    return tooltip;
+  }
+
+  // make carbon copy of html dom element
+  function makeCopy(source) {
+    const sourceCopy = source.cloneNode(true);
+
+    // delete elements marked with ignore (eg anchor and jump buttons)
+    const deleteFromCopy = sourceCopy.querySelectorAll('[data-ignore="true"]');
+    for (const element of deleteFromCopy) element.remove();
+
+    // delete certain element attributes
+    const attributes = [
+      "id",
+      "data-collapsed",
+      "data-selected",
+      "data-highlighted",
+      "data-glow",
+      "class",
+    ];
+    for (const attribute of attributes) {
+      sourceCopy.removeAttribute(attribute);
+      const elements = sourceCopy.querySelectorAll("[" + attribute + "]");
+      for (const element of elements) element.removeAttribute(attribute);
+    }
+
+    return sourceCopy;
+  }
+
+  // when tooltip is clicked
+  function onTooltipClick(event) {
+    // when user clicks on tooltip, stop click from transferring
+    // outside of tooltip (eg, click off to close tooltip, or eg click
+    // off to unhighlight same refs)
+    event.stopPropagation();
+  }
+
+  // when tooltip is unhovered
+  function onTooltipUnhover(event) {
+    if (clickClose === "true") return;
+
+    // make sure new mouse/touch/focus no longer over tooltip or any
+    // element within it
+    const tooltip = document.getElementById("tooltip");
+    if (!tooltip) return;
+    if (this.contains(event.relatedTarget)) return;
+
+    closeTooltip();
+  }
+
+  // make nav bar to go betwen prev/next instances of same reference
+  function makeNavBar(link) {
+    // find other links to the same source
+    const sameLinks = getSameLinks(link);
+
+    // don't show nav bar when singular reference
+    if (sameLinks.total <= 1) return;
+
+    // find prev/next links with same target
+    const prevLink = getPrevLink(link, sameLinks);
+    const nextLink = getNextLink(link, sameLinks);
+
+    // create nav bar
+    const navBar = document.createElement("div");
+    navBar.id = "tooltip_nav_bar";
+    const text = sameLinks.index + 1 + " of " + sameLinks.total;
+
+    // create nav bar prev/next buttons
+    const prevButton = document.createElement("button");
+    const nextButton = document.createElement("button");
+    prevButton.id = "tooltip_prev_button";
+    nextButton.id = "tooltip_next_button";
+    prevButton.title =
+      "Jump to the previous occurence of this item in the document [←]";
+    nextButton.title =
+      "Jump to the next occurence of this item in the document [→]";
+    prevButton.classList.add("icon_button");
+    nextButton.classList.add("icon_button");
+    prevButton.innerHTML = document.querySelector(".icon_caret_left").innerHTML;
+    nextButton.innerHTML =
+      document.querySelector(".icon_caret_right").innerHTML;
+    navBar.appendChild(prevButton);
+    navBar.appendChild(document.createTextNode(text));
+    navBar.appendChild(nextButton);
+
+    // attach click listeners to buttons
+    prevButton.addEventListener("click", function () {
+      onPrevNextClick(link, prevLink);
+    });
+    nextButton.addEventListener("click", function () {
+      onPrevNextClick(link, nextLink);
+    });
+
+    return navBar;
+  }
+
+  // get previous link with same target
+  function getPrevLink(link, sameLinks) {
+    if (!sameLinks) sameLinks = getSameLinks(link);
+    // wrap index to other side if < 1
+    let index;
+    if (sameLinks.index - 1 >= 0) index = sameLinks.index - 1;
+    else index = sameLinks.total - 1;
+    return sameLinks.elements[index];
+  }
+
+  // get next link with same target
+  function getNextLink(link, sameLinks) {
+    if (!sameLinks) sameLinks = getSameLinks(link);
+    // wrap index to other side if > total
+    let index;
+    if (sameLinks.index + 1 <= sameLinks.total - 1) index = sameLinks.index + 1;
+    else index = 0;
+    return sameLinks.elements[index];
+  }
+
+  // get element that is target of link or url hash
+  function getSource(link) {
+    const hash = link ? link.hash : window.location.hash;
+    const id = hash.slice(1);
+    let target = document.querySelector('[id="' + id + '"]');
+    if (!target) return;
+
+    // if ref or figure, modify target to get expected element
+    if (id.indexOf("ref-") === 0) target = target.querySelector(":nth-child(2)");
+    else if (id.indexOf("fig:") === 0) target = target.querySelector("figure");
+
+    return target;
+  }
+
+  // when prev/next arrow button is clicked
+  function onPrevNextClick(link, prevNextLink) {
+    if (link && prevNextLink)
+      goToElement(prevNextLink, window.innerHeight * 0.5);
+  }
+
+  // scroll to and focus element
+  function goToElement(element, offset) {
+    // expand accordion section if collapsed
+    expandElement(element);
+    const y =
+      getRectInView(element).top -
+      getRectInView(document.documentElement).top -
+      (offset || 0);
+    // trigger any function listening for "onscroll" event
+    window.dispatchEvent(new Event("scroll"));
+    window.scrollTo(0, y);
+    document.activeElement.blur();
+    element.focus();
+  }
+
+  // determine position to place tooltip based on link position in
+  // viewport and tooltip size
+  function positionTooltip(link, left, top) {
+    const tooltipElement = document.getElementById("tooltip");
+    if (!tooltipElement) return;
+
+    // get convenient vars for position/dimensions of
+    // link/tooltip/page/view
+    link = getRectInPage(link);
+    const tooltip = getRectInPage(tooltipElement);
+    const view = getRectInPage();
+
+    // horizontal positioning
+    if (left)
+      // use explicit value
+      left = left;
+    else if (link.left + tooltip.width < view.right)
+      // fit tooltip to right of link
+      left = link.left;
+    else if (link.right - tooltip.width > view.left)
+      // fit tooltip to left of link
+      left = link.right - tooltip.width;
+    // center tooltip in view
+    else left = (view.right - view.left) / 2 - tooltip.width / 2;
+
+    // vertical positioning
+    if (top)
+      // use explicit value
+      top = top;
+    else if (link.top - tooltip.height > view.top)
+      // fit tooltip above link
+      top = link.top - tooltip.height;
+    else if (link.bottom + tooltip.height < view.bottom)
+      // fit tooltip below link
+      top = link.bottom;
+    else {
+      // center tooltip in view
+      top = view.top + view.height / 2 - tooltip.height / 2;
+      // nudge off of link to left/right if possible
+      if (link.right + tooltip.width < view.right) left = link.right;
+      else if (link.left - tooltip.width > view.left)
+        left = link.left - tooltip.width;
+    }
+
+    tooltipElement.style.left = left + "px";
+    tooltipElement.style.top = top + "px";
+  }
+
+  // start script when document is finished loading
+  window.addEventListener("load", start);
+</script>
+
+<!-- caret left icon -->
+
+<template class="icon_caret_left">
+  <!-- modified from: https://fontawesome.com/icons/caret-left -->
+  <svg width="16" height="16" viewBox="0 0 192 512">
+    <path
+      fill="currentColor"
+      d="M192 127.338v257.324c0 17.818-21.543 26.741-34.142 14.142L29.196 270.142c-7.81-7.81-7.81-20.474 0-28.284l128.662-128.662c12.599-12.6 34.142-3.676 34.142 14.142z"
+    ></path>
+  </svg>
+</template>
+
+<!-- caret right icon -->
+
+<template class="icon_caret_right">
+  <!-- modified from: https://fontawesome.com/icons/caret-right -->
+  <svg width="16" height="16" viewBox="0 0 192 512">
+    <path
+      fill="currentColor"
+      d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+    ></path>
+  </svg>
+</template>
+
+<style>
+  @media only screen {
+    /* tooltip container */
+    #tooltip {
+      position: absolute;
+      width: 50%;
+      min-width: 240px;
+      max-width: 75%;
+      z-index: 1;
+    }
+
+    /* tooltip content */
+    #tooltip_content {
+      margin-bottom: 5px;
+      padding: 20px;
+      border-radius: 5px;
+      border: solid 1px #bdbdbd;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+      background: #ffffff;
+      overflow-wrap: break-word;
+    }
+
+    /* tooltip copy of paragraphs and figures */
+    #tooltip_content > p,
+    #tooltip_content > figure {
+      margin: 0;
+      max-height: 320px;
+      overflow-y: auto;
+    }
+
+    /* tooltip copy of <img> */
+    #tooltip_content > figure > img,
+    #tooltip_content > figure > svg {
+      max-height: 260px;
+    }
+
+    /* navigation bar */
+    #tooltip_nav_bar {
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    /* navigation bar previous/next buton */
+    #tooltip_nav_bar > .icon_button {
+      position: relative;
+      top: 3px;
+    }
+
+    /* navigation bar previous button */
+    #tooltip_nav_bar > .icon_button:first-of-type {
+      margin-right: 5px;
+    }
+
+    /* navigation bar next button */
+    #tooltip_nav_bar > .icon_button:last-of-type {
+      margin-left: 5px;
+    }
+  }
+
+  /* always hide tooltip on print */
+  @media only print {
+    #tooltip {
+      display: none;
+    }
+  }
+</style>
+<!--
+  Analytics Plugin (third-party) 
+  
+  Copy and paste code from Google Analytics or similar service here.
+-->
+<!-- 
+  Annotations Plugin
+
+  Allows public annotation of the  manuscript. See https://web.hypothes.is/.
+-->
+
+<script type="module">
+  // configuration
+  window.hypothesisConfig = function () {
+    return {
+      branding: {
+        accentColor: "#2196f3",
+        appBackgroundColor: "#f8f8f8",
+        ctaBackgroundColor: "#f8f8f8",
+        ctaTextColor: "#000000",
+        selectionFontFamily: "Open Sans, Helvetica, sans serif",
+        annotationFontFamily: "Open Sans, Helvetica, sans serif",
+      },
+    };
+  };
+
+  // hypothesis client script
+  const embed = "https://hypothes.is/embed.js";
+  // hypothesis annotation count query url
+  const query = "https://api.hypothes.is/api/search?limit=0&url=";
+
+  // start script
+  function start() {
+    const button = makeButton();
+    document.body.insertBefore(button, document.body.firstChild);
+    insertCount(button);
+  }
+
+  // make button
+  function makeButton() {
+    // create button
+    const button = document.createElement("button");
+    button.id = "hypothesis_button";
+    button.innerHTML = document.querySelector(".icon_hypothesis").innerHTML;
+    button.title = "Hypothesis annotations";
+    button.classList.add("icon_button");
+
+    function onClick(event) {
+      onButtonClick(event, button);
+    }
+
+    // attach click listeners
+    button.addEventListener("click", onClick);
+
+    return button;
+  }
+
+  // insert annotations count
+  async function insertCount(button) {
+    // get annotation count from Hypothesis based on url
+    let count = "-";
+    try {
+      const canonical = document.querySelector('link[rel="canonical"]');
+      const location = window.location;
+      const url = encodeURIComponent((canonical || location).href);
+      const response = await fetch(query + url);
+      const json = await response.json();
+      count = json.total || "-";
+    } catch (error) {
+      console.log(error);
+    }
+
+    // put count into button
+    const counter = document.createElement("span");
+    counter.id = "hypothesis_count";
+    counter.innerHTML = count;
+    button.title = "View " + count + " Hypothesis annotations";
+    button.append(counter);
+  }
+
+  // when button is clicked
+  function onButtonClick(event, button) {
+    const script = document.createElement("script");
+    script.src = embed;
+    document.body.append(script);
+    button.remove();
+  }
+
+  // start script when document is finished loading
+  window.addEventListener("load", start);
+</script>
+
+<!-- hypothesis icon -->
+
+<template class="icon_hypothesis">
+  <!-- modified from: https://simpleicons.org/icons/hypothesis.svg / https://git.io/Jf1VB -->
+  <svg width="16" height="16" viewBox="0 0 24 24" tabindex="-1">
+    <path
+      fill="currentColor"
+      d="M3.43 0C2.5 0 1.72 .768 1.72 1.72V18.86C1.72 19.8 2.5 20.57 3.43 20.57H9.38L12 24L14.62 20.57H20.57C21.5 20.57 22.29 19.8 22.29 18.86V1.72C22.29 .77 21.5 0 20.57 0H3.43M5.14 3.43H7.72V9.43S8.58 7.72 10.28 7.72C12 7.72 13.74 8.57 13.74 11.24V17.14H11.16V12C11.16 10.61 10.28 10.07 9.43 10.29C8.57 10.5 7.72 11.41 7.72 13.29V17.14H5.14V3.43M18 13.72C18.95 13.72 19.72 14.5 19.72 15.42A1.71 1.71 0 0 1 18 17.13A1.71 1.71 0 0 1 16.29 15.42C16.29 14.5 17.05 13.71 18 13.71Z"
+      tabindex="-1"
+    ></path>
+  </svg>
+</template>
+
+<style>
+  /* hypothesis activation button */
+  #hypothesis_button {
+    box-sizing: border-box;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 60px;
+    height: 60px;
+    background: #ffffff;
+    border-radius: 0;
+    border-left: solid 1px #bdbdbd;
+    border-bottom: solid 1px #bdbdbd;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+    z-index: 2;
+  }
+
+  /* hypothesis button svg */
+  #hypothesis_button > svg {
+    position: relative;
+    top: -4px;
+  }
+
+  /* hypothesis annotation count */
+  #hypothesis_count {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 5px;
+  }
+
+  /* side panel */
+  .annotator-frame {
+    width: 280px !important;
+  }
+
+  /* match highlight color to rest of theme */
+  .annotator-highlights-always-on .annotator-hl {
+    background-color: #ffeb3b !important;
+  }
+
+  /* match focused color to rest of theme */
+  .annotator-hl.annotator-hl-focused {
+    background-color: #ff8a65 !important;
+  }
+
+  /* match bucket bar color to rest of theme */
+  .annotator-bucket-bar {
+    background: #f5f5f5 !important;
+  }
+
+  /* always hide button, toolbar, and tooltip on print */
+  @media only print {
+    #hypothesis_button {
+      display: none;
+    }
+
+    .annotator-frame {
+      display: none !important;
+    }
+
+    hypothesis-adder {
+      display: none !important;
+    }
+  }
+</style>
+<!-- 
+  Mathjax Plugin (third-party) 
+
+  Allows the proper rendering of math/equations written in LaTeX.
+  See https://www.mathjax.org/.
+-->
+
+<script type="text/x-mathjax-config">
+  // configuration
+  MathJax.Hub.Config({
+    "CommonHTML": { linebreaks: { automatic: true } },
+    "HTML-CSS": { linebreaks: { automatic: true } },
+    "SVG": { linebreaks: { automatic: true } },
+    "fast-preview": { disabled: true }
+  });
+</script>
+
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"
+  integrity="sha512-0doc9hKxR3PYwso42RD1p5ySZpzzuDiOwMrdCEh2WdJZCjcmFKc/wEnL+z8fBQrnHoiNWbo+3fiGkOYXBdQp4A=="
+  crossorigin="anonymous"
+></script>
+
+<style>
+  /* mathjax containers */
+  .math.display > span:not(.MathJax_Preview) {
+    /* turn inline element (no dimensions) into block (allows fixed width and thus scrolling) */
+    display: flex !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    justify-content: center;
+    align-items: center;
+    margin: 0 !important;
+  }
+
+  /* right click menu */
+  .MathJax_Menu {
+    border-radius: 5px !important;
+    border: solid 1px #bdbdbd !important;
+    box-shadow: none !important;
+  }
+
+  /* equation auto-number */
+  span[id^="eq:"] > span.math.display + span {
+    font-weight: 600;
+  }
+
+  /* equation */
+  span[id^="eq:"] > span.math.display > span {
+    /* nudge to make room for equation auto-number and anchor */
+    margin-right: 60px !important;
+  }
+</style>
+</body>
+</html>
